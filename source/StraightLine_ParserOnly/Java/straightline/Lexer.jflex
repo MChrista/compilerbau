@@ -89,7 +89,7 @@ ws=[\r\n\t\ ]*
    "-"      { return symbol(Parser_sym.MINUS); }
    "*"      { return symbol(Parser_sym.TIMES); }
    "/"      { return symbol(Parser_sym.DIVIDE); }
-   "="      { return symbol(Parser_sym.EQ); }
+   "="      { return symbol(Parser_sym.ASSIGNMENT); }
    "true"   { return symbol(Parser_sym.TRUE); }
    "false"  { return symbol(Parser_sym.FALSE); }
    "!"      { return symbol(Parser_sym.INV); }

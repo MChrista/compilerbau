@@ -47,6 +47,7 @@ terminal RPAREN;
 terminal COMMA;
 terminal SEMICOLON;
 terminal DOT;
+
 /* Statements */
 terminal IF;
 terminal WHILE;
@@ -70,39 +71,61 @@ terminal PLUS;
 terminal MINUS;
 terminal TIMES;
 terminal DIVIDE;
-terminal EQ;
+terminal ASSIGNMENT;
 terminal TRUE;
 terminal FALSE;
 terminal INV;
-
+terminal UNARY_PLUS;
+terminal UNARY_MINUS;
 
 // EOF is created automatically
 
 /* Nichtterminalsymbole */
 non terminal Stm;
+non terminal StmList;
 non terminal Exp;
 non terminal ExpList;
 
 /* Praezedenzregeln */
-precedence right SEMICOLON;
-precedence left EQ;
-precedence left PRINT;
+
+precedence right ASSIGNMENT;
+precedence left AND;
+precedence left LESS;
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE;
+precedence right NEW;
+precedence right INV, UNARY_PLUS, UNARY_MINUS; //Dies muss noch geprueft werden
+precedence left LBRACKET, RBRACKET, LPAREN, RPAREN, DOT;
 
-/* Startsymbol */
 start with Stm;
 
 /* Grammatik */
-Stm ::= IDENTIFIER:i EQ Exp:e
+Stm ::= LCURL StmList:sl1 RCURL 
           {: :}
-      | PRINT LPAREN ExpList:es RPAREN   
+      | IF LPAREN Exp:e1 RPAREN Stm:s1  
           {: :}
-      | Stm:s1 SEMICOLON Stm:s2 
+      | WHILE LPAREN Exp:e1 RPAREN Stm:s1  
+          {: :}
+      | PRINTLN LPAREN Exp:e1 RPAREN SEMICOLON  
+          {: :}
+      | PRINT LPAREN LPAREN CHAR RPAREN Exp:e1 RPAREN SEMICOLON 
+          {: :}
+      | IDENTIFIER ASSIGNMENT Exp:e1 SEMICOLON 
+          {: :}
+      | IDENTIFIER LBRACKET Exp:e1 RBRACKET ASSIGNMENT Exp:e2 SEMICOLON
+          {: :}
+;
+
+
+StmList ::= Stm:s1 StmList:s2
           {: :}
       ;
 
-Exp ::= Exp:e1 PLUS Exp:e2  
+Exp ::= Exp:e1 AND Exp:e2  
+          {: :}
+      | Exp:e1 LESS Exp:e2  
+          {: :}
+      | Exp:e1 PLUS Exp:e2  
           {: :}
       | Exp:e1 MINUS Exp:e2  
           {: :}
@@ -110,15 +133,31 @@ Exp ::= Exp:e1 PLUS Exp:e2
           {: :}
       | Exp:e1 DIVIDE Exp:e2  
           {: :}
-       | IDENTIFIER:i
+      | Exp:e1 LBRACKET Exp:e2 RBRACKET  
           {: :}
-       | INT:num                 
+      | Exp:e1 DOT LENGTH
           {: :}
-       | LPAREN Exp:e RPAREN    
+      | Exp:e1 DOT IDENTIFIER LPAREN ExpList RPAREN   
           {: :}
-       | LPAREN Stm:s COMMA Exp:e RPAREN 
+      | INT  
           {: :}
-       ;
+      | TRUE 
+          {: :}
+      | FALSE 
+          {: :}
+      | IDENTIFIER
+          {: :}
+      | THIS 
+          {: :}
+      | NEW INTTYPE LBRACKET Exp:e RBRACKET  
+          {: :}
+      | NEW IDENTIFIER LPAREN RPAREN
+          {: :}
+      | INV Exp:e 
+          {: :}
+      | LPAREN Exp:e RPAREN  
+          {: :}
+      ;
    
 ExpList ::= Exp:e                    
               {: :}
