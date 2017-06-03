@@ -1,0 +1,267 @@
+package minijava;
+
+import java_cup.runtime.*;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Collections;
+import minijava.syntax.*;
+
+parser code  {: 
+
+  private String errorMessage = "Unknown Error";
+
+  @Override
+  public void syntax_error(java_cup.runtime.Symbol token) {
+    errorMessage = "Syntax error at line " + (token.left + 1) + 
+   	    ", column " + (token.right + 1) + "."; 
+  } 
+
+  @Override
+  public void unrecovered_syntax_error(Symbol cur_token) throws ParseException {
+    report_fatal_error(errorMessage, cur_token);
+  }
+
+  @Override
+  public void report_fatal_error(String message, Object info) throws ParseException {
+    throw new ParseException(message); 
+  } 
+  
+:};
+
+
+/* Terminalsymbole, die vom Lexer produziert werden. */
+terminal String IDENTIFIER;
+terminal Integer INT;
+
+terminal BOOL;
+terminal CHAR;
+terminal STRING;
+terminal INTTYPE;
+
+/* Klammern und Kontrollzeichen */
+terminal LBRACKET;
+terminal RBRACKET;
+terminal LCURL;
+terminal RCURL;
+terminal LPAREN;
+terminal RPAREN;
+terminal COMMA;
+terminal SEMICOLON;
+terminal DOT;
+
+/* Statements */
+terminal IF;
+terminal ELSE;
+terminal WHILE;
+terminal PRINTLN;
+terminal PRINT;
+terminal LENGTH;
+terminal THIS;
+terminal NEW;
+terminal CLASS;
+terminal PUBLIC;
+terminal STATIC;
+terminal VOID;
+terminal MAIN;
+terminal EXTENDS;
+terminal RETURN;
+
+
+/* Operatoren */
+terminal AND;
+terminal LESS;
+terminal PLUS;
+terminal MINUS;
+terminal TIMES;
+terminal DIVIDE;
+terminal ASSIGNMENT;
+terminal TRUE;
+terminal FALSE;
+terminal INV;
+terminal UNARY_PLUS;
+terminal UNARY_MINUS;
+
+// EOF is created automatically
+
+/* Nichtterminalsymbole */
+non terminal Prg Goal;
+non terminal DeclMain MainClass;
+non terminal DeclClass ClassDeclaration;
+non terminal List<DeclClass> ClassList;
+non terminal DeclVar VarDeclaration;
+non terminal List<DeclVar> VarList;
+non terminal DeclMeth MethodDeclaration;
+non terminal List<DeclMeth> MethodList;
+non terminal List<Parameter> ArgList;
+non terminal Ty Type;
+non terminal Stm Stm;
+non terminal List<Stm> StmList;
+non terminal Exp Exp;
+non terminal List<Exp> ExpList;
+
+/* Praezedenzregeln */
+
+precedence right ASSIGNMENT;
+precedence left AND;
+precedence left LESS;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+precedence right NEW;
+precedence right INV, UNARY_PLUS, UNARY_MINUS; //Dies muss noch geprueft werden
+precedence left LBRACKET, RBRACKET, LPAREN, RPAREN, DOT;
+
+start with Goal;
+
+Goal ::= MainClass:mc ClassList:cl
+		{: RESULT = new Prg(mc, cl); :}
+		;
+
+MainClass ::= CLASS IDENTIFIER:i1 LCURL PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET IDENTIFIER:i2 RPAREN LCURL Stm:s1 RCURL RCURL
+		{: RESULT = new DeclMain(i1,i2,s1); :}
+		;
+
+ClassDeclaration ::= CLASS IDENTIFIER:i1 LCURL VarList:vl MethodList:ml RCURL
+		{: RESULT = new DeclClass(i1,null,vl,ml); :}
+	| CLASS IDENTIFIER:i1 EXTENDS IDENTIFIER:i2 LCURL VarList:vl MethodList:ml RCURL
+		{: RESULT = new DeclClass(i1,i2,vl,ml); :}
+		;
+
+ClassList ::= {: RESULT = new LinkedList<DeclClass>(); :}
+		| ClassDeclaration:cd1 ClassList:cl1
+		{: LinkedList<DeclClass> classDeclarations =
+			new LinkedList<DeclClass>(cl1);
+			classDeclarations.add(cd1);
+			RESULT = classDeclarations;
+		:}
+		;
+
+VarDeclaration ::= Type:t IDENTIFIER:i SEMICOLON
+		{: RESULT = new DeclVar(t,i); :}
+		;
+
+VarList ::= {: RESULT = new LinkedList<DeclVar>(); :}
+		| VarList:vl1 VarDeclaration:vd1
+		{: LinkedList<DeclVar> varDeclarations =
+			new LinkedList<DeclVar>(vl1);
+			varDeclarations.add(vd1);
+			RESULT = varDeclarations;
+		:}
+		;
+
+MethodDeclaration ::= PUBLIC Type:t IDENTIFIER:i LPAREN ArgList:al RPAREN LCURL VarList:vl StmList:sl RETURN Exp:e1 SEMICOLON RCURL
+		{: RESULT = new DeclMeth(t,i,al,vl,new StmList(sl),e1); :}
+		| PUBLIC Type:t IDENTIFIER:i LPAREN RPAREN LCURL VarList:vl StmList:sl RETURN Exp:e1 SEMICOLON RCURL
+		{: RESULT = new DeclMeth(t,i,new LinkedList<Parameter>(),vl,new StmList(sl),e1); :}
+		;
+
+MethodList ::= {: RESULT = new LinkedList<DeclMeth>(); :}
+	| MethodDeclaration:md1 MethodList:ml1
+		{: LinkedList<DeclMeth> methList =
+			new LinkedList<DeclMeth>(ml1);
+			methList.add(md1);
+			RESULT = methList;
+		:}
+		;
+
+ArgList ::= Type:t IDENTIFIER:i
+		{: LinkedList<Parameter> parameterList = new LinkedList<Parameter>();
+		parameterList.add(new Parameter(i,t));
+		RESULT = parameterList; 
+		:}
+	| Type:t IDENTIFIER:i COMMA ArgList:al
+		{: LinkedList<Parameter> parameterList =
+			new LinkedList<Parameter>(al);
+			parameterList.add(new Parameter(i,t));
+			RESULT = parameterList;
+		:}
+		;
+
+Type ::= INTTYPE LBRACKET RBRACKET
+		{: RESULT = new TyArr(new TyInt()); :}
+	| BOOL
+		{: RESULT = new TyBool(); :}
+	| INTTYPE
+		{: RESULT = new TyInt(); :}
+	| IDENTIFIER:i
+		{: RESULT = new TyClass(i); :}
+	;
+
+/* Grammatik */
+Stm ::= LCURL StmList:sl1 RCURL 
+          {: RESULT = new StmList(sl1); :}
+      | IF LPAREN Exp:e1 RPAREN Stm:s1 ELSE Stm:s2
+          {: RESULT = new StmIf(e1, s1, s2); :}
+      | WHILE LPAREN Exp:e1 RPAREN Stm:s1  
+          {: RESULT = new StmWhile(e1, s1); :}
+      | PRINTLN LPAREN Exp:e1 RPAREN SEMICOLON  
+          {: RESULT = new StmPrintlnInt(e1); :}
+      | PRINT LPAREN LPAREN CHAR RPAREN Exp:e1 RPAREN SEMICOLON 
+          {: RESULT = new StmPrintChar(e1);:}
+      | IDENTIFIER:i ASSIGNMENT Exp:e1 SEMICOLON 
+          {: RESULT = new StmAssign(i, e1); :}
+      | IDENTIFIER:i LBRACKET Exp:e1 RBRACKET ASSIGNMENT Exp:e2 SEMICOLON
+          {: RESULT = new StmArrayAssign(i, e1, e2);:}
+;
+
+
+StmList ::= {: RESULT = new LinkedList<Stm>(); :}
+	| Stm:s1 StmList:s2
+          {: LinkedList<Stm> stmList =
+	new LinkedList<Stm>(s2);
+	stmList.add(s1);
+	RESULT = stmList;
+	:}
+      ;
+
+Exp ::= Exp:e1 AND Exp:e2  
+          {: RESULT = new ExpBinOp(e1, ExpBinOp.Op.AND, e2); :}
+      | Exp:e1 LESS Exp:e2  
+          {: RESULT = new ExpBinOp(e1, ExpBinOp.Op.LT, e2); :}
+      | Exp:e1 PLUS Exp:e2  
+          {: RESULT = new ExpBinOp(e1, ExpBinOp.Op.PLUS, e2); :}
+      | Exp:e1 MINUS Exp:e2  
+          {: RESULT = new ExpBinOp(e1, ExpBinOp.Op.MINUS, e2); :}
+      | Exp:e1 TIMES Exp:e2  
+          {: RESULT = new ExpBinOp(e1, ExpBinOp.Op.TIMES, e2); :}
+      | Exp:e1 DIVIDE Exp:e2  
+          {: RESULT = new ExpBinOp(e1, ExpBinOp.Op.DIV, e2); :}
+      | Exp:e1 LBRACKET Exp:e2 RBRACKET  
+          {: RESULT =  new ExpArrayGet(e1, e2); :}
+      | Exp:e1 DOT LENGTH
+          {: RESULT = new ExpArrayLength(e1); :}
+      | Exp:e1 DOT IDENTIFIER:i1 LPAREN ExpList:el RPAREN   
+          {: RESULT = new ExpInvoke(e1, i1, el); :}
+      | Exp:e1 DOT IDENTIFIER:i1 LPAREN RPAREN   
+          {: RESULT = new ExpInvoke(e1, i1, new LinkedList<Exp>()); :}
+      | INT:i  
+          {: RESULT = new ExpIntConst(i); :}
+      | TRUE 
+          {: RESULT = new ExpTrue(); :}
+      | FALSE 
+          {: RESULT = new ExpFalse(); :}
+      | IDENTIFIER:i
+          {: RESULT = new ExpId(i); :}
+      | THIS 
+          {: RESULT = new ExpThis(); :}
+      | NEW INTTYPE LBRACKET Exp:e RBRACKET  
+          {: RESULT = new ExpNewIntArray(e); :}
+      | NEW IDENTIFIER:i LPAREN RPAREN
+          {: RESULT = new ExpNew(i); :}
+      | INV Exp:e 
+          {: RESULT = new ExpNeg(e); :}
+      | LPAREN Exp:e RPAREN  
+          {: RESULT =  e; :}
+      ;
+   
+ExpList ::= Exp:e                    
+              {: LinkedList<Exp> expList = new LinkedList<Exp>();
+		expList.add(e);
+		RESULT = expList;		
+		:}
+           | ExpList:es COMMA Exp:e  
+              {: LinkedList<Exp> expList =
+		new LinkedList<Exp>(es);
+		expList.add(e);
+		RESULT = expList;
+		:} 
+           ;

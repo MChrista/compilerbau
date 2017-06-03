@@ -2,14 +2,14 @@ JFLEX = /soft/IFI/lang/jflex-1.4.1/bin/jflex
 JAVACUPJAR = /soft/IFI/lang/java-cup/java-cup-v11a.jar
 JAVACUP = java -jar $(JAVACUPJAR)
 
-all: straightline/Parser.java straightline/Lexer.java 
-	javac  -cp .:$(JAVACUPJAR) straightline/Test.java
+all: minijava/Parser.java minijava/Lexer.java 
+	javac  -cp .:$(JAVACUPJAR) minijava/Test.java
 
-straightline/Parser.java: straightline/Parser.cup
-	cd straightline; $(JAVACUP) -symbols Parser_sym -parser Parser Parser.cup
+minijava/Parser.java: minijava/Parser.cup
+	cd minijava; $(JAVACUP) -symbols Parser_sym -parser Parser Parser.cup
 
-straightline/Lexer.java: straightline/Lexer.jflex
-	cd straightline; $(JFLEX) Lexer.jflex
+minijava/Lexer.java: minijava/Lexer.jflex
+	cd minijava; $(JFLEX) Lexer.jflex
 
 clean:
-	rm -f straightline/Parser_sym.java straightline/Parser.java straightline/Lexer.java straightline/Lexer.java~ straightline/*.class
+	rm -f minijava/Parser_sym.java minijava/Parser.java minijava/Lexer.java minijava/Lexer.java~ minijava/*.class
