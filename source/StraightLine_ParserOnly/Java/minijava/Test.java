@@ -3,6 +3,7 @@ package minijava;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import minijava.syntax.PrettyPrint;
+import symboltabelle.GlobalTable;
 
 public class Test {
 
@@ -29,7 +30,11 @@ public class Test {
     try {
       try {
         parseTree = (minijava.syntax.Prg) parser.parse().value;
-	System.out.println(PrettyPrint.prettyPrint(parseTree));
+        
+        GlobalTable gt = new GlobalTable(parseTree);
+        System.out.println(gt.printTable());
+        
+        System.out.println(PrettyPrint.prettyPrint(parseTree));
         System.out.println("Parsing der Eingabe erfolgreich.");
       } finally {
         inp.close();
