@@ -35,6 +35,13 @@ public class ClassTable extends Table{
 		}	
 	}
 	
+	public void checkSemantic(DeclClass dc, GlobalTable gt) {
+		
+		
+		// TODO Auto-generated method stub
+		
+	}
+	
 	public String printTable(){
 		StringBuffer classes = new StringBuffer();
 		classes.append("class " + this.name);
@@ -48,4 +55,6 @@ public class ClassTable extends Table{
 	    }
 	    return classes.toString(); 
 	}
+
+	
 }

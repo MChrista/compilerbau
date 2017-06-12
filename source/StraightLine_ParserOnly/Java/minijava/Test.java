@@ -30,12 +30,13 @@ public class Test {
     try {
       try {
         parseTree = (minijava.syntax.Prg) parser.parse().value;
-        
+
         GlobalTable gt = new GlobalTable(parseTree);
         System.out.println(gt.printTable());
-        
+
         System.out.println(PrettyPrint.prettyPrint(parseTree));
         System.out.println("Parsing der Eingabe erfolgreich.");
+        gt.checkSemantic(parseTree);
       } finally {
         inp.close();
       }

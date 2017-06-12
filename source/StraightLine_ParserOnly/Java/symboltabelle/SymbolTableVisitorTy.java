@@ -33,4 +33,6 @@ public class SymbolTableVisitorTy implements TyVisitor<String> {
     public String visit(TyArr x) {
       return x.ty.accept(this) + "Arr";
     }
+
+
   }
