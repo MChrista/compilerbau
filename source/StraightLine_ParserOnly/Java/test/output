@@ -1,0 +1,5025 @@
+
+main
+  argv StringArr 
+class AA
+    Method: run
+
+class ArrayAccess {
+  public static void main (String[] argv) {
+    System.out.println(new AA().run());
+  }
+}
+
+class AA {
+
+
+  public int run () {
+    int[] arr;
+    arr = new int [2];
+    arr[0] = 5;
+    arr[1] = 10;
+    return arr[0];
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Arr
+  theArr intArr 
+  mx int 
+    Method: init
+      m int 
+    Method: sum
+    Method: do_it
+      m int 
+
+class ArrSum {
+  public static void main (String[] a) {
+    System.out.println(new Arr().do_it(10));
+  }
+}
+
+class Arr {
+
+  int[] theArr;
+  int mx;
+
+  public int init (int m) {
+    int i;
+    mx = m;
+    i = 1;
+    while ((i<(mx+1))) {
+     theArr[(i-1)] = i;
+     i = (i+1);
+    }
+    return 0;
+  }
+
+  public int sum () {
+    int i;
+    int s;
+    i = 1;
+    s = 0;
+    while ((i<(mx+1))) {
+     s = (s+theArr[(i-1)]);
+     i = (i+1);
+    }
+    return s;
+  }
+
+  public int do_it (int m) {
+    int q;
+    theArr = new int [m];
+    q = this.init(m);
+    return this.sum();
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class BS
+  number intArr 
+  size int 
+    Method: Start
+      sz int 
+    Method: Search
+      num int 
+    Method: Div
+      num int 
+    Method: Compare
+      num2 int 
+      num1 int 
+    Method: Print
+    Method: Init
+      sz int 
+
+class BinarySearch {
+  public static void main (String[] a) {
+    System.out.println(new BS().Start(20));
+  }
+}
+
+class BS {
+
+  int[] number;
+  int size;
+
+  public int Start (int sz) {
+    int aux01;
+    int aux02;
+    aux01 = this.Init(sz);
+    aux02 = this.Print();
+    if (this.Search(8)) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    if (this.Search(19)) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    if (this.Search(20)) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    if (this.Search(21)) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    if (this.Search(37)) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    if (this.Search(38)) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    if (this.Search(39)) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    if (this.Search(50)) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    return 999;
+  }
+
+  public boolean Search (int num) {
+    boolean bs01;
+    int right;
+    int left;
+    boolean var_cont;
+    int medium;
+    int aux01;
+    int nt;
+    aux01 = 0;
+    bs01 = false;
+    right = number.length;
+    right = (right-1);
+    left = 0;
+    var_cont = true;
+    while (var_cont) {
+     medium = (left+right);
+     medium = this.Div(medium);
+     aux01 = number[medium];
+     if ((num<aux01)) {
+       right = (medium-1);
+     } else {
+       left = (medium+1);
+     }
+     if (this.Compare(aux01, num)) {
+       var_cont = false;
+     } else {
+       var_cont = true;
+     }
+     if ((right<left)) {
+       var_cont = false;
+     } else {
+       nt = 0;
+     }
+    }
+    if (this.Compare(aux01, num)) {
+      bs01 = true;
+    } else {
+      bs01 = false;
+    }
+    return bs01;
+  }
+
+  public int Div (int num) {
+    int count01;
+    int count02;
+    int aux03;
+    count01 = 0;
+    count02 = 0;
+    aux03 = (num-1);
+    while ((count02<aux03)) {
+     count01 = (count01+1);
+     count02 = (count02+2);
+    }
+    return count01;
+  }
+
+  public boolean Compare (int num2, int num1) {
+    boolean retval;
+    int aux02;
+    retval = false;
+    aux02 = (num2+1);
+    if ((num1<num2)) {
+      retval = false;
+    } else {
+      if (!((num1<aux02))) {
+        retval = false;
+      } else {
+        retval = true;
+      }
+    }
+    return retval;
+  }
+
+  public int Print () {
+    int j;
+    j = 1;
+    while ((j<size)) {
+     System.out.println(number[j]);
+     j = (j+1);
+    }
+    System.out.println(99999);
+    return 0;
+  }
+
+  public int Init (int sz) {
+    int j;
+    int k;
+    int aux02;
+    int aux01;
+    size = sz;
+    number = new int [sz];
+    j = 1;
+    k = (size+1);
+    while ((j<size)) {
+     aux01 = (2*j);
+     aux02 = (k-3);
+     number[j] = (aux01+aux02);
+     j = (j+1);
+     k = (k-1);
+    }
+    return 0;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Tree
+  left Tree 
+  right Tree 
+  key int 
+  has_left boolean 
+  has_right boolean 
+  my_null Tree 
+    Method: Init
+      v_key int 
+    Method: SetRight
+      rn Tree 
+    Method: SetLeft
+      ln Tree 
+    Method: GetRight
+    Method: GetLeft
+    Method: GetKey
+    Method: SetKey
+      v_key int 
+    Method: GetHas_Right
+    Method: GetHas_Left
+    Method: SetHas_Left
+      val boolean 
+    Method: SetHas_Right
+      val boolean 
+    Method: Compare
+      num2 int 
+      num1 int 
+    Method: Insert
+      v_key int 
+    Method: Delete
+      v_key int 
+    Method: Remove
+      c_node Tree 
+      p_node Tree 
+    Method: RemoveRight
+      c_node Tree 
+      p_node Tree 
+    Method: RemoveLeft
+      c_node Tree 
+      p_node Tree 
+    Method: Search
+      v_key int 
+    Method: Print
+    Method: RecPrint
+      node Tree 
+class BT
+    Method: Start
+
+class BinaryTree {
+  public static void main (String[] a) {
+    System.out.println(new BT().Start());
+  }
+}
+
+class Tree {
+
+  Tree left;
+  Tree right;
+  int key;
+  boolean has_left;
+  boolean has_right;
+  Tree my_null;
+
+  public boolean Init (int v_key) {
+    key = v_key;
+    has_left = false;
+    has_right = false;
+    return true;
+  }
+
+  public boolean SetRight (Tree rn) {
+    right = rn;
+    return true;
+  }
+
+  public boolean SetLeft (Tree ln) {
+    left = ln;
+    return true;
+  }
+
+  public Tree GetRight () {
+    return right;
+  }
+
+  public Tree GetLeft () {
+    return left;
+  }
+
+  public int GetKey () {
+    return key;
+  }
+
+  public boolean SetKey (int v_key) {
+    key = v_key;
+    return true;
+  }
+
+  public boolean GetHas_Right () {
+    return has_right;
+  }
+
+  public boolean GetHas_Left () {
+    return has_left;
+  }
+
+  public boolean SetHas_Left (boolean val) {
+    has_left = val;
+    return true;
+  }
+
+  public boolean SetHas_Right (boolean val) {
+    has_right = val;
+    return true;
+  }
+
+  public boolean Compare (int num2, int num1) {
+    boolean ntb;
+    int nti;
+    ntb = false;
+    nti = (num2+1);
+    if ((num1<num2)) {
+      ntb = false;
+    } else {
+      if (!((num1<nti))) {
+        ntb = false;
+      } else {
+        ntb = true;
+      }
+    }
+    return ntb;
+  }
+
+  public boolean Insert (int v_key) {
+    Tree new_node;
+    boolean ntb;
+    boolean cont;
+    int key_aux;
+    Tree current_node;
+    new_node = new Tree();
+    ntb = new_node.Init(v_key);
+    current_node = this;
+    cont = true;
+    while (cont) {
+     key_aux = current_node.GetKey();
+     if ((v_key<key_aux)) {
+       if (current_node.GetHas_Left()) {
+         current_node = current_node.GetLeft();
+       } else {
+         cont = false;
+         ntb = current_node.SetHas_Left(true);
+         ntb = current_node.SetLeft(new_node);
+       }
+     } else {
+       if (current_node.GetHas_Right()) {
+         current_node = current_node.GetRight();
+       } else {
+         cont = false;
+         ntb = current_node.SetHas_Right(true);
+         ntb = current_node.SetRight(new_node);
+       }
+     }
+    }
+    return true;
+  }
+
+  public boolean Delete (int v_key) {
+    Tree current_node;
+    Tree parent_node;
+    boolean cont;
+    boolean found;
+    boolean is_root;
+    int key_aux;
+    boolean ntb;
+    current_node = this;
+    parent_node = this;
+    cont = true;
+    found = false;
+    is_root = true;
+    while (cont) {
+     key_aux = current_node.GetKey();
+     if ((v_key<key_aux)) {
+       if (current_node.GetHas_Left()) {
+         parent_node = current_node;
+         current_node = current_node.GetLeft();
+       } else {
+         cont = false;
+       }
+     } else {
+       if ((key_aux<v_key)) {
+         if (current_node.GetHas_Right()) {
+           parent_node = current_node;
+           current_node = current_node.GetRight();
+         } else {
+           cont = false;
+         }
+       } else {
+         if (is_root) {
+           if ((!(current_node.GetHas_Right())&&!(current_node.GetHas_Left()))) {
+             ntb = true;
+           } else {
+             ntb = this.Remove(parent_node, current_node);
+           }
+         } else {
+           ntb = this.Remove(parent_node, current_node);
+         }
+         found = true;
+         cont = false;
+       }
+     }
+     is_root = false;
+    }
+    return found;
+  }
+
+  public boolean Remove (Tree c_node, Tree p_node) {
+    boolean ntb;
+    int auxkey1;
+    int auxkey2;
+    if (c_node.GetHas_Left()) {
+      ntb = this.RemoveLeft(p_node, c_node);
+    } else {
+      if (c_node.GetHas_Right()) {
+        ntb = this.RemoveRight(p_node, c_node);
+      } else {
+        auxkey1 = c_node.GetKey();
+        auxkey2 = p_node.GetLeft().GetKey();
+        if (this.Compare(auxkey1, auxkey2)) {
+          ntb = p_node.SetLeft(my_null);
+          ntb = p_node.SetHas_Left(false);
+        } else {
+          ntb = p_node.SetRight(my_null);
+          ntb = p_node.SetHas_Right(false);
+        }
+      }
+    }
+    return true;
+  }
+
+  public boolean RemoveRight (Tree c_node, Tree p_node) {
+    boolean ntb;
+    while (c_node.GetHas_Right()) {
+     ntb = c_node.SetKey(c_node.GetRight().GetKey());
+     p_node = c_node;
+     c_node = c_node.GetRight();
+    }
+    ntb = p_node.SetRight(my_null);
+    ntb = p_node.SetHas_Right(false);
+    return true;
+  }
+
+  public boolean RemoveLeft (Tree c_node, Tree p_node) {
+    boolean ntb;
+    while (c_node.GetHas_Left()) {
+     ntb = c_node.SetKey(c_node.GetLeft().GetKey());
+     p_node = c_node;
+     c_node = c_node.GetLeft();
+    }
+    ntb = p_node.SetLeft(my_null);
+    ntb = p_node.SetHas_Left(false);
+    return true;
+  }
+
+  public int Search (int v_key) {
+    boolean cont;
+    int ifound;
+    Tree current_node;
+    int key_aux;
+    current_node = this;
+    cont = true;
+    ifound = 0;
+    while (cont) {
+     key_aux = current_node.GetKey();
+     if ((v_key<key_aux)) {
+       if (current_node.GetHas_Left()) {
+         current_node = current_node.GetLeft();
+       } else {
+         cont = false;
+       }
+     } else {
+       if ((key_aux<v_key)) {
+         if (current_node.GetHas_Right()) {
+           current_node = current_node.GetRight();
+         } else {
+           cont = false;
+         }
+       } else {
+         ifound = 1;
+         cont = false;
+       }
+     }
+    }
+    return ifound;
+  }
+
+  public boolean Print () {
+    Tree current_node;
+    boolean ntb;
+    current_node = this;
+    ntb = this.RecPrint(current_node);
+    return true;
+  }
+
+  public boolean RecPrint (Tree node) {
+    boolean ntb;
+    if (node.GetHas_Left()) {
+      ntb = this.RecPrint(node.GetLeft());
+    } else {
+      ntb = true;
+    }
+    System.out.println(node.GetKey());
+    if (node.GetHas_Right()) {
+      ntb = this.RecPrint(node.GetRight());
+    } else {
+      ntb = true;
+    }
+    return true;
+  }
+}
+
+class BT {
+
+
+  public int Start () {
+    Tree root;
+    boolean ntb;
+    int nti;
+    root = new Tree();
+    ntb = root.Init(16);
+    ntb = root.Print();
+    System.out.println(100000000);
+    ntb = root.Insert(8);
+    ntb = root.Print();
+    ntb = root.Insert(24);
+    ntb = root.Insert(4);
+    ntb = root.Insert(12);
+    ntb = root.Insert(20);
+    ntb = root.Insert(28);
+    ntb = root.Insert(14);
+    ntb = root.Print();
+    System.out.println(root.Search(24));
+    System.out.println(root.Search(12));
+    System.out.println(root.Search(16));
+    System.out.println(root.Search(50));
+    System.out.println(root.Search(12));
+    ntb = root.Delete(12);
+    ntb = root.Print();
+    System.out.println(root.Search(12));
+    return 0;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class BBS
+  number intArr 
+  size int 
+    Method: Start
+      sz int 
+    Method: Sort
+    Method: Print
+    Method: Init
+      sz int 
+
+class BubbleSort {
+  public static void main (String[] a) {
+    System.out.println(new BBS().Start(10));
+  }
+}
+
+class BBS {
+
+  int[] number;
+  int size;
+
+  public int Start (int sz) {
+    int aux01;
+    aux01 = this.Init(sz);
+    aux01 = this.Print();
+    System.out.println(99999);
+    aux01 = this.Sort();
+    aux01 = this.Print();
+    return 0;
+  }
+
+  public int Sort () {
+    int nt;
+    int i;
+    int aux02;
+    int aux04;
+    int aux05;
+    int aux06;
+    int aux07;
+    int j;
+    int t;
+    i = (size-1);
+    aux02 = (0-1);
+    while ((aux02<i)) {
+     j = 1;
+     while ((j<(i+1))) {
+      aux07 = (j-1);
+      aux04 = number[aux07];
+      aux05 = number[j];
+      if ((aux05<aux04)) {
+        aux06 = (j-1);
+        t = number[aux06];
+        number[aux06] = number[j];
+        number[j] = t;
+      } else {
+        nt = 0;
+      }
+      j = (j+1);
+     }
+     i = (i-1);
+    }
+    return 0;
+  }
+
+  public int Print () {
+    int j;
+    j = 0;
+    while ((j<size)) {
+     System.out.println(number[j]);
+     j = (j+1);
+    }
+    return 0;
+  }
+
+  public int Init (int sz) {
+    size = sz;
+    number = new int [sz];
+    number[0] = 20;
+    number[1] = 7;
+    number[2] = 12;
+    number[3] = 18;
+    number[4] = 2;
+    number[5] = 11;
+    number[6] = 6;
+    number[7] = 9;
+    number[8] = 19;
+    number[9] = 5;
+    return 0;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class Bit
+  bit int 
+    Method: set
+      b int 
+    Method: value
+class EffectsClass
+    Method: run
+
+class Effects {
+  public static void main (String[] argv) {
+    System.out.println(new EffectsClass().run());
+  }
+}
+
+class Bit {
+
+  int bit;
+
+  public int set (int b) {
+    bit = b;
+    return b;
+  }
+
+  public int value () {
+    return bit;
+  }
+}
+
+class EffectsClass {
+
+
+  public int run () {
+    Bit b;
+    b = new Bit();
+    return ((b.set(1)-1)-(b.set(0)-(0-b.value())));
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Fac
+    Method: ComputeFac
+      num int 
+
+class Factorial {
+  public static void main (String[] a) {
+    System.out.println(new Fac().ComputeFac(10));
+  }
+}
+
+class Fac {
+
+
+  public int ComputeFac (int num) {
+    int num_aux;
+    if ((num<1)) {
+      num_aux = 1;
+    } else {
+      num_aux = (num*this.ComputeFac((num-1)));
+    }
+    return num_aux;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class FibAux
+    Method: nfib
+      num int 
+
+class Fib {
+  public static void main (String[] a) {
+    System.out.println(new FibAux().nfib(15));
+  }
+}
+
+class FibAux {
+
+
+  public int nfib (int num) {
+    int res;
+    if ((num<2)) {
+      res = 1;
+    } else {
+      res = ((this.nfib((num-1))+this.nfib((num-2)))+1);
+    }
+    return res;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class LazyArray
+  table intArr 
+    Method: init
+      n int 
+    Method: defined
+      x int 
+    Method: get
+      n int 
+    Method: f
+      n int 
+    Method: nfib
+      n int 
+class FibAux
+    Method: nfib
+      num int 
+    Method: nfib_lazy
+      n int 
+
+class Fib {
+  public static void main (String[] a) {
+    System.out.println(new FibAux().nfib_lazy(15));
+  }
+}
+
+class LazyArray {
+
+  int[] table;
+
+  public boolean init (int n) {
+    int i;
+    table = new int [n];
+    i = 0;
+    while ((i<n)) {
+     table[i] = 0;
+     i = (i+1);
+    }
+    return true;
+  }
+
+  public boolean defined (int x) {
+    boolean res;
+    if ((x<0)) {
+      res = true;
+    } else {
+      if ((0<x)) {
+        res = true;
+      } else {
+        res = false;
+      }
+    }
+    return res;
+  }
+
+  public int get (int n) {
+    int x;
+    int y;
+    int res;
+    if ((n<1)) {
+      res = 0;
+    } else {
+      res = 0;
+    }
+    x = table[n];
+    if (this.defined(x)) {
+      res = x;
+    } else {
+      y = this.f(n);
+      table[n] = y;
+      res = y;
+    }
+    return res;
+  }
+
+  public int f (int n) {
+    return this.nfib(n);
+  }
+
+  public int nfib (int n) {
+    int res;
+    if ((n<2)) {
+      res = 1;
+    } else {
+      res = ((this.get((n-1))+this.get((n-2)))+1);
+    }
+    return res;
+  }
+}
+
+class FibAux {
+
+
+  public int nfib (int num) {
+    int res;
+    if ((num<2)) {
+      res = 1;
+    } else {
+      res = ((this.nfib((num-1))+this.nfib((num-2)))+1);
+    }
+    return res;
+  }
+
+  public int nfib_lazy (int n) {
+    int res;
+    boolean q;
+    LazyArray l;
+    if ((n<1)) {
+      res = 0;
+    } else {
+      res = 0;
+    }
+    l = new LazyArray();
+    q = l.init(n);
+    res = l.nfib(n);
+    return res;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Game
+    Method: run
+class Board
+  board intArr 
+  width int 
+  height int 
+    Method: init
+      h int 
+      w int 
+    Method: clone
+    Method: at
+      y int 
+      x int 
+    Method: set
+      value int 
+      y int 
+      x int 
+    Method: board
+    Method: calc
+      pred Board 
+    Method: initStator
+    Method: init101
+    Method: initGosperGliderGun0
+    Method: initGosperGliderGun
+class Hash
+  primes PrimeNumbers 
+    Method: init
+      n int 
+    Method: hash
+      arr intArr 
+    Method: test
+class PrimeNumbers
+  primes intArr 
+  len int 
+    Method: getPrime
+      i int 
+    Method: getCount
+    Method: gcd
+      y int 
+      x int 
+    Method: isprime
+      n int 
+    Method: init
+      n int 
+    Method: print
+    Method: test
+      n int 
+
+class GameOfLife {
+  public static void main (String[] a) {
+    System.out.println(new Game().run());
+  }
+}
+
+class Game {
+
+
+  public int run () {
+    Hash hash;
+    Board bold;
+    Board b;
+    Board bnew;
+    int bla;
+    int n;
+    int i;
+    bold = new Board();
+    n = 200;
+    bla = bold.initGosperGliderGun();
+    hash = new Hash();
+    bla = hash.init(bold.board().length);
+    bnew = bold.clone();
+    i = 0;
+    while ((i<n)) {
+     System.out.println(hash.hash(bold.board()));
+     bla = bnew.calc(bold);
+     b = bold;
+     bold = bnew;
+     bnew = b;
+     i = (i+1);
+    }
+    return 999999999;
+  }
+}
+
+class Board {
+
+  int[] board;
+  int width;
+  int height;
+
+  public int init (int h, int w) {
+    width = w;
+    height = h;
+    board = new int [(w*h)];
+    return (w*h);
+  }
+
+  public Board clone () {
+    Board c;
+    int bla;
+    c = new Board();
+    bla = c.init(width, height);
+    return c;
+  }
+
+  public int at (int y, int x) {
+    int value;
+    if ((((((0-1)<x)&&(x<width))&&((0-1)<y))&&(y<height))) {
+      value = board[(x+(y*width))];
+    } else {
+      value = 0;
+    }
+    return value;
+  }
+
+  public int set (int value, int y, int x) {
+    board[(x+(y*width))] = value;
+    return value;
+  }
+
+  public int[] board () {
+    return board;
+  }
+
+  public int calc (Board pred) {
+    int x;
+    int y;
+    int count;
+    int bla;
+    y = 0;
+    while ((y<height)) {
+     x = 0;
+     while ((x<width)) {
+      count = (((((((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))+pred.at((x+1), y))+pred.at((x-1), (y+1)))+pred.at(x, (y+1)))+pred.at((x+1), (y+1)));
+      if ((((2-pred.at(x, y))<count)&&(count<4))) {
+        bla = this.set(x, y, 1);
+      } else {
+        bla = this.set(x, y, 0);
+      }
+      x = (x+1);
+     }
+     y = (y+1);
+    }
+    return 0;
+  }
+
+  public int initStator () {
+    int bla;
+    bla = this.init(4, 4);
+    bla = this.set(1, 1, 1);
+    bla = this.set(1, 2, 1);
+    bla = this.set(2, 1, 1);
+    bla = this.set(2, 2, 1);
+    return 0;
+  }
+
+  public int init101 () {
+    width = 18;
+    height = 12;
+    board = new int [(width*height)];
+    board[0] = 0;
+    board[1] = 0;
+    board[2] = 0;
+    board[3] = 0;
+    board[4] = 1;
+    board[5] = 1;
+    board[6] = 0;
+    board[7] = 0;
+    board[8] = 0;
+    board[9] = 0;
+    board[10] = 0;
+    board[11] = 0;
+    board[12] = 1;
+    board[13] = 1;
+    board[14] = 0;
+    board[15] = 0;
+    board[16] = 0;
+    board[17] = 0;
+    board[18] = 0;
+    board[19] = 0;
+    board[20] = 0;
+    board[21] = 1;
+    board[22] = 0;
+    board[23] = 1;
+    board[24] = 0;
+    board[25] = 0;
+    board[26] = 0;
+    board[27] = 0;
+    board[28] = 0;
+    board[29] = 0;
+    board[30] = 1;
+    board[31] = 0;
+    board[32] = 1;
+    board[33] = 0;
+    board[34] = 0;
+    board[35] = 0;
+    board[36] = 0;
+    board[37] = 0;
+    board[38] = 0;
+    board[39] = 1;
+    board[40] = 0;
+    board[41] = 0;
+    board[42] = 0;
+    board[43] = 0;
+    board[44] = 0;
+    board[45] = 0;
+    board[46] = 0;
+    board[47] = 0;
+    board[48] = 0;
+    board[49] = 0;
+    board[50] = 1;
+    board[51] = 0;
+    board[52] = 0;
+    board[53] = 0;
+    board[54] = 1;
+    board[55] = 1;
+    board[56] = 0;
+    board[57] = 1;
+    board[58] = 0;
+    board[59] = 0;
+    board[60] = 0;
+    board[61] = 0;
+    board[62] = 0;
+    board[63] = 0;
+    board[64] = 0;
+    board[65] = 0;
+    board[66] = 0;
+    board[67] = 0;
+    board[68] = 1;
+    board[69] = 0;
+    board[70] = 1;
+    board[71] = 1;
+    board[72] = 1;
+    board[73] = 1;
+    board[74] = 0;
+    board[75] = 1;
+    board[76] = 0;
+    board[77] = 1;
+    board[78] = 0;
+    board[79] = 0;
+    board[80] = 1;
+    board[81] = 1;
+    board[82] = 0;
+    board[83] = 0;
+    board[84] = 1;
+    board[85] = 0;
+    board[86] = 1;
+    board[87] = 0;
+    board[88] = 1;
+    board[89] = 1;
+    board[90] = 0;
+    board[91] = 0;
+    board[92] = 0;
+    board[93] = 1;
+    board[94] = 0;
+    board[95] = 1;
+    board[96] = 0;
+    board[97] = 1;
+    board[98] = 0;
+    board[99] = 0;
+    board[100] = 1;
+    board[101] = 0;
+    board[102] = 1;
+    board[103] = 0;
+    board[104] = 1;
+    board[105] = 0;
+    board[106] = 0;
+    board[107] = 0;
+    board[108] = 0;
+    board[109] = 0;
+    board[110] = 0;
+    board[111] = 1;
+    board[112] = 0;
+    board[113] = 1;
+    board[114] = 0;
+    board[115] = 1;
+    board[116] = 0;
+    board[117] = 0;
+    board[118] = 1;
+    board[119] = 0;
+    board[120] = 1;
+    board[121] = 0;
+    board[122] = 1;
+    board[123] = 0;
+    board[124] = 0;
+    board[125] = 0;
+    board[126] = 1;
+    board[127] = 1;
+    board[128] = 0;
+    board[129] = 1;
+    board[130] = 0;
+    board[131] = 1;
+    board[132] = 0;
+    board[133] = 0;
+    board[134] = 1;
+    board[135] = 1;
+    board[136] = 0;
+    board[137] = 0;
+    board[138] = 1;
+    board[139] = 0;
+    board[140] = 1;
+    board[141] = 0;
+    board[142] = 1;
+    board[143] = 1;
+    board[144] = 1;
+    board[145] = 1;
+    board[146] = 0;
+    board[147] = 1;
+    board[148] = 0;
+    board[149] = 0;
+    board[150] = 0;
+    board[151] = 0;
+    board[152] = 0;
+    board[153] = 0;
+    board[154] = 0;
+    board[155] = 0;
+    board[156] = 0;
+    board[157] = 0;
+    board[158] = 1;
+    board[159] = 0;
+    board[160] = 1;
+    board[161] = 1;
+    board[162] = 0;
+    board[163] = 0;
+    board[164] = 0;
+    board[165] = 1;
+    board[166] = 0;
+    board[167] = 0;
+    board[168] = 0;
+    board[169] = 0;
+    board[170] = 0;
+    board[171] = 0;
+    board[172] = 0;
+    board[173] = 0;
+    board[174] = 0;
+    board[175] = 0;
+    board[176] = 1;
+    board[177] = 0;
+    board[178] = 0;
+    board[179] = 0;
+    board[180] = 0;
+    board[181] = 0;
+    board[182] = 0;
+    board[183] = 1;
+    board[184] = 0;
+    board[185] = 1;
+    board[186] = 0;
+    board[187] = 0;
+    board[188] = 0;
+    board[189] = 0;
+    board[190] = 0;
+    board[191] = 0;
+    board[192] = 1;
+    board[193] = 0;
+    board[194] = 1;
+    board[195] = 0;
+    board[196] = 0;
+    board[197] = 0;
+    board[198] = 0;
+    board[199] = 0;
+    board[200] = 0;
+    board[201] = 0;
+    board[202] = 1;
+    board[203] = 1;
+    board[204] = 0;
+    board[205] = 0;
+    board[206] = 0;
+    board[207] = 0;
+    board[208] = 0;
+    board[209] = 0;
+    board[210] = 1;
+    board[211] = 1;
+    board[212] = 0;
+    board[213] = 0;
+    board[214] = 0;
+    board[215] = 0;
+    return 0;
+  }
+
+  public int initGosperGliderGun0 () {
+    width = 36;
+    height = 9;
+    board = new int [(width*height)];
+    board[0] = 0;
+    board[1] = 0;
+    board[2] = 0;
+    board[3] = 0;
+    board[4] = 0;
+    board[5] = 0;
+    board[6] = 0;
+    board[7] = 0;
+    board[8] = 0;
+    board[9] = 0;
+    board[10] = 0;
+    board[11] = 0;
+    board[12] = 0;
+    board[13] = 0;
+    board[14] = 0;
+    board[15] = 0;
+    board[16] = 0;
+    board[17] = 0;
+    board[18] = 0;
+    board[19] = 0;
+    board[20] = 0;
+    board[21] = 0;
+    board[22] = 0;
+    board[23] = 0;
+    board[24] = 1;
+    board[25] = 0;
+    board[26] = 0;
+    board[27] = 0;
+    board[28] = 0;
+    board[29] = 0;
+    board[30] = 0;
+    board[31] = 0;
+    board[32] = 0;
+    board[33] = 0;
+    board[34] = 0;
+    board[35] = 0;
+    board[36] = 0;
+    board[37] = 0;
+    board[38] = 0;
+    board[39] = 0;
+    board[40] = 0;
+    board[41] = 0;
+    board[42] = 0;
+    board[43] = 0;
+    board[44] = 0;
+    board[45] = 0;
+    board[46] = 0;
+    board[47] = 0;
+    board[48] = 0;
+    board[49] = 0;
+    board[50] = 0;
+    board[51] = 0;
+    board[52] = 0;
+    board[53] = 0;
+    board[54] = 0;
+    board[55] = 0;
+    board[56] = 0;
+    board[57] = 0;
+    board[58] = 1;
+    board[59] = 0;
+    board[60] = 1;
+    board[61] = 0;
+    board[62] = 0;
+    board[63] = 0;
+    board[64] = 0;
+    board[65] = 0;
+    board[66] = 0;
+    board[67] = 0;
+    board[68] = 0;
+    board[69] = 0;
+    board[70] = 0;
+    board[71] = 0;
+    board[72] = 0;
+    board[73] = 0;
+    board[74] = 0;
+    board[75] = 0;
+    board[76] = 0;
+    board[77] = 0;
+    board[78] = 0;
+    board[79] = 0;
+    board[80] = 0;
+    board[81] = 0;
+    board[82] = 0;
+    board[83] = 0;
+    board[84] = 1;
+    board[85] = 1;
+    board[86] = 0;
+    board[87] = 0;
+    board[88] = 0;
+    board[89] = 0;
+    board[90] = 0;
+    board[91] = 0;
+    board[92] = 1;
+    board[93] = 1;
+    board[94] = 0;
+    board[95] = 0;
+    board[96] = 0;
+    board[97] = 0;
+    board[98] = 0;
+    board[99] = 0;
+    board[100] = 0;
+    board[101] = 0;
+    board[102] = 0;
+    board[103] = 0;
+    board[104] = 0;
+    board[105] = 0;
+    board[106] = 1;
+    board[107] = 1;
+    board[108] = 0;
+    board[109] = 0;
+    board[110] = 0;
+    board[111] = 0;
+    board[112] = 0;
+    board[113] = 0;
+    board[114] = 0;
+    board[115] = 0;
+    board[116] = 0;
+    board[117] = 0;
+    board[118] = 0;
+    board[119] = 1;
+    board[120] = 0;
+    board[121] = 0;
+    board[122] = 0;
+    board[123] = 1;
+    board[124] = 0;
+    board[125] = 0;
+    board[126] = 0;
+    board[127] = 0;
+    board[128] = 1;
+    board[129] = 1;
+    board[130] = 0;
+    board[131] = 0;
+    board[132] = 0;
+    board[133] = 0;
+    board[134] = 0;
+    board[135] = 0;
+    board[136] = 0;
+    board[137] = 0;
+    board[138] = 0;
+    board[139] = 0;
+    board[140] = 0;
+    board[141] = 0;
+    board[142] = 1;
+    board[143] = 1;
+    board[144] = 1;
+    board[145] = 1;
+    board[146] = 0;
+    board[147] = 0;
+    board[148] = 0;
+    board[149] = 0;
+    board[150] = 0;
+    board[151] = 0;
+    board[152] = 0;
+    board[153] = 0;
+    board[154] = 1;
+    board[155] = 0;
+    board[156] = 0;
+    board[157] = 0;
+    board[158] = 0;
+    board[159] = 0;
+    board[160] = 1;
+    board[161] = 0;
+    board[162] = 0;
+    board[163] = 0;
+    board[164] = 1;
+    board[165] = 1;
+    board[166] = 0;
+    board[167] = 0;
+    board[168] = 0;
+    board[169] = 0;
+    board[170] = 0;
+    board[171] = 0;
+    board[172] = 0;
+    board[173] = 0;
+    board[174] = 0;
+    board[175] = 0;
+    board[176] = 0;
+    board[177] = 0;
+    board[178] = 0;
+    board[179] = 0;
+    board[180] = 1;
+    board[181] = 1;
+    board[182] = 0;
+    board[183] = 0;
+    board[184] = 0;
+    board[185] = 0;
+    board[186] = 0;
+    board[187] = 0;
+    board[188] = 0;
+    board[189] = 0;
+    board[190] = 1;
+    board[191] = 0;
+    board[192] = 0;
+    board[193] = 0;
+    board[194] = 1;
+    board[195] = 0;
+    board[196] = 1;
+    board[197] = 1;
+    board[198] = 0;
+    board[199] = 0;
+    board[200] = 0;
+    board[201] = 0;
+    board[202] = 1;
+    board[203] = 0;
+    board[204] = 1;
+    board[205] = 0;
+    board[206] = 0;
+    board[207] = 0;
+    board[208] = 0;
+    board[209] = 0;
+    board[210] = 0;
+    board[211] = 0;
+    board[212] = 0;
+    board[213] = 0;
+    board[214] = 0;
+    board[215] = 0;
+    board[216] = 0;
+    board[217] = 0;
+    board[218] = 0;
+    board[219] = 0;
+    board[220] = 0;
+    board[221] = 0;
+    board[222] = 0;
+    board[223] = 0;
+    board[224] = 0;
+    board[225] = 0;
+    board[226] = 1;
+    board[227] = 0;
+    board[228] = 0;
+    board[229] = 0;
+    board[230] = 0;
+    board[231] = 0;
+    board[232] = 1;
+    board[233] = 0;
+    board[234] = 0;
+    board[235] = 0;
+    board[236] = 0;
+    board[237] = 0;
+    board[238] = 0;
+    board[239] = 0;
+    board[240] = 1;
+    board[241] = 0;
+    board[242] = 0;
+    board[243] = 0;
+    board[244] = 0;
+    board[245] = 0;
+    board[246] = 0;
+    board[247] = 0;
+    board[248] = 0;
+    board[249] = 0;
+    board[250] = 0;
+    board[251] = 0;
+    board[252] = 0;
+    board[253] = 0;
+    board[254] = 0;
+    board[255] = 0;
+    board[256] = 0;
+    board[257] = 0;
+    board[258] = 0;
+    board[259] = 0;
+    board[260] = 0;
+    board[261] = 0;
+    board[262] = 0;
+    board[263] = 1;
+    board[264] = 0;
+    board[265] = 0;
+    board[266] = 0;
+    board[267] = 1;
+    board[268] = 0;
+    board[269] = 0;
+    board[270] = 0;
+    board[271] = 0;
+    board[272] = 0;
+    board[273] = 0;
+    board[274] = 0;
+    board[275] = 0;
+    board[276] = 0;
+    board[277] = 0;
+    board[278] = 0;
+    board[279] = 0;
+    board[280] = 0;
+    board[281] = 0;
+    board[282] = 0;
+    board[283] = 0;
+    board[284] = 0;
+    board[285] = 0;
+    board[286] = 0;
+    board[287] = 0;
+    board[288] = 0;
+    board[289] = 0;
+    board[290] = 0;
+    board[291] = 0;
+    board[292] = 0;
+    board[293] = 0;
+    board[294] = 0;
+    board[295] = 0;
+    board[296] = 0;
+    board[297] = 0;
+    board[298] = 0;
+    board[299] = 0;
+    board[300] = 1;
+    board[301] = 1;
+    board[302] = 0;
+    board[303] = 0;
+    board[304] = 0;
+    board[305] = 0;
+    board[306] = 0;
+    board[307] = 0;
+    board[308] = 0;
+    board[309] = 0;
+    board[310] = 0;
+    board[311] = 0;
+    board[312] = 0;
+    board[313] = 0;
+    board[314] = 0;
+    board[315] = 0;
+    board[316] = 0;
+    board[317] = 0;
+    board[318] = 0;
+    board[319] = 0;
+    board[320] = 0;
+    board[321] = 0;
+    board[322] = 0;
+    board[323] = 0;
+    return 0;
+  }
+
+  public int initGosperGliderGun () {
+    width = 43;
+    height = 23;
+    board = new int [(width*height)];
+    board[0] = 0;
+    board[1] = 0;
+    board[2] = 0;
+    board[3] = 0;
+    board[4] = 0;
+    board[5] = 0;
+    board[6] = 0;
+    board[7] = 0;
+    board[8] = 0;
+    board[9] = 0;
+    board[10] = 0;
+    board[11] = 0;
+    board[12] = 0;
+    board[13] = 0;
+    board[14] = 0;
+    board[15] = 0;
+    board[16] = 0;
+    board[17] = 0;
+    board[18] = 0;
+    board[19] = 0;
+    board[20] = 0;
+    board[21] = 0;
+    board[22] = 0;
+    board[23] = 0;
+    board[24] = 0;
+    board[25] = 0;
+    board[26] = 0;
+    board[27] = 0;
+    board[28] = 0;
+    board[29] = 0;
+    board[30] = 0;
+    board[31] = 0;
+    board[32] = 0;
+    board[33] = 0;
+    board[34] = 0;
+    board[35] = 0;
+    board[36] = 0;
+    board[37] = 0;
+    board[38] = 0;
+    board[39] = 0;
+    board[40] = 0;
+    board[41] = 0;
+    board[42] = 0;
+    board[43] = 0;
+    board[44] = 0;
+    board[45] = 0;
+    board[46] = 0;
+    board[47] = 0;
+    board[48] = 0;
+    board[49] = 0;
+    board[50] = 0;
+    board[51] = 0;
+    board[52] = 0;
+    board[53] = 0;
+    board[54] = 0;
+    board[55] = 0;
+    board[56] = 0;
+    board[57] = 0;
+    board[58] = 0;
+    board[59] = 0;
+    board[60] = 0;
+    board[61] = 0;
+    board[62] = 0;
+    board[63] = 0;
+    board[64] = 0;
+    board[65] = 0;
+    board[66] = 0;
+    board[67] = 0;
+    board[68] = 0;
+    board[69] = 0;
+    board[70] = 0;
+    board[71] = 0;
+    board[72] = 0;
+    board[73] = 0;
+    board[74] = 0;
+    board[75] = 0;
+    board[76] = 0;
+    board[77] = 0;
+    board[78] = 0;
+    board[79] = 0;
+    board[80] = 0;
+    board[81] = 0;
+    board[82] = 0;
+    board[83] = 0;
+    board[84] = 0;
+    board[85] = 0;
+    board[86] = 0;
+    board[87] = 0;
+    board[88] = 0;
+    board[89] = 0;
+    board[90] = 0;
+    board[91] = 0;
+    board[92] = 0;
+    board[93] = 0;
+    board[94] = 0;
+    board[95] = 0;
+    board[96] = 0;
+    board[97] = 0;
+    board[98] = 0;
+    board[99] = 0;
+    board[100] = 0;
+    board[101] = 0;
+    board[102] = 0;
+    board[103] = 0;
+    board[104] = 0;
+    board[105] = 0;
+    board[106] = 0;
+    board[107] = 0;
+    board[108] = 0;
+    board[109] = 0;
+    board[110] = 0;
+    board[111] = 1;
+    board[112] = 0;
+    board[113] = 0;
+    board[114] = 0;
+    board[115] = 0;
+    board[116] = 0;
+    board[117] = 0;
+    board[118] = 0;
+    board[119] = 0;
+    board[120] = 0;
+    board[121] = 0;
+    board[122] = 0;
+    board[123] = 0;
+    board[124] = 0;
+    board[125] = 0;
+    board[126] = 0;
+    board[127] = 0;
+    board[128] = 0;
+    board[129] = 0;
+    board[130] = 0;
+    board[131] = 0;
+    board[132] = 0;
+    board[133] = 0;
+    board[134] = 0;
+    board[135] = 0;
+    board[136] = 0;
+    board[137] = 0;
+    board[138] = 0;
+    board[139] = 0;
+    board[140] = 0;
+    board[141] = 0;
+    board[142] = 0;
+    board[143] = 0;
+    board[144] = 0;
+    board[145] = 0;
+    board[146] = 0;
+    board[147] = 0;
+    board[148] = 0;
+    board[149] = 0;
+    board[150] = 0;
+    board[151] = 0;
+    board[152] = 1;
+    board[153] = 0;
+    board[154] = 1;
+    board[155] = 0;
+    board[156] = 0;
+    board[157] = 0;
+    board[158] = 0;
+    board[159] = 0;
+    board[160] = 0;
+    board[161] = 0;
+    board[162] = 0;
+    board[163] = 0;
+    board[164] = 0;
+    board[165] = 0;
+    board[166] = 0;
+    board[167] = 0;
+    board[168] = 0;
+    board[169] = 0;
+    board[170] = 0;
+    board[171] = 0;
+    board[172] = 0;
+    board[173] = 0;
+    board[174] = 0;
+    board[175] = 0;
+    board[176] = 0;
+    board[177] = 0;
+    board[178] = 0;
+    board[179] = 0;
+    board[180] = 0;
+    board[181] = 0;
+    board[182] = 0;
+    board[183] = 0;
+    board[184] = 0;
+    board[185] = 1;
+    board[186] = 1;
+    board[187] = 0;
+    board[188] = 0;
+    board[189] = 0;
+    board[190] = 0;
+    board[191] = 0;
+    board[192] = 0;
+    board[193] = 1;
+    board[194] = 1;
+    board[195] = 0;
+    board[196] = 0;
+    board[197] = 0;
+    board[198] = 0;
+    board[199] = 0;
+    board[200] = 0;
+    board[201] = 0;
+    board[202] = 0;
+    board[203] = 0;
+    board[204] = 0;
+    board[205] = 0;
+    board[206] = 0;
+    board[207] = 1;
+    board[208] = 1;
+    board[209] = 0;
+    board[210] = 0;
+    board[211] = 0;
+    board[212] = 0;
+    board[213] = 0;
+    board[214] = 0;
+    board[215] = 0;
+    board[216] = 0;
+    board[217] = 0;
+    board[218] = 0;
+    board[219] = 0;
+    board[220] = 0;
+    board[221] = 0;
+    board[222] = 0;
+    board[223] = 0;
+    board[224] = 0;
+    board[225] = 0;
+    board[226] = 0;
+    board[227] = 1;
+    board[228] = 0;
+    board[229] = 0;
+    board[230] = 0;
+    board[231] = 1;
+    board[232] = 0;
+    board[233] = 0;
+    board[234] = 0;
+    board[235] = 0;
+    board[236] = 1;
+    board[237] = 1;
+    board[238] = 0;
+    board[239] = 0;
+    board[240] = 0;
+    board[241] = 0;
+    board[242] = 0;
+    board[243] = 0;
+    board[244] = 0;
+    board[245] = 0;
+    board[246] = 0;
+    board[247] = 0;
+    board[248] = 0;
+    board[249] = 0;
+    board[250] = 1;
+    board[251] = 1;
+    board[252] = 0;
+    board[253] = 0;
+    board[254] = 0;
+    board[255] = 0;
+    board[256] = 0;
+    board[257] = 0;
+    board[258] = 0;
+    board[259] = 1;
+    board[260] = 1;
+    board[261] = 0;
+    board[262] = 0;
+    board[263] = 0;
+    board[264] = 0;
+    board[265] = 0;
+    board[266] = 0;
+    board[267] = 0;
+    board[268] = 0;
+    board[269] = 1;
+    board[270] = 0;
+    board[271] = 0;
+    board[272] = 0;
+    board[273] = 0;
+    board[274] = 0;
+    board[275] = 1;
+    board[276] = 0;
+    board[277] = 0;
+    board[278] = 0;
+    board[279] = 1;
+    board[280] = 1;
+    board[281] = 0;
+    board[282] = 0;
+    board[283] = 0;
+    board[284] = 0;
+    board[285] = 0;
+    board[286] = 0;
+    board[287] = 0;
+    board[288] = 0;
+    board[289] = 0;
+    board[290] = 0;
+    board[291] = 0;
+    board[292] = 0;
+    board[293] = 0;
+    board[294] = 0;
+    board[295] = 0;
+    board[296] = 0;
+    board[297] = 0;
+    board[298] = 0;
+    board[299] = 0;
+    board[300] = 0;
+    board[301] = 0;
+    board[302] = 1;
+    board[303] = 1;
+    board[304] = 0;
+    board[305] = 0;
+    board[306] = 0;
+    board[307] = 0;
+    board[308] = 0;
+    board[309] = 0;
+    board[310] = 0;
+    board[311] = 0;
+    board[312] = 1;
+    board[313] = 0;
+    board[314] = 0;
+    board[315] = 0;
+    board[316] = 1;
+    board[317] = 0;
+    board[318] = 1;
+    board[319] = 1;
+    board[320] = 0;
+    board[321] = 0;
+    board[322] = 0;
+    board[323] = 0;
+    board[324] = 1;
+    board[325] = 0;
+    board[326] = 1;
+    board[327] = 0;
+    board[328] = 0;
+    board[329] = 0;
+    board[330] = 0;
+    board[331] = 0;
+    board[332] = 0;
+    board[333] = 0;
+    board[334] = 0;
+    board[335] = 0;
+    board[336] = 0;
+    board[337] = 0;
+    board[338] = 0;
+    board[339] = 0;
+    board[340] = 0;
+    board[341] = 0;
+    board[342] = 0;
+    board[343] = 0;
+    board[344] = 0;
+    board[345] = 0;
+    board[346] = 0;
+    board[347] = 0;
+    board[348] = 0;
+    board[349] = 0;
+    board[350] = 0;
+    board[351] = 0;
+    board[352] = 0;
+    board[353] = 0;
+    board[354] = 0;
+    board[355] = 1;
+    board[356] = 0;
+    board[357] = 0;
+    board[358] = 0;
+    board[359] = 0;
+    board[360] = 0;
+    board[361] = 1;
+    board[362] = 0;
+    board[363] = 0;
+    board[364] = 0;
+    board[365] = 0;
+    board[366] = 0;
+    board[367] = 0;
+    board[368] = 0;
+    board[369] = 1;
+    board[370] = 0;
+    board[371] = 0;
+    board[372] = 0;
+    board[373] = 0;
+    board[374] = 0;
+    board[375] = 0;
+    board[376] = 0;
+    board[377] = 0;
+    board[378] = 0;
+    board[379] = 0;
+    board[380] = 0;
+    board[381] = 0;
+    board[382] = 0;
+    board[383] = 0;
+    board[384] = 0;
+    board[385] = 0;
+    board[386] = 0;
+    board[387] = 0;
+    board[388] = 0;
+    board[389] = 0;
+    board[390] = 0;
+    board[391] = 0;
+    board[392] = 0;
+    board[393] = 0;
+    board[394] = 0;
+    board[395] = 0;
+    board[396] = 0;
+    board[397] = 0;
+    board[398] = 0;
+    board[399] = 1;
+    board[400] = 0;
+    board[401] = 0;
+    board[402] = 0;
+    board[403] = 1;
+    board[404] = 0;
+    board[405] = 0;
+    board[406] = 0;
+    board[407] = 0;
+    board[408] = 0;
+    board[409] = 0;
+    board[410] = 0;
+    board[411] = 0;
+    board[412] = 0;
+    board[413] = 0;
+    board[414] = 0;
+    board[415] = 0;
+    board[416] = 0;
+    board[417] = 0;
+    board[418] = 0;
+    board[419] = 0;
+    board[420] = 0;
+    board[421] = 0;
+    board[422] = 0;
+    board[423] = 0;
+    board[424] = 0;
+    board[425] = 0;
+    board[426] = 0;
+    board[427] = 0;
+    board[428] = 0;
+    board[429] = 0;
+    board[430] = 0;
+    board[431] = 0;
+    board[432] = 0;
+    board[433] = 0;
+    board[434] = 0;
+    board[435] = 0;
+    board[436] = 0;
+    board[437] = 0;
+    board[438] = 0;
+    board[439] = 0;
+    board[440] = 0;
+    board[441] = 0;
+    board[442] = 0;
+    board[443] = 1;
+    board[444] = 1;
+    board[445] = 0;
+    board[446] = 0;
+    board[447] = 0;
+    board[448] = 0;
+    board[449] = 0;
+    board[450] = 0;
+    board[451] = 0;
+    board[452] = 0;
+    board[453] = 0;
+    board[454] = 0;
+    board[455] = 0;
+    board[456] = 0;
+    board[457] = 0;
+    board[458] = 0;
+    board[459] = 0;
+    board[460] = 0;
+    board[461] = 0;
+    board[462] = 0;
+    board[463] = 0;
+    board[464] = 0;
+    board[465] = 0;
+    board[466] = 0;
+    board[467] = 0;
+    board[468] = 0;
+    board[469] = 0;
+    board[470] = 0;
+    board[471] = 0;
+    board[472] = 0;
+    board[473] = 0;
+    board[474] = 0;
+    board[475] = 0;
+    board[476] = 0;
+    board[477] = 0;
+    board[478] = 0;
+    board[479] = 0;
+    board[480] = 0;
+    board[481] = 0;
+    board[482] = 0;
+    board[483] = 0;
+    board[484] = 0;
+    board[485] = 0;
+    board[486] = 0;
+    board[487] = 0;
+    board[488] = 0;
+    board[489] = 0;
+    board[490] = 0;
+    board[491] = 0;
+    board[492] = 0;
+    board[493] = 0;
+    board[494] = 0;
+    board[495] = 0;
+    board[496] = 0;
+    board[497] = 0;
+    board[498] = 0;
+    board[499] = 0;
+    board[500] = 0;
+    board[501] = 0;
+    board[502] = 0;
+    board[503] = 0;
+    board[504] = 0;
+    board[505] = 0;
+    board[506] = 0;
+    board[507] = 0;
+    board[508] = 0;
+    board[509] = 0;
+    board[510] = 0;
+    board[511] = 0;
+    board[512] = 0;
+    board[513] = 0;
+    board[514] = 0;
+    board[515] = 0;
+    board[516] = 0;
+    board[517] = 0;
+    board[518] = 0;
+    board[519] = 0;
+    board[520] = 0;
+    board[521] = 0;
+    board[522] = 0;
+    board[523] = 0;
+    board[524] = 0;
+    board[525] = 0;
+    board[526] = 0;
+    board[527] = 0;
+    board[528] = 0;
+    board[529] = 0;
+    board[530] = 0;
+    board[531] = 0;
+    board[532] = 0;
+    board[533] = 0;
+    board[534] = 0;
+    board[535] = 0;
+    board[536] = 0;
+    board[537] = 0;
+    board[538] = 0;
+    board[539] = 0;
+    board[540] = 0;
+    board[541] = 0;
+    board[542] = 0;
+    board[543] = 0;
+    board[544] = 0;
+    board[545] = 0;
+    board[546] = 0;
+    board[547] = 0;
+    board[548] = 0;
+    board[549] = 0;
+    board[550] = 0;
+    board[551] = 0;
+    board[552] = 0;
+    board[553] = 0;
+    board[554] = 0;
+    board[555] = 0;
+    board[556] = 0;
+    board[557] = 0;
+    board[558] = 0;
+    board[559] = 0;
+    board[560] = 0;
+    board[561] = 0;
+    board[562] = 0;
+    board[563] = 0;
+    board[564] = 0;
+    board[565] = 0;
+    board[566] = 0;
+    board[567] = 0;
+    board[568] = 0;
+    board[569] = 0;
+    board[570] = 0;
+    board[571] = 0;
+    board[572] = 0;
+    board[573] = 0;
+    board[574] = 0;
+    board[575] = 0;
+    board[576] = 0;
+    board[577] = 0;
+    board[578] = 0;
+    board[579] = 0;
+    board[580] = 0;
+    board[581] = 0;
+    board[582] = 0;
+    board[583] = 0;
+    board[584] = 0;
+    board[585] = 0;
+    board[586] = 0;
+    board[587] = 0;
+    board[588] = 0;
+    board[589] = 0;
+    board[590] = 0;
+    board[591] = 0;
+    board[592] = 0;
+    board[593] = 0;
+    board[594] = 0;
+    board[595] = 0;
+    board[596] = 0;
+    board[597] = 0;
+    board[598] = 0;
+    board[599] = 0;
+    board[600] = 0;
+    board[601] = 0;
+    board[602] = 0;
+    board[603] = 0;
+    board[604] = 0;
+    board[605] = 0;
+    board[606] = 0;
+    board[607] = 0;
+    board[608] = 0;
+    board[609] = 0;
+    board[610] = 0;
+    board[611] = 0;
+    board[612] = 0;
+    board[613] = 0;
+    board[614] = 0;
+    board[615] = 0;
+    board[616] = 0;
+    board[617] = 0;
+    board[618] = 0;
+    board[619] = 0;
+    board[620] = 0;
+    board[621] = 0;
+    board[622] = 0;
+    board[623] = 0;
+    board[624] = 0;
+    board[625] = 0;
+    board[626] = 0;
+    board[627] = 0;
+    board[628] = 0;
+    board[629] = 0;
+    board[630] = 0;
+    board[631] = 0;
+    board[632] = 0;
+    board[633] = 0;
+    board[634] = 0;
+    board[635] = 0;
+    board[636] = 0;
+    board[637] = 0;
+    board[638] = 0;
+    board[639] = 0;
+    board[640] = 0;
+    board[641] = 0;
+    board[642] = 0;
+    board[643] = 0;
+    board[644] = 0;
+    board[645] = 0;
+    board[646] = 0;
+    board[647] = 0;
+    board[648] = 0;
+    board[649] = 0;
+    board[650] = 0;
+    board[651] = 0;
+    board[652] = 0;
+    board[653] = 0;
+    board[654] = 0;
+    board[655] = 0;
+    board[656] = 0;
+    board[657] = 0;
+    board[658] = 0;
+    board[659] = 0;
+    board[660] = 0;
+    board[661] = 0;
+    board[662] = 0;
+    board[663] = 0;
+    board[664] = 0;
+    board[665] = 0;
+    board[666] = 0;
+    board[667] = 0;
+    board[668] = 0;
+    board[669] = 0;
+    board[670] = 0;
+    board[671] = 0;
+    board[672] = 0;
+    board[673] = 0;
+    board[674] = 0;
+    board[675] = 0;
+    board[676] = 0;
+    board[677] = 0;
+    board[678] = 0;
+    board[679] = 0;
+    board[680] = 0;
+    board[681] = 0;
+    board[682] = 0;
+    board[683] = 0;
+    board[684] = 0;
+    board[685] = 0;
+    board[686] = 0;
+    board[687] = 0;
+    board[688] = 0;
+    board[689] = 0;
+    board[690] = 0;
+    board[691] = 0;
+    board[692] = 0;
+    board[693] = 0;
+    board[694] = 0;
+    board[695] = 0;
+    board[696] = 0;
+    board[697] = 0;
+    board[698] = 0;
+    board[699] = 0;
+    board[700] = 0;
+    board[701] = 0;
+    board[702] = 0;
+    board[703] = 0;
+    board[704] = 0;
+    board[705] = 0;
+    board[706] = 0;
+    board[707] = 0;
+    board[708] = 0;
+    board[709] = 0;
+    board[710] = 0;
+    board[711] = 0;
+    board[712] = 0;
+    board[713] = 0;
+    board[714] = 0;
+    board[715] = 0;
+    board[716] = 0;
+    board[717] = 0;
+    board[718] = 0;
+    board[719] = 0;
+    board[720] = 0;
+    board[721] = 0;
+    board[722] = 0;
+    board[723] = 0;
+    board[724] = 0;
+    board[725] = 0;
+    board[726] = 0;
+    board[727] = 0;
+    board[728] = 0;
+    board[729] = 0;
+    board[730] = 0;
+    board[731] = 0;
+    board[732] = 0;
+    board[733] = 0;
+    board[734] = 0;
+    board[735] = 0;
+    board[736] = 0;
+    board[737] = 0;
+    board[738] = 0;
+    board[739] = 0;
+    board[740] = 0;
+    board[741] = 0;
+    board[742] = 0;
+    board[743] = 0;
+    board[744] = 0;
+    board[745] = 0;
+    board[746] = 0;
+    board[747] = 0;
+    board[748] = 0;
+    board[749] = 0;
+    board[750] = 0;
+    board[751] = 0;
+    board[752] = 0;
+    board[753] = 0;
+    board[754] = 0;
+    board[755] = 0;
+    board[756] = 0;
+    board[757] = 0;
+    board[758] = 0;
+    board[759] = 0;
+    board[760] = 0;
+    board[761] = 0;
+    board[762] = 0;
+    board[763] = 0;
+    board[764] = 0;
+    board[765] = 0;
+    board[766] = 0;
+    board[767] = 0;
+    board[768] = 0;
+    board[769] = 0;
+    board[770] = 0;
+    board[771] = 0;
+    board[772] = 0;
+    board[773] = 0;
+    board[774] = 0;
+    board[775] = 0;
+    board[776] = 0;
+    board[777] = 0;
+    board[778] = 0;
+    board[779] = 0;
+    board[780] = 0;
+    board[781] = 0;
+    board[782] = 0;
+    board[783] = 0;
+    board[784] = 0;
+    board[785] = 0;
+    board[786] = 0;
+    board[787] = 0;
+    board[788] = 0;
+    board[789] = 0;
+    board[790] = 0;
+    board[791] = 0;
+    board[792] = 0;
+    board[793] = 0;
+    board[794] = 0;
+    board[795] = 0;
+    board[796] = 0;
+    board[797] = 0;
+    board[798] = 0;
+    board[799] = 0;
+    board[800] = 0;
+    board[801] = 0;
+    board[802] = 0;
+    board[803] = 0;
+    board[804] = 0;
+    board[805] = 0;
+    board[806] = 0;
+    board[807] = 0;
+    board[808] = 0;
+    board[809] = 0;
+    board[810] = 0;
+    board[811] = 0;
+    board[812] = 0;
+    board[813] = 0;
+    board[814] = 0;
+    board[815] = 0;
+    board[816] = 0;
+    board[817] = 0;
+    board[818] = 0;
+    board[819] = 0;
+    board[820] = 0;
+    board[821] = 0;
+    board[822] = 0;
+    board[823] = 0;
+    board[824] = 0;
+    board[825] = 0;
+    board[826] = 0;
+    board[827] = 0;
+    board[828] = 0;
+    board[829] = 0;
+    board[830] = 0;
+    board[831] = 0;
+    board[832] = 0;
+    board[833] = 0;
+    board[834] = 0;
+    board[835] = 0;
+    board[836] = 0;
+    board[837] = 0;
+    board[838] = 0;
+    board[839] = 0;
+    board[840] = 0;
+    board[841] = 0;
+    board[842] = 0;
+    board[843] = 0;
+    board[844] = 0;
+    board[845] = 0;
+    board[846] = 0;
+    board[847] = 0;
+    board[848] = 0;
+    board[849] = 0;
+    board[850] = 0;
+    board[851] = 0;
+    board[852] = 0;
+    board[853] = 0;
+    board[854] = 0;
+    board[855] = 0;
+    board[856] = 0;
+    board[857] = 0;
+    board[858] = 0;
+    board[859] = 0;
+    board[860] = 0;
+    board[861] = 0;
+    board[862] = 0;
+    board[863] = 0;
+    board[864] = 0;
+    board[865] = 0;
+    board[866] = 0;
+    board[867] = 0;
+    board[868] = 0;
+    board[869] = 0;
+    board[870] = 0;
+    board[871] = 0;
+    board[872] = 0;
+    board[873] = 0;
+    board[874] = 0;
+    board[875] = 0;
+    board[876] = 0;
+    board[877] = 0;
+    board[878] = 0;
+    board[879] = 0;
+    board[880] = 0;
+    board[881] = 0;
+    board[882] = 0;
+    board[883] = 0;
+    board[884] = 0;
+    board[885] = 0;
+    board[886] = 0;
+    board[887] = 0;
+    board[888] = 0;
+    board[889] = 0;
+    board[890] = 0;
+    board[891] = 0;
+    board[892] = 0;
+    board[893] = 0;
+    board[894] = 0;
+    board[895] = 0;
+    board[896] = 0;
+    board[897] = 0;
+    board[898] = 0;
+    board[899] = 0;
+    board[900] = 0;
+    board[901] = 0;
+    board[902] = 0;
+    board[903] = 0;
+    board[904] = 0;
+    board[905] = 0;
+    board[906] = 0;
+    board[907] = 0;
+    board[908] = 0;
+    board[909] = 0;
+    board[910] = 0;
+    board[911] = 0;
+    board[912] = 0;
+    board[913] = 0;
+    board[914] = 0;
+    board[915] = 0;
+    board[916] = 0;
+    board[917] = 0;
+    board[918] = 0;
+    board[919] = 0;
+    board[920] = 0;
+    board[921] = 0;
+    board[922] = 0;
+    board[923] = 0;
+    board[924] = 0;
+    board[925] = 0;
+    board[926] = 0;
+    board[927] = 0;
+    board[928] = 0;
+    board[929] = 0;
+    board[930] = 0;
+    board[931] = 0;
+    board[932] = 0;
+    board[933] = 0;
+    board[934] = 0;
+    board[935] = 0;
+    board[936] = 0;
+    board[937] = 0;
+    board[938] = 0;
+    board[939] = 0;
+    board[940] = 0;
+    board[941] = 0;
+    board[942] = 0;
+    board[943] = 0;
+    board[944] = 0;
+    board[945] = 0;
+    board[946] = 0;
+    board[947] = 0;
+    board[948] = 0;
+    board[949] = 0;
+    board[950] = 0;
+    board[951] = 0;
+    board[952] = 0;
+    board[953] = 0;
+    board[954] = 0;
+    board[955] = 0;
+    board[956] = 0;
+    board[957] = 0;
+    board[958] = 0;
+    board[959] = 0;
+    board[960] = 0;
+    board[961] = 0;
+    board[962] = 0;
+    board[963] = 0;
+    board[964] = 0;
+    board[965] = 0;
+    board[966] = 0;
+    board[967] = 0;
+    board[968] = 0;
+    board[969] = 0;
+    board[970] = 0;
+    board[971] = 0;
+    board[972] = 0;
+    board[973] = 0;
+    board[974] = 0;
+    board[975] = 0;
+    board[976] = 0;
+    board[977] = 0;
+    board[978] = 0;
+    board[979] = 0;
+    board[980] = 0;
+    board[981] = 0;
+    board[982] = 0;
+    board[983] = 0;
+    board[984] = 0;
+    board[985] = 0;
+    board[986] = 0;
+    board[987] = 0;
+    board[988] = 0;
+    return 0;
+  }
+}
+
+class Hash {
+
+  PrimeNumbers primes;
+
+  public int init (int n) {
+    primes = new PrimeNumbers();
+    return primes.init(n);
+  }
+
+  public int hash (int[] arr) {
+    int i;
+    int ip;
+    int sum;
+    i = 0;
+    ip = 0;
+    sum = 0;
+    while ((i<arr.length)) {
+     if ((0<arr[i])) {
+       sum = (sum+primes.getPrime(ip));
+       i = (i+1);
+     } else {
+       i = (i+1);
+     }
+     if (((ip+1)<primes.getCount())) {
+       ip = (ip+1);
+     } else {
+       ip = 0;
+     }
+    }
+    return sum;
+  }
+
+  public int test () {
+    int[] arr;
+    int bla;
+    arr = new int [10];
+    arr[1] = 1;
+    arr[3] = 1;
+    arr[5] = 1;
+    arr[6] = 1;
+    bla = this.init(10);
+    return this.hash(arr);
+  }
+}
+
+class PrimeNumbers {
+
+  int[] primes;
+  int len;
+
+  public int getPrime (int i) {
+    return primes[i];
+  }
+
+  public int getCount () {
+    return len;
+  }
+
+  public int gcd (int y, int x) {
+    int res;
+    if ((x<y)) {
+      res = this.gcd(y, x);
+    } else {
+      if ((y<1)) {
+        res = x;
+      } else {
+        res = this.gcd(y, (x-y));
+      }
+    }
+    return res;
+  }
+
+  public boolean isprime (int n) {
+    int i;
+    int p;
+    boolean ok;
+    boolean cont;
+    ok = true;
+    cont = true;
+    i = 0;
+    while (((ok&&(i<len))&&cont)) {
+     p = primes[i];
+     ok = (ok&&(this.gcd(p, n)<2));
+     i = (i+1);
+     cont = ((p*p)<n);
+    }
+    return ok;
+  }
+
+  public int init (int n) {
+    int i;
+    primes = new int [n];
+    primes[0] = 2;
+    len = 1;
+    i = 3;
+    while ((len<n)) {
+     if (this.isprime(i)) {
+       primes[len] = i;
+       len = (len+1);
+       i = (i+2);
+     } else {
+       i = (i+2);
+     }
+    }
+    return primes[(len-1)];
+  }
+
+  public int print () {
+    int i;
+    i = 0;
+    while ((i<len)) {
+     System.out.println(primes[i]);
+     i = (i+1);
+    }
+    return i;
+  }
+
+  public int test (int n) {
+    int bla;
+    bla = this.init(n);
+    return this.print();
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class Test
+    Method: newLabel
+      v int 
+    Method: newNode
+      l Label 
+    Method: findPath
+      t Node 
+      s Node 
+    Method: test
+class Node
+  a Label 
+  visited boolean 
+  left Node 
+  right Node 
+    Method: init
+      b Label 
+    Method: label
+    Method: setLeft
+      n Node 
+    Method: setRight
+      n Node 
+    Method: print
+    Method: beq
+      b boolean 
+      a boolean 
+    Method: dfs
+      b Label 
+      vis boolean 
+class Label
+  value int 
+    Method: init
+      v int 
+    Method: label
+    Method: eq
+      l Label 
+    Method: print
+
+class Graph {
+  public static void main (String[] argv) {
+    System.out.println(new Test().test());
+  }
+}
+
+class Test {
+
+
+  public Label newLabel (int v) {
+    int bla;
+    Label l;
+    l = new Label();
+    bla = l.init(v);
+    return l;
+  }
+
+  public Node newNode (Label l) {
+    int bla;
+    Node n;
+    n = new Node();
+    bla = n.init(l);
+    return n;
+  }
+
+  public int findPath (Node t, Node s) {
+    int bla;
+    boolean res;
+    boolean tmp;
+    bla = s.print();
+    bla = t.print();
+    res = s.dfs(true, t.label());
+    tmp = s.dfs(false, t.label());
+    if (res) {
+      System.out.println(999);
+    } else {
+      System.out.println((0-999));
+    }
+    return 0;
+  }
+
+  public int test () {
+    int bla;
+    boolean res1;
+    boolean res2;
+    Label l1;
+    Node n1;
+    Label l2;
+    Node n2;
+    Label l3;
+    Node n3;
+    Label l4;
+    Node n4;
+    Label l5;
+    Node n5;
+    l1 = this.newLabel(1);
+    n1 = this.newNode(l1);
+    l2 = this.newLabel(2);
+    n2 = this.newNode(l2);
+    l3 = this.newLabel(3);
+    n3 = this.newNode(l3);
+    l4 = this.newLabel(4);
+    n4 = this.newNode(l4);
+    l5 = this.newLabel(5);
+    n5 = this.newNode(l5);
+    bla = n1.setLeft(n2);
+    bla = n1.setRight(n4);
+    bla = n2.setLeft(n3);
+    bla = n3.setLeft(n1);
+    bla = n3.setRight(n4);
+    bla = this.findPath(n1, n4);
+    bla = this.findPath(n4, n1);
+    bla = this.findPath(n3, n2);
+    bla = this.findPath(n4, n1);
+    bla = this.findPath(n3, n2);
+    bla = this.findPath(n4, n3);
+    bla = this.findPath(n5, n5);
+    bla = this.findPath(n5, n4);
+    return 0;
+  }
+}
+
+class Node {
+
+  Label a;
+  boolean visited;
+  Node left;
+  Node right;
+
+  public int init (Label b) {
+    visited = false;
+    a = b;
+    left = this;
+    right = this;
+    return 0;
+  }
+
+  public Label label () {
+    return a;
+  }
+
+  public int setLeft (Node n) {
+    left = n;
+    return 0;
+  }
+
+  public int setRight (Node n) {
+    right = n;
+    return 0;
+  }
+
+  public int print () {
+    int bla;
+    bla = a.print();
+    return 0;
+  }
+
+  public boolean beq (boolean b, boolean a) {
+    return !((!((a&&b))&&!((!(a)&&!(b)))));
+  }
+
+  public boolean dfs (Label b, boolean vis) {
+    boolean result;
+    if (this.beq(visited, vis)) {
+      result = false;
+    } else {
+      if (a.eq(b)) {
+        result = true;
+      } else {
+        visited = vis;
+        if (left.dfs(vis, b)) {
+          result = true;
+        } else {
+          if (right.dfs(vis, b)) {
+            result = true;
+          } else {
+            result = false;
+          }
+        }
+      }
+    }
+    return result;
+  }
+}
+
+class Label {
+
+  int value;
+
+  public int init (int v) {
+    value = v;
+    return 0;
+  }
+
+  public int label () {
+    return value;
+  }
+
+  public boolean eq (Label l) {
+    int v2;
+    v2 = l.label();
+    return ((value<(v2+1))&&(v2<(value+1)));
+  }
+
+  public int print () {
+    System.out.println(value);
+    return 0;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class LS
+  number intArr 
+  size int 
+    Method: Start
+      sz int 
+    Method: Print
+    Method: Search
+      num int 
+    Method: Init
+      sz int 
+
+class LinearSearch {
+  public static void main (String[] a) {
+    System.out.println(new LS().Start(10));
+  }
+}
+
+class LS {
+
+  int[] number;
+  int size;
+
+  public int Start (int sz) {
+    int aux01;
+    int aux02;
+    aux01 = this.Init(sz);
+    aux02 = this.Print();
+    System.out.println(9999);
+    System.out.println(this.Search(8));
+    System.out.println(this.Search(12));
+    System.out.println(this.Search(17));
+    System.out.println(this.Search(50));
+    return 55;
+  }
+
+  public int Print () {
+    int j;
+    j = 1;
+    while ((j<size)) {
+     System.out.println(number[j]);
+     j = (j+1);
+    }
+    return 0;
+  }
+
+  public int Search (int num) {
+    int j;
+    boolean ls01;
+    int ifound;
+    int aux01;
+    int aux02;
+    int nt;
+    j = 1;
+    ls01 = false;
+    ifound = 0;
+    while ((j<size)) {
+     aux01 = number[j];
+     aux02 = (num+1);
+     if ((aux01<num)) {
+       nt = 0;
+     } else {
+       if (!((aux01<aux02))) {
+         nt = 0;
+       } else {
+         ls01 = true;
+         ifound = 1;
+         j = size;
+       }
+     }
+     j = (j+1);
+    }
+    return ifound;
+  }
+
+  public int Init (int sz) {
+    int j;
+    int k;
+    int aux01;
+    int aux02;
+    size = sz;
+    number = new int [sz];
+    j = 1;
+    k = (size+1);
+    while ((j<size)) {
+     aux01 = (2*j);
+     aux02 = (k-3);
+     number[j] = (aux01+aux02);
+     j = (j+1);
+     k = (k-1);
+    }
+    return 0;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class LL
+    Method: Start
+class List
+  elem Element 
+  next List 
+  end boolean 
+    Method: Init
+    Method: InitNew
+      v_end boolean 
+      v_next List 
+      v_elem Element 
+    Method: Insert
+      new_elem Element 
+    Method: SetNext
+      v_next List 
+    Method: Delete
+      e Element 
+    Method: Search
+      e Element 
+    Method: GetEnd
+    Method: GetElem
+    Method: GetNext
+    Method: Print
+class Element
+  Age int 
+  Salary int 
+  Married boolean 
+    Method: Init
+      v_Married boolean 
+      v_Salary int 
+      v_Age int 
+    Method: GetAge
+    Method: GetSalary
+    Method: GetMarried
+    Method: Equal
+      other Element 
+    Method: Compare
+      num2 int 
+      num1 int 
+
+class LinkedList {
+  public static void main (String[] a) {
+    System.out.println(new LL().Start());
+  }
+}
+
+class LL {
+
+
+  public int Start () {
+    List head;
+    List last_elem;
+    boolean aux01;
+    Element el01;
+    Element el02;
+    Element el03;
+    last_elem = new List();
+    aux01 = last_elem.Init();
+    head = last_elem;
+    aux01 = head.Init();
+    aux01 = head.Print();
+    el01 = new Element();
+    aux01 = el01.Init(25, 37000, false);
+    head = head.Insert(el01);
+    aux01 = head.Print();
+    System.out.println(10000000);
+    el01 = new Element();
+    aux01 = el01.Init(39, 42000, true);
+    el02 = el01;
+    head = head.Insert(el01);
+    aux01 = head.Print();
+    System.out.println(10000000);
+    el01 = new Element();
+    aux01 = el01.Init(22, 34000, false);
+    head = head.Insert(el01);
+    aux01 = head.Print();
+    el03 = new Element();
+    aux01 = el03.Init(27, 34000, false);
+    System.out.println(head.Search(el02));
+    System.out.println(head.Search(el03));
+    System.out.println(10000000);
+    el01 = new Element();
+    aux01 = el01.Init(28, 35000, false);
+    head = head.Insert(el01);
+    aux01 = head.Print();
+    System.out.println(2220000);
+    head = head.Delete(el02);
+    aux01 = head.Print();
+    System.out.println(33300000);
+    head = head.Delete(el01);
+    aux01 = head.Print();
+    System.out.println(44440000);
+    return 0;
+  }
+}
+
+class List {
+
+  Element elem;
+  List next;
+  boolean end;
+
+  public boolean Init () {
+    end = true;
+    return true;
+  }
+
+  public boolean InitNew (boolean v_end, List v_next, Element v_elem) {
+    end = v_end;
+    elem = v_elem;
+    next = v_next;
+    return true;
+  }
+
+  public List Insert (Element new_elem) {
+    boolean ret_val;
+    List aux03;
+    List aux02;
+    aux03 = this;
+    aux02 = new List();
+    ret_val = aux02.InitNew(new_elem, aux03, false);
+    return aux02;
+  }
+
+  public boolean SetNext (List v_next) {
+    next = v_next;
+    return true;
+  }
+
+  public List Delete (Element e) {
+    List my_head;
+    boolean ret_val;
+    boolean aux05;
+    List aux01;
+    List prev;
+    boolean var_end;
+    Element var_elem;
+    int aux04;
+    int nt;
+    my_head = this;
+    ret_val = false;
+    aux04 = (0-1);
+    aux01 = this;
+    prev = this;
+    var_end = end;
+    var_elem = elem;
+    while ((!(var_end)&&!(ret_val))) {
+     if (e.Equal(var_elem)) {
+       ret_val = true;
+       if ((aux04<0)) {
+         my_head = aux01.GetNext();
+       } else {
+         System.out.println((0-555));
+         aux05 = prev.SetNext(aux01.GetNext());
+         System.out.println((0-555));
+       }
+     } else {
+       nt = 0;
+     }
+     if (!(ret_val)) {
+       prev = aux01;
+       aux01 = aux01.GetNext();
+       var_end = aux01.GetEnd();
+       var_elem = aux01.GetElem();
+       aux04 = 1;
+     } else {
+       nt = 0;
+     }
+    }
+    return my_head;
+  }
+
+  public int Search (Element e) {
+    int int_ret_val;
+    List aux01;
+    Element var_elem;
+    boolean var_end;
+    int nt;
+    int_ret_val = 0;
+    aux01 = this;
+    var_end = end;
+    var_elem = elem;
+    while (!(var_end)) {
+     if (e.Equal(var_elem)) {
+       int_ret_val = 1;
+     } else {
+       nt = 0;
+     }
+     aux01 = aux01.GetNext();
+     var_end = aux01.GetEnd();
+     var_elem = aux01.GetElem();
+    }
+    return int_ret_val;
+  }
+
+  public boolean GetEnd () {
+    return end;
+  }
+
+  public Element GetElem () {
+    return elem;
+  }
+
+  public List GetNext () {
+    return next;
+  }
+
+  public boolean Print () {
+    List aux01;
+    boolean var_end;
+    Element var_elem;
+    aux01 = this;
+    var_end = end;
+    var_elem = elem;
+    while (!(var_end)) {
+     System.out.println(var_elem.GetAge());
+     aux01 = aux01.GetNext();
+     var_end = aux01.GetEnd();
+     var_elem = aux01.GetElem();
+    }
+    return true;
+  }
+}
+
+class Element {
+
+  int Age;
+  int Salary;
+  boolean Married;
+
+  public boolean Init (boolean v_Married, int v_Salary, int v_Age) {
+    Age = v_Age;
+    Salary = v_Salary;
+    Married = v_Married;
+    return true;
+  }
+
+  public int GetAge () {
+    return Age;
+  }
+
+  public int GetSalary () {
+    return Salary;
+  }
+
+  public boolean GetMarried () {
+    return Married;
+  }
+
+  public boolean Equal (Element other) {
+    boolean ret_val;
+    int aux01;
+    int aux02;
+    int nt;
+    ret_val = true;
+    aux01 = other.GetAge();
+    if (!(this.Compare(aux01, Age))) {
+      ret_val = false;
+    } else {
+      aux02 = other.GetSalary();
+      if (!(this.Compare(aux02, Salary))) {
+        ret_val = false;
+      } else {
+        if (Married) {
+          if (!(other.GetMarried())) {
+            ret_val = false;
+          } else {
+            nt = 0;
+          }
+        } else {
+          if (other.GetMarried()) {
+            ret_val = false;
+          } else {
+            nt = 0;
+          }
+        }
+      }
+    }
+    return ret_val;
+  }
+
+  public boolean Compare (int num2, int num1) {
+    boolean retval;
+    int aux02;
+    retval = false;
+    aux02 = (num2+1);
+    if ((num1<num2)) {
+      retval = false;
+    } else {
+      if (!((num1<aux02))) {
+        retval = false;
+      } else {
+        retval = true;
+      }
+    }
+    return retval;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Prime
+    Method: or
+      b boolean 
+      a boolean 
+    Method: divides
+      n int 
+      m int 
+    Method: isprime
+      n int 
+    Method: b2i
+      b boolean 
+    Method: test_it
+      x7 int 
+      x6 int 
+      x5 int 
+      x4 int 
+      x3 int 
+      x2 int 
+      x1 int 
+
+class TestPrime {
+  public static void main (String[] a) {
+    System.out.println(new Prime().test_it(1, 2, 3, 4, 5, 10, 89));
+  }
+}
+
+class Prime {
+
+
+  public boolean or (boolean b, boolean a) {
+    return !((!(a)&&!(b)));
+  }
+
+  public boolean divides (int n, int m) {
+    int i;
+    boolean found;
+    i = 1;
+    found = false;
+    while ((!(found)&&(i<n))) {
+     if (((i*m)<n)) {
+       i = (i+1);
+     } else {
+       if ((n<(i*m))) {
+         i = n;
+       } else {
+         found = true;
+       }
+     }
+    }
+    return found;
+  }
+
+  public boolean isprime (int n) {
+    int i;
+    boolean ok;
+    ok = this.or(((1<n)&&(n<3)), ((2<n)&&!(this.divides(2, n))));
+    i = 3;
+    while ((ok&&(i<n))) {
+     ok = (ok&&!(this.divides(i, n)));
+     i = (i+2);
+    }
+    return ok;
+  }
+
+  public int b2i (boolean b) {
+    int res;
+    if (b) {
+      res = 1;
+    } else {
+      res = 0;
+    }
+    return res;
+  }
+
+  public int test_it (int x7, int x6, int x5, int x4, int x3, int x2, int x1) {
+    int n;
+    boolean b;
+    n = x1;
+    System.out.println(n);
+    b = this.isprime(n);
+    System.out.println(this.b2i(b));
+    n = x2;
+    System.out.println(n);
+    b = this.isprime(n);
+    System.out.println(this.b2i(b));
+    n = x3;
+    System.out.println(n);
+    b = this.isprime(n);
+    System.out.println(this.b2i(b));
+    n = x4;
+    System.out.println(n);
+    b = this.isprime(n);
+    System.out.println(this.b2i(b));
+    n = x5;
+    System.out.println(n);
+    b = this.isprime(n);
+    System.out.println(this.b2i(b));
+    n = x6;
+    System.out.println(n);
+    b = this.isprime(n);
+    System.out.println(this.b2i(b));
+    n = x7;
+    System.out.println(n);
+    b = this.isprime(n);
+    System.out.println(this.b2i(b));
+    return 999;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class NewtonClass
+  half Frac 
+  fops FracOps 
+    Method: newton_step
+      n int 
+      x Frac 
+    Method: newton
+      n int 
+    Method: test_it
+      n int 
+class FracOps
+  iops Integral 
+    Method: init
+    Method: mkFrac
+      y int 
+      x int 
+    Method: plus
+      y Frac 
+      x Frac 
+    Method: times
+      y Frac 
+      x Frac 
+    Method: recip
+      x Frac 
+    Method: divide
+      y Frac 
+      x Frac 
+    Method: neg
+      x Frac 
+    Method: abs_minus
+      y Frac 
+      x Frac 
+    Method: lt
+      y Frac 
+      x Frac 
+class Integral
+    Method: eq
+      y int 
+      x int 
+    Method: div
+      y int 
+      x int 
+    Method: rem
+      n int 
+      m int 
+    Method: gcd_rec
+      y int 
+      x int 
+    Method: gcd_iter
+      y int 
+      x int 
+    Method: gcd
+      y int 
+      x int 
+    Method: lcm
+      y int 
+      x int 
+class Frac
+  num int 
+  den int 
+    Method: init
+      y int 
+      x int 
+    Method: den
+    Method: num
+    Method: showFrac
+
+class Newton {
+  public static void main (String[] a) {
+    System.out.println(new NewtonClass().test_it(2));
+  }
+}
+
+class NewtonClass {
+
+  Frac half;
+  FracOps fops;
+
+  public Frac newton_step (int n, Frac x) {
+    return fops.times(half, fops.plus(x, fops.divide(fops.mkFrac(n, 1), x)));
+  }
+
+  public Frac newton (int n) {
+    Frac x;
+    Frac y;
+    Frac epsilon;
+    Frac delta;
+    int rc;
+    half = fops.mkFrac(1, 2);
+    epsilon = fops.mkFrac(1, 100);
+    x = fops.mkFrac(n, 1);
+    delta = x;
+    while (fops.lt(epsilon, delta)) {
+     y = x;
+     x = this.newton_step(x, n);
+     delta = fops.abs_minus(x, y);
+    }
+    return x;
+  }
+
+  public int test_it (int n) {
+    Frac res;
+    int rc;
+    fops = new FracOps();
+    rc = fops.init();
+    res = this.newton(n);
+    System.out.println(n);
+    System.out.println(999);
+    rc = res.showFrac();
+    return rc;
+  }
+}
+
+class FracOps {
+
+  Integral iops;
+
+  public int init () {
+    int rc;
+    iops = new Integral();
+    rc = 0;
+    return rc;
+  }
+
+  public Frac mkFrac (int y, int x) {
+    boolean ok;
+    Frac res;
+    res = new Frac();
+    ok = res.init(x, y);
+    return res;
+  }
+
+  public Frac plus (Frac y, Frac x) {
+    int lcm;
+    int res_num;
+    int res_den;
+    Frac res;
+    lcm = iops.lcm(x.den(), y.den());
+    res_num = ((x.num()*iops.div(lcm, x.den()))+(y.num()*iops.div(lcm, y.den())));
+    res_den = lcm;
+    res = this.mkFrac(res_num, res_den);
+    return res;
+  }
+
+  public Frac times (Frac y, Frac x) {
+    int a;
+    int b;
+    int res_num;
+    int res_den;
+    Frac res;
+    a = iops.gcd(x.den(), y.num());
+    b = iops.gcd(x.num(), y.den());
+    res_num = (iops.div(x.num(), b)*iops.div(y.num(), a));
+    res_den = (iops.div(x.den(), a)*iops.div(y.den(), b));
+    res = this.mkFrac(res_num, res_den);
+    return res;
+  }
+
+  public Frac recip (Frac x) {
+    Frac res;
+    res = this.mkFrac(x.den(), x.num());
+    return res;
+  }
+
+  public Frac divide (Frac y, Frac x) {
+    Frac yr;
+    Frac res;
+    yr = this.recip(y);
+    res = this.times(x, yr);
+    return res;
+  }
+
+  public Frac neg (Frac x) {
+    Frac res;
+    res = this.mkFrac(((0-1)*x.num()), x.den());
+    return res;
+  }
+
+  public Frac abs_minus (Frac y, Frac x) {
+    Frac res;
+    if (this.lt(x, y)) {
+      res = this.plus(y, this.neg(x));
+    } else {
+      res = this.plus(x, this.neg(y));
+    }
+    return res;
+  }
+
+  public boolean lt (Frac y, Frac x) {
+    int lcm;
+    int x0;
+    int y0;
+    boolean res;
+    lcm = iops.lcm(x.den(), y.den());
+    x0 = (x.num()*iops.div(lcm, x.den()));
+    y0 = (y.num()*iops.div(lcm, y.den()));
+    res = (x0<y0);
+    return res;
+  }
+}
+
+class Integral {
+
+
+  public boolean eq (int y, int x) {
+    return (!((x<y))&&!((y<x)));
+  }
+
+  public int div (int y, int x) {
+    int res;
+    res = 0;
+    while (!((x<y))) {
+     res = (res+1);
+     x = (x-y);
+    }
+    return res;
+  }
+
+  public int rem (int n, int m) {
+    return (m-(n*this.div(m, n)));
+  }
+
+  public int gcd_rec (int y, int x) {
+    int res;
+    if ((x<y)) {
+      res = this.gcd_rec(y, x);
+    } else {
+      if ((y<1)) {
+        res = x;
+      } else {
+        res = this.gcd_rec(y, this.rem(x, y));
+      }
+    }
+    return res;
+  }
+
+  public int gcd_iter (int y, int x) {
+    int t;
+    if ((x<y)) {
+      t = x;
+      x = y;
+      y = t;
+    } else {
+    }
+    while ((0<y)) {
+     t = x;
+     x = y;
+     y = this.rem(t, y);
+    }
+    return x;
+  }
+
+  public int gcd (int y, int x) {
+    return this.gcd_rec(x, y);
+  }
+
+  public int lcm (int y, int x) {
+    int res;
+    res = (y*this.div(x, this.gcd(x, y)));
+    return res;
+  }
+}
+
+class Frac {
+
+  int num;
+  int den;
+
+  public boolean init (int y, int x) {
+    boolean ok;
+    ok = true;
+    num = x;
+    den = y;
+    return ok;
+  }
+
+  public int den () {
+    return den;
+  }
+
+  public int num () {
+    return num;
+  }
+
+  public int showFrac () {
+    int rc;
+    rc = 0;
+    System.out.println(num);
+    System.out.println(den);
+    return rc;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class B
+    Method: run
+      m int 
+      n int 
+
+class Precedence {
+  public static void main (String[] argv) {
+    System.out.println(new B().run(5, 10));
+  }
+}
+
+class B {
+
+
+  public int run (int m, int n) {
+    int k;
+    if (((0<1)&&((n+(m*m))<((n+m)*m)))) {
+      k = n;
+    } else {
+      k = m;
+    }
+    return k;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class PrimesClass
+  primes intArr 
+  len int 
+    Method: eq
+      y int 
+      x int 
+    Method: div
+      y int 
+      x int 
+    Method: rem
+      n int 
+      m int 
+    Method: dividess
+      n int 
+      m int 
+    Method: divides
+      n int 
+      m int 
+    Method: hcf
+      y int 
+      x int 
+    Method: isprime
+      n int 
+    Method: primes
+      n int 
+    Method: test_it
+      n int 
+
+class Primes {
+  public static void main (String[] a) {
+    System.out.println(new PrimesClass().test_it(22));
+  }
+}
+
+class PrimesClass {
+
+  int[] primes;
+  int len;
+
+  public boolean eq (int y, int x) {
+    return (!((x<y))&&!((y<x)));
+  }
+
+  public int div (int y, int x) {
+    int res;
+    if ((x<y)) {
+      res = 0;
+    } else {
+      if (this.eq(y, 1)) {
+        res = x;
+      } else {
+        res = (1+this.div((x-y), y));
+      }
+    }
+    return res;
+  }
+
+  public int rem (int n, int m) {
+    return (n-(m*this.div(n, m)));
+  }
+
+  public boolean dividess (int n, int m) {
+    return this.eq(n, (m*this.div(n, m)));
+  }
+
+  public boolean divides (int n, int m) {
+    int i;
+    boolean found;
+    i = 1;
+    found = false;
+    while ((!(found)&&(i<n))) {
+     if (((i*m)<n)) {
+       i = (i+1);
+     } else {
+       if ((n<(i*m))) {
+         i = n;
+       } else {
+         found = true;
+       }
+     }
+    }
+    return found;
+  }
+
+  public int hcf (int y, int x) {
+    int res;
+    if ((x<y)) {
+      res = this.hcf(y, x);
+    } else {
+      if ((y<1)) {
+        res = x;
+      } else {
+        res = this.hcf(y, (x-y));
+      }
+    }
+    return res;
+  }
+
+  public boolean isprime (int n) {
+    int i;
+    boolean ok;
+    ok = true;
+    i = 0;
+    while (((ok&&(i<len))&&(i<n))) {
+     ok = (ok&&!(this.divides(primes[i], n)));
+     i = (i+1);
+    }
+    return ok;
+  }
+
+  public int primes (int n) {
+    int s;
+    int i;
+    s = 0;
+    i = 2;
+    while ((i<n)) {
+     if (this.isprime(i)) {
+       primes[len] = i;
+       len = (len+1);
+       System.out.println(i);
+       i = (i+1);
+       s = (s+1);
+     } else {
+       i = (i+1);
+     }
+    }
+    return s;
+  }
+
+  public int test_it (int n) {
+    int s;
+    primes = new int [n];
+    len = 0;
+    s = this.primes(n);
+    System.out.println(999);
+    return s;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class QS
+  number intArr 
+  size int 
+    Method: Start
+      sz int 
+    Method: Sort
+      right int 
+      left int 
+    Method: Print
+    Method: Init
+      sz int 
+
+class QuickSort {
+  public static void main (String[] a) {
+    System.out.println(new QS().Start(10));
+  }
+}
+
+class QS {
+
+  int[] number;
+  int size;
+
+  public int Start (int sz) {
+    int aux01;
+    aux01 = this.Init(sz);
+    aux01 = this.Print();
+    System.out.println(9999);
+    aux01 = (size-1);
+    aux01 = this.Sort(0, aux01);
+    aux01 = this.Print();
+    return 0;
+  }
+
+  public int Sort (int right, int left) {
+    int v;
+    int i;
+    int j;
+    int nt;
+    int t;
+    boolean cont01;
+    boolean cont02;
+    int aux03;
+    t = 0;
+    if ((left<right)) {
+      v = number[right];
+      i = (left-1);
+      j = right;
+      cont01 = true;
+      while (cont01) {
+       cont02 = true;
+       while (cont02) {
+        i = (i+1);
+        aux03 = number[i];
+        if (!((aux03<v))) {
+          cont02 = false;
+        } else {
+          cont02 = true;
+        }
+       }
+       cont02 = true;
+       while (cont02) {
+        j = (j-1);
+        aux03 = number[j];
+        if (!((v<aux03))) {
+          cont02 = false;
+        } else {
+          cont02 = true;
+        }
+       }
+       t = number[i];
+       number[i] = number[j];
+       number[j] = t;
+       if ((j<(i+1))) {
+         cont01 = false;
+       } else {
+         cont01 = true;
+       }
+      }
+      number[j] = number[i];
+      number[i] = number[right];
+      number[right] = t;
+      nt = this.Sort(left, (i-1));
+      nt = this.Sort((i+1), right);
+    } else {
+      nt = 0;
+    }
+    return 0;
+  }
+
+  public int Print () {
+    int j;
+    j = 0;
+    while ((j<size)) {
+     System.out.println(number[j]);
+     j = (j+1);
+    }
+    return 0;
+  }
+
+  public int Init (int sz) {
+    size = sz;
+    number = new int [sz];
+    number[0] = 20;
+    number[1] = 7;
+    number[2] = 12;
+    number[3] = 18;
+    number[4] = 2;
+    number[5] = 11;
+    number[6] = 6;
+    number[7] = 9;
+    number[8] = 19;
+    number[9] = 5;
+    return 0;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class S
+  n int 
+    Method: Init
+      m int 
+    Method: run
+      m int 
+      n int 
+
+class Scope {
+  public static void main (String[] argv) {
+    System.out.println(new S().run(5, 10));
+  }
+}
+
+class S {
+
+  int n;
+
+  public int Init (int m) {
+    n = m;
+    return 0;
+  }
+
+  public int run (int m, int n) {
+    int k;
+    k = this.Init(m);
+    return n;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class S
+    Method: run
+      n int 
+
+class Scope {
+  public static void main (String[] argv) {
+    System.out.println(new S().run(10));
+  }
+}
+
+class S {
+
+
+  public int run (int n) {
+    int n;
+    n = 5;
+    return n;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class TestAnd
+    Method: run
+      b boolean 
+    Method: sideEffect
+
+class ShortCutAnd {
+  public static void main (String[] argv) {
+    System.out.println(new TestAnd().run(false));
+  }
+}
+
+class TestAnd {
+
+
+  public int run (boolean b) {
+    int result;
+    if ((b&&this.sideEffect())) {
+      result = 1;
+    } else {
+      result = 0;
+    }
+    return result;
+  }
+
+  public boolean sideEffect () {
+    System.out.println((0-9999));
+    System.out.println((0-9999));
+    System.out.println((0-9999));
+    System.out.println((0-9999));
+    System.out.println((0-9999));
+    return true;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class StckClass
+    Method: stckme
+      x int 
+
+class Stck {
+  public static void main (String[] a) {
+    System.out.println(new StckClass().stckme(55));
+  }
+}
+
+class StckClass {
+
+
+  public int stckme (int x) {
+    int loc;
+    int dummy;
+    loc = x;
+    if ((x<1)) {
+    } else {
+      dummy = this.stckme((x-1));
+    }
+    return loc;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class SumClass
+  a int 
+    Method: f
+      y int 
+      x int 
+    Method: g
+      x int 
+
+class Sum {
+  public static void main (String[] a) {
+    System.out.println(new SumClass().f(0, 5));
+  }
+}
+
+class SumClass {
+
+  int a;
+
+  public int f (int y, int x) {
+    int z;
+    int res;
+    z = (x+y);
+    a = this.g(z);
+    if ((y<1)) {
+      res = z;
+    } else {
+      res = this.f(z, (y-1));
+    }
+    return res;
+  }
+
+  public int g (int x) {
+    return x;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class TestEqMain
+    Method: run
+
+class TestEq {
+  public static void main (String[] argv) {
+    System.out.println(new TestEqMain().run());
+  }
+}
+
+class TestEqMain {
+
+
+  public int run () {
+    boolean b;
+    b = ((4<(4+1))&&(4<(4+1)));
+    if (b) {
+      System.out.println(1);
+    } else {
+      System.out.println(0);
+    }
+    return 0;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class C
+  v int 
+    Method: value
+
+class TrivialClass {
+  public static void main (String[] a) {
+    System.out.println(new C().value());
+  }
+}
+
+class C {
+
+  int v;
+
+  public int value () {
+    v = 555;
+    return v;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class WhileClass
+    Method: run
+
+class While {
+  public static void main (String[] argv) {
+    System.out.println(new WhileClass().run());
+  }
+}
+
+class WhileClass {
+
+
+  public int run () {
+    int i;
+    int sum;
+    sum = 0;
+    i = 1;
+    while ((i<11)) {
+     sum = (sum+i);
+     System.out.println(sum);
+     i = (i+1);
+    }
+    return 0;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class A
+  arr intArr 
+  arr2 intArr 
+    Method: run
+      m int 
+      n int 
+
+class ArrayBounds {
+  public static void main (String[] argv) {
+    System.out.println(new A().run(5, 10));
+  }
+}
+
+class A {
+
+  int[] arr;
+  int[] arr2;
+
+  public int run (int m, int n) {
+    int k;
+    arr = new int [m];
+    k = 0;
+    while ((k<(m+1))) {
+     arr[k] = (2*k);
+     k = (k+1);
+    }
+    arr2 = new int [m];
+    k = 0;
+    while ((k<(m+1))) {
+     arr2[k] = ((2*k)+1);
+     k = (k+1);
+    }
+    return arr[m];
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Arr
+  theArr intArr 
+  mx int 
+    Method: init
+      m int 
+    Method: sum
+    Method: do_it
+      m int 
+
+class ArrSumBUG {
+  public static void main (String[] a) {
+    System.out.println(new Arr().do_it(10));
+  }
+}
+
+class Arr {
+
+  int[] theArr;
+  int mx;
+
+  public int init (int m) {
+    int i;
+    mx = m;
+    i = 1;
+    while ((i<(mx+1))) {
+     theArr[(i-1)] = i;
+     i = (i+1);
+    }
+    return 0;
+  }
+
+  public int sum () {
+    int i;
+    int s;
+    i = 1;
+    s = 0;
+    while ((i<(mx+1))) {
+     s = (s+theArr[i]);
+     i = (i+1);
+    }
+    return s;
+  }
+
+  public int do_it (int m) {
+    int q;
+    theArr = new int [m];
+    q = this.init(m);
+    return this.sum();
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+Parse error!
+Syntax error at line 3, column 5.
+Parse error!
+At line 2, column 4: illegal token
+Parse error!
+At line 2, column 11: illegal token
+Parse error!
+Syntax error at line 9, column 34.
+Parse error!
+Syntax error at line 16, column 26.
+main
+  a StringArr 
+class LL
+    Method: Start
+class List
+  elem Element 
+  next List 
+  end boolean 
+    Method: Init
+    Method: InitNew
+      v_end boolean 
+      v_next List 
+      v_elem Element 
+    Method: Insert
+      new_elem Element 
+    Method: SetNext
+      v_next List 
+    Method: Delete
+      e Element 
+    Method: Search
+      e Element 
+    Method: GetEnd
+    Method: GetElem
+    Method: GetNext
+    Method: Print
+class Element
+  Age int 
+  Salary int 
+  Married boolean 
+    Method: Init
+      v_Married boolean 
+      v_Salary int 
+      v_Age int 
+    Method: GetAge
+    Method: GetSalary
+    Method: GetMarried
+    Method: Equal
+      other Element 
+    Method: Compare
+      num2 int 
+      num1 int 
+
+class LinkedList {
+  public static void main (String[] a) {
+    System.out.println(new LL().Start());
+  }
+}
+
+class LL {
+
+
+  public int Start () {
+    List head;
+    List last_elem;
+    boolean aux01;
+    Element el01;
+    Element el02;
+    Element el03;
+    last_elem = new List();
+    aux01 = last_elem.Init();
+    head = last_elem;
+    aux01 = head.Init();
+    aux01 = head.Print();
+    el01 = new Element();
+    aux01 = el01.Init(25, 37000, false);
+    head = head.Insert(el01);
+    aux01 = head.Print();
+    System.out.println(10000000);
+    el01 = new Element();
+    aux01 = el01.Init(39, 42000, true);
+    el02 = el01;
+    head = head.Insert(el01);
+    aux01 = head.Print();
+    System.out.println(10000000);
+    el01 = new Element();
+    aux01 = el01.Init(22, 34000, false);
+    head = head.Insert(el01);
+    aux01 = head.Print();
+    el03 = new Element();
+    aux01 = el03.Init(27, 34000, false);
+    System.out.println(head.Search(el02));
+    System.out.println(head.Search(el03));
+    System.out.println(10000000);
+    el01 = new Element();
+    aux01 = el01.Init(28, 35000, false);
+    head = head.Insert(el01);
+    aux01 = head.Print();
+    System.out.println(2220000);
+    head = head.Delete(el02);
+    aux01 = head.Print();
+    System.out.println(33300000);
+    head = head.Delete(el01);
+    aux01 = head.Print();
+    System.out.println(44440000);
+    return 0;
+  }
+}
+
+class List {
+
+  Element elem;
+  List next;
+  boolean end;
+
+  public boolean Init () {
+    end = true;
+    return true;
+  }
+
+  public boolean InitNew (boolean v_end, List v_next, Element v_elem) {
+    end = v_end;
+    elem = v_elem;
+    next = v_next;
+    return true;
+  }
+
+  public List Insert (Element new_elem) {
+    boolean ret_val;
+    List aux03;
+    List aux02;
+    aux03 = this;
+    aux02 = new List();
+    ret_val = aux02.InitNew(new_elem, aux03, false);
+    return aux02;
+  }
+
+  public boolean SetNext (List v_next) {
+    next = v_next;
+    return true;
+  }
+
+  public List Delete (Element e) {
+    List my_head;
+    boolean ret_val;
+    boolean aux05;
+    List aux01;
+    List prev;
+    boolean var_end;
+    Element var_elem;
+    int aux04;
+    int nt;
+    my_head = this;
+    ret_val = false;
+    aux04 = (0-1);
+    aux01 = this;
+    prev = this;
+    var_end = end;
+    var_elem = elem;
+    while ((!(var_end)&&!(ret_val))) {
+     if (e.Equal(var_elem)) {
+       ret_val = true;
+       if ((aux04<0)) {
+         my_head = aux01.GetNext();
+       } else {
+         System.out.println((0-555));
+         aux05 = prev.SetNext(aux01.GetNext());
+         System.out.println((0-555));
+       }
+     } else {
+       nt = 0;
+     }
+     if (!(ret_val)) {
+       prev = aux01;
+       aux01 = aux01.GetNext();
+       var_end = aux01.GetEnd();
+       var_elem = aux01.GetElem();
+       aux04 = 1;
+     } else {
+       nt = 0;
+     }
+    }
+    return my_head;
+  }
+
+  public int Search (Element e) {
+    int int_ret_val;
+    List aux01;
+    Element var_elem;
+    boolean var_end;
+    int nt;
+    int_ret_val = 0;
+    aux01 = this;
+    var_end = end;
+    var_elem = elem;
+    while (!(var_end)) {
+     if (e.Equal(var_elem)) {
+       int_ret_val = 1;
+     } else {
+       nt = 0;
+     }
+     aux01 = aux01.GetNext();
+     var_end = aux01.GetEnd();
+     var_elem = aux01.GetElem();
+    }
+    return int_ret_val;
+  }
+
+  public boolean GetEnd () {
+    return end;
+  }
+
+  public Element GetElem () {
+    return elem;
+  }
+
+  public List GetNext () {
+    return next;
+  }
+
+  public boolean Print () {
+    List aux01;
+    boolean var_end;
+    Element var_elem;
+    aux01 = this;
+    var_end = end;
+    var_elem = elem;
+    while (!(var_end)) {
+     System.out.println(var_elem.GetAge());
+     aux01 = aux01.GetNext();
+     var_end = aux01.GetEnd();
+     var_elem = aux01.GetElem();
+    }
+    return true;
+  }
+}
+
+class Element {
+
+  int Age;
+  int Salary;
+  boolean Married;
+
+  public boolean Init (boolean v_Married, int v_Salary, int v_Age) {
+    Age = v_Age;
+    Salary = v_Salary;
+    Married = v_Married;
+    return true;
+  }
+
+  public int GetAge () {
+    return Age;
+  }
+
+  public int GetSalary () {
+    return Salary;
+  }
+
+  public boolean GetMarried () {
+    return Married;
+  }
+
+  public boolean Equal (Element other) {
+    boolean ret_val;
+    int aux01;
+    int aux02;
+    int nt;
+    ret_val = true;
+    aux01 = other.GetAge();
+    if (!(this.Compare(aux01, Age))) {
+      ret_val = false;
+    } else {
+      aux02 = other.GetSalary();
+      if (!(this.Compare(aux02, Salary))) {
+        ret_val = false;
+      } else {
+        if (Married) {
+          if (!(other.GetMarried())) {
+            ret_val = false;
+          } else {
+            nt = 0;
+          }
+        } else {
+          if (other.GetMarried()) {
+            ret_val = false;
+          } else {
+            nt = 0;
+          }
+        }
+      }
+    }
+    return ret_val;
+  }
+
+  public boolean Compare (int num2, int num1) {
+    boolean retval;
+    int aux02;
+    retval = false;
+    aux02 = (num2+1);
+    if ((num1<num2)) {
+      retval = false;
+    } else {
+      if ((!(num1)<aux02)) {
+        retval = false;
+      } else {
+        retval = true;
+      }
+    }
+    return retval;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  argv StringArr 
+class BLA
+    Method: blaa
+    Method: bla
+      k int 
+      b BLA 
+
+class MethodCallWrong {
+  public static void main (String[] argv) {
+    System.out.println(new BLA().blaa());
+  }
+}
+
+class BLA {
+
+
+  public int blaa () {
+    return this.bla(5, new BLA());
+  }
+
+  public int bla (int k, BLA b) {
+    return k;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Fac
+    Method: ComputeFac
+      num int 
+
+class Factorial {
+  public static void main (String[] a) {
+    System.out.println(new Fac().ComputeFac(10));
+  }
+}
+
+class Fac {
+
+
+  public int ComputeFac (int num) {
+    int num_aux;
+    if ((num<1)) {
+      num_aux = 1;
+    } else {
+      num_aux = (num*this.computeFac((num-1)));
+    }
+    return num_aux;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+Parse error!
+Syntax error at line 15, column 40.
+main
+  argv StringArr 
+
+class PrintArgs {
+  public static void main (String[] argv) {
+    System.out.println(argv[0]);
+  }
+}
+
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Fac
+  num int 
+  num intArr 
+    Method: ComputeFac
+      num int 
+      num intArr 
+      num int 
+
+class Factorial {
+  public static void main (String[] a) {
+    System.out.println(new Fac().ComputeFac(10, new int [10], 9));
+  }
+}
+
+class Fac {
+
+  int num;
+  int[] num;
+
+  public int ComputeFac (int num, int[] num, int num) {
+    int[] num_aux;
+    int num_aux;
+    if ((num<1)) {
+      num_aux = 1;
+    } else {
+      num_aux = (num*this.ComputeFac((num-1), num_aux, num));
+    }
+    return num_aux;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+Parse error!
+At line 2, column 22: illegal token
+main
+  a StringArr 
+class Fac
+    Method: ComputeFac
+      num int 
+
+class Factorial {
+  public static void main (String[] a) {
+    System.out.println(new Fac().ComputeFac(10));
+  }
+}
+
+class Fac {
+
+
+  public int ComputeFac (int num) {
+    int num_aux;
+    if ((num<1)) {
+      num_aux = 1;
+    } else {
+      num_aux = (num*this.ComputeFac((num-1), (num<1)));
+    }
+    return num_aux;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Fac
+    Method: ComputeFac
+      num int 
+
+class Factorial {
+  public static void main (String[] a) {
+    System.out.println(new Fac().ComputeFac(10));
+  }
+}
+
+class Fac {
+
+
+  public int ComputeFac (int num) {
+    int num_aux;
+    if ((num<1)) {
+      num_aux = 1;
+    } else {
+      num_aux = (num*this.ComputeFac((num<1)));
+    }
+    return num_aux;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class A
+  b B 
+    Method: do_it
+      x int 
+
+class UndeclaredType {
+  public static void main (String[] a) {
+    System.out.println(new A().do_it(1));
+  }
+}
+
+class A {
+
+  B b;
+
+  public int do_it (int x) {
+    int res;
+    res = x;
+    return res;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class A
+  a int 
+    Method: getVar
+
+class UndeclaredVar1 {
+  public static void main (String[] a) {
+    System.out.println(new A().getVar());
+  }
+}
+
+class A {
+
+  int a;
+
+  public int getVar () {
+    int res;
+    res = x;
+    return res;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class A
+    Method: do_it
+      x int 
+
+class UndeclaredVar2 {
+  public static void main (String[] a) {
+    System.out.println(new A().do_it(1));
+  }
+}
+
+class A {
+
+
+  public int do_it (int x) {
+    int res;
+    res = (x+y);
+    return res;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Foo
+  x int 
+    Method: is_foo
+      n int 
+    Method: all_foo
+      m int 
+      n int 
+    Method: wrong
+      n int 
+
+class Main {
+  public static void main (String[] a) {
+    System.out.println(99);
+  }
+}
+
+class Foo {
+
+  int x;
+
+  public boolean is_foo (int n) {
+    return (x<n);
+  }
+
+  public boolean all_foo (int m, int n) {
+    return (this.is_foo(n)&&(this.is_foo(m)+1));
+  }
+
+  public int wrong (int n) {
+    return this.all_foo(n, n);
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class A
+    Method: do_it
+      y int 
+      x int 
+
+class WrongArgumentTypes {
+  public static void main (String[] a) {
+    System.out.println(new A().do_it(1, true));
+  }
+}
+
+class A {
+
+
+  public int do_it (int y, int x) {
+    int res;
+    res = (x+y);
+    return res;
+  }
+}
+
+Parsing der Eingabe erfolgreich.
+main
+  a StringArr 
+class Fac
+    Method: ComputeFac
+      num int 
+
+class Factorial {
+  public static void main (String[] a) {
+    System.out.println(new Fac().ComputeFac(10));
+  }
+}
+
+class Fac {
+
+
+  public int ComputeFac (int num) {
+    int[] num_aux;
+    if ((num<1)) {
+      num_aux = 1;
+    } else {
+      num_aux = (num*this.ComputeFac((num-1)));
+    }
+    return num_aux;
+  }
+}
+
+Parsing der Eingabe erfolgreich.

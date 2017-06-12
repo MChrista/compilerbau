@@ -158,7 +158,7 @@ MethodList ::= {: RESULT = new LinkedList<DeclMeth>(); :}
 	| MethodDeclaration:md1 MethodList:ml1
 		{: LinkedList<DeclMeth> methList =
 			new LinkedList<DeclMeth>(ml1);
-			methList.add(md1);
+			methList.addFirst(md1);
 			RESULT = methList;
 		:}
 		;
@@ -208,7 +208,7 @@ StmList ::= {: RESULT = new LinkedList<Stm>(); :}
 	| Stm:s1 StmList:s2
           {: LinkedList<Stm> stmList =
 	new LinkedList<Stm>(s2);
-	stmList.add(s1);
+	stmList.addFirst(s1);
 	RESULT = stmList;
 	:}
       ;
