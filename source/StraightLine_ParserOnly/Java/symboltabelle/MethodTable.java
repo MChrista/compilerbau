@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import minijava.syntax.DeclMeth;
+import minijava.syntax.DeclVar;
 import minijava.syntax.Parameter;
 
 public class MethodTable extends Table{
@@ -16,6 +17,7 @@ public class MethodTable extends Table{
 	
 	public void add(DeclMeth dm){
 		this.addParameters(dm.parameters);
+		this.addVariables(dm.localVars);
 	}
 	
 	public void addParameters(List<Parameter> parameters){
@@ -23,6 +25,13 @@ public class MethodTable extends Table{
 			TableLine tl = new TableLine(p.id, p.ty.accept(new SymbolTableVisitorTy()), "");
 			lines.add(tl);
 	    }
+	}
+	
+	public void addVariables(List<DeclVar> variables){
+		for (DeclVar dv : variables){
+			TableLine tl = new TableLine(dv.name, dv.ty.accept(new SymbolTableVisitorTy()), "");
+			lines.add(tl);
+		}
 	}
 	
 	public String print(){
