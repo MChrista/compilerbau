@@ -1,9 +1,12 @@
 
+Symboltable
 main
   argv StringArr 
 class AA
-    Method: run
+    Method: int run
+      arr intArr 
 
+pretty print arr get: arr
 class ArrayAccess {
   public static void main (String[] argv) {
     System.out.println(new AA().run());
@@ -23,17 +26,39 @@ class AA {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[]
+call to method
+run
+println type: int
+Symboltable
 main
   a StringArr 
 class Arr
   theArr intArr 
   mx int 
-    Method: init
+    Method: int init
       m int 
-    Method: sum
-    Method: do_it
+      i int 
+    Method: int sum
+      i int 
+      s int 
+    Method: int do_it
       m int 
+      q int 
 
+i
+mx
+i
+i
+i
+mx
+s
+pretty print arr get: theArr
+i
+i
 class ArrSum {
   public static void main (String[] a) {
     System.out.println(new Arr().do_it(10));
@@ -77,24 +102,85 @@ class Arr {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+do_it
+here
+[int]
+call to method
+do_it
+println type: int
+init
+here
+[int]
+call to method
+init
+sum
+here
+[]
+call to method
+sum
+Symboltable
 main
   a StringArr 
 class BS
   number intArr 
   size int 
-    Method: Start
+    Method: int Start
       sz int 
-    Method: Search
+      aux01 int 
+      aux02 int 
+    Method: boolean Search
       num int 
-    Method: Div
+      bs01 boolean 
+      right int 
+      left int 
+      var_cont boolean 
+      medium int 
+      aux01 int 
+      nt int 
+    Method: int Div
       num int 
-    Method: Compare
-      num2 int 
+      count01 int 
+      count02 int 
+      aux03 int 
+    Method: boolean Compare
       num1 int 
-    Method: Print
-    Method: Init
+      num2 int 
+      retval boolean 
+      aux02 int 
+    Method: int Print
+      j int 
+    Method: int Init
       sz int 
+      j int 
+      k int 
+      aux02 int 
+      aux01 int 
 
+right
+left
+pretty print arr get: number
+num
+medium
+medium
+right
+num
+count02
+count01
+count02
+num2
+num1
+num1
+j
+pretty print arr get: number
+j
+size
+j
+2
+k
+aux01
+j
+k
 class BinarySearch {
   public static void main (String[] a) {
     System.out.println(new BS().Start(20));
@@ -210,7 +296,7 @@ class BS {
     return count01;
   }
 
-  public boolean Compare (int num2, int num1) {
+  public boolean Compare (int num1, int num2) {
     boolean retval;
     int aux02;
     retval = false;
@@ -259,6 +345,97 @@ class BS {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+Start
+here
+[int]
+call to method
+Start
+println type: int
+Init
+here
+[int]
+call to method
+Init
+Print
+here
+[]
+call to method
+Print
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Div
+here
+[int]
+call to method
+Div
+Compare
+here
+[int, int]
+call to method
+Compare
+Compare
+here
+[int, int]
+call to method
+Compare
+println type: int
+println type: int
+Symboltable
 main
   a StringArr 
 class Tree
@@ -268,47 +445,85 @@ class Tree
   has_left boolean 
   has_right boolean 
   my_null Tree 
-    Method: Init
+    Method: boolean Init
       v_key int 
-    Method: SetRight
+    Method: boolean SetRight
       rn Tree 
-    Method: SetLeft
+    Method: boolean SetLeft
       ln Tree 
-    Method: GetRight
-    Method: GetLeft
-    Method: GetKey
-    Method: SetKey
+    Method: Tree GetRight
+    Method: Tree GetLeft
+    Method: int GetKey
+    Method: boolean SetKey
       v_key int 
-    Method: GetHas_Right
-    Method: GetHas_Left
-    Method: SetHas_Left
+    Method: boolean GetHas_Right
+    Method: boolean GetHas_Left
+    Method: boolean SetHas_Left
       val boolean 
-    Method: SetHas_Right
+    Method: boolean SetHas_Right
       val boolean 
-    Method: Compare
-      num2 int 
+    Method: boolean Compare
       num1 int 
-    Method: Insert
+      num2 int 
+      ntb boolean 
+      nti int 
+    Method: boolean Insert
       v_key int 
-    Method: Delete
+      new_node Tree 
+      ntb boolean 
+      cont boolean 
+      key_aux int 
+      current_node Tree 
+    Method: boolean Delete
       v_key int 
-    Method: Remove
-      c_node Tree 
+      current_node Tree 
+      parent_node Tree 
+      cont boolean 
+      found boolean 
+      is_root boolean 
+      key_aux int 
+      ntb boolean 
+    Method: boolean Remove
       p_node Tree 
-    Method: RemoveRight
       c_node Tree 
+      ntb boolean 
+      auxkey1 int 
+      auxkey2 int 
+    Method: boolean RemoveRight
       p_node Tree 
-    Method: RemoveLeft
       c_node Tree 
+      ntb boolean 
+    Method: boolean RemoveLeft
       p_node Tree 
-    Method: Search
+      c_node Tree 
+      ntb boolean 
+    Method: int Search
       v_key int 
-    Method: Print
-    Method: RecPrint
+      cont boolean 
+      ifound int 
+      current_node Tree 
+      key_aux int 
+    Method: boolean Print
+      current_node Tree 
+      ntb boolean 
+    Method: boolean RecPrint
       node Tree 
+      ntb boolean 
 class BT
-    Method: Start
+    Method: int Start
+      root Tree 
+      ntb boolean 
+      nti int 
 
+num2
+num1
+num1
+v_key
+v_key
+key_aux
+!(current_node.GetHas_Right())
+v_key
+key_aux
 class BinaryTree {
   public static void main (String[] a) {
     System.out.println(new BT().Start());
@@ -376,7 +591,7 @@ class Tree {
     return true;
   }
 
-  public boolean Compare (int num2, int num1) {
+  public boolean Compare (int num1, int num2) {
     boolean ntb;
     int nti;
     ntb = false;
@@ -475,7 +690,7 @@ class Tree {
     return found;
   }
 
-  public boolean Remove (Tree c_node, Tree p_node) {
+  public boolean Remove (Tree p_node, Tree c_node) {
     boolean ntb;
     int auxkey1;
     int auxkey2;
@@ -499,7 +714,7 @@ class Tree {
     return true;
   }
 
-  public boolean RemoveRight (Tree c_node, Tree p_node) {
+  public boolean RemoveRight (Tree p_node, Tree c_node) {
     boolean ntb;
     while (c_node.GetHas_Right()) {
      ntb = c_node.SetKey(c_node.GetRight().GetKey());
@@ -511,7 +726,7 @@ class Tree {
     return true;
   }
 
-  public boolean RemoveLeft (Tree c_node, Tree p_node) {
+  public boolean RemoveLeft (Tree p_node, Tree c_node) {
     boolean ntb;
     while (c_node.GetHas_Left()) {
      ntb = c_node.SetKey(c_node.GetLeft().GetKey());
@@ -613,18 +828,462 @@ class BT {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+Start
+here
+[]
+call to method
+Start
+println type: int
+Init
+here
+[int]
+call to method
+Init
+GetKey
+here
+[]
+call to method
+GetKey
+GetHas_Left
+here
+[]
+call to method
+GetHas_Left
+GetLeft
+here
+[]
+call to method
+GetLeft
+SetHas_Left
+here
+[boolean]
+call to method
+SetHas_Left
+SetLeft
+here
+[Tree]
+call to method
+SetLeft
+GetHas_Right
+here
+[]
+call to method
+GetHas_Right
+GetRight
+here
+[]
+call to method
+GetRight
+SetHas_Right
+here
+[boolean]
+call to method
+SetHas_Right
+SetRight
+here
+[Tree]
+call to method
+SetRight
+GetKey
+here
+[]
+call to method
+GetKey
+GetHas_Left
+here
+[]
+call to method
+GetHas_Left
+GetLeft
+here
+[]
+call to method
+GetLeft
+GetHas_Right
+here
+[]
+call to method
+GetHas_Right
+GetRight
+here
+[]
+call to method
+GetRight
+GetHas_Right
+here
+[]
+call to method
+GetHas_Right
+GetHas_Left
+here
+[]
+call to method
+GetHas_Left
+Remove
+here
+[Tree, Tree]
+call to method
+Remove
+Remove
+here
+[Tree, Tree]
+call to method
+Remove
+GetHas_Left
+here
+[]
+call to method
+GetHas_Left
+RemoveLeft
+here
+[Tree, Tree]
+call to method
+RemoveLeft
+GetHas_Right
+here
+[]
+call to method
+GetHas_Right
+RemoveRight
+here
+[Tree, Tree]
+call to method
+RemoveRight
+GetKey
+here
+[]
+call to method
+GetKey
+GetKey
+GetLeft
+here
+[]
+call to method
+GetLeft
+here
+[]
+GetLeft
+here
+[]
+call to method
+GetLeft
+call to method
+GetKey
+Compare
+here
+[int, int]
+call to method
+Compare
+SetLeft
+here
+[Tree]
+call to method
+SetLeft
+SetHas_Left
+here
+[boolean]
+call to method
+SetHas_Left
+SetRight
+here
+[Tree]
+call to method
+SetRight
+SetHas_Right
+here
+[boolean]
+call to method
+SetHas_Right
+GetHas_Right
+here
+[]
+call to method
+GetHas_Right
+SetKey
+here
+[int]
+GetKey
+GetRight
+here
+[]
+call to method
+GetRight
+here
+[]
+GetRight
+here
+[]
+call to method
+GetRight
+call to method
+GetKey
+call to method
+SetKey
+GetRight
+here
+[]
+call to method
+GetRight
+SetRight
+here
+[Tree]
+call to method
+SetRight
+SetHas_Right
+here
+[boolean]
+call to method
+SetHas_Right
+GetHas_Left
+here
+[]
+call to method
+GetHas_Left
+SetKey
+here
+[int]
+GetKey
+GetLeft
+here
+[]
+call to method
+GetLeft
+here
+[]
+GetLeft
+here
+[]
+call to method
+GetLeft
+call to method
+GetKey
+call to method
+SetKey
+GetLeft
+here
+[]
+call to method
+GetLeft
+SetLeft
+here
+[Tree]
+call to method
+SetLeft
+SetHas_Left
+here
+[boolean]
+call to method
+SetHas_Left
+GetKey
+here
+[]
+call to method
+GetKey
+GetHas_Left
+here
+[]
+call to method
+GetHas_Left
+GetLeft
+here
+[]
+call to method
+GetLeft
+GetHas_Right
+here
+[]
+call to method
+GetHas_Right
+GetRight
+here
+[]
+call to method
+GetRight
+RecPrint
+here
+[Tree]
+call to method
+RecPrint
+GetHas_Left
+here
+[]
+call to method
+GetHas_Left
+RecPrint
+here
+[Tree]
+GetLeft
+here
+[]
+call to method
+GetLeft
+call to method
+RecPrint
+GetKey
+here
+[]
+call to method
+GetKey
+println type: int
+GetHas_Right
+here
+[]
+call to method
+GetHas_Right
+RecPrint
+here
+[Tree]
+GetRight
+here
+[]
+call to method
+GetRight
+call to method
+RecPrint
+Init
+here
+[int]
+call to method
+Init
+Print
+here
+[]
+call to method
+Print
+println type: int
+Insert
+here
+[int]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+Insert
+here
+[int]
+call to method
+Insert
+Insert
+here
+[int]
+call to method
+Insert
+Insert
+here
+[int]
+call to method
+Insert
+Insert
+here
+[int]
+call to method
+Insert
+Insert
+here
+[int]
+call to method
+Insert
+Insert
+here
+[int]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Delete
+here
+[int]
+call to method
+Delete
+Print
+here
+[]
+call to method
+Print
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Symboltable
 main
   a StringArr 
 class BBS
   number intArr 
   size int 
-    Method: Start
+    Method: int Start
       sz int 
-    Method: Sort
-    Method: Print
-    Method: Init
+      aux01 int 
+    Method: int Sort
+      nt int 
+      i int 
+      aux02 int 
+      aux04 int 
+      aux05 int 
+      aux06 int 
+      aux07 int 
+      j int 
+      t int 
+    Method: int Print
+      j int 
+    Method: int Init
       sz int 
 
+size
+0
+aux02
+j
+i
+j
+pretty print arr get: number
+pretty print arr get: number
+aux05
+j
+pretty print arr get: number
+pretty print arr get: number
+j
+i
+j
+pretty print arr get: number
+j
 class BubbleSort {
   public static void main (String[] a) {
     System.out.println(new BBS().Start(10));
@@ -707,16 +1366,52 @@ class BBS {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+Start
+here
+[int]
+call to method
+Start
+println type: int
+Init
+here
+[int]
+call to method
+Init
+Print
+here
+[]
+call to method
+Print
+println type: int
+Sort
+here
+[]
+call to method
+Sort
+Print
+here
+[]
+call to method
+Print
+println type: int
+Symboltable
 main
   argv StringArr 
 class Bit
   bit int 
-    Method: set
+    Method: int set
       b int 
-    Method: value
+    Method: int value
 class EffectsClass
-    Method: run
+    Method: int run
+      b Bit 
 
+b.set(1)
+(b.set(1)-1)
+b.set(1)
+b.set(0)
+0
 class Effects {
   public static void main (String[] argv) {
     System.out.println(new EffectsClass().run());
@@ -748,12 +1443,39 @@ class EffectsClass {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[]
+call to method
+run
+println type: int
+set
+here
+[int]
+call to method
+set
+set
+here
+[int]
+call to method
+set
+value
+here
+[]
+call to method
+value
+Symboltable
 main
   a StringArr 
 class Fac
-    Method: ComputeFac
+    Method: int ComputeFac
       num int 
+      num_aux int 
 
+num
+num
+num
 class Factorial {
   public static void main (String[] a) {
     System.out.println(new Fac().ComputeFac(10));
@@ -775,12 +1497,36 @@ class Fac {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+ComputeFac
+here
+[int]
+call to method
+ComputeFac
+println type: int
+ComputeFac
+here
+[int]
+call to method
+ComputeFac
+Symboltable
 main
   a StringArr 
 class FibAux
-    Method: nfib
+    Method: int nfib
       num int 
+      res int 
 
+num
+num
+this.nfib((num-1))
+num
+num
+(this.nfib((num-1))+this.nfib((num-2)))
+num
+this.nfib((num-1))
+num
+num
 class Fib {
   public static void main (String[] a) {
     System.out.println(new FibAux().nfib(15));
@@ -802,26 +1548,81 @@ class FibAux {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+nfib
+here
+[int]
+call to method
+nfib
+println type: int
+nfib
+here
+[int]
+call to method
+nfib
+nfib
+here
+[int]
+call to method
+nfib
+Symboltable
 main
   a StringArr 
 class LazyArray
   table intArr 
-    Method: init
+    Method: boolean init
       n int 
-    Method: defined
+      i int 
+    Method: boolean defined
       x int 
-    Method: get
+      res boolean 
+    Method: int get
       n int 
-    Method: f
+      x int 
+      y int 
+      res int 
+    Method: int f
       n int 
-    Method: nfib
+    Method: int nfib
       n int 
+      res int 
 class FibAux
-    Method: nfib
+    Method: int nfib
       num int 
-    Method: nfib_lazy
+      res int 
+    Method: int nfib_lazy
       n int 
+      res int 
+      q boolean 
+      l LazyArray 
 
+i
+i
+x
+0
+n
+pretty print arr get: table
+n
+n
+this.get((n-1))
+n
+n
+(this.get((n-1))+this.get((n-2)))
+n
+this.get((n-1))
+n
+n
+num
+num
+this.nfib((num-1))
+num
+num
+(this.nfib((num-1))+this.nfib((num-2)))
+num
+this.nfib((num-1))
+num
+num
+n
 class Fib {
   public static void main (String[] a) {
     System.out.println(new FibAux().nfib_lazy(15));
@@ -922,56 +1723,785 @@ class FibAux {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+nfib_lazy
+here
+[int]
+call to method
+nfib_lazy
+println type: int
+defined
+here
+[int]
+call to method
+defined
+f
+here
+[int]
+call to method
+f
+nfib
+here
+[int]
+call to method
+nfib
+get
+here
+[int]
+call to method
+get
+get
+here
+[int]
+call to method
+get
+nfib
+here
+[int]
+call to method
+nfib
+nfib
+here
+[int]
+call to method
+nfib
+init
+here
+[int]
+call to method
+init
+nfib
+here
+[int]
+call to method
+nfib
+Symboltable
 main
   a StringArr 
 class Game
-    Method: run
+    Method: int run
+      hash Hash 
+      bold Board 
+      b Board 
+      bnew Board 
+      bla int 
+      n int 
+      i int 
 class Board
   board intArr 
   width int 
   height int 
-    Method: init
-      h int 
+    Method: int init
       w int 
-    Method: clone
-    Method: at
-      y int 
+      h int 
+    Method: Board clone
+      c Board 
+      bla int 
+    Method: int at
       x int 
-    Method: set
+      y int 
       value int 
-      y int 
+    Method: int set
       x int 
-    Method: board
-    Method: calc
+      y int 
+      value int 
+    Method: intArr board
+    Method: int calc
       pred Board 
-    Method: initStator
-    Method: init101
-    Method: initGosperGliderGun0
-    Method: initGosperGliderGun
+      x int 
+      y int 
+      count int 
+      bla int 
+    Method: int initStator
+      bla int 
+    Method: int init101
+    Method: int initGosperGliderGun0
+    Method: int initGosperGliderGun
 class Hash
   primes PrimeNumbers 
-    Method: init
+    Method: int init
       n int 
-    Method: hash
+    Method: int hash
       arr intArr 
-    Method: test
+      i int 
+      ip int 
+      sum int 
+    Method: int test
+      arr intArr 
+      bla int 
 class PrimeNumbers
   primes intArr 
   len int 
-    Method: getPrime
+    Method: int getPrime
       i int 
-    Method: getCount
-    Method: gcd
-      y int 
+    Method: int getCount
+    Method: int gcd
       x int 
-    Method: isprime
+      y int 
+      res int 
+    Method: boolean isprime
       n int 
-    Method: init
+      i int 
+      p int 
+      ok boolean 
+      cont boolean 
+    Method: int init
       n int 
-    Method: print
-    Method: test
+      i int 
+    Method: int print
+      i int 
+    Method: int test
       n int 
+      bla int 
 
+i
+i
+w
+w
+0
+(0-1)
+0
+((0-1)<x)
+0
+(0-1)
+0
+x
+(((0-1)<x)&&(x<width))
+0
+(0-1)
+0
+((0-1)<x)
+0
+(0-1)
+0
+x
+0
+(0-1)
+0
+((((0-1)<x)&&(x<width))&&((0-1)<y))
+0
+(0-1)
+0
+((0-1)<x)
+0
+(0-1)
+0
+x
+(((0-1)<x)&&(x<width))
+0
+(0-1)
+0
+((0-1)<x)
+0
+(0-1)
+0
+x
+0
+(0-1)
+0
+y
+pretty print arr get: board
+x
+y
+x
+y
+y
+x
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+(((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+x
+((((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))+pred.at((x+1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+(((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+x
+x
+y
+(((((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))+pred.at((x+1), y))+pred.at((x-1), (y+1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+(((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+x
+((((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))+pred.at((x+1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+(((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+x
+x
+y
+y
+((((((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))+pred.at((x+1), y))+pred.at((x-1), (y+1)))+pred.at(x, (y+1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+(((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+x
+((((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))+pred.at((x+1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+(((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+x
+x
+y
+(((((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))+pred.at((x+1), y))+pred.at((x-1), (y+1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+(((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+x
+((((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))+pred.at((x+1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+(((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))+pred.at((x-1), y))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+((pred.at((x-1), (y-1))+pred.at(x, (y-1)))+pred.at((x+1), (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+(pred.at((x-1), (y-1))+pred.at(x, (y-1)))
+x
+y
+pred.at((x-1), (y-1))
+x
+y
+y
+x
+y
+x
+x
+x
+y
+y
+x
+y
+2
+(2-pred.at(x, y))
+2
+((2-pred.at(x, y))<count)
+2
+(2-pred.at(x, y))
+2
+count
+x
+y
+width
+width
+width
+i
+0
+pretty print arr get: arr
+sum
+i
+i
+ip
+(ip+1)
+ip
+ip
+pretty print arr get: primes
+x
+y
+x
+ok
+i
+(ok&&(i<len))
+ok
+i
+pretty print arr get: primes
+ok
+this.gcd(p, n)
+i
+p
+(p*p)
+p
+len
+len
+i
+i
+pretty print arr get: primes
+len
+i
+pretty print arr get: primes
+i
 class GameOfLife {
   public static void main (String[] a) {
     System.out.println(new Game().run());
@@ -1014,7 +2544,7 @@ class Board {
   int width;
   int height;
 
-  public int init (int h, int w) {
+  public int init (int w, int h) {
     width = w;
     height = h;
     board = new int [(w*h)];
@@ -1029,7 +2559,7 @@ class Board {
     return c;
   }
 
-  public int at (int y, int x) {
+  public int at (int x, int y) {
     int value;
     if ((((((0-1)<x)&&(x<width))&&((0-1)<y))&&(y<height))) {
       value = board[(x+(y*width))];
@@ -1039,7 +2569,7 @@ class Board {
     return value;
   }
 
-  public int set (int value, int y, int x) {
+  public int set (int x, int y, int value) {
     board[(x+(y*width))] = value;
     return value;
   }
@@ -2689,7 +4219,7 @@ class PrimeNumbers {
     return len;
   }
 
-  public int gcd (int y, int x) {
+  public int gcd (int x, int y) {
     int res;
     if ((x<y)) {
       res = this.gcd(y, x);
@@ -2756,45 +4286,260 @@ class PrimeNumbers {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[]
+call to method
+run
+println type: int
+initGosperGliderGun
+here
+[]
+call to method
+initGosperGliderGun
+init
+here
+[int]
+call to method
+init
+clone
+here
+[]
+call to method
+clone
+hash
+here
+[intArr]
+board
+here
+[]
+call to method
+board
+call to method
+hash
+println type: int
+calc
+here
+[Board]
+call to method
+calc
+init
+here
+[int, int]
+call to method
+init
+at
+here
+[int, int]
+call to method
+at
+at
+here
+[int, int]
+call to method
+at
+at
+here
+[int, int]
+call to method
+at
+at
+here
+[int, int]
+call to method
+at
+at
+here
+[int, int]
+call to method
+at
+at
+here
+[int, int]
+call to method
+at
+at
+here
+[int, int]
+call to method
+at
+at
+here
+[int, int]
+call to method
+at
+at
+here
+[int, int]
+call to method
+at
+set
+here
+[int, int, int]
+call to method
+set
+set
+here
+[int, int, int]
+call to method
+set
+init
+here
+[int, int]
+call to method
+init
+set
+here
+[int, int, int]
+call to method
+set
+set
+here
+[int, int, int]
+call to method
+set
+set
+here
+[int, int, int]
+call to method
+set
+set
+here
+[int, int, int]
+call to method
+set
+init
+here
+[int]
+call to method
+init
+getPrime
+here
+[int]
+call to method
+getPrime
+getCount
+here
+[]
+call to method
+getCount
+init
+here
+[int]
+call to method
+init
+hash
+here
+[intArr]
+call to method
+hash
+gcd
+here
+[int, int]
+call to method
+gcd
+gcd
+here
+[int, int]
+call to method
+gcd
+gcd
+here
+[int, int]
+call to method
+gcd
+isprime
+here
+[int]
+call to method
+isprime
+println type: int
+init
+here
+[int]
+call to method
+init
+print
+here
+[]
+call to method
+print
+Symboltable
 main
   argv StringArr 
 class Test
-    Method: newLabel
+    Method: Label newLabel
       v int 
-    Method: newNode
+      bla int 
       l Label 
-    Method: findPath
-      t Node 
+    Method: Node newNode
+      l Label 
+      bla int 
+      n Node 
+    Method: int findPath
       s Node 
-    Method: test
+      t Node 
+      bla int 
+      res boolean 
+      tmp boolean 
+    Method: int test
+      bla int 
+      res1 boolean 
+      res2 boolean 
+      l1 Label 
+      n1 Node 
+      l2 Label 
+      n2 Node 
+      l3 Label 
+      n3 Node 
+      l4 Label 
+      n4 Node 
+      l5 Label 
+      n5 Node 
 class Node
   a Label 
   visited boolean 
   left Node 
   right Node 
-    Method: init
+    Method: int init
       b Label 
-    Method: label
-    Method: setLeft
+    Method: Label label
+    Method: int setLeft
       n Node 
-    Method: setRight
+    Method: int setRight
       n Node 
-    Method: print
-    Method: beq
-      b boolean 
+    Method: int print
+      bla int 
+    Method: boolean beq
       a boolean 
-    Method: dfs
-      b Label 
+      b boolean 
+    Method: boolean dfs
       vis boolean 
+      b Label 
+      result boolean 
 class Label
   value int 
-    Method: init
+    Method: int init
       v int 
-    Method: label
-    Method: eq
+    Method: int label
+    Method: boolean eq
       l Label 
-    Method: print
+      v2 int 
+    Method: int print
 
+0
+a
+!((a&&b))
+a
+!(a)
+value
+v2
+(value<(v2+1))
+value
+v2
+v2
+value
 class Graph {
   public static void main (String[] argv) {
     System.out.println(new Test().test());
@@ -2820,7 +4565,7 @@ class Test {
     return n;
   }
 
-  public int findPath (Node t, Node s) {
+  public int findPath (Node s, Node t) {
     int bla;
     boolean res;
     boolean tmp;
@@ -2912,11 +4657,11 @@ class Node {
     return 0;
   }
 
-  public boolean beq (boolean b, boolean a) {
+  public boolean beq (boolean a, boolean b) {
     return !((!((a&&b))&&!((!(a)&&!(b)))));
   }
 
-  public boolean dfs (Label b, boolean vis) {
+  public boolean dfs (boolean vis, Label b) {
     boolean result;
     if (this.beq(visited, vis)) {
       result = false;
@@ -2966,19 +4711,244 @@ class Label {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+test
+here
+[]
+call to method
+test
+println type: int
+init
+here
+[int]
+call to method
+init
+init
+here
+[Label]
+call to method
+init
+print
+here
+[]
+call to method
+print
+print
+here
+[]
+call to method
+print
+dfs
+here
+[boolean, Label]
+label
+here
+[]
+call to method
+label
+call to method
+dfs
+dfs
+here
+[boolean, Label]
+label
+here
+[]
+call to method
+label
+call to method
+dfs
+println type: int
+println type: int
+newLabel
+here
+[int]
+call to method
+newLabel
+newNode
+here
+[Label]
+call to method
+newNode
+newLabel
+here
+[int]
+call to method
+newLabel
+newNode
+here
+[Label]
+call to method
+newNode
+newLabel
+here
+[int]
+call to method
+newLabel
+newNode
+here
+[Label]
+call to method
+newNode
+newLabel
+here
+[int]
+call to method
+newLabel
+newNode
+here
+[Label]
+call to method
+newNode
+newLabel
+here
+[int]
+call to method
+newLabel
+newNode
+here
+[Label]
+call to method
+newNode
+setLeft
+here
+[Node]
+call to method
+setLeft
+setRight
+here
+[Node]
+call to method
+setRight
+setLeft
+here
+[Node]
+call to method
+setLeft
+setLeft
+here
+[Node]
+call to method
+setLeft
+setRight
+here
+[Node]
+call to method
+setRight
+findPath
+here
+[Node, Node]
+call to method
+findPath
+findPath
+here
+[Node, Node]
+call to method
+findPath
+findPath
+here
+[Node, Node]
+call to method
+findPath
+findPath
+here
+[Node, Node]
+call to method
+findPath
+findPath
+here
+[Node, Node]
+call to method
+findPath
+findPath
+here
+[Node, Node]
+call to method
+findPath
+findPath
+here
+[Node, Node]
+call to method
+findPath
+findPath
+here
+[Node, Node]
+call to method
+findPath
+print
+here
+[]
+call to method
+print
+beq
+here
+[boolean, boolean]
+call to method
+beq
+eq
+here
+[Label]
+call to method
+eq
+dfs
+here
+[boolean, Label]
+call to method
+dfs
+dfs
+here
+[boolean, Label]
+call to method
+dfs
+label
+here
+[]
+call to method
+label
+println type: int
+Symboltable
 main
   a StringArr 
 class LS
   number intArr 
   size int 
-    Method: Start
+    Method: int Start
       sz int 
-    Method: Print
-    Method: Search
+      aux01 int 
+      aux02 int 
+    Method: int Print
+      j int 
+    Method: int Search
       num int 
-    Method: Init
+      j int 
+      ls01 boolean 
+      ifound int 
+      aux01 int 
+      aux02 int 
+      nt int 
+    Method: int Init
       sz int 
+      j int 
+      k int 
+      aux01 int 
+      aux02 int 
 
+j
+pretty print arr get: number
+j
+j
+pretty print arr get: number
+num
+aux01
+aux01
+j
+size
+j
+2
+k
+aux01
+j
+k
 class LinearSearch {
   public static void main (String[] a) {
     System.out.println(new LS().Start(10));
@@ -3063,48 +5033,132 @@ class LS {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+Start
+here
+[int]
+call to method
+Start
+println type: int
+Init
+here
+[int]
+call to method
+Init
+Print
+here
+[]
+call to method
+Print
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+Search
+here
+[int]
+call to method
+Search
+println type: int
+println type: int
+Symboltable
 main
   a StringArr 
 class LL
-    Method: Start
+    Method: int Start
+      head List 
+      last_elem List 
+      aux01 boolean 
+      el01 Element 
+      el02 Element 
+      el03 Element 
 class List
   elem Element 
   next List 
   end boolean 
-    Method: Init
-    Method: InitNew
-      v_end boolean 
-      v_next List 
+    Method: boolean Init
+    Method: boolean InitNew
       v_elem Element 
-    Method: Insert
-      new_elem Element 
-    Method: SetNext
       v_next List 
-    Method: Delete
+      v_end boolean 
+    Method: List Insert
+      new_elem Element 
+      ret_val boolean 
+      aux03 List 
+      aux02 List 
+    Method: boolean SetNext
+      v_next List 
+    Method: List Delete
       e Element 
-    Method: Search
+      my_head List 
+      ret_val boolean 
+      aux05 boolean 
+      aux01 List 
+      prev List 
+      var_end boolean 
+      var_elem Element 
+      aux04 int 
+      nt int 
+    Method: int Search
       e Element 
-    Method: GetEnd
-    Method: GetElem
-    Method: GetNext
-    Method: Print
+      int_ret_val int 
+      aux01 List 
+      var_elem Element 
+      var_end boolean 
+      nt int 
+    Method: boolean GetEnd
+    Method: Element GetElem
+    Method: List GetNext
+    Method: boolean Print
+      aux01 List 
+      var_end boolean 
+      var_elem Element 
 class Element
   Age int 
   Salary int 
   Married boolean 
-    Method: Init
-      v_Married boolean 
-      v_Salary int 
+    Method: boolean Init
       v_Age int 
-    Method: GetAge
-    Method: GetSalary
-    Method: GetMarried
-    Method: Equal
+      v_Salary int 
+      v_Married boolean 
+    Method: int GetAge
+    Method: int GetSalary
+    Method: boolean GetMarried
+    Method: boolean Equal
       other Element 
-    Method: Compare
-      num2 int 
+      ret_val boolean 
+      aux01 int 
+      aux02 int 
+      nt int 
+    Method: boolean Compare
       num1 int 
+      num2 int 
+      retval boolean 
+      aux02 int 
 
+0
+!(var_end)
+aux04
+0
+0
+num2
+num1
+num1
 class LinkedList {
   public static void main (String[] a) {
     System.out.println(new LL().Start());
@@ -3172,7 +5226,7 @@ class List {
     return true;
   }
 
-  public boolean InitNew (boolean v_end, List v_next, Element v_elem) {
+  public boolean InitNew (Element v_elem, List v_next, boolean v_end) {
     end = v_end;
     elem = v_elem;
     next = v_next;
@@ -3295,7 +5349,7 @@ class Element {
   int Salary;
   boolean Married;
 
-  public boolean Init (boolean v_Married, int v_Salary, int v_Age) {
+  public boolean Init (int v_Age, int v_Salary, boolean v_Married) {
     Age = v_Age;
     Salary = v_Salary;
     Married = v_Married;
@@ -3346,7 +5400,7 @@ class Element {
     return ret_val;
   }
 
-  public boolean Compare (int num2, int num1) {
+  public boolean Compare (int num1, int num2) {
     boolean retval;
     int aux02;
     retval = false;
@@ -3365,28 +5419,294 @@ class Element {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+Start
+here
+[]
+call to method
+Start
+println type: int
+Init
+here
+[]
+call to method
+Init
+Init
+here
+[]
+call to method
+Init
+Print
+here
+[]
+call to method
+Print
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Insert
+here
+[Element]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+println type: int
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Insert
+here
+[Element]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+println type: int
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Insert
+here
+[Element]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Search
+here
+[Element]
+call to method
+Search
+println type: int
+Search
+here
+[Element]
+call to method
+Search
+println type: int
+println type: int
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Insert
+here
+[Element]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+println type: int
+Delete
+here
+[Element]
+call to method
+Delete
+Print
+here
+[]
+call to method
+Print
+println type: int
+Delete
+here
+[Element]
+call to method
+Delete
+Print
+here
+[]
+call to method
+Print
+println type: int
+InitNew
+here
+[Element, List, boolean]
+call to method
+InitNew
+Equal
+here
+[Element]
+call to method
+Equal
+GetNext
+here
+[]
+call to method
+GetNext
+println type: int
+SetNext
+here
+[List]
+GetNext
+here
+[]
+call to method
+GetNext
+call to method
+SetNext
+println type: int
+GetNext
+here
+[]
+call to method
+GetNext
+GetEnd
+here
+[]
+call to method
+GetEnd
+GetElem
+here
+[]
+call to method
+GetElem
+Equal
+here
+[Element]
+call to method
+Equal
+GetNext
+here
+[]
+call to method
+GetNext
+GetEnd
+here
+[]
+call to method
+GetEnd
+GetElem
+here
+[]
+call to method
+GetElem
+GetAge
+here
+[]
+call to method
+GetAge
+println type: int
+GetNext
+here
+[]
+call to method
+GetNext
+GetEnd
+here
+[]
+call to method
+GetEnd
+GetElem
+here
+[]
+call to method
+GetElem
+GetAge
+here
+[]
+call to method
+GetAge
+Compare
+here
+[int, int]
+call to method
+Compare
+GetSalary
+here
+[]
+call to method
+GetSalary
+Compare
+here
+[int, int]
+call to method
+Compare
+GetMarried
+here
+[]
+call to method
+GetMarried
+GetMarried
+here
+[]
+call to method
+GetMarried
+Symboltable
 main
   a StringArr 
 class Prime
-    Method: or
-      b boolean 
+    Method: boolean or
       a boolean 
-    Method: divides
-      n int 
-      m int 
-    Method: isprime
-      n int 
-    Method: b2i
       b boolean 
-    Method: test_it
-      x7 int 
-      x6 int 
-      x5 int 
-      x4 int 
-      x3 int 
-      x2 int 
+    Method: boolean divides
+      m int 
+      n int 
+      i int 
+      found boolean 
+    Method: boolean isprime
+      n int 
+      i int 
+      ok boolean 
+    Method: int b2i
+      b boolean 
+      res int 
+    Method: int test_it
       x1 int 
+      x2 int 
+      x3 int 
+      x4 int 
+      x5 int 
+      x6 int 
+      x7 int 
+      n int 
+      b boolean 
 
+!(a)
+!(found)
+i
+i
+(i*m)
+i
+i
+n
+i
+1
+(1<n)
+1
+n
+2
+(2<n)
+2
+ok
+i
+ok
+i
 class TestPrime {
   public static void main (String[] a) {
     System.out.println(new Prime().test_it(1, 2, 3, 4, 5, 10, 89));
@@ -3396,11 +5716,11 @@ class TestPrime {
 class Prime {
 
 
-  public boolean or (boolean b, boolean a) {
+  public boolean or (boolean a, boolean b) {
     return !((!(a)&&!(b)));
   }
 
-  public boolean divides (int n, int m) {
+  public boolean divides (int m, int n) {
     int i;
     boolean found;
     i = 1;
@@ -3441,7 +5761,7 @@ class Prime {
     return res;
   }
 
-  public int test_it (int x7, int x6, int x5, int x4, int x3, int x2, int x1) {
+  public int test_it (int x1, int x2, int x3, int x4, int x5, int x6, int x7) {
     int n;
     boolean b;
     n = x1;
@@ -3477,75 +5797,242 @@ class Prime {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+test_it
+here
+[int, int, int, int, int, int, int]
+call to method
+test_it
+println type: int
+or
+here
+[boolean, boolean]
+divides
+here
+[int, int]
+call to method
+divides
+call to method
+or
+divides
+here
+[int, int]
+call to method
+divides
+println type: int
+isprime
+here
+[int]
+call to method
+isprime
+b2i
+here
+[boolean]
+call to method
+b2i
+println type: int
+println type: int
+isprime
+here
+[int]
+call to method
+isprime
+b2i
+here
+[boolean]
+call to method
+b2i
+println type: int
+println type: int
+isprime
+here
+[int]
+call to method
+isprime
+b2i
+here
+[boolean]
+call to method
+b2i
+println type: int
+println type: int
+isprime
+here
+[int]
+call to method
+isprime
+b2i
+here
+[boolean]
+call to method
+b2i
+println type: int
+println type: int
+isprime
+here
+[int]
+call to method
+isprime
+b2i
+here
+[boolean]
+call to method
+b2i
+println type: int
+println type: int
+isprime
+here
+[int]
+call to method
+isprime
+b2i
+here
+[boolean]
+call to method
+b2i
+println type: int
+println type: int
+isprime
+here
+[int]
+call to method
+isprime
+b2i
+here
+[boolean]
+call to method
+b2i
+println type: int
+Symboltable
 main
   a StringArr 
 class NewtonClass
   half Frac 
   fops FracOps 
-    Method: newton_step
+    Method: Frac newton_step
+      x Frac 
+      n int 
+    Method: Frac newton
       n int 
       x Frac 
-    Method: newton
+      y Frac 
+      epsilon Frac 
+      delta Frac 
+      rc int 
+    Method: int test_it
       n int 
-    Method: test_it
-      n int 
+      res Frac 
+      rc int 
 class FracOps
   iops Integral 
-    Method: init
-    Method: mkFrac
-      y int 
+    Method: int init
+      rc int 
+    Method: Frac mkFrac
       x int 
-    Method: plus
+      y int 
+      ok boolean 
+      res Frac 
+    Method: Frac plus
+      x Frac 
       y Frac 
+      lcm int 
+      res_num int 
+      res_den int 
+      res Frac 
+    Method: Frac times
       x Frac 
-    Method: times
       y Frac 
+      a int 
+      b int 
+      res_num int 
+      res_den int 
+      res Frac 
+    Method: Frac recip
       x Frac 
-    Method: recip
+      res Frac 
+    Method: Frac divide
       x Frac 
-    Method: divide
       y Frac 
+      yr Frac 
+      res Frac 
+    Method: Frac neg
       x Frac 
-    Method: neg
+      res Frac 
+    Method: Frac abs_minus
       x Frac 
-    Method: abs_minus
       y Frac 
+      res Frac 
+    Method: boolean lt
       x Frac 
-    Method: lt
       y Frac 
-      x Frac 
+      lcm int 
+      x0 int 
+      y0 int 
+      res boolean 
 class Integral
-    Method: eq
-      y int 
+    Method: boolean eq
       x int 
-    Method: div
       y int 
+    Method: int div
       x int 
-    Method: rem
-      n int 
+      y int 
+      res int 
+    Method: int rem
       m int 
-    Method: gcd_rec
-      y int 
+      n int 
+    Method: int gcd_rec
       x int 
-    Method: gcd_iter
       y int 
+      res int 
+    Method: int gcd_iter
       x int 
-    Method: gcd
       y int 
+      t int 
+    Method: int gcd
       x int 
-    Method: lcm
       y int 
+    Method: int lcm
       x int 
+      y int 
+      res int 
 class Frac
   num int 
   den int 
-    Method: init
-      y int 
+    Method: boolean init
       x int 
-    Method: den
-    Method: num
-    Method: showFrac
+      y int 
+      ok boolean 
+    Method: int den
+    Method: int num
+    Method: int showFrac
+      rc int 
 
+x.num()
+(x.num()*iops.div(lcm, x.den()))
+x.num()
+y.num()
+iops.div(x.num(), b)
+iops.div(x.den(), a)
+0
+(0-1)
+0
+x.num()
+y.num()
+x0
+x
+!((x<y))
+x
+y
+x
+res
+x
+m
+n
+x
+y
+x
+0
+y
 class Newton {
   public static void main (String[] a) {
     System.out.println(new NewtonClass().test_it(2));
@@ -3557,7 +6044,7 @@ class NewtonClass {
   Frac half;
   FracOps fops;
 
-  public Frac newton_step (int n, Frac x) {
+  public Frac newton_step (Frac x, int n) {
     return fops.times(half, fops.plus(x, fops.divide(fops.mkFrac(n, 1), x)));
   }
 
@@ -3603,7 +6090,7 @@ class FracOps {
     return rc;
   }
 
-  public Frac mkFrac (int y, int x) {
+  public Frac mkFrac (int x, int y) {
     boolean ok;
     Frac res;
     res = new Frac();
@@ -3611,7 +6098,7 @@ class FracOps {
     return res;
   }
 
-  public Frac plus (Frac y, Frac x) {
+  public Frac plus (Frac x, Frac y) {
     int lcm;
     int res_num;
     int res_den;
@@ -3623,7 +6110,7 @@ class FracOps {
     return res;
   }
 
-  public Frac times (Frac y, Frac x) {
+  public Frac times (Frac x, Frac y) {
     int a;
     int b;
     int res_num;
@@ -3643,7 +6130,7 @@ class FracOps {
     return res;
   }
 
-  public Frac divide (Frac y, Frac x) {
+  public Frac divide (Frac x, Frac y) {
     Frac yr;
     Frac res;
     yr = this.recip(y);
@@ -3657,7 +6144,7 @@ class FracOps {
     return res;
   }
 
-  public Frac abs_minus (Frac y, Frac x) {
+  public Frac abs_minus (Frac x, Frac y) {
     Frac res;
     if (this.lt(x, y)) {
       res = this.plus(y, this.neg(x));
@@ -3667,7 +6154,7 @@ class FracOps {
     return res;
   }
 
-  public boolean lt (Frac y, Frac x) {
+  public boolean lt (Frac x, Frac y) {
     int lcm;
     int x0;
     int y0;
@@ -3683,11 +6170,11 @@ class FracOps {
 class Integral {
 
 
-  public boolean eq (int y, int x) {
+  public boolean eq (int x, int y) {
     return (!((x<y))&&!((y<x)));
   }
 
-  public int div (int y, int x) {
+  public int div (int x, int y) {
     int res;
     res = 0;
     while (!((x<y))) {
@@ -3697,11 +6184,11 @@ class Integral {
     return res;
   }
 
-  public int rem (int n, int m) {
+  public int rem (int m, int n) {
     return (m-(n*this.div(m, n)));
   }
 
-  public int gcd_rec (int y, int x) {
+  public int gcd_rec (int x, int y) {
     int res;
     if ((x<y)) {
       res = this.gcd_rec(y, x);
@@ -3715,7 +6202,7 @@ class Integral {
     return res;
   }
 
-  public int gcd_iter (int y, int x) {
+  public int gcd_iter (int x, int y) {
     int t;
     if ((x<y)) {
       t = x;
@@ -3731,11 +6218,11 @@ class Integral {
     return x;
   }
 
-  public int gcd (int y, int x) {
+  public int gcd (int x, int y) {
     return this.gcd_rec(x, y);
   }
 
-  public int lcm (int y, int x) {
+  public int lcm (int x, int y) {
     int res;
     res = (y*this.div(x, this.gcd(x, y)));
     return res;
@@ -3747,7 +6234,7 @@ class Frac {
   int num;
   int den;
 
-  public boolean init (int y, int x) {
+  public boolean init (int x, int y) {
     boolean ok;
     ok = true;
     num = x;
@@ -3773,13 +6260,382 @@ class Frac {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+test_it
+here
+[int]
+call to method
+test_it
+println type: int
+times
+here
+[Frac, Frac]
+plus
+here
+[Frac, Frac]
+divide
+here
+[Frac, Frac]
+mkFrac
+here
+[int, int]
+call to method
+mkFrac
+call to method
+divide
+call to method
+plus
+call to method
+times
+mkFrac
+here
+[int, int]
+call to method
+mkFrac
+mkFrac
+here
+[int, int]
+call to method
+mkFrac
+mkFrac
+here
+[int, int]
+call to method
+mkFrac
+lt
+here
+[Frac, Frac]
+call to method
+lt
+newton_step
+here
+[Frac, int]
+call to method
+newton_step
+abs_minus
+here
+[Frac, Frac]
+call to method
+abs_minus
+init
+here
+[]
+call to method
+init
+newton
+here
+[int]
+call to method
+newton
+println type: int
+println type: int
+showFrac
+here
+[]
+call to method
+showFrac
+init
+here
+[int, int]
+call to method
+init
+lcm
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+den
+here
+[]
+call to method
+den
+call to method
+lcm
+num
+here
+[]
+call to method
+num
+div
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+call to method
+div
+num
+here
+[]
+call to method
+num
+div
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+call to method
+div
+mkFrac
+here
+[int, int]
+call to method
+mkFrac
+gcd
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+num
+here
+[]
+call to method
+num
+call to method
+gcd
+gcd
+here
+[int, int]
+num
+here
+[]
+call to method
+num
+den
+here
+[]
+call to method
+den
+call to method
+gcd
+div
+here
+[int, int]
+num
+here
+[]
+call to method
+num
+call to method
+div
+div
+here
+[int, int]
+num
+here
+[]
+call to method
+num
+call to method
+div
+div
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+call to method
+div
+div
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+call to method
+div
+mkFrac
+here
+[int, int]
+call to method
+mkFrac
+mkFrac
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+num
+here
+[]
+call to method
+num
+call to method
+mkFrac
+recip
+here
+[Frac]
+call to method
+recip
+times
+here
+[Frac, Frac]
+call to method
+times
+mkFrac
+here
+[int, int]
+num
+here
+[]
+call to method
+num
+den
+here
+[]
+call to method
+den
+call to method
+mkFrac
+lt
+here
+[Frac, Frac]
+call to method
+lt
+plus
+here
+[Frac, Frac]
+neg
+here
+[Frac]
+call to method
+neg
+call to method
+plus
+plus
+here
+[Frac, Frac]
+neg
+here
+[Frac]
+call to method
+neg
+call to method
+plus
+lcm
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+den
+here
+[]
+call to method
+den
+call to method
+lcm
+num
+here
+[]
+call to method
+num
+div
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+call to method
+div
+num
+here
+[]
+call to method
+num
+div
+here
+[int, int]
+den
+here
+[]
+call to method
+den
+call to method
+div
+div
+here
+[int, int]
+call to method
+div
+gcd_rec
+here
+[int, int]
+call to method
+gcd_rec
+gcd_rec
+here
+[int, int]
+rem
+here
+[int, int]
+call to method
+rem
+call to method
+gcd_rec
+rem
+here
+[int, int]
+call to method
+rem
+gcd_rec
+here
+[int, int]
+call to method
+gcd_rec
+div
+here
+[int, int]
+gcd
+here
+[int, int]
+call to method
+gcd
+call to method
+div
+println type: int
+println type: int
+Symboltable
 main
   argv StringArr 
 class B
-    Method: run
-      m int 
+    Method: int run
       n int 
+      m int 
+      k int 
 
+0
+(0<1)
+0
+n
+m
+(n+(m*m))
+n
+m
+n
+(n+m)
+n
 class Precedence {
   public static void main (String[] argv) {
     System.out.println(new B().run(5, 10));
@@ -3789,7 +6645,7 @@ class Precedence {
 class B {
 
 
-  public int run (int m, int n) {
+  public int run (int n, int m) {
     int k;
     if (((0<1)&&((n+(m*m))<((n+m)*m)))) {
       k = n;
@@ -3801,36 +6657,88 @@ class B {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[int, int]
+call to method
+run
+println type: int
+Symboltable
 main
   a StringArr 
 class PrimesClass
   primes intArr 
   len int 
-    Method: eq
-      y int 
+    Method: boolean eq
       x int 
-    Method: div
       y int 
+    Method: int div
       x int 
-    Method: rem
-      n int 
-      m int 
-    Method: dividess
-      n int 
-      m int 
-    Method: divides
-      n int 
-      m int 
-    Method: hcf
       y int 
+      res int 
+    Method: int rem
+      m int 
+      n int 
+    Method: boolean dividess
+      m int 
+      n int 
+    Method: boolean divides
+      m int 
+      n int 
+      i int 
+      found boolean 
+    Method: int hcf
       x int 
-    Method: isprime
+      y int 
+      res int 
+    Method: boolean isprime
       n int 
-    Method: primes
+      i int 
+      ok boolean 
+    Method: int primes
       n int 
-    Method: test_it
+      s int 
+      i int 
+    Method: int test_it
       n int 
+      s int 
 
+x
+!((x<y))
+x
+y
+x
+1
+x
+n
+m
+m
+!(found)
+i
+i
+(i*m)
+i
+i
+n
+i
+x
+y
+x
+ok
+i
+(ok&&(i<len))
+ok
+i
+i
+ok
+pretty print arr get: primes
+i
+i
+len
+i
+s
+i
 class Primes {
   public static void main (String[] a) {
     System.out.println(new PrimesClass().test_it(22));
@@ -3842,11 +6750,11 @@ class PrimesClass {
   int[] primes;
   int len;
 
-  public boolean eq (int y, int x) {
+  public boolean eq (int x, int y) {
     return (!((x<y))&&!((y<x)));
   }
 
-  public int div (int y, int x) {
+  public int div (int x, int y) {
     int res;
     if ((x<y)) {
       res = 0;
@@ -3860,15 +6768,15 @@ class PrimesClass {
     return res;
   }
 
-  public int rem (int n, int m) {
+  public int rem (int m, int n) {
     return (n-(m*this.div(n, m)));
   }
 
-  public boolean dividess (int n, int m) {
+  public boolean dividess (int m, int n) {
     return this.eq(n, (m*this.div(n, m)));
   }
 
-  public boolean divides (int n, int m) {
+  public boolean divides (int m, int n) {
     int i;
     boolean found;
     i = 1;
@@ -3887,7 +6795,7 @@ class PrimesClass {
     return found;
   }
 
-  public int hcf (int y, int x) {
+  public int hcf (int x, int y) {
     int res;
     if ((x<y)) {
       res = this.hcf(y, x);
@@ -3943,20 +6851,111 @@ class PrimesClass {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+test_it
+here
+[int]
+call to method
+test_it
+println type: int
+eq
+here
+[int, int]
+call to method
+eq
+div
+here
+[int, int]
+call to method
+div
+div
+here
+[int, int]
+call to method
+div
+eq
+here
+[int, int]
+div
+here
+[int, int]
+call to method
+div
+call to method
+eq
+hcf
+here
+[int, int]
+call to method
+hcf
+hcf
+here
+[int, int]
+call to method
+hcf
+divides
+here
+[int, int]
+call to method
+divides
+isprime
+here
+[int]
+call to method
+isprime
+println type: int
+primes
+here
+[int]
+call to method
+primes
+println type: int
+Symboltable
 main
   a StringArr 
 class QS
   number intArr 
   size int 
-    Method: Start
+    Method: int Start
       sz int 
-    Method: Sort
-      right int 
+      aux01 int 
+    Method: int Sort
       left int 
-    Method: Print
-    Method: Init
+      right int 
+      v int 
+      i int 
+      j int 
+      nt int 
+      t int 
+      cont01 boolean 
+      cont02 boolean 
+      aux03 int 
+    Method: int Print
+      j int 
+    Method: int Init
       sz int 
 
+size
+left
+pretty print arr get: number
+left
+i
+pretty print arr get: number
+aux03
+j
+pretty print arr get: number
+v
+pretty print arr get: number
+pretty print arr get: number
+j
+i
+pretty print arr get: number
+pretty print arr get: number
+i
+i
+j
+pretty print arr get: number
+j
 class QuickSort {
   public static void main (String[] a) {
     System.out.println(new QS().Start(10));
@@ -3979,7 +6978,7 @@ class QS {
     return 0;
   }
 
-  public int Sort (int right, int left) {
+  public int Sort (int left, int right) {
     int v;
     int i;
     int j;
@@ -4063,15 +7062,56 @@ class QS {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+Start
+here
+[int]
+call to method
+Start
+println type: int
+Init
+here
+[int]
+call to method
+Init
+Print
+here
+[]
+call to method
+Print
+println type: int
+Sort
+here
+[int, int]
+call to method
+Sort
+Print
+here
+[]
+call to method
+Print
+Sort
+here
+[int, int]
+call to method
+Sort
+Sort
+here
+[int, int]
+call to method
+Sort
+println type: int
+Symboltable
 main
   argv StringArr 
 class S
   n int 
-    Method: Init
+    Method: int Init
       m int 
-    Method: run
-      m int 
+    Method: int run
       n int 
+      m int 
+      k int 
 
 class Scope {
   public static void main (String[] argv) {
@@ -4088,7 +7128,7 @@ class S {
     return 0;
   }
 
-  public int run (int m, int n) {
+  public int run (int n, int m) {
     int k;
     k = this.Init(m);
     return n;
@@ -4096,10 +7136,24 @@ class S {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[int, int]
+call to method
+run
+println type: int
+Init
+here
+[int]
+call to method
+Init
+Symboltable
 main
   argv StringArr 
 class S
-    Method: run
+    Method: int run
+      n int 
       n int 
 
 class Scope {
@@ -4119,13 +7173,28 @@ class S {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[int]
+call to method
+run
+println type: int
+Symboltable
 main
   argv StringArr 
 class TestAnd
-    Method: run
+    Method: int run
       b boolean 
-    Method: sideEffect
+      result int 
+    Method: boolean sideEffect
 
+b
+0
+0
+0
+0
+0
 class ShortCutAnd {
   public static void main (String[] argv) {
     System.out.println(new TestAnd().run(false));
@@ -4156,12 +7225,34 @@ class TestAnd {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[boolean]
+call to method
+run
+println type: int
+sideEffect
+here
+[]
+call to method
+sideEffect
+println type: int
+println type: int
+println type: int
+println type: int
+println type: int
+Symboltable
 main
   a StringArr 
 class StckClass
-    Method: stckme
+    Method: int stckme
       x int 
+      loc int 
+      dummy int 
 
+x
+x
 class Stck {
   public static void main (String[] a) {
     System.out.println(new StckClass().stckme(55));
@@ -4184,16 +7275,34 @@ class StckClass {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+stckme
+here
+[int]
+call to method
+stckme
+println type: int
+stckme
+here
+[int]
+call to method
+stckme
+Symboltable
 main
   a StringArr 
 class SumClass
   a int 
-    Method: f
-      y int 
+    Method: int f
       x int 
-    Method: g
+      y int 
+      z int 
+      res int 
+    Method: int g
       x int 
 
+x
+y
+y
 class Sum {
   public static void main (String[] a) {
     System.out.println(new SumClass().f(0, 5));
@@ -4204,7 +7313,7 @@ class SumClass {
 
   int a;
 
-  public int f (int y, int x) {
+  public int f (int x, int y) {
     int z;
     int res;
     z = (x+y);
@@ -4223,11 +7332,37 @@ class SumClass {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+f
+here
+[int, int]
+call to method
+f
+println type: int
+g
+here
+[int]
+call to method
+g
+f
+here
+[int, int]
+call to method
+f
+Symboltable
 main
   argv StringArr 
 class TestEqMain
-    Method: run
+    Method: int run
+      b boolean 
 
+4
+4
+(4<(4+1))
+4
+4
+4
+4
 class TestEq {
   public static void main (String[] argv) {
     System.out.println(new TestEqMain().run());
@@ -4250,11 +7385,21 @@ class TestEqMain {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[]
+call to method
+run
+println type: int
+println type: int
+println type: int
+Symboltable
 main
   a StringArr 
 class C
   v int 
-    Method: value
+    Method: int value
 
 class TrivialClass {
   public static void main (String[] a) {
@@ -4273,11 +7418,24 @@ class C {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+value
+here
+[]
+call to method
+value
+println type: int
+Symboltable
 main
   argv StringArr 
 class WhileClass
-    Method: run
+    Method: int run
+      i int 
+      sum int 
 
+i
+sum
+i
 class While {
   public static void main (String[] argv) {
     System.out.println(new WhileClass().run());
@@ -4302,15 +7460,36 @@ class WhileClass {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[]
+call to method
+run
+println type: int
+println type: int
+Symboltable
 main
   argv StringArr 
 class A
   arr intArr 
   arr2 intArr 
-    Method: run
-      m int 
+    Method: int run
       n int 
+      m int 
+      k int 
 
+k
+m
+2
+k
+k
+m
+2
+(2*k)
+2
+k
+pretty print arr get: arr
 class ArrayBounds {
   public static void main (String[] argv) {
     System.out.println(new A().run(5, 10));
@@ -4322,7 +7501,7 @@ class A {
   int[] arr;
   int[] arr2;
 
-  public int run (int m, int n) {
+  public int run (int n, int m) {
     int k;
     arr = new int [m];
     k = 0;
@@ -4341,17 +7520,38 @@ class A {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+run
+here
+[int, int]
+call to method
+run
+println type: int
+Symboltable
 main
   a StringArr 
 class Arr
   theArr intArr 
   mx int 
-    Method: init
+    Method: int init
       m int 
-    Method: sum
-    Method: do_it
+      i int 
+    Method: int sum
+      i int 
+      s int 
+    Method: int do_it
       m int 
+      q int 
 
+i
+mx
+i
+i
+i
+mx
+s
+pretty print arr get: theArr
+i
 class ArrSumBUG {
   public static void main (String[] a) {
     System.out.println(new Arr().do_it(10));
@@ -4395,58 +7595,106 @@ class Arr {
 }
 
 Parsing der Eingabe erfolgreich.
-Parse error!
-Syntax error at line 3, column 5.
-Parse error!
-At line 2, column 4: illegal token
-Parse error!
-At line 2, column 11: illegal token
-Parse error!
-Syntax error at line 9, column 34.
-Parse error!
-Syntax error at line 16, column 26.
+Start type check
+do_it
+here
+[int]
+call to method
+do_it
+println type: int
+init
+here
+[int]
+call to method
+init
+sum
+here
+[]
+call to method
+sum
+Symboltable
 main
   a StringArr 
 class LL
-    Method: Start
+    Method: int Start
+      head List 
+      last_elem List 
+      aux01 boolean 
+      el01 Element 
+      el02 Element 
+      el03 Element 
 class List
   elem Element 
   next List 
   end boolean 
-    Method: Init
-    Method: InitNew
-      v_end boolean 
-      v_next List 
+    Method: boolean Init
+    Method: boolean InitNew
       v_elem Element 
-    Method: Insert
-      new_elem Element 
-    Method: SetNext
       v_next List 
-    Method: Delete
+      v_end boolean 
+    Method: List Insert
+      new_elem Element 
+      ret_val boolean 
+      aux03 List 
+      aux02 List 
+    Method: boolean SetNext
+      v_next List 
+    Method: List Delete
       e Element 
-    Method: Search
+      my_head List 
+      ret_val boolean 
+      aux05 boolean 
+      aux01 List 
+      prev List 
+      var_end boolean 
+      var_elem Element 
+      aux04 int 
+      nt int 
+    Method: int Search
       e Element 
-    Method: GetEnd
-    Method: GetElem
-    Method: GetNext
-    Method: Print
+      int_ret_val int 
+      aux01 List 
+      var_elem Element 
+      var_end boolean 
+      nt int 
+    Method: boolean GetEnd
+    Method: Element GetElem
+    Method: List GetNext
+    Method: boolean Print
+      aux01 List 
+      var_end boolean 
+      var_elem Element 
 class Element
   Age int 
   Salary int 
   Married boolean 
-    Method: Init
-      v_Married boolean 
-      v_Salary int 
+    Method: boolean Init
       v_Age int 
-    Method: GetAge
-    Method: GetSalary
-    Method: GetMarried
-    Method: Equal
+      v_Salary int 
+      v_Married boolean 
+    Method: int GetAge
+    Method: int GetSalary
+    Method: boolean GetMarried
+    Method: boolean Equal
       other Element 
-    Method: Compare
-      num2 int 
+      ret_val boolean 
+      aux01 int 
+      aux02 int 
+      nt int 
+    Method: boolean Compare
       num1 int 
+      num2 int 
+      retval boolean 
+      aux02 int 
 
+0
+!(var_end)
+aux04
+0
+0
+num2
+num1
+!(num1)
 class LinkedList {
   public static void main (String[] a) {
     System.out.println(new LL().Start());
@@ -4514,7 +7762,7 @@ class List {
     return true;
   }
 
-  public boolean InitNew (boolean v_end, List v_next, Element v_elem) {
+  public boolean InitNew (Element v_elem, List v_next, boolean v_end) {
     end = v_end;
     elem = v_elem;
     next = v_next;
@@ -4637,7 +7885,7 @@ class Element {
   int Salary;
   boolean Married;
 
-  public boolean Init (boolean v_Married, int v_Salary, int v_Age) {
+  public boolean Init (int v_Age, int v_Salary, boolean v_Married) {
     Age = v_Age;
     Salary = v_Salary;
     Married = v_Married;
@@ -4688,7 +7936,7 @@ class Element {
     return ret_val;
   }
 
-  public boolean Compare (int num2, int num1) {
+  public boolean Compare (int num1, int num2) {
     boolean retval;
     int aux02;
     retval = false;
@@ -4707,13 +7955,253 @@ class Element {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+Start
+here
+[]
+call to method
+Start
+println type: int
+Init
+here
+[]
+call to method
+Init
+Init
+here
+[]
+call to method
+Init
+Print
+here
+[]
+call to method
+Print
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Insert
+here
+[Element]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+println type: int
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Insert
+here
+[Element]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+println type: int
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Insert
+here
+[Element]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Search
+here
+[Element]
+call to method
+Search
+println type: int
+Search
+here
+[Element]
+call to method
+Search
+println type: int
+println type: int
+Init
+here
+[int, int, boolean]
+call to method
+Init
+Insert
+here
+[Element]
+call to method
+Insert
+Print
+here
+[]
+call to method
+Print
+println type: int
+Delete
+here
+[Element]
+call to method
+Delete
+Print
+here
+[]
+call to method
+Print
+println type: int
+Delete
+here
+[Element]
+call to method
+Delete
+Print
+here
+[]
+call to method
+Print
+println type: int
+InitNew
+here
+[Element, List, boolean]
+call to method
+InitNew
+Equal
+here
+[Element]
+call to method
+Equal
+GetNext
+here
+[]
+call to method
+GetNext
+println type: int
+SetNext
+here
+[List]
+GetNext
+here
+[]
+call to method
+GetNext
+call to method
+SetNext
+println type: int
+GetNext
+here
+[]
+call to method
+GetNext
+GetEnd
+here
+[]
+call to method
+GetEnd
+GetElem
+here
+[]
+call to method
+GetElem
+Equal
+here
+[Element]
+call to method
+Equal
+GetNext
+here
+[]
+call to method
+GetNext
+GetEnd
+here
+[]
+call to method
+GetEnd
+GetElem
+here
+[]
+call to method
+GetElem
+GetAge
+here
+[]
+call to method
+GetAge
+println type: int
+GetNext
+here
+[]
+call to method
+GetNext
+GetEnd
+here
+[]
+call to method
+GetEnd
+GetElem
+here
+[]
+call to method
+GetElem
+GetAge
+here
+[]
+call to method
+GetAge
+Compare
+here
+[int, int]
+call to method
+Compare
+GetSalary
+here
+[]
+call to method
+GetSalary
+Compare
+here
+[int, int]
+call to method
+Compare
+GetMarried
+here
+[]
+call to method
+GetMarried
+GetMarried
+here
+[]
+call to method
+GetMarried
+Negation is not possible because argument is not from type boolean
+Symboltable
 main
   argv StringArr 
 class BLA
-    Method: blaa
-    Method: bla
-      k int 
+    Method: int blaa
+    Method: int bla
       b BLA 
+      k int 
 
 class MethodCallWrong {
   public static void main (String[] argv) {
@@ -4728,18 +8216,35 @@ class BLA {
     return this.bla(5, new BLA());
   }
 
-  public int bla (int k, BLA b) {
+  public int bla (BLA b, int k) {
     return k;
   }
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+blaa
+here
+[]
+call to method
+blaa
+println type: int
+bla
+here
+[BLA, int]
+Method: bla
+Type of parameters don't match type of passed variables - BLA int
+Symboltable
 main
   a StringArr 
 class Fac
-    Method: ComputeFac
+    Method: int ComputeFac
       num int 
+      num_aux int 
 
+num
+num
+num
 class Factorial {
   public static void main (String[] a) {
     System.out.println(new Fac().ComputeFac(10));
@@ -4761,11 +8266,22 @@ class Fac {
 }
 
 Parsing der Eingabe erfolgreich.
-Parse error!
-Syntax error at line 15, column 40.
+Start type check
+ComputeFac
+here
+[int]
+call to method
+ComputeFac
+println type: int
+computeFac
+here
+null
+Method computeFac is not defined
+Symboltable
 main
   argv StringArr 
 
+pretty print arr get: argv
 class PrintArgs {
   public static void main (String[] argv) {
     System.out.println(argv[0]);
@@ -4774,16 +8290,25 @@ class PrintArgs {
 
 
 Parsing der Eingabe erfolgreich.
+Start type check
+println type: String
+syntax error in println. Type is not from type Int
+Symboltable
 main
   a StringArr 
 class Fac
   num int 
   num intArr 
-    Method: ComputeFac
+    Method: int ComputeFac
       num int 
       num intArr 
       num int 
+      num_aux intArr 
+      num_aux int 
 
+num
+num
+num
 class Factorial {
   public static void main (String[] a) {
     System.out.println(new Fac().ComputeFac(10, new int [10], 9));
@@ -4808,14 +8333,26 @@ class Fac {
 }
 
 Parsing der Eingabe erfolgreich.
-Parse error!
-At line 2, column 22: illegal token
+Start type check
+ComputeFac
+here
+[int, intArr, int]
+call to method
+ComputeFac
+println type: int
+Statement assign is not correct: num_aux
+Symboltable
 main
   a StringArr 
 class Fac
-    Method: ComputeFac
+    Method: int ComputeFac
       num int 
+      num_aux int 
 
+num
+num
+num
+num
 class Factorial {
   public static void main (String[] a) {
     System.out.println(new Fac().ComputeFac(10));
@@ -4837,12 +8374,28 @@ class Fac {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+ComputeFac
+here
+[int]
+call to method
+ComputeFac
+println type: int
+ComputeFac
+here
+[int]
+Number of arguments is not correct
+Symboltable
 main
   a StringArr 
 class Fac
-    Method: ComputeFac
+    Method: int ComputeFac
       num int 
+      num_aux int 
 
+num
+num
+num
 class Factorial {
   public static void main (String[] a) {
     System.out.println(new Fac().ComputeFac(10));
@@ -4864,12 +8417,26 @@ class Fac {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+ComputeFac
+here
+[int]
+call to method
+ComputeFac
+println type: int
+ComputeFac
+here
+[int]
+Method: ComputeFac
+Type of parameters don't match type of passed variables - int boolean
+Symboltable
 main
   a StringArr 
 class A
   b B 
-    Method: do_it
+    Method: int do_it
       x int 
+      res int 
 
 class UndeclaredType {
   public static void main (String[] a) {
@@ -4889,11 +8456,21 @@ class A {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+do_it
+here
+[int]
+call to method
+do_it
+println type: int
+Class Type is not defined
+Symboltable
 main
   a StringArr 
 class A
   a int 
-    Method: getVar
+    Method: int getVar
+      res int 
 
 class UndeclaredVar1 {
   public static void main (String[] a) {
@@ -4913,12 +8490,23 @@ class A {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+getVar
+here
+[]
+call to method
+getVar
+println type: int
+Could not find variable
+Symboltable
 main
   a StringArr 
 class A
-    Method: do_it
+    Method: int do_it
       x int 
+      res int 
 
+x
 class UndeclaredVar2 {
   public static void main (String[] a) {
     System.out.println(new A().do_it(1));
@@ -4936,18 +8524,30 @@ class A {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+do_it
+here
+[int]
+call to method
+do_it
+println type: int
+Could not find variable
+Symboltable
 main
   a StringArr 
 class Foo
   x int 
-    Method: is_foo
+    Method: boolean is_foo
       n int 
-    Method: all_foo
+    Method: boolean all_foo
+      n int 
       m int 
-      n int 
-    Method: wrong
+    Method: int wrong
       n int 
 
+x
+this.is_foo(n)
+this.is_foo(m)
 class Main {
   public static void main (String[] a) {
     System.out.println(99);
@@ -4962,7 +8562,7 @@ class Foo {
     return (x<n);
   }
 
-  public boolean all_foo (int m, int n) {
+  public boolean all_foo (int n, int m) {
     return (this.is_foo(n)&&(this.is_foo(m)+1));
   }
 
@@ -4972,13 +8572,29 @@ class Foo {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+println type: int
+is_foo
+here
+[int]
+call to method
+is_foo
+is_foo
+here
+[int]
+call to method
+is_foo
+expression expbinop is not correct
+Symboltable
 main
   a StringArr 
 class A
-    Method: do_it
-      y int 
+    Method: int do_it
       x int 
+      y int 
+      res int 
 
+x
 class WrongArgumentTypes {
   public static void main (String[] a) {
     System.out.println(new A().do_it(1, true));
@@ -4988,7 +8604,7 @@ class WrongArgumentTypes {
 class A {
 
 
-  public int do_it (int y, int x) {
+  public int do_it (int x, int y) {
     int res;
     res = (x+y);
     return res;
@@ -4996,12 +8612,23 @@ class A {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+do_it
+here
+[int, int]
+Method: do_it
+Type of parameters don't match type of passed variables - int boolean
+Symboltable
 main
   a StringArr 
 class Fac
-    Method: ComputeFac
+    Method: int ComputeFac
       num int 
+      num_aux intArr 
 
+num
+num
+num
 class Factorial {
   public static void main (String[] a) {
     System.out.println(new Fac().ComputeFac(10));
@@ -5023,3 +8650,11 @@ class Fac {
 }
 
 Parsing der Eingabe erfolgreich.
+Start type check
+ComputeFac
+here
+[int]
+call to method
+ComputeFac
+println type: int
+Statement assign is not correct: num_aux

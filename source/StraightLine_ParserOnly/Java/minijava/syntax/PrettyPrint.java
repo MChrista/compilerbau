@@ -136,11 +136,13 @@ public class PrettyPrint {
 
     @Override
     public String visit(ExpBinOp e) {
+    	System.out.println(e.left.accept(this));
       return "(" + e.left.accept(this) + e.op.toString() + e.right.accept(this) + ")";
     }
 
     @Override
     public String visit(ExpArrayGet e) {
+    	System.out.println("pretty print arr get: " + e.array.accept(this));
       return e.array.accept(this) + "[" + e.index.accept(this) + "]";
     }
 

@@ -11,6 +11,14 @@ public class TableLine {
 		this.value = value;
 	}
 	
+	public String getName(){
+		return this.name;
+	}
+	
+	public String getType(){
+		return this.type;
+	}
+	
 	public String print(){
 		return this.name + " " + this.type + " " + this.value;
 	}

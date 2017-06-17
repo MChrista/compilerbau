@@ -35,11 +35,52 @@ public class ClassTable extends Table{
 		}	
 	}
 	
-	public void checkSemantic(DeclClass dc, GlobalTable gt) {
-		
-		
-		// TODO Auto-generated method stub
-		
+	public String getTypeOfVariable(String varName, String methName){
+		MethodTable mt = this.getMethodTableByName(methName);
+		if (mt == null){
+			return this.getTypeOfVar(varName);
+		}else{
+			String varType = mt.getTypeOfVariable(varName);
+			if (varType == null){
+				return this.getTypeOfVar(varName);
+			}
+			return varType;
+		}
+	}
+	
+	public TableLine findVariableByName(String name){
+		for(TableLine tl : lines){
+			if (tl.getName().equals(name)){
+				return tl;
+			}
+		}
+		return null;
+	}
+	
+	public MethodTable getMethodTableByName(String methName){
+		for (MethodTable tl : methods){
+			if (tl.getName().equals(methName)){
+				return tl;
+			}
+		}
+		return null;
+	}
+	
+	public String getTypeOfMethod(String methName){
+		for (MethodTable tl : methods){
+			if (tl.getName().equals(methName)){
+				return tl.getType();
+			}
+		}
+		return null;
+	}
+	
+	public List getArgsOfMethod(String methName){
+		MethodTable mt = this.getMethodTableByName(methName);
+		if(mt == null){
+			return null;
+		}
+		return mt.getArgs();
 	}
 	
 	public String printTable(){

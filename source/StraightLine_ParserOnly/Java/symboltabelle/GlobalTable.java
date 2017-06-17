@@ -13,7 +13,6 @@ public class GlobalTable{
 	public GlobalTable(Prg prg){
 		this.addMain(prg);
 		this.addClasses(prg);
-
 	}
 
 	public void addClasses(Prg prg){
@@ -29,26 +28,46 @@ public class GlobalTable{
 		main.add(prg.mainClass);
 	}
 
-	public boolean checkSemantic(Prg prg){
-		main.checkSemantic(prg.mainClass, this);
-
-		for (DeclClass dc : prg.classes){
-			ClassTable ct = this.findClassTableByName(dc.className);
-			if (ct == null){
-				System.exit(1);
-			}
-			ct.checkSemantic(dc, this);
-		}
-		return false;
-	}
-
 	public ClassTable findClassTableByName(String name){
 		for (ClassTable ct : classes){
-			if (ct.name == name){
+			if (ct.name.equals(name)){
 				return ct;
 			}
 		}
 		return null;
+	}
+	
+	public String getTypeOfVariable(String varName, String className, String methName){
+		if(this.isMain(className, methName)){
+			return this.main.getTypeOfVar(varName);
+		} else {
+			ClassTable ct = this.findClassTableByName(className);
+			return ct.getTypeOfVariable(varName, methName);
+		}
+	}
+	
+	public boolean isMain(String className, String methName){
+		if(className.equals("") && methName.equals("main")){
+			return true;
+		}
+		return false;
+	}
+	
+	public String getTypeOfMethod(String className, String methName){
+		ClassTable ct = this.findClassTableByName(className);
+		return ct.getTypeOfMethod(methName);
+	}
+	
+	public MainTable getMainTable(){
+		return this.main;
+	}
+	
+	public List getArgsOfMethod(String className, String methName){
+		ClassTable ct = this.findClassTableByName(className);
+		if (ct == null){
+			return null;
+		}
+		return ct.getArgsOfMethod(methName);
 	}
 
 	public String printTable(){

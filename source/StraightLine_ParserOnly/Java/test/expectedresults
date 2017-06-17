@@ -25,8 +25,8 @@ Sum.java;0
 TestEq.java;0
 TrivialClass.java;0
 While.java;0
-ArrayBounds.java;0
-ArrSumBUG.java;0
+ArrayBounds.java;1
+ArrSumBUG.java;1
 BigMain.java;1
 BrokenLex1.java;1
 BrokenLex2.java;1
@@ -35,10 +35,10 @@ BrokenParse2.java;1
 LinkedListBUG.java;2
 MethodCallWrong.java;2
 MethodWronglySpelled.java;2
-MissingThis.java;1
+MissingThis.java;2
 PrintFirstArg.java;2
 Shadow.java;2
-StringLiteral.java;1
+StringLiteral.java;2
 TooManyArguments.java;2
 TypeOfArgWrong.java;2
 UndeclaredType.java;2

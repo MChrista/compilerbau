@@ -38,4 +38,5 @@ for filename in $(ls $FAILING_TEST_DIR); do
 done
 
 echo "Result: ($SUC_TEST_COUNT/$TEST_COUNT) went successful"
-
+cd test
+diff -y --suppress-common-lines testresults expectedresults

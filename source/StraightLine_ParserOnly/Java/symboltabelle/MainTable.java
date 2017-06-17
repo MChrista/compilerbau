@@ -14,11 +14,4 @@ public class MainTable extends Table{
 	public String printTable(){
 		return "main\n  " + lines.get(0).print();
 	}
-
-	public void checkSemantic(DeclMain mainClass, GlobalTable gt) {
-		mainClass.mainBody.accept(new SymbolTableVisitorStm());
-
-		// TODO Auto-generated method stub
-
-	}
 }
