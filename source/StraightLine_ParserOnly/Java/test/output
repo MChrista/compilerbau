@@ -27,11 +27,6 @@ class AA {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[]
-call to method
-run
 println type: int
 Symboltable
 main
@@ -103,22 +98,7 @@ class Arr {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-do_it
-here
-[int]
-call to method
-do_it
 println type: int
-init
-here
-[int]
-call to method
-init
-sum
-here
-[]
-call to method
-sum
 Symboltable
 main
   a StringArr 
@@ -346,93 +326,23 @@ class BS {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-Start
-here
-[int]
-call to method
-Start
-println type: int
-Init
-here
-[int]
-call to method
-Init
-Print
-here
-[]
-call to method
-Print
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
-Div
-here
-[int]
-call to method
-Div
-Compare
-here
-[int, int]
-call to method
-Compare
-Compare
-here
-[int, int]
-call to method
-Compare
+println type: int
 println type: int
 println type: int
 Symboltable
@@ -829,419 +739,14 @@ class BT {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-Start
-here
-[]
-call to method
-Start
 println type: int
-Init
-here
-[int]
-call to method
-Init
-GetKey
-here
-[]
-call to method
-GetKey
-GetHas_Left
-here
-[]
-call to method
-GetHas_Left
-GetLeft
-here
-[]
-call to method
-GetLeft
-SetHas_Left
-here
-[boolean]
-call to method
-SetHas_Left
-SetLeft
-here
-[Tree]
-call to method
-SetLeft
-GetHas_Right
-here
-[]
-call to method
-GetHas_Right
-GetRight
-here
-[]
-call to method
-GetRight
-SetHas_Right
-here
-[boolean]
-call to method
-SetHas_Right
-SetRight
-here
-[Tree]
-call to method
-SetRight
-GetKey
-here
-[]
-call to method
-GetKey
-GetHas_Left
-here
-[]
-call to method
-GetHas_Left
-GetLeft
-here
-[]
-call to method
-GetLeft
-GetHas_Right
-here
-[]
-call to method
-GetHas_Right
-GetRight
-here
-[]
-call to method
-GetRight
-GetHas_Right
-here
-[]
-call to method
-GetHas_Right
-GetHas_Left
-here
-[]
-call to method
-GetHas_Left
-Remove
-here
-[Tree, Tree]
-call to method
-Remove
-Remove
-here
-[Tree, Tree]
-call to method
-Remove
-GetHas_Left
-here
-[]
-call to method
-GetHas_Left
-RemoveLeft
-here
-[Tree, Tree]
-call to method
-RemoveLeft
-GetHas_Right
-here
-[]
-call to method
-GetHas_Right
-RemoveRight
-here
-[Tree, Tree]
-call to method
-RemoveRight
-GetKey
-here
-[]
-call to method
-GetKey
-GetKey
-GetLeft
-here
-[]
-call to method
-GetLeft
-here
-[]
-GetLeft
-here
-[]
-call to method
-GetLeft
-call to method
-GetKey
-Compare
-here
-[int, int]
-call to method
-Compare
-SetLeft
-here
-[Tree]
-call to method
-SetLeft
-SetHas_Left
-here
-[boolean]
-call to method
-SetHas_Left
-SetRight
-here
-[Tree]
-call to method
-SetRight
-SetHas_Right
-here
-[boolean]
-call to method
-SetHas_Right
-GetHas_Right
-here
-[]
-call to method
-GetHas_Right
-SetKey
-here
-[int]
-GetKey
-GetRight
-here
-[]
-call to method
-GetRight
-here
-[]
-GetRight
-here
-[]
-call to method
-GetRight
-call to method
-GetKey
-call to method
-SetKey
-GetRight
-here
-[]
-call to method
-GetRight
-SetRight
-here
-[Tree]
-call to method
-SetRight
-SetHas_Right
-here
-[boolean]
-call to method
-SetHas_Right
-GetHas_Left
-here
-[]
-call to method
-GetHas_Left
-SetKey
-here
-[int]
-GetKey
-GetLeft
-here
-[]
-call to method
-GetLeft
-here
-[]
-GetLeft
-here
-[]
-call to method
-GetLeft
-call to method
-GetKey
-call to method
-SetKey
-GetLeft
-here
-[]
-call to method
-GetLeft
-SetLeft
-here
-[Tree]
-call to method
-SetLeft
-SetHas_Left
-here
-[boolean]
-call to method
-SetHas_Left
-GetKey
-here
-[]
-call to method
-GetKey
-GetHas_Left
-here
-[]
-call to method
-GetHas_Left
-GetLeft
-here
-[]
-call to method
-GetLeft
-GetHas_Right
-here
-[]
-call to method
-GetHas_Right
-GetRight
-here
-[]
-call to method
-GetRight
-RecPrint
-here
-[Tree]
-call to method
-RecPrint
-GetHas_Left
-here
-[]
-call to method
-GetHas_Left
-RecPrint
-here
-[Tree]
-GetLeft
-here
-[]
-call to method
-GetLeft
-call to method
-RecPrint
-GetKey
-here
-[]
-call to method
-GetKey
 println type: int
-GetHas_Right
-here
-[]
-call to method
-GetHas_Right
-RecPrint
-here
-[Tree]
-GetRight
-here
-[]
-call to method
-GetRight
-call to method
-RecPrint
-Init
-here
-[int]
-call to method
-Init
-Print
-here
-[]
-call to method
-Print
 println type: int
-Insert
-here
-[int]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
-Insert
-here
-[int]
-call to method
-Insert
-Insert
-here
-[int]
-call to method
-Insert
-Insert
-here
-[int]
-call to method
-Insert
-Insert
-here
-[int]
-call to method
-Insert
-Insert
-here
-[int]
-call to method
-Insert
-Insert
-here
-[int]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
-Search
-here
-[int]
-call to method
-Search
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
-Delete
-here
-[int]
-call to method
-Delete
-Print
-here
-[]
-call to method
-Print
-Search
-here
-[int]
-call to method
-Search
 println type: int
 Symboltable
 main
@@ -1367,33 +872,8 @@ class BBS {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-Start
-here
-[int]
-call to method
-Start
 println type: int
-Init
-here
-[int]
-call to method
-Init
-Print
-here
-[]
-call to method
-Print
 println type: int
-Sort
-here
-[]
-call to method
-Sort
-Print
-here
-[]
-call to method
-Print
 println type: int
 Symboltable
 main
@@ -1444,27 +924,7 @@ class EffectsClass {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[]
-call to method
-run
 println type: int
-set
-here
-[int]
-call to method
-set
-set
-here
-[int]
-call to method
-set
-value
-here
-[]
-call to method
-value
 Symboltable
 main
   a StringArr 
@@ -1498,17 +958,7 @@ class Fac {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-ComputeFac
-here
-[int]
-call to method
-ComputeFac
 println type: int
-ComputeFac
-here
-[int]
-call to method
-ComputeFac
 Symboltable
 main
   a StringArr 
@@ -1549,22 +999,7 @@ class FibAux {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-nfib
-here
-[int]
-call to method
-nfib
 println type: int
-nfib
-here
-[int]
-call to method
-nfib
-nfib
-here
-[int]
-call to method
-nfib
 Symboltable
 main
   a StringArr 
@@ -1724,57 +1159,7 @@ class FibAux {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-nfib_lazy
-here
-[int]
-call to method
-nfib_lazy
 println type: int
-defined
-here
-[int]
-call to method
-defined
-f
-here
-[int]
-call to method
-f
-nfib
-here
-[int]
-call to method
-nfib
-get
-here
-[int]
-call to method
-get
-get
-here
-[int]
-call to method
-get
-nfib
-here
-[int]
-call to method
-nfib
-nfib
-here
-[int]
-call to method
-nfib
-init
-here
-[int]
-call to method
-init
-nfib
-here
-[int]
-call to method
-nfib
 Symboltable
 main
   a StringArr 
@@ -4287,184 +3672,9 @@ class PrimeNumbers {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[]
-call to method
-run
 println type: int
-initGosperGliderGun
-here
-[]
-call to method
-initGosperGliderGun
-init
-here
-[int]
-call to method
-init
-clone
-here
-[]
-call to method
-clone
-hash
-here
-[intArr]
-board
-here
-[]
-call to method
-board
-call to method
-hash
 println type: int
-calc
-here
-[Board]
-call to method
-calc
-init
-here
-[int, int]
-call to method
-init
-at
-here
-[int, int]
-call to method
-at
-at
-here
-[int, int]
-call to method
-at
-at
-here
-[int, int]
-call to method
-at
-at
-here
-[int, int]
-call to method
-at
-at
-here
-[int, int]
-call to method
-at
-at
-here
-[int, int]
-call to method
-at
-at
-here
-[int, int]
-call to method
-at
-at
-here
-[int, int]
-call to method
-at
-at
-here
-[int, int]
-call to method
-at
-set
-here
-[int, int, int]
-call to method
-set
-set
-here
-[int, int, int]
-call to method
-set
-init
-here
-[int, int]
-call to method
-init
-set
-here
-[int, int, int]
-call to method
-set
-set
-here
-[int, int, int]
-call to method
-set
-set
-here
-[int, int, int]
-call to method
-set
-set
-here
-[int, int, int]
-call to method
-set
-init
-here
-[int]
-call to method
-init
-getPrime
-here
-[int]
-call to method
-getPrime
-getCount
-here
-[]
-call to method
-getCount
-init
-here
-[int]
-call to method
-init
-hash
-here
-[intArr]
-call to method
-hash
-gcd
-here
-[int, int]
-call to method
-gcd
-gcd
-here
-[int, int]
-call to method
-gcd
-gcd
-here
-[int, int]
-call to method
-gcd
-isprime
-here
-[int]
-call to method
-isprime
 println type: int
-init
-here
-[int]
-call to method
-init
-print
-here
-[]
-call to method
-print
 Symboltable
 main
   argv StringArr 
@@ -4712,199 +3922,9 @@ class Label {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-test
-here
-[]
-call to method
-test
-println type: int
-init
-here
-[int]
-call to method
-init
-init
-here
-[Label]
-call to method
-init
-print
-here
-[]
-call to method
-print
-print
-here
-[]
-call to method
-print
-dfs
-here
-[boolean, Label]
-label
-here
-[]
-call to method
-label
-call to method
-dfs
-dfs
-here
-[boolean, Label]
-label
-here
-[]
-call to method
-label
-call to method
-dfs
 println type: int
 println type: int
-newLabel
-here
-[int]
-call to method
-newLabel
-newNode
-here
-[Label]
-call to method
-newNode
-newLabel
-here
-[int]
-call to method
-newLabel
-newNode
-here
-[Label]
-call to method
-newNode
-newLabel
-here
-[int]
-call to method
-newLabel
-newNode
-here
-[Label]
-call to method
-newNode
-newLabel
-here
-[int]
-call to method
-newLabel
-newNode
-here
-[Label]
-call to method
-newNode
-newLabel
-here
-[int]
-call to method
-newLabel
-newNode
-here
-[Label]
-call to method
-newNode
-setLeft
-here
-[Node]
-call to method
-setLeft
-setRight
-here
-[Node]
-call to method
-setRight
-setLeft
-here
-[Node]
-call to method
-setLeft
-setLeft
-here
-[Node]
-call to method
-setLeft
-setRight
-here
-[Node]
-call to method
-setRight
-findPath
-here
-[Node, Node]
-call to method
-findPath
-findPath
-here
-[Node, Node]
-call to method
-findPath
-findPath
-here
-[Node, Node]
-call to method
-findPath
-findPath
-here
-[Node, Node]
-call to method
-findPath
-findPath
-here
-[Node, Node]
-call to method
-findPath
-findPath
-here
-[Node, Node]
-call to method
-findPath
-findPath
-here
-[Node, Node]
-call to method
-findPath
-findPath
-here
-[Node, Node]
-call to method
-findPath
-print
-here
-[]
-call to method
-print
-beq
-here
-[boolean, boolean]
-call to method
-beq
-eq
-here
-[Label]
-call to method
-eq
-dfs
-here
-[boolean, Label]
-call to method
-dfs
-dfs
-here
-[boolean, Label]
-call to method
-dfs
-label
-here
-[]
-call to method
-label
+println type: int
 println type: int
 Symboltable
 main
@@ -5034,46 +4054,11 @@ class LS {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-Start
-here
-[int]
-call to method
-Start
 println type: int
-Init
-here
-[int]
-call to method
-Init
-Print
-here
-[]
-call to method
-Print
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
-Search
-here
-[int]
-call to method
-Search
 println type: int
 println type: int
 Symboltable
@@ -5420,243 +4405,18 @@ class Element {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-Start
-here
-[]
-call to method
-Start
-println type: int
-Init
-here
-[]
-call to method
-Init
-Init
-here
-[]
-call to method
-Init
-Print
-here
-[]
-call to method
-Print
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Insert
-here
-[Element]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
-println type: int
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Insert
-here
-[Element]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
-println type: int
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Insert
-here
-[Element]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Search
-here
-[Element]
-call to method
-Search
-println type: int
-Search
-here
-[Element]
-call to method
-Search
 println type: int
 println type: int
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Insert
-here
-[Element]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
 println type: int
-Delete
-here
-[Element]
-call to method
-Delete
-Print
-here
-[]
-call to method
-Print
 println type: int
-Delete
-here
-[Element]
-call to method
-Delete
-Print
-here
-[]
-call to method
-Print
 println type: int
-InitNew
-here
-[Element, List, boolean]
-call to method
-InitNew
-Equal
-here
-[Element]
-call to method
-Equal
-GetNext
-here
-[]
-call to method
-GetNext
 println type: int
-SetNext
-here
-[List]
-GetNext
-here
-[]
-call to method
-GetNext
-call to method
-SetNext
 println type: int
-GetNext
-here
-[]
-call to method
-GetNext
-GetEnd
-here
-[]
-call to method
-GetEnd
-GetElem
-here
-[]
-call to method
-GetElem
-Equal
-here
-[Element]
-call to method
-Equal
-GetNext
-here
-[]
-call to method
-GetNext
-GetEnd
-here
-[]
-call to method
-GetEnd
-GetElem
-here
-[]
-call to method
-GetElem
-GetAge
-here
-[]
-call to method
-GetAge
 println type: int
-GetNext
-here
-[]
-call to method
-GetNext
-GetEnd
-here
-[]
-call to method
-GetEnd
-GetElem
-here
-[]
-call to method
-GetElem
-GetAge
-here
-[]
-call to method
-GetAge
-Compare
-here
-[int, int]
-call to method
-Compare
-GetSalary
-here
-[]
-call to method
-GetSalary
-Compare
-here
-[int, int]
-call to method
-Compare
-GetMarried
-here
-[]
-call to method
-GetMarried
-GetMarried
-here
-[]
-call to method
-GetMarried
+println type: int
+println type: int
+println type: int
+println type: int
 Symboltable
 main
   a StringArr 
@@ -5798,110 +4558,20 @@ class Prime {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-test_it
-here
-[int, int, int, int, int, int, int]
-call to method
-test_it
-println type: int
-or
-here
-[boolean, boolean]
-divides
-here
-[int, int]
-call to method
-divides
-call to method
-or
-divides
-here
-[int, int]
-call to method
-divides
-println type: int
-isprime
-here
-[int]
-call to method
-isprime
-b2i
-here
-[boolean]
-call to method
-b2i
 println type: int
 println type: int
-isprime
-here
-[int]
-call to method
-isprime
-b2i
-here
-[boolean]
-call to method
-b2i
 println type: int
 println type: int
-isprime
-here
-[int]
-call to method
-isprime
-b2i
-here
-[boolean]
-call to method
-b2i
 println type: int
 println type: int
-isprime
-here
-[int]
-call to method
-isprime
-b2i
-here
-[boolean]
-call to method
-b2i
 println type: int
 println type: int
-isprime
-here
-[int]
-call to method
-isprime
-b2i
-here
-[boolean]
-call to method
-b2i
 println type: int
 println type: int
-isprime
-here
-[int]
-call to method
-isprime
-b2i
-here
-[boolean]
-call to method
-b2i
 println type: int
 println type: int
-isprime
-here
-[int]
-call to method
-isprime
-b2i
-here
-[boolean]
-call to method
-b2i
+println type: int
+println type: int
 println type: int
 Symboltable
 main
@@ -6261,359 +4931,9 @@ class Frac {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-test_it
-here
-[int]
-call to method
-test_it
-println type: int
-times
-here
-[Frac, Frac]
-plus
-here
-[Frac, Frac]
-divide
-here
-[Frac, Frac]
-mkFrac
-here
-[int, int]
-call to method
-mkFrac
-call to method
-divide
-call to method
-plus
-call to method
-times
-mkFrac
-here
-[int, int]
-call to method
-mkFrac
-mkFrac
-here
-[int, int]
-call to method
-mkFrac
-mkFrac
-here
-[int, int]
-call to method
-mkFrac
-lt
-here
-[Frac, Frac]
-call to method
-lt
-newton_step
-here
-[Frac, int]
-call to method
-newton_step
-abs_minus
-here
-[Frac, Frac]
-call to method
-abs_minus
-init
-here
-[]
-call to method
-init
-newton
-here
-[int]
-call to method
-newton
 println type: int
 println type: int
-showFrac
-here
-[]
-call to method
-showFrac
-init
-here
-[int, int]
-call to method
-init
-lcm
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-den
-here
-[]
-call to method
-den
-call to method
-lcm
-num
-here
-[]
-call to method
-num
-div
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-call to method
-div
-num
-here
-[]
-call to method
-num
-div
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-call to method
-div
-mkFrac
-here
-[int, int]
-call to method
-mkFrac
-gcd
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-num
-here
-[]
-call to method
-num
-call to method
-gcd
-gcd
-here
-[int, int]
-num
-here
-[]
-call to method
-num
-den
-here
-[]
-call to method
-den
-call to method
-gcd
-div
-here
-[int, int]
-num
-here
-[]
-call to method
-num
-call to method
-div
-div
-here
-[int, int]
-num
-here
-[]
-call to method
-num
-call to method
-div
-div
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-call to method
-div
-div
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-call to method
-div
-mkFrac
-here
-[int, int]
-call to method
-mkFrac
-mkFrac
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-num
-here
-[]
-call to method
-num
-call to method
-mkFrac
-recip
-here
-[Frac]
-call to method
-recip
-times
-here
-[Frac, Frac]
-call to method
-times
-mkFrac
-here
-[int, int]
-num
-here
-[]
-call to method
-num
-den
-here
-[]
-call to method
-den
-call to method
-mkFrac
-lt
-here
-[Frac, Frac]
-call to method
-lt
-plus
-here
-[Frac, Frac]
-neg
-here
-[Frac]
-call to method
-neg
-call to method
-plus
-plus
-here
-[Frac, Frac]
-neg
-here
-[Frac]
-call to method
-neg
-call to method
-plus
-lcm
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-den
-here
-[]
-call to method
-den
-call to method
-lcm
-num
-here
-[]
-call to method
-num
-div
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-call to method
-div
-num
-here
-[]
-call to method
-num
-div
-here
-[int, int]
-den
-here
-[]
-call to method
-den
-call to method
-div
-div
-here
-[int, int]
-call to method
-div
-gcd_rec
-here
-[int, int]
-call to method
-gcd_rec
-gcd_rec
-here
-[int, int]
-rem
-here
-[int, int]
-call to method
-rem
-call to method
-gcd_rec
-rem
-here
-[int, int]
-call to method
-rem
-gcd_rec
-here
-[int, int]
-call to method
-gcd_rec
-div
-here
-[int, int]
-gcd
-here
-[int, int]
-call to method
-gcd
-call to method
-div
+println type: int
 println type: int
 println type: int
 Symboltable
@@ -6658,11 +4978,6 @@ class B {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[int, int]
-call to method
-run
 println type: int
 Symboltable
 main
@@ -6852,63 +5167,8 @@ class PrimesClass {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-test_it
-here
-[int]
-call to method
-test_it
 println type: int
-eq
-here
-[int, int]
-call to method
-eq
-div
-here
-[int, int]
-call to method
-div
-div
-here
-[int, int]
-call to method
-div
-eq
-here
-[int, int]
-div
-here
-[int, int]
-call to method
-div
-call to method
-eq
-hcf
-here
-[int, int]
-call to method
-hcf
-hcf
-here
-[int, int]
-call to method
-hcf
-divides
-here
-[int, int]
-call to method
-divides
-isprime
-here
-[int]
-call to method
-isprime
 println type: int
-primes
-here
-[int]
-call to method
-primes
 println type: int
 Symboltable
 main
@@ -7063,43 +5323,8 @@ class QS {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-Start
-here
-[int]
-call to method
-Start
 println type: int
-Init
-here
-[int]
-call to method
-Init
-Print
-here
-[]
-call to method
-Print
 println type: int
-Sort
-here
-[int, int]
-call to method
-Sort
-Print
-here
-[]
-call to method
-Print
-Sort
-here
-[int, int]
-call to method
-Sort
-Sort
-here
-[int, int]
-call to method
-Sort
 println type: int
 Symboltable
 main
@@ -7137,17 +5362,7 @@ class S {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[int, int]
-call to method
-run
 println type: int
-Init
-here
-[int]
-call to method
-Init
 Symboltable
 main
   argv StringArr 
@@ -7174,11 +5389,6 @@ class S {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[int]
-call to method
-run
 println type: int
 Symboltable
 main
@@ -7226,17 +5436,7 @@ class TestAnd {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[boolean]
-call to method
-run
 println type: int
-sideEffect
-here
-[]
-call to method
-sideEffect
 println type: int
 println type: int
 println type: int
@@ -7276,17 +5476,7 @@ class StckClass {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-stckme
-here
-[int]
-call to method
-stckme
 println type: int
-stckme
-here
-[int]
-call to method
-stckme
 Symboltable
 main
   a StringArr 
@@ -7333,22 +5523,7 @@ class SumClass {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-f
-here
-[int, int]
-call to method
-f
 println type: int
-g
-here
-[int]
-call to method
-g
-f
-here
-[int, int]
-call to method
-f
 Symboltable
 main
   argv StringArr 
@@ -7386,11 +5561,6 @@ class TestEqMain {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[]
-call to method
-run
 println type: int
 println type: int
 println type: int
@@ -7419,11 +5589,6 @@ class C {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-value
-here
-[]
-call to method
-value
 println type: int
 Symboltable
 main
@@ -7461,11 +5626,6 @@ class WhileClass {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[]
-call to method
-run
 println type: int
 println type: int
 Symboltable
@@ -7521,11 +5681,6 @@ class A {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-run
-here
-[int, int]
-call to method
-run
 println type: int
 Symboltable
 main
@@ -7596,22 +5751,7 @@ class Arr {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-do_it
-here
-[int]
-call to method
-do_it
 println type: int
-init
-here
-[int]
-call to method
-init
-sum
-here
-[]
-call to method
-sum
 Symboltable
 main
   a StringArr 
@@ -7956,243 +6096,18 @@ class Element {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-Start
-here
-[]
-call to method
-Start
-println type: int
-Init
-here
-[]
-call to method
-Init
-Init
-here
-[]
-call to method
-Init
-Print
-here
-[]
-call to method
-Print
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Insert
-here
-[Element]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
-println type: int
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Insert
-here
-[Element]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
-println type: int
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Insert
-here
-[Element]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Search
-here
-[Element]
-call to method
-Search
-println type: int
-Search
-here
-[Element]
-call to method
-Search
 println type: int
 println type: int
-Init
-here
-[int, int, boolean]
-call to method
-Init
-Insert
-here
-[Element]
-call to method
-Insert
-Print
-here
-[]
-call to method
-Print
 println type: int
-Delete
-here
-[Element]
-call to method
-Delete
-Print
-here
-[]
-call to method
-Print
 println type: int
-Delete
-here
-[Element]
-call to method
-Delete
-Print
-here
-[]
-call to method
-Print
 println type: int
-InitNew
-here
-[Element, List, boolean]
-call to method
-InitNew
-Equal
-here
-[Element]
-call to method
-Equal
-GetNext
-here
-[]
-call to method
-GetNext
 println type: int
-SetNext
-here
-[List]
-GetNext
-here
-[]
-call to method
-GetNext
-call to method
-SetNext
 println type: int
-GetNext
-here
-[]
-call to method
-GetNext
-GetEnd
-here
-[]
-call to method
-GetEnd
-GetElem
-here
-[]
-call to method
-GetElem
-Equal
-here
-[Element]
-call to method
-Equal
-GetNext
-here
-[]
-call to method
-GetNext
-GetEnd
-here
-[]
-call to method
-GetEnd
-GetElem
-here
-[]
-call to method
-GetElem
-GetAge
-here
-[]
-call to method
-GetAge
 println type: int
-GetNext
-here
-[]
-call to method
-GetNext
-GetEnd
-here
-[]
-call to method
-GetEnd
-GetElem
-here
-[]
-call to method
-GetElem
-GetAge
-here
-[]
-call to method
-GetAge
-Compare
-here
-[int, int]
-call to method
-Compare
-GetSalary
-here
-[]
-call to method
-GetSalary
-Compare
-here
-[int, int]
-call to method
-Compare
-GetMarried
-here
-[]
-call to method
-GetMarried
-GetMarried
-here
-[]
-call to method
-GetMarried
+println type: int
+println type: int
+println type: int
+println type: int
 Negation is not possible because argument is not from type boolean
 Symboltable
 main
@@ -8223,15 +6138,7 @@ class BLA {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-blaa
-here
-[]
-call to method
-blaa
 println type: int
-bla
-here
-[BLA, int]
 Method: bla
 Type of parameters don't match type of passed variables - BLA int
 Symboltable
@@ -8267,15 +6174,7 @@ class Fac {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-ComputeFac
-here
-[int]
-call to method
-ComputeFac
 println type: int
-computeFac
-here
-null
 Method computeFac is not defined
 Symboltable
 main
@@ -8334,11 +6233,6 @@ class Fac {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-ComputeFac
-here
-[int, intArr, int]
-call to method
-ComputeFac
 println type: int
 Statement assign is not correct: num_aux
 Symboltable
@@ -8375,15 +6269,7 @@ class Fac {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-ComputeFac
-here
-[int]
-call to method
-ComputeFac
 println type: int
-ComputeFac
-here
-[int]
 Number of arguments is not correct
 Symboltable
 main
@@ -8418,15 +6304,7 @@ class Fac {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-ComputeFac
-here
-[int]
-call to method
-ComputeFac
 println type: int
-ComputeFac
-here
-[int]
 Method: ComputeFac
 Type of parameters don't match type of passed variables - int boolean
 Symboltable
@@ -8457,11 +6335,6 @@ class A {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-do_it
-here
-[int]
-call to method
-do_it
 println type: int
 Class Type is not defined
 Symboltable
@@ -8491,11 +6364,6 @@ class A {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-getVar
-here
-[]
-call to method
-getVar
 println type: int
 Could not find variable
 Symboltable
@@ -8525,11 +6393,6 @@ class A {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-do_it
-here
-[int]
-call to method
-do_it
 println type: int
 Could not find variable
 Symboltable
@@ -8574,16 +6437,6 @@ class Foo {
 Parsing der Eingabe erfolgreich.
 Start type check
 println type: int
-is_foo
-here
-[int]
-call to method
-is_foo
-is_foo
-here
-[int]
-call to method
-is_foo
 expression expbinop is not correct
 Symboltable
 main
@@ -8613,9 +6466,6 @@ class A {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-do_it
-here
-[int, int]
 Method: do_it
 Type of parameters don't match type of passed variables - int boolean
 Symboltable
@@ -8651,10 +6501,5 @@ class Fac {
 
 Parsing der Eingabe erfolgreich.
 Start type check
-ComputeFac
-here
-[int]
-call to method
-ComputeFac
 println type: int
 Statement assign is not correct: num_aux
