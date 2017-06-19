@@ -7,6 +7,7 @@ public class ExpInvoke extends Exp {
   final public Exp obj;
   final public String method;
   final public List<Exp> args;
+  public String objType;
 
   public ExpInvoke(Exp obj, String method, List<Exp> args) {
     this.obj = obj;

@@ -1,0 +1,143 @@
+Lmain(1) {
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), CALL(NAME(LNewtonClass$test_it), CALL(NAME(L_halloc), CONST(12)), CONST(2))))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LFrac$init(3) {
+  SEQ(MOVE(TEMP(t2), CONST(1)), MOVE(MEM(BINOP(PLUS, CONST(8), PARAM(0))), PARAM(1)), MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), PARAM(2)))
+  MOVE(TEMP(t3), TEMP(t2))
+  return t3
+}
+
+LFrac$den(1) {
+  SEQ()
+  MOVE(TEMP(t4), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  return t4
+}
+
+LFrac$num(1) {
+  SEQ()
+  MOVE(TEMP(t5), MEM(BINOP(PLUS, CONST(8), PARAM(0))))
+  return t5
+}
+
+LFrac$showFrac(1) {
+  SEQ(MOVE(TEMP(t6), CONST(0)), MOVE(TEMP(t7), CALL(NAME(L_println_int), MEM(BINOP(PLUS, CONST(8), PARAM(0))))), MOVE(TEMP(t8), CALL(NAME(L_println_int), MEM(BINOP(PLUS, CONST(4), PARAM(0))))))
+  MOVE(TEMP(t9), TEMP(t6))
+  return t9
+}
+
+LIntegral$eq(3) {
+  SEQ()
+  MOVE(TEMP(t13), ESEQ(SEQ(MOVE(TEMP(t12), ESEQ(SEQ(MOVE(TEMP(t10), CONST(1)), SEQ(CJUMP(GE, PARAM(1), PARAM(2), L$0, L$1), SEQ(LABEL(L$1), SEQ(MOVE(TEMP(t10), CONST(0)), SEQ(LABEL(L$0), SEQ()))))), TEMP(t10))), SEQ(CJUMP(EQ, TEMP(t12), CONST(0), L$4, L$5), SEQ(LABEL(L$5), SEQ(MOVE(TEMP(t12), ESEQ(SEQ(MOVE(TEMP(t11), CONST(1)), SEQ(CJUMP(GE, PARAM(2), PARAM(1), L$2, L$3), SEQ(LABEL(L$3), SEQ(MOVE(TEMP(t11), CONST(0)), SEQ(LABEL(L$2), SEQ()))))), TEMP(t11))), SEQ(LABEL(L$4), SEQ()))))), TEMP(t12)))
+  return t13
+}
+
+LIntegral$div(3) {
+  SEQ(MOVE(TEMP(t14), CONST(0)), SEQ(LABEL(L$6), SEQ(CJUMP(LT, PARAM(1), PARAM(2), L$8, L$7), SEQ(LABEL(L$7), SEQ(MOVE(TEMP(t14), BINOP(PLUS, CONST(1), TEMP(t14))), MOVE(PARAM(1), BINOP(MINUS, PARAM(1), PARAM(2))), JUMP(NAME(L$6), L$6), SEQ(LABEL(L$8), SEQ()))))))
+  MOVE(TEMP(t15), TEMP(t14))
+  return t15
+}
+
+LIntegral$rem(3) {
+  SEQ()
+  MOVE(TEMP(t16), BINOP(MINUS, PARAM(1), BINOP(MUL, PARAM(2), CALL(NAME(LIntegral$div), PARAM(0), PARAM(1), PARAM(2)))))
+  return t16
+}
+
+LIntegral$gcd_rec(3) {
+  SEQ(SEQ(CJUMP(LT, PARAM(1), PARAM(2), L$12, L$13), SEQ(LABEL(L$13), SEQ(CJUMP(LT, PARAM(2), CONST(1), L$9, L$10), SEQ(LABEL(L$10), SEQ(MOVE(TEMP(t17), CALL(NAME(LIntegral$gcd_rec), PARAM(0), PARAM(2), CALL(NAME(LIntegral$rem), PARAM(0), PARAM(1), PARAM(2)))), JUMP(NAME(L$11), L$11), SEQ(LABEL(L$9), SEQ(MOVE(TEMP(t17), PARAM(1)), LABEL(L$11), SEQ())))), JUMP(NAME(L$14), L$14), SEQ(LABEL(L$12), SEQ(MOVE(TEMP(t17), CALL(NAME(LIntegral$gcd_rec), PARAM(0), PARAM(2), PARAM(1))), LABEL(L$14), SEQ()))))))
+  MOVE(TEMP(t18), TEMP(t17))
+  return t18
+}
+
+LIntegral$gcd_iter(3) {
+  SEQ(SEQ(CJUMP(LT, PARAM(1), PARAM(2), L$15, L$16), SEQ(LABEL(L$16), SEQ(JUMP(NAME(L$17), L$17), SEQ(LABEL(L$15), SEQ(MOVE(TEMP(t19), PARAM(1)), MOVE(PARAM(1), PARAM(2)), MOVE(PARAM(2), TEMP(t19)), LABEL(L$17), SEQ()))))), SEQ(LABEL(L$18), SEQ(CJUMP(LT, CONST(0), PARAM(2), L$19, L$20), SEQ(LABEL(L$19), SEQ(MOVE(TEMP(t19), PARAM(1)), MOVE(PARAM(1), PARAM(2)), MOVE(PARAM(2), CALL(NAME(LIntegral$rem), PARAM(0), TEMP(t19), PARAM(2))), JUMP(NAME(L$18), L$18), SEQ(LABEL(L$20), SEQ()))))))
+  MOVE(TEMP(t20), PARAM(1))
+  return t20
+}
+
+LIntegral$gcd(3) {
+  SEQ()
+  MOVE(TEMP(t21), CALL(NAME(LIntegral$gcd_rec), PARAM(0), PARAM(1), PARAM(2)))
+  return t21
+}
+
+LIntegral$lcm(3) {
+  SEQ(MOVE(TEMP(t22), BINOP(MUL, PARAM(2), CALL(NAME(LIntegral$div), PARAM(0), PARAM(1), CALL(NAME(LIntegral$gcd), PARAM(0), PARAM(1), PARAM(2))))))
+  MOVE(TEMP(t23), TEMP(t22))
+  return t23
+}
+
+LFracOps$init(1) {
+  SEQ(MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(L_halloc), CONST(4))), MOVE(TEMP(t24), CONST(0)))
+  MOVE(TEMP(t25), TEMP(t24))
+  return t25
+}
+
+LFracOps$mkFrac(3) {
+  SEQ(MOVE(TEMP(t27), CALL(NAME(L_halloc), CONST(12))), MOVE(TEMP(t26), CALL(NAME(LFrac$init), TEMP(t27), PARAM(1), PARAM(2))))
+  MOVE(TEMP(t28), TEMP(t27))
+  return t28
+}
+
+LFracOps$plus(3) {
+  SEQ(MOVE(TEMP(t29), CALL(NAME(LIntegral$lcm), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFrac$den), PARAM(1)), CALL(NAME(LFrac$den), PARAM(2)))), MOVE(TEMP(t30), BINOP(PLUS, BINOP(MUL, CALL(NAME(LFrac$num), PARAM(1)), CALL(NAME(LIntegral$div), MEM(BINOP(PLUS, CONST(4), PARAM(0))), TEMP(t29), CALL(NAME(LFrac$den), PARAM(1)))), BINOP(MUL, CALL(NAME(LFrac$num), PARAM(2)), CALL(NAME(LIntegral$div), MEM(BINOP(PLUS, CONST(4), PARAM(0))), TEMP(t29), CALL(NAME(LFrac$den), PARAM(2)))))), MOVE(TEMP(t31), TEMP(t29)), MOVE(TEMP(t32), CALL(NAME(LFracOps$mkFrac), PARAM(0), TEMP(t30), TEMP(t31))))
+  MOVE(TEMP(t33), TEMP(t32))
+  return t33
+}
+
+LFracOps$times(3) {
+  SEQ(MOVE(TEMP(t34), CALL(NAME(LIntegral$gcd), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFrac$den), PARAM(1)), CALL(NAME(LFrac$num), PARAM(2)))), MOVE(TEMP(t35), CALL(NAME(LIntegral$gcd), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFrac$num), PARAM(1)), CALL(NAME(LFrac$den), PARAM(2)))), MOVE(TEMP(t36), BINOP(MUL, CALL(NAME(LIntegral$div), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFrac$num), PARAM(1)), TEMP(t35)), CALL(NAME(LIntegral$div), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFrac$num), PARAM(2)), TEMP(t34)))), MOVE(TEMP(t37), BINOP(MUL, CALL(NAME(LIntegral$div), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFrac$den), PARAM(1)), TEMP(t34)), CALL(NAME(LIntegral$div), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFrac$den), PARAM(2)), TEMP(t35)))), MOVE(TEMP(t38), CALL(NAME(LFracOps$mkFrac), PARAM(0), TEMP(t36), TEMP(t37))))
+  MOVE(TEMP(t39), TEMP(t38))
+  return t39
+}
+
+LFracOps$recip(2) {
+  SEQ(MOVE(TEMP(t40), CALL(NAME(LFracOps$mkFrac), PARAM(0), CALL(NAME(LFrac$den), PARAM(1)), CALL(NAME(LFrac$num), PARAM(1)))))
+  MOVE(TEMP(t41), TEMP(t40))
+  return t41
+}
+
+LFracOps$divide(3) {
+  SEQ(MOVE(TEMP(t42), CALL(NAME(LFracOps$recip), PARAM(0), PARAM(2))), MOVE(TEMP(t43), CALL(NAME(LFracOps$times), PARAM(0), PARAM(1), TEMP(t42))))
+  MOVE(TEMP(t44), TEMP(t43))
+  return t44
+}
+
+LFracOps$neg(2) {
+  SEQ(MOVE(TEMP(t45), CALL(NAME(LFracOps$mkFrac), PARAM(0), BINOP(MUL, CONST(-1), CALL(NAME(LFrac$num), PARAM(1))), CALL(NAME(LFrac$den), PARAM(1)))))
+  MOVE(TEMP(t46), TEMP(t45))
+  return t46
+}
+
+LFracOps$abs_minus(3) {
+  SEQ(SEQ(CJUMP(EQ, CALL(NAME(LFracOps$lt), PARAM(0), PARAM(1), PARAM(2)), CONST(0), L$22, L$21), SEQ(LABEL(L$22), SEQ(MOVE(TEMP(t47), CALL(NAME(LFracOps$plus), PARAM(0), PARAM(1), CALL(NAME(LFracOps$neg), PARAM(0), PARAM(2)))), JUMP(NAME(L$23), L$23), SEQ(LABEL(L$21), SEQ(MOVE(TEMP(t47), CALL(NAME(LFracOps$plus), PARAM(0), PARAM(2), CALL(NAME(LFracOps$neg), PARAM(0), PARAM(1)))), LABEL(L$23), SEQ()))))))
+  MOVE(TEMP(t48), TEMP(t47))
+  return t48
+}
+
+LFracOps$lt(3) {
+  SEQ(MOVE(TEMP(t49), CALL(NAME(LIntegral$lcm), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFrac$den), PARAM(1)), CALL(NAME(LFrac$den), PARAM(2)))), MOVE(TEMP(t50), BINOP(MUL, CALL(NAME(LFrac$num), PARAM(1)), CALL(NAME(LIntegral$div), MEM(BINOP(PLUS, CONST(4), PARAM(0))), TEMP(t49), CALL(NAME(LFrac$den), PARAM(1))))), MOVE(TEMP(t51), BINOP(MUL, CALL(NAME(LFrac$num), PARAM(2)), CALL(NAME(LIntegral$div), MEM(BINOP(PLUS, CONST(4), PARAM(0))), TEMP(t49), CALL(NAME(LFrac$den), PARAM(2))))), MOVE(TEMP(t52), ESEQ(SEQ(MOVE(TEMP(t53), CONST(1)), SEQ(CJUMP(LT, TEMP(t50), TEMP(t51), L$24, L$25), SEQ(LABEL(L$25), SEQ(MOVE(TEMP(t53), CONST(0)), SEQ(LABEL(L$24), SEQ()))))), TEMP(t53))))
+  MOVE(TEMP(t54), TEMP(t52))
+  return t54
+}
+
+LNewtonClass$newton_step(3) {
+  SEQ()
+  MOVE(TEMP(t55), CALL(NAME(LFracOps$times), MEM(BINOP(PLUS, CONST(4), PARAM(0))), MEM(BINOP(PLUS, CONST(8), PARAM(0))), CALL(NAME(LFracOps$plus), MEM(BINOP(PLUS, CONST(4), PARAM(0))), PARAM(1), CALL(NAME(LFracOps$divide), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LFracOps$mkFrac), MEM(BINOP(PLUS, CONST(4), PARAM(0))), PARAM(2), CONST(1)), PARAM(1)))))
+  return t55
+}
+
+LNewtonClass$newton(2) {
+  SEQ(MOVE(MEM(BINOP(PLUS, CONST(8), PARAM(0))), CALL(NAME(LFracOps$mkFrac), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CONST(1), CONST(2))), MOVE(TEMP(t58), CALL(NAME(LFracOps$mkFrac), MEM(BINOP(PLUS, CONST(4), PARAM(0))), CONST(1), CONST(100))), MOVE(TEMP(t56), CALL(NAME(LFracOps$mkFrac), MEM(BINOP(PLUS, CONST(4), PARAM(0))), PARAM(1), CONST(1))), MOVE(TEMP(t59), TEMP(t56)), SEQ(LABEL(L$26), SEQ(CJUMP(EQ, CALL(NAME(LFracOps$lt), MEM(BINOP(PLUS, CONST(4), PARAM(0))), TEMP(t58), TEMP(t59)), CONST(0), L$28, L$27), SEQ(LABEL(L$27), SEQ(MOVE(TEMP(t57), TEMP(t56)), MOVE(TEMP(t56), CALL(NAME(LNewtonClass$newton_step), PARAM(0), TEMP(t56), PARAM(1))), MOVE(TEMP(t59), CALL(NAME(LFracOps$abs_minus), MEM(BINOP(PLUS, CONST(4), PARAM(0))), TEMP(t56), TEMP(t57))), JUMP(NAME(L$26), L$26), SEQ(LABEL(L$28), SEQ()))))))
+  MOVE(TEMP(t61), TEMP(t56))
+  return t61
+}
+
+LNewtonClass$test_it(2) {
+  SEQ(MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(L_halloc), CONST(8))), MOVE(TEMP(t63), CALL(NAME(LFracOps$init), MEM(BINOP(PLUS, CONST(4), PARAM(0))))), MOVE(TEMP(t62), CALL(NAME(LNewtonClass$newton), PARAM(0), PARAM(1))), MOVE(TEMP(t64), CALL(NAME(L_println_int), PARAM(1))), MOVE(TEMP(t65), CALL(NAME(L_println_int), CONST(999))), MOVE(TEMP(t63), CALL(NAME(LFrac$showFrac), TEMP(t62))))
+  MOVE(TEMP(t66), TEMP(t63))
+  return t66
+}

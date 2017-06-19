@@ -1,0 +1,270 @@
+Lmain(1) {
+  MOVE(TEMP(t62), CALL(NAME(L_halloc), CONST(4)))
+  MOVE(TEMP(t63), CALL(NAME(LLL$Start), TEMP(t62)))
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), TEMP(t63)))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LElement$Init(4) {
+  MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), PARAM(1))
+  MOVE(MEM(BINOP(PLUS, CONST(12), PARAM(0))), PARAM(2))
+  MOVE(MEM(BINOP(PLUS, CONST(8), PARAM(0))), PARAM(3))
+  MOVE(TEMP(t2), CONST(1))
+  return t2
+}
+
+LElement$GetAge(1) {
+  MOVE(TEMP(t3), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  return t3
+}
+
+LElement$GetSalary(1) {
+  MOVE(TEMP(t4), MEM(BINOP(PLUS, CONST(12), PARAM(0))))
+  return t4
+}
+
+LElement$GetMarried(1) {
+  MOVE(TEMP(t5), MEM(BINOP(PLUS, CONST(8), PARAM(0))))
+  return t5
+}
+
+LElement$Equal(2) {
+  MOVE(TEMP(t6), CONST(1))
+  MOVE(TEMP(t7), CALL(NAME(LElement$GetAge), PARAM(1)))
+  MOVE(TEMP(t64), CALL(NAME(LElement$Compare), PARAM(0), TEMP(t7), MEM(BINOP(PLUS, CONST(4), PARAM(0)))))
+  CJUMP(EQ, TEMP(t64), CONST(0), L$13, L$12)
+  LABEL(L$13)
+  MOVE(TEMP(t6), CONST(0))
+  JUMP(NAME(L$14), L$14)
+  LABEL(L$12)
+  MOVE(TEMP(t8), CALL(NAME(LElement$GetSalary), PARAM(1)))
+  MOVE(TEMP(t65), CALL(NAME(LElement$Compare), PARAM(0), TEMP(t8), MEM(BINOP(PLUS, CONST(12), PARAM(0)))))
+  CJUMP(EQ, TEMP(t65), CONST(0), L$10, L$9)
+  LABEL(L$10)
+  MOVE(TEMP(t6), CONST(0))
+  JUMP(NAME(L$11), L$11)
+  LABEL(L$9)
+  CJUMP(EQ, MEM(BINOP(PLUS, CONST(8), PARAM(0))), CONST(0), L$7, L$6)
+  LABEL(L$7)
+  MOVE(TEMP(t66), CALL(NAME(LElement$GetMarried), PARAM(1)))
+  CJUMP(EQ, TEMP(t66), CONST(0), L$4, L$3)
+  LABEL(L$4)
+  MOVE(TEMP(t9), CONST(0))
+  JUMP(NAME(L$5), L$5)
+  LABEL(L$3)
+  MOVE(TEMP(t6), CONST(0))
+  LABEL(L$5)
+  JUMP(NAME(L$8), L$8)
+  LABEL(L$6)
+  MOVE(TEMP(t67), CALL(NAME(LElement$GetMarried), PARAM(1)))
+  CJUMP(EQ, TEMP(t67), CONST(0), L$1, L$0)
+  LABEL(L$1)
+  MOVE(TEMP(t6), CONST(0))
+  JUMP(NAME(L$2), L$2)
+  LABEL(L$0)
+  MOVE(TEMP(t9), CONST(0))
+  LABEL(L$2)
+  LABEL(L$8)
+  LABEL(L$11)
+  LABEL(L$14)
+  MOVE(TEMP(t10), TEMP(t6))
+  return t10
+}
+
+LElement$Compare(3) {
+  MOVE(TEMP(t11), CONST(0))
+  MOVE(TEMP(t12), BINOP(PLUS, CONST(1), PARAM(2)))
+  CJUMP(LT, PARAM(1), PARAM(2), L$18, L$19)
+  LABEL(L$19)
+  CJUMP(LT, PARAM(1), TEMP(t12), L$15, L$16)
+  LABEL(L$16)
+  MOVE(TEMP(t11), CONST(0))
+  JUMP(NAME(L$17), L$17)
+  LABEL(L$15)
+  MOVE(TEMP(t11), CONST(1))
+  LABEL(L$17)
+  JUMP(NAME(L$20), L$20)
+  LABEL(L$18)
+  MOVE(TEMP(t11), CONST(0))
+  LABEL(L$20)
+  MOVE(TEMP(t13), TEMP(t11))
+  return t13
+}
+
+LList$Init(1) {
+  MOVE(MEM(BINOP(PLUS, CONST(8), PARAM(0))), CONST(1))
+  MOVE(TEMP(t14), CONST(1))
+  return t14
+}
+
+LList$InitNew(4) {
+  MOVE(MEM(BINOP(PLUS, CONST(8), PARAM(0))), PARAM(3))
+  MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), PARAM(1))
+  MOVE(MEM(BINOP(PLUS, CONST(12), PARAM(0))), PARAM(2))
+  MOVE(TEMP(t15), CONST(1))
+  return t15
+}
+
+LList$Insert(2) {
+  MOVE(TEMP(t17), PARAM(0))
+  MOVE(TEMP(t18), CALL(NAME(L_halloc), CONST(16)))
+  MOVE(TEMP(t16), CALL(NAME(LList$InitNew), TEMP(t18), PARAM(1), TEMP(t17), CONST(0)))
+  MOVE(TEMP(t19), TEMP(t18))
+  return t19
+}
+
+LList$SetNext(2) {
+  MOVE(MEM(BINOP(PLUS, CONST(12), PARAM(0))), PARAM(1))
+  MOVE(TEMP(t20), CONST(1))
+  return t20
+}
+
+LList$Delete(2) {
+  MOVE(TEMP(t21), PARAM(0))
+  MOVE(TEMP(t22), CONST(0))
+  MOVE(TEMP(t28), CONST(-1))
+  MOVE(TEMP(t24), PARAM(0))
+  MOVE(TEMP(t25), PARAM(0))
+  MOVE(TEMP(t26), MEM(BINOP(PLUS, CONST(8), PARAM(0))))
+  MOVE(TEMP(t27), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  LABEL(L$21)
+  CJUMP(EQ, TEMP(t26), CONST(0), L$33, L$23)
+  LABEL(L$33)
+  CJUMP(EQ, TEMP(t22), CONST(0), L$22, L$23)
+  LABEL(L$22)
+  MOVE(TEMP(t68), CALL(NAME(LElement$Equal), PARAM(1), TEMP(t27)))
+  CJUMP(EQ, TEMP(t68), CONST(0), L$28, L$27)
+  LABEL(L$28)
+  MOVE(TEMP(t29), CONST(0))
+  JUMP(NAME(L$29), L$29)
+  LABEL(L$27)
+  MOVE(TEMP(t22), CONST(1))
+  CJUMP(LT, TEMP(t28), CONST(0), L$24, L$25)
+  LABEL(L$25)
+  MOVE(TEMP(t30), CALL(NAME(L_println_int), CONST(-555)))
+  MOVE(TEMP(t69), CALL(NAME(LList$GetNext), TEMP(t24)))
+  MOVE(TEMP(t23), CALL(NAME(LList$SetNext), TEMP(t25), TEMP(t69)))
+  MOVE(TEMP(t31), CALL(NAME(L_println_int), CONST(-555)))
+  JUMP(NAME(L$26), L$26)
+  LABEL(L$24)
+  MOVE(TEMP(t21), CALL(NAME(LList$GetNext), TEMP(t24)))
+  LABEL(L$26)
+  LABEL(L$29)
+  CJUMP(EQ, TEMP(t22), CONST(0), L$31, L$30)
+  LABEL(L$31)
+  MOVE(TEMP(t25), TEMP(t24))
+  MOVE(TEMP(t24), CALL(NAME(LList$GetNext), TEMP(t24)))
+  MOVE(TEMP(t26), CALL(NAME(LList$GetEnd), TEMP(t24)))
+  MOVE(TEMP(t27), CALL(NAME(LList$GetElem), TEMP(t24)))
+  MOVE(TEMP(t28), CONST(1))
+  JUMP(NAME(L$32), L$32)
+  LABEL(L$30)
+  MOVE(TEMP(t29), CONST(0))
+  LABEL(L$32)
+  JUMP(NAME(L$21), L$21)
+  LABEL(L$23)
+  MOVE(TEMP(t32), TEMP(t21))
+  return t32
+}
+
+LList$Search(2) {
+  MOVE(TEMP(t33), CONST(0))
+  MOVE(TEMP(t34), PARAM(0))
+  MOVE(TEMP(t36), MEM(BINOP(PLUS, CONST(8), PARAM(0))))
+  MOVE(TEMP(t35), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  LABEL(L$34)
+  CJUMP(EQ, TEMP(t36), CONST(0), L$35, L$36)
+  LABEL(L$35)
+  MOVE(TEMP(t70), CALL(NAME(LElement$Equal), PARAM(1), TEMP(t35)))
+  CJUMP(EQ, TEMP(t70), CONST(0), L$38, L$37)
+  LABEL(L$38)
+  MOVE(TEMP(t37), CONST(0))
+  JUMP(NAME(L$39), L$39)
+  LABEL(L$37)
+  MOVE(TEMP(t33), CONST(1))
+  LABEL(L$39)
+  MOVE(TEMP(t34), CALL(NAME(LList$GetNext), TEMP(t34)))
+  MOVE(TEMP(t36), CALL(NAME(LList$GetEnd), TEMP(t34)))
+  MOVE(TEMP(t35), CALL(NAME(LList$GetElem), TEMP(t34)))
+  JUMP(NAME(L$34), L$34)
+  LABEL(L$36)
+  MOVE(TEMP(t38), TEMP(t33))
+  return t38
+}
+
+LList$GetEnd(1) {
+  MOVE(TEMP(t39), MEM(BINOP(PLUS, CONST(8), PARAM(0))))
+  return t39
+}
+
+LList$GetElem(1) {
+  MOVE(TEMP(t40), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  return t40
+}
+
+LList$GetNext(1) {
+  MOVE(TEMP(t41), MEM(BINOP(PLUS, CONST(12), PARAM(0))))
+  return t41
+}
+
+LList$Print(1) {
+  MOVE(TEMP(t42), PARAM(0))
+  MOVE(TEMP(t43), MEM(BINOP(PLUS, CONST(8), PARAM(0))))
+  MOVE(TEMP(t44), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  LABEL(L$40)
+  CJUMP(EQ, TEMP(t43), CONST(0), L$41, L$42)
+  LABEL(L$41)
+  MOVE(TEMP(t71), CALL(NAME(LElement$GetAge), TEMP(t44)))
+  MOVE(TEMP(t45), CALL(NAME(L_println_int), TEMP(t71)))
+  MOVE(TEMP(t42), CALL(NAME(LList$GetNext), TEMP(t42)))
+  MOVE(TEMP(t43), CALL(NAME(LList$GetEnd), TEMP(t42)))
+  MOVE(TEMP(t44), CALL(NAME(LList$GetElem), TEMP(t42)))
+  JUMP(NAME(L$40), L$40)
+  LABEL(L$42)
+  MOVE(TEMP(t46), CONST(1))
+  return t46
+}
+
+LLL$Start(1) {
+  MOVE(TEMP(t48), CALL(NAME(L_halloc), CONST(16)))
+  MOVE(TEMP(t49), CALL(NAME(LList$Init), TEMP(t48)))
+  MOVE(TEMP(t47), TEMP(t48))
+  MOVE(TEMP(t49), CALL(NAME(LList$Init), TEMP(t47)))
+  MOVE(TEMP(t49), CALL(NAME(LList$Print), TEMP(t47)))
+  MOVE(TEMP(t50), CALL(NAME(L_halloc), CONST(16)))
+  MOVE(TEMP(t49), CALL(NAME(LElement$Init), TEMP(t50), CONST(25), CONST(37000), CONST(0)))
+  MOVE(TEMP(t47), CALL(NAME(LList$Insert), TEMP(t47), TEMP(t50)))
+  MOVE(TEMP(t49), CALL(NAME(LList$Print), TEMP(t47)))
+  MOVE(TEMP(t53), CALL(NAME(L_println_int), CONST(10000000)))
+  MOVE(TEMP(t50), CALL(NAME(L_halloc), CONST(16)))
+  MOVE(TEMP(t49), CALL(NAME(LElement$Init), TEMP(t50), CONST(39), CONST(42000), CONST(1)))
+  MOVE(TEMP(t51), TEMP(t50))
+  MOVE(TEMP(t47), CALL(NAME(LList$Insert), TEMP(t47), TEMP(t50)))
+  MOVE(TEMP(t49), CALL(NAME(LList$Print), TEMP(t47)))
+  MOVE(TEMP(t54), CALL(NAME(L_println_int), CONST(10000000)))
+  MOVE(TEMP(t50), CALL(NAME(L_halloc), CONST(16)))
+  MOVE(TEMP(t49), CALL(NAME(LElement$Init), TEMP(t50), CONST(22), CONST(34000), CONST(0)))
+  MOVE(TEMP(t47), CALL(NAME(LList$Insert), TEMP(t47), TEMP(t50)))
+  MOVE(TEMP(t49), CALL(NAME(LList$Print), TEMP(t47)))
+  MOVE(TEMP(t52), CALL(NAME(L_halloc), CONST(16)))
+  MOVE(TEMP(t49), CALL(NAME(LElement$Init), TEMP(t52), CONST(27), CONST(34000), CONST(0)))
+  MOVE(TEMP(t72), CALL(NAME(LList$Search), TEMP(t47), TEMP(t51)))
+  MOVE(TEMP(t55), CALL(NAME(L_println_int), TEMP(t72)))
+  MOVE(TEMP(t73), CALL(NAME(LList$Search), TEMP(t47), TEMP(t52)))
+  MOVE(TEMP(t56), CALL(NAME(L_println_int), TEMP(t73)))
+  MOVE(TEMP(t57), CALL(NAME(L_println_int), CONST(10000000)))
+  MOVE(TEMP(t50), CALL(NAME(L_halloc), CONST(16)))
+  MOVE(TEMP(t49), CALL(NAME(LElement$Init), TEMP(t50), CONST(28), CONST(35000), CONST(0)))
+  MOVE(TEMP(t47), CALL(NAME(LList$Insert), TEMP(t47), TEMP(t50)))
+  MOVE(TEMP(t49), CALL(NAME(LList$Print), TEMP(t47)))
+  MOVE(TEMP(t58), CALL(NAME(L_println_int), CONST(2220000)))
+  MOVE(TEMP(t47), CALL(NAME(LList$Delete), TEMP(t47), TEMP(t51)))
+  MOVE(TEMP(t49), CALL(NAME(LList$Print), TEMP(t47)))
+  MOVE(TEMP(t59), CALL(NAME(L_println_int), CONST(33300000)))
+  MOVE(TEMP(t47), CALL(NAME(LList$Delete), TEMP(t47), TEMP(t50)))
+  MOVE(TEMP(t49), CALL(NAME(LList$Print), TEMP(t47)))
+  MOVE(TEMP(t60), CALL(NAME(L_println_int), CONST(44440000)))
+  MOVE(TEMP(t61), CONST(0))
+  return t61
+}

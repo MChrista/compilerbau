@@ -1,0 +1,23 @@
+Lmain(1) {
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), CALL(NAME(LEffectsClass$run), CALL(NAME(L_halloc), CONST(4)))))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LEffectsClass$run(1) {
+  SEQ(MOVE(TEMP(t2), CALL(NAME(L_halloc), CONST(8))))
+  MOVE(TEMP(t3), BINOP(MINUS, BINOP(PLUS, CONST(-1), CALL(NAME(LBit$set), TEMP(t2), CONST(1))), BINOP(MINUS, CALL(NAME(LBit$set), TEMP(t2), CONST(0)), BINOP(MINUS, CONST(0), CALL(NAME(LBit$value), TEMP(t2))))))
+  return t3
+}
+
+LBit$set(2) {
+  SEQ(MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), PARAM(1)))
+  MOVE(TEMP(t4), PARAM(1))
+  return t4
+}
+
+LBit$value(1) {
+  SEQ()
+  MOVE(TEMP(t5), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  return t5
+}

@@ -1,0 +1,21 @@
+Lmain(1) {
+  MOVE(TEMP(t4), CALL(NAME(L_halloc), CONST(4)))
+  MOVE(TEMP(t5), CALL(NAME(LFac$ComputeFac), TEMP(t4), CONST(10)))
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), TEMP(t5)))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LFac$ComputeFac(2) {
+  CJUMP(LT, PARAM(1), CONST(1), L$0, L$1)
+  LABEL(L$1)
+  MOVE(TEMP(t7), PARAM(1))
+  MOVE(TEMP(t6), CALL(NAME(LFac$ComputeFac), PARAM(0), BINOP(PLUS, CONST(-1), PARAM(1))))
+  MOVE(TEMP(t2), BINOP(MUL, TEMP(t7), TEMP(t6)))
+  JUMP(NAME(L$2), L$2)
+  LABEL(L$0)
+  MOVE(TEMP(t2), CONST(1))
+  LABEL(L$2)
+  MOVE(TEMP(t3), TEMP(t2))
+  return t3
+}

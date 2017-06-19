@@ -30,7 +30,7 @@ public class TypeChecker {
 	      p.ty.accept(new TypeCheckerVisitorTy(className, m.methodName, globalTable));
 	    }
 		TypeCheckerVarList(m.localVars, className, m.methodName);
-		
+
 		m.body.accept(new TypeCheckerVisitorStm(className, m.methodName, globalTable));
 		if (m.returnExp.accept(new TypeCheckerVisitorExp(className, m.methodName, globalTable)).equals(globalTable.getTypeOfMethod(className, m.methodName))){
 		} else {
@@ -59,11 +59,11 @@ public class TypeChecker {
 	}
 
 	static class TypeCheckerVisitorTy implements TyVisitor<String> {
-		
+
 		private static GlobalTable globalTable;
 		private String className;
 		private String methName;
-		
+
 		public TypeCheckerVisitorTy(String className, String methName, GlobalTable gt) {
 			this.className = className;
 			this.methName = methName;
@@ -88,7 +88,7 @@ public class TypeChecker {
 		public String visit(TyClass x) {
 			if (globalTable.findClassTableByName(x.c.toString()) == null){
 				new TypeException("Class Type is not defined");
-			}		
+			}
 			return x.c.toString();
 		}
 
@@ -99,20 +99,20 @@ public class TypeChecker {
 	}
 
 	static class TypeCheckerVisitorExp implements ExpVisitor<String, RuntimeException> {
-		
+
 		private static GlobalTable globalTable;
 		private String className;
 		private String methName;
-		
+
 		public TypeCheckerVisitorExp() {
 			// TODO Auto-generated constructor stub
 		}
-		
+
 		public TypeCheckerVisitorExp(GlobalTable gt) {
 			this.globalTable = gt;
 			// TODO Auto-generated constructor stub
 		}
-		
+
 		public TypeCheckerVisitorExp(String className, String methName, GlobalTable gt) {
 			this.className = className;
 			this.methName = methName;
@@ -146,7 +146,7 @@ public class TypeChecker {
 			}
 			new TypeException("size of new array is not from type integer");
 			return "";
-			
+
 		}
 
 		@Override
@@ -185,6 +185,7 @@ public class TypeChecker {
 
 		@Override
 		public String visit(ExpInvoke e) {
+			e.objType = e.obj.accept(this);
 			List args = globalTable.getArgsOfMethod(e.obj.accept(this), e.method);
 			if (args == null){
 				new TypeException("Method " + e.method + " is not defined");
@@ -194,10 +195,10 @@ public class TypeChecker {
 			}
 			for (int i = 0; i< e.args.size(); i++){
 				if (args.get(i).toString().equals(e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName, globalTable)))){
-					
+
 				} else {
 					System.out.println("Method: " + e.method);
-					new TypeException("Type of parameters don't match type of passed variables - " + args.get(i).toString() + " " + 
+					new TypeException("Type of parameters don't match type of passed variables - " + args.get(i).toString() + " " +
 				e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName, globalTable)));
 				}
 			}
@@ -243,7 +244,7 @@ public class TypeChecker {
 			this.methName = methName;
 			this.globalTable = gt;
 		}
-		
+
 		public TypeCheckerVisitorStm() {
 			// TODO Auto-generated constructor stub
 		}
@@ -301,15 +302,15 @@ public class TypeChecker {
 		public String visit(StmAssign s) {
 			String typeOfExpression = s.rhs.accept(new TypeCheckerVisitorExp(className, methName, globalTable));
 			String typeOfVariable = this.globalTable.getTypeOfVariable(s.id, className, methName);
-			
+
 			if (typeOfExpression.equals(typeOfVariable)){
 				return "";
 			}else{
 				new TypeException("Statement assign is not correct: " + s.id );
 			}
 			return "";
-			
-			
+
+
 		}
 
 		@Override

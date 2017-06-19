@@ -1,0 +1,17 @@
+Lmain(1) {
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), CALL(NAME(LSumClass$f), CALL(NAME(L_halloc), CONST(8)), CONST(0), CONST(5))))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LSumClass$f(3) {
+  SEQ(MOVE(TEMP(t2), BINOP(PLUS, PARAM(1), PARAM(2))), MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), CALL(NAME(LSumClass$g), PARAM(0), TEMP(t2))), SEQ(CJUMP(LT, PARAM(2), CONST(1), L$0, L$1), SEQ(LABEL(L$1), SEQ(MOVE(TEMP(t3), CALL(NAME(LSumClass$f), PARAM(0), TEMP(t2), BINOP(PLUS, CONST(-1), PARAM(2)))), JUMP(NAME(L$2), L$2), SEQ(LABEL(L$0), SEQ(MOVE(TEMP(t3), TEMP(t2)), LABEL(L$2), SEQ()))))))
+  MOVE(TEMP(t4), TEMP(t3))
+  return t4
+}
+
+LSumClass$g(2) {
+  SEQ()
+  MOVE(TEMP(t5), PARAM(1))
+  return t5
+}

@@ -1,0 +1,11 @@
+Lmain(1) {
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), CALL(NAME(LC$value), CALL(NAME(L_halloc), CONST(8)))))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LC$value(1) {
+  SEQ(MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), CONST(555)))
+  MOVE(TEMP(t2), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  return t2
+}

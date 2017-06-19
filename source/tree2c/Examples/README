@@ -1,0 +1,10 @@
+Die Beispiele in diesem Verzeichnis entstehen durch Übersetzung
+einiger Beispiele in MiniJava_Examples. Im Compiler wird der
+Zwischencode nach der Übersetzung noch vereinfacht (Kanonisierung und
+Tracing). Die entsprechenden Ergebnisse sind hier auch noch als
+zusätzliche Beispiele enthalten.
+
+- *.tree: direkte Übersetzung von MiniJava
+- *.canonized.tree: Zwischencode nach Kanonisierung
+- *.traced.tree: Zwischencode nach Kanonisierung und Tracing
+

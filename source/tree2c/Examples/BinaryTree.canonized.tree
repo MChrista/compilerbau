@@ -1,0 +1,372 @@
+Lmain(1) {
+  MOVE(TEMP(t60), CALL(NAME(L_halloc), CONST(4)))
+  MOVE(TEMP(t61), CALL(NAME(LBT$Start), TEMP(t60)))
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), TEMP(t61)))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LBT$Start(1) {
+  MOVE(TEMP(t2), CALL(NAME(L_halloc), CONST(28)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Init), TEMP(t2), CONST(16)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Print), TEMP(t2)))
+  MOVE(TEMP(t5), CALL(NAME(L_println_int), CONST(100000000)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Insert), TEMP(t2), CONST(8)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Print), TEMP(t2)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Insert), TEMP(t2), CONST(24)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Insert), TEMP(t2), CONST(4)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Insert), TEMP(t2), CONST(12)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Insert), TEMP(t2), CONST(20)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Insert), TEMP(t2), CONST(28)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Insert), TEMP(t2), CONST(14)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Print), TEMP(t2)))
+  MOVE(TEMP(t62), CALL(NAME(LTree$Search), TEMP(t2), CONST(24)))
+  MOVE(TEMP(t6), CALL(NAME(L_println_int), TEMP(t62)))
+  MOVE(TEMP(t63), CALL(NAME(LTree$Search), TEMP(t2), CONST(12)))
+  MOVE(TEMP(t7), CALL(NAME(L_println_int), TEMP(t63)))
+  MOVE(TEMP(t64), CALL(NAME(LTree$Search), TEMP(t2), CONST(16)))
+  MOVE(TEMP(t8), CALL(NAME(L_println_int), TEMP(t64)))
+  MOVE(TEMP(t65), CALL(NAME(LTree$Search), TEMP(t2), CONST(50)))
+  MOVE(TEMP(t9), CALL(NAME(L_println_int), TEMP(t65)))
+  MOVE(TEMP(t66), CALL(NAME(LTree$Search), TEMP(t2), CONST(12)))
+  MOVE(TEMP(t10), CALL(NAME(L_println_int), TEMP(t66)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Delete), TEMP(t2), CONST(12)))
+  MOVE(TEMP(t3), CALL(NAME(LTree$Print), TEMP(t2)))
+  MOVE(TEMP(t67), CALL(NAME(LTree$Search), TEMP(t2), CONST(12)))
+  MOVE(TEMP(t11), CALL(NAME(L_println_int), TEMP(t67)))
+  MOVE(TEMP(t12), CONST(0))
+  return t12
+}
+
+LTree$Init(2) {
+  MOVE(MEM(BINOP(PLUS, CONST(12), PARAM(0))), PARAM(1))
+  MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), CONST(0))
+  MOVE(MEM(BINOP(PLUS, CONST(8), PARAM(0))), CONST(0))
+  MOVE(TEMP(t13), CONST(1))
+  return t13
+}
+
+LTree$SetRight(2) {
+  MOVE(MEM(BINOP(PLUS, CONST(24), PARAM(0))), PARAM(1))
+  MOVE(TEMP(t14), CONST(1))
+  return t14
+}
+
+LTree$SetLeft(2) {
+  MOVE(MEM(BINOP(PLUS, CONST(16), PARAM(0))), PARAM(1))
+  MOVE(TEMP(t15), CONST(1))
+  return t15
+}
+
+LTree$GetRight(1) {
+  MOVE(TEMP(t16), MEM(BINOP(PLUS, CONST(24), PARAM(0))))
+  return t16
+}
+
+LTree$GetLeft(1) {
+  MOVE(TEMP(t17), MEM(BINOP(PLUS, CONST(16), PARAM(0))))
+  return t17
+}
+
+LTree$GetKey(1) {
+  MOVE(TEMP(t18), MEM(BINOP(PLUS, CONST(12), PARAM(0))))
+  return t18
+}
+
+LTree$SetKey(2) {
+  MOVE(MEM(BINOP(PLUS, CONST(12), PARAM(0))), PARAM(1))
+  MOVE(TEMP(t19), CONST(1))
+  return t19
+}
+
+LTree$GetHas_Right(1) {
+  MOVE(TEMP(t20), MEM(BINOP(PLUS, CONST(8), PARAM(0))))
+  return t20
+}
+
+LTree$GetHas_Left(1) {
+  MOVE(TEMP(t21), MEM(BINOP(PLUS, CONST(4), PARAM(0))))
+  return t21
+}
+
+LTree$SetHas_Left(2) {
+  MOVE(MEM(BINOP(PLUS, CONST(4), PARAM(0))), PARAM(1))
+  MOVE(TEMP(t22), CONST(1))
+  return t22
+}
+
+LTree$SetHas_Right(2) {
+  MOVE(MEM(BINOP(PLUS, CONST(8), PARAM(0))), PARAM(1))
+  MOVE(TEMP(t23), CONST(1))
+  return t23
+}
+
+LTree$Compare(3) {
+  MOVE(TEMP(t24), CONST(0))
+  MOVE(TEMP(t25), BINOP(PLUS, CONST(1), PARAM(2)))
+  CJUMP(LT, PARAM(1), PARAM(2), L$3, L$4)
+  LABEL(L$4)
+  CJUMP(LT, PARAM(1), TEMP(t25), L$0, L$1)
+  LABEL(L$1)
+  MOVE(TEMP(t24), CONST(0))
+  JUMP(NAME(L$2), L$2)
+  LABEL(L$0)
+  MOVE(TEMP(t24), CONST(1))
+  LABEL(L$2)
+  JUMP(NAME(L$5), L$5)
+  LABEL(L$3)
+  MOVE(TEMP(t24), CONST(0))
+  LABEL(L$5)
+  MOVE(TEMP(t26), TEMP(t24))
+  return t26
+}
+
+LTree$Insert(2) {
+  MOVE(TEMP(t27), CALL(NAME(L_halloc), CONST(28)))
+  MOVE(TEMP(t28), CALL(NAME(LTree$Init), TEMP(t27), PARAM(1)))
+  MOVE(TEMP(t31), PARAM(0))
+  MOVE(TEMP(t29), CONST(1))
+  LABEL(L$6)
+  CJUMP(EQ, TEMP(t29), CONST(0), L$8, L$7)
+  LABEL(L$7)
+  MOVE(TEMP(t30), CALL(NAME(LTree$GetKey), TEMP(t31)))
+  CJUMP(LT, PARAM(1), TEMP(t30), L$15, L$16)
+  LABEL(L$16)
+  MOVE(TEMP(t68), CALL(NAME(LTree$GetHas_Right), TEMP(t31)))
+  CJUMP(EQ, TEMP(t68), CONST(0), L$13, L$12)
+  LABEL(L$13)
+  MOVE(TEMP(t29), CONST(0))
+  MOVE(TEMP(t28), CALL(NAME(LTree$SetHas_Right), TEMP(t31), CONST(1)))
+  MOVE(TEMP(t28), CALL(NAME(LTree$SetRight), TEMP(t31), TEMP(t27)))
+  JUMP(NAME(L$14), L$14)
+  LABEL(L$12)
+  MOVE(TEMP(t31), CALL(NAME(LTree$GetRight), TEMP(t31)))
+  LABEL(L$14)
+  JUMP(NAME(L$17), L$17)
+  LABEL(L$15)
+  MOVE(TEMP(t69), CALL(NAME(LTree$GetHas_Left), TEMP(t31)))
+  CJUMP(EQ, TEMP(t69), CONST(0), L$10, L$9)
+  LABEL(L$10)
+  MOVE(TEMP(t29), CONST(0))
+  MOVE(TEMP(t28), CALL(NAME(LTree$SetHas_Left), TEMP(t31), CONST(1)))
+  MOVE(TEMP(t28), CALL(NAME(LTree$SetLeft), TEMP(t31), TEMP(t27)))
+  JUMP(NAME(L$11), L$11)
+  LABEL(L$9)
+  MOVE(TEMP(t31), CALL(NAME(LTree$GetLeft), TEMP(t31)))
+  LABEL(L$11)
+  LABEL(L$17)
+  JUMP(NAME(L$6), L$6)
+  LABEL(L$8)
+  MOVE(TEMP(t32), CONST(1))
+  return t32
+}
+
+LTree$Delete(2) {
+  MOVE(TEMP(t33), PARAM(0))
+  MOVE(TEMP(t34), PARAM(0))
+  MOVE(TEMP(t35), CONST(1))
+  MOVE(TEMP(t36), CONST(0))
+  MOVE(TEMP(t37), CONST(1))
+  LABEL(L$18)
+  CJUMP(EQ, TEMP(t35), CONST(0), L$20, L$19)
+  LABEL(L$19)
+  MOVE(TEMP(t38), CALL(NAME(LTree$GetKey), TEMP(t33)))
+  CJUMP(LT, PARAM(1), TEMP(t38), L$37, L$38)
+  LABEL(L$38)
+  CJUMP(LT, TEMP(t38), PARAM(1), L$34, L$35)
+  LABEL(L$35)
+  CJUMP(EQ, TEMP(t37), CONST(0), L$32, L$31)
+  LABEL(L$32)
+  MOVE(TEMP(t39), CALL(NAME(LTree$Remove), PARAM(0), TEMP(t34), TEMP(t33)))
+  JUMP(NAME(L$33), L$33)
+  LABEL(L$31)
+  MOVE(TEMP(t70), CALL(NAME(LTree$GetHas_Right), TEMP(t33)))
+  CJUMP(EQ, TEMP(t70), CONST(0), L$30, L$28)
+  LABEL(L$30)
+  MOVE(TEMP(t71), CALL(NAME(LTree$GetHas_Left), TEMP(t33)))
+  CJUMP(EQ, TEMP(t71), CONST(0), L$27, L$28)
+  LABEL(L$28)
+  MOVE(TEMP(t39), CALL(NAME(LTree$Remove), PARAM(0), TEMP(t34), TEMP(t33)))
+  JUMP(NAME(L$29), L$29)
+  LABEL(L$27)
+  MOVE(TEMP(t39), CONST(1))
+  LABEL(L$29)
+  LABEL(L$33)
+  MOVE(TEMP(t36), CONST(1))
+  MOVE(TEMP(t35), CONST(0))
+  JUMP(NAME(L$36), L$36)
+  LABEL(L$34)
+  MOVE(TEMP(t72), CALL(NAME(LTree$GetHas_Right), TEMP(t33)))
+  CJUMP(EQ, TEMP(t72), CONST(0), L$25, L$24)
+  LABEL(L$25)
+  MOVE(TEMP(t35), CONST(0))
+  JUMP(NAME(L$26), L$26)
+  LABEL(L$24)
+  MOVE(TEMP(t34), TEMP(t33))
+  MOVE(TEMP(t33), CALL(NAME(LTree$GetRight), TEMP(t33)))
+  LABEL(L$26)
+  LABEL(L$36)
+  JUMP(NAME(L$39), L$39)
+  LABEL(L$37)
+  MOVE(TEMP(t73), CALL(NAME(LTree$GetHas_Left), TEMP(t33)))
+  CJUMP(EQ, TEMP(t73), CONST(0), L$22, L$21)
+  LABEL(L$22)
+  MOVE(TEMP(t35), CONST(0))
+  JUMP(NAME(L$23), L$23)
+  LABEL(L$21)
+  MOVE(TEMP(t34), TEMP(t33))
+  MOVE(TEMP(t33), CALL(NAME(LTree$GetLeft), TEMP(t33)))
+  LABEL(L$23)
+  LABEL(L$39)
+  MOVE(TEMP(t37), CONST(0))
+  JUMP(NAME(L$18), L$18)
+  LABEL(L$20)
+  MOVE(TEMP(t40), TEMP(t36))
+  return t40
+}
+
+LTree$Remove(3) {
+  MOVE(TEMP(t74), CALL(NAME(LTree$GetHas_Left), PARAM(2)))
+  CJUMP(EQ, TEMP(t74), CONST(0), L$47, L$46)
+  LABEL(L$47)
+  MOVE(TEMP(t75), CALL(NAME(LTree$GetHas_Right), PARAM(2)))
+  CJUMP(EQ, TEMP(t75), CONST(0), L$44, L$43)
+  LABEL(L$44)
+  MOVE(TEMP(t42), CALL(NAME(LTree$GetKey), PARAM(2)))
+  MOVE(TEMP(t76), CALL(NAME(LTree$GetLeft), PARAM(1)))
+  MOVE(TEMP(t43), CALL(NAME(LTree$GetKey), TEMP(t76)))
+  MOVE(TEMP(t77), CALL(NAME(LTree$Compare), PARAM(0), TEMP(t42), TEMP(t43)))
+  CJUMP(EQ, TEMP(t77), CONST(0), L$41, L$40)
+  LABEL(L$41)
+  MOVE(TEMP(t41), CALL(NAME(LTree$SetRight), PARAM(1), MEM(BINOP(PLUS, CONST(20), PARAM(0)))))
+  MOVE(TEMP(t41), CALL(NAME(LTree$SetHas_Right), PARAM(1), CONST(0)))
+  JUMP(NAME(L$42), L$42)
+  LABEL(L$40)
+  MOVE(TEMP(t41), CALL(NAME(LTree$SetLeft), PARAM(1), MEM(BINOP(PLUS, CONST(20), PARAM(0)))))
+  MOVE(TEMP(t41), CALL(NAME(LTree$SetHas_Left), PARAM(1), CONST(0)))
+  LABEL(L$42)
+  JUMP(NAME(L$45), L$45)
+  LABEL(L$43)
+  MOVE(TEMP(t41), CALL(NAME(LTree$RemoveRight), PARAM(0), PARAM(1), PARAM(2)))
+  LABEL(L$45)
+  JUMP(NAME(L$48), L$48)
+  LABEL(L$46)
+  MOVE(TEMP(t41), CALL(NAME(LTree$RemoveLeft), PARAM(0), PARAM(1), PARAM(2)))
+  LABEL(L$48)
+  MOVE(TEMP(t44), CONST(1))
+  return t44
+}
+
+LTree$RemoveRight(3) {
+  LABEL(L$49)
+  MOVE(TEMP(t78), CALL(NAME(LTree$GetHas_Right), PARAM(2)))
+  CJUMP(EQ, TEMP(t78), CONST(0), L$51, L$50)
+  LABEL(L$50)
+  MOVE(TEMP(t81), PARAM(2))
+  MOVE(TEMP(t79), CALL(NAME(LTree$GetRight), PARAM(2)))
+  MOVE(TEMP(t80), CALL(NAME(LTree$GetKey), TEMP(t79)))
+  MOVE(TEMP(t45), CALL(NAME(LTree$SetKey), TEMP(t81), TEMP(t80)))
+  MOVE(PARAM(1), PARAM(2))
+  MOVE(PARAM(2), CALL(NAME(LTree$GetRight), PARAM(2)))
+  JUMP(NAME(L$49), L$49)
+  LABEL(L$51)
+  MOVE(TEMP(t45), CALL(NAME(LTree$SetRight), PARAM(1), MEM(BINOP(PLUS, CONST(20), PARAM(0)))))
+  MOVE(TEMP(t45), CALL(NAME(LTree$SetHas_Right), PARAM(1), CONST(0)))
+  MOVE(TEMP(t46), CONST(1))
+  return t46
+}
+
+LTree$RemoveLeft(3) {
+  LABEL(L$52)
+  MOVE(TEMP(t82), CALL(NAME(LTree$GetHas_Left), PARAM(2)))
+  CJUMP(EQ, TEMP(t82), CONST(0), L$54, L$53)
+  LABEL(L$53)
+  MOVE(TEMP(t85), PARAM(2))
+  MOVE(TEMP(t83), CALL(NAME(LTree$GetLeft), PARAM(2)))
+  MOVE(TEMP(t84), CALL(NAME(LTree$GetKey), TEMP(t83)))
+  MOVE(TEMP(t47), CALL(NAME(LTree$SetKey), TEMP(t85), TEMP(t84)))
+  MOVE(PARAM(1), PARAM(2))
+  MOVE(PARAM(2), CALL(NAME(LTree$GetLeft), PARAM(2)))
+  JUMP(NAME(L$52), L$52)
+  LABEL(L$54)
+  MOVE(TEMP(t47), CALL(NAME(LTree$SetLeft), PARAM(1), MEM(BINOP(PLUS, CONST(20), PARAM(0)))))
+  MOVE(TEMP(t47), CALL(NAME(LTree$SetHas_Left), PARAM(1), CONST(0)))
+  MOVE(TEMP(t48), CONST(1))
+  return t48
+}
+
+LTree$Search(2) {
+  MOVE(TEMP(t51), PARAM(0))
+  MOVE(TEMP(t49), CONST(1))
+  MOVE(TEMP(t50), CONST(0))
+  LABEL(L$55)
+  CJUMP(EQ, TEMP(t49), CONST(0), L$57, L$56)
+  LABEL(L$56)
+  MOVE(TEMP(t52), CALL(NAME(LTree$GetKey), TEMP(t51)))
+  CJUMP(LT, PARAM(1), TEMP(t52), L$67, L$68)
+  LABEL(L$68)
+  CJUMP(LT, TEMP(t52), PARAM(1), L$64, L$65)
+  LABEL(L$65)
+  MOVE(TEMP(t50), CONST(1))
+  MOVE(TEMP(t49), CONST(0))
+  JUMP(NAME(L$66), L$66)
+  LABEL(L$64)
+  MOVE(TEMP(t86), CALL(NAME(LTree$GetHas_Right), TEMP(t51)))
+  CJUMP(EQ, TEMP(t86), CONST(0), L$62, L$61)
+  LABEL(L$62)
+  MOVE(TEMP(t49), CONST(0))
+  JUMP(NAME(L$63), L$63)
+  LABEL(L$61)
+  MOVE(TEMP(t51), CALL(NAME(LTree$GetRight), TEMP(t51)))
+  LABEL(L$63)
+  LABEL(L$66)
+  JUMP(NAME(L$69), L$69)
+  LABEL(L$67)
+  MOVE(TEMP(t87), CALL(NAME(LTree$GetHas_Left), TEMP(t51)))
+  CJUMP(EQ, TEMP(t87), CONST(0), L$59, L$58)
+  LABEL(L$59)
+  MOVE(TEMP(t49), CONST(0))
+  JUMP(NAME(L$60), L$60)
+  LABEL(L$58)
+  MOVE(TEMP(t51), CALL(NAME(LTree$GetLeft), TEMP(t51)))
+  LABEL(L$60)
+  LABEL(L$69)
+  JUMP(NAME(L$55), L$55)
+  LABEL(L$57)
+  MOVE(TEMP(t53), TEMP(t50))
+  return t53
+}
+
+LTree$Print(1) {
+  MOVE(TEMP(t54), PARAM(0))
+  MOVE(TEMP(t55), CALL(NAME(LTree$RecPrint), PARAM(0), TEMP(t54)))
+  MOVE(TEMP(t56), CONST(1))
+  return t56
+}
+
+LTree$RecPrint(2) {
+  MOVE(TEMP(t88), CALL(NAME(LTree$GetHas_Left), PARAM(1)))
+  CJUMP(EQ, TEMP(t88), CONST(0), L$71, L$70)
+  LABEL(L$71)
+  MOVE(TEMP(t57), CONST(1))
+  JUMP(NAME(L$72), L$72)
+  LABEL(L$70)
+  MOVE(TEMP(t90), PARAM(0))
+  MOVE(TEMP(t89), CALL(NAME(LTree$GetLeft), PARAM(1)))
+  MOVE(TEMP(t57), CALL(NAME(LTree$RecPrint), TEMP(t90), TEMP(t89)))
+  LABEL(L$72)
+  MOVE(TEMP(t91), CALL(NAME(LTree$GetKey), PARAM(1)))
+  MOVE(TEMP(t58), CALL(NAME(L_println_int), TEMP(t91)))
+  MOVE(TEMP(t92), CALL(NAME(LTree$GetHas_Right), PARAM(1)))
+  CJUMP(EQ, TEMP(t92), CONST(0), L$74, L$73)
+  LABEL(L$74)
+  MOVE(TEMP(t57), CONST(1))
+  JUMP(NAME(L$75), L$75)
+  LABEL(L$73)
+  MOVE(TEMP(t94), PARAM(0))
+  MOVE(TEMP(t93), CALL(NAME(LTree$GetRight), PARAM(1)))
+  MOVE(TEMP(t57), CALL(NAME(LTree$RecPrint), TEMP(t94), TEMP(t93)))
+  LABEL(L$75)
+  MOVE(TEMP(t59), CONST(1))
+  return t59
+}

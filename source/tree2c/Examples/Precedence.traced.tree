@@ -1,0 +1,21 @@
+Lmain(1) {
+  MOVE(TEMP(t4), CALL(NAME(L_halloc), CONST(4)))
+  MOVE(TEMP(t5), CALL(NAME(LB$run), TEMP(t4), CONST(5), CONST(10)))
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), TEMP(t5)))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LB$run(3) {
+  CJUMP(LT, CONST(0), CONST(1), L$3, L$1)
+  LABEL(L$3)
+  CJUMP(LT, BINOP(PLUS, PARAM(1), BINOP(MUL, PARAM(2), PARAM(2))), BINOP(MUL, BINOP(PLUS, PARAM(1), PARAM(2)), PARAM(2)), L$0, L$1)
+  LABEL(L$1)
+  MOVE(TEMP(t2), PARAM(2))
+  JUMP(NAME(L$2), L$2)
+  LABEL(L$0)
+  MOVE(TEMP(t2), PARAM(1))
+  LABEL(L$2)
+  MOVE(TEMP(t3), TEMP(t2))
+  return t3
+}

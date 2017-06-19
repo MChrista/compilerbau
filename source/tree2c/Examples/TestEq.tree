@@ -1,0 +1,11 @@
+Lmain(1) {
+  MOVE(TEMP(t0), CALL(NAME(L_println_int), CALL(NAME(LTestEqMain$run), CALL(NAME(L_halloc), CONST(4)))))
+  MOVE(TEMP(t1), CONST(0))
+  return t1
+}
+
+LTestEqMain$run(1) {
+  SEQ(MOVE(TEMP(t2), ESEQ(SEQ(MOVE(TEMP(t5), ESEQ(SEQ(MOVE(TEMP(t3), CONST(1)), SEQ(CJUMP(LT, CONST(4), CONST(5), L$0, L$1), SEQ(LABEL(L$1), SEQ(MOVE(TEMP(t3), CONST(0)), SEQ(LABEL(L$0), SEQ()))))), TEMP(t3))), SEQ(CJUMP(EQ, TEMP(t5), CONST(0), L$4, L$5), SEQ(LABEL(L$5), SEQ(MOVE(TEMP(t5), ESEQ(SEQ(MOVE(TEMP(t4), CONST(1)), SEQ(CJUMP(LT, CONST(4), CONST(5), L$2, L$3), SEQ(LABEL(L$3), SEQ(MOVE(TEMP(t4), CONST(0)), SEQ(LABEL(L$2), SEQ()))))), TEMP(t4))), SEQ(LABEL(L$4), SEQ()))))), TEMP(t5))), SEQ(CJUMP(EQ, TEMP(t2), CONST(0), L$7, L$6), SEQ(LABEL(L$7), SEQ(MOVE(TEMP(t7), CALL(NAME(L_println_int), CONST(0))), JUMP(NAME(L$8), L$8), SEQ(LABEL(L$6), SEQ(MOVE(TEMP(t6), CALL(NAME(L_println_int), CONST(1))), LABEL(L$8), SEQ()))))))
+  MOVE(TEMP(t8), CONST(0))
+  return t8
+}

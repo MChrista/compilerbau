@@ -2,6 +2,9 @@ package minijava;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
+import Translate.Translator;
+import minijava.intermediate.tree.TreePrg;
 import minijava.syntax.PrettyPrint;
 import symboltabelle.GlobalTable;
 
@@ -30,18 +33,20 @@ public class Test {
     try {
       try {
         parseTree = (minijava.syntax.Prg) parser.parse().value;
-        
+
         GlobalTable gt = new GlobalTable(parseTree);
         System.out.println("Symboltable");
         System.out.println(gt.printTable());
-        
+
         System.out.println(PrettyPrint.prettyPrint(parseTree));
         System.out.println("Parsing der Eingabe erfolgreich.");
-        
+
         System.out.println("Start type check");
         TypeChecker.checkType(parseTree, gt);
 
-        
+        System.out.println("Start translating");
+        TreePrg treeprg = Translator.translate(parseTree);
+        System.out.println(treeprg.toString());
 
       } finally {
         inp.close();

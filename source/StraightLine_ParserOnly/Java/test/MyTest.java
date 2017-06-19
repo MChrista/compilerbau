@@ -1,3 +1,4 @@
+
 class MyTest {
     public static void main (String[] argv) {
         System.out.println(new TestEqMain().start());
