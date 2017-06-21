@@ -114,13 +114,14 @@ public class Translator {
 		String name = "main";
 		int numberOfParameters = 1;
 		int returnTemp = 1;
+		TreeMethod treeMeth = new TreeMethod(new Label(name),numberOfParameters, d.mainBody.accept(new TranslatorVisitorStm()), new Temp());
 
 		/*TreeMethod tm = new TreeMethod(new Label(name), numberOfParameters,
 				d.mainBody.accept(new TranslatorVisitorStm()), new Temp());
 		mainMethod TreeMethod = new TreeMethod(name, numberOfParameters, body,
 				returnTemp);*/
 
-		return null;
+		return treeMeth;
 	}
 
 	static class TranslatorVisitorTy implements TyVisitor<String> {
