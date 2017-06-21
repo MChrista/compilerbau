@@ -17,6 +17,7 @@ import minijava.intermediate.tree.TreeExpTemp;
 import minijava.intermediate.tree.TreeExpVisitor;
 import minijava.intermediate.tree.TreeMethod;
 import minijava.intermediate.tree.TreePrg;
+import minijava.intermediate.tree.TreeStm;
 import minijava.intermediate.tree.TreeStmCJump;
 import minijava.intermediate.tree.TreeStmLabel;
 import minijava.syntax.*;
@@ -37,9 +38,9 @@ public class Translator {
 	private static List<TreeMethod> translateClass(DeclClass c) {
 
 		List methodList = new LinkedList<TreeMethod>();
-		for(DeclMeth meth:c.methods){
-			TreeMethod treeMeth = new TreeMethod(new Label(meth.methodName), meth.parameters.size() + 1, translateMethList(c.methods), new Temp());
-			methodList.add(meth);
+		for(DeclMeth meth: c.methods){
+			TreeMethod treeMeth = new TreeMethod(new Label(meth.methodName), meth.parameters.size() + 1, translateMeth(meth), new Temp());
+			methodList.add(treeMeth);
 		}
 		return new LinkedList<TreeMethod>();
 
@@ -60,13 +61,16 @@ public class Translator {
 		return methods;
 	}
 
-	private static String translateMeth(DeclMeth m) {
-		String params = "", sep = "";
+	private static List<TreeStm> translateMeth(DeclMeth m) {
+
+		return m.body.accept(new TranslatorVisitorStm());
+
+		/*
 		for (Parameter p : m.parameters) {
 			params += sep + p.ty.accept(new TranslatorVisitorTy()) + " " + p.id;
 			sep = ", ";
 		}
-		return null;
+		*/
 
 		/*return indent + "public " + m.ty.accept(new TranslatorVisitorTy())
 				+ " " + m.methodName + " (" + params + ") {\n"
@@ -78,6 +82,8 @@ public class Translator {
 				*/
 	}
 
+
+	/*
 	private static List<TreeStm> translateMethList(List<DeclMeth> dm) {
 		StringBuffer meths = new StringBuffer();
 
@@ -87,6 +93,7 @@ public class Translator {
 		}
 		return null;
 	}
+	*/
 
 	private static String translateVar(DeclVar d, String indent) {
 		return indent + d.ty.accept(new TranslatorVisitorTy()) + " "
@@ -240,7 +247,7 @@ public class Translator {
 		}
 	}
 
-	static class TranslatorVisitorStm implements StmVisitor<String, RuntimeException> {
+	static class TranslatorVisitorStm implements StmVisitor<List<TreeStm>, RuntimeException> {
 
 		final String indent;
 
@@ -254,16 +261,17 @@ public class Translator {
 		}
 
 		@Override
-		public String visit(StmList slist) {
-			StringBuffer str = new StringBuffer();
+		public List<TreeStm> visit(StmList slist) {
+			List methodList = new LinkedList<TreeStm>();
 			for (Stm s : slist.stms) {
-				str.append(s.accept(new TranslatorVisitorStm(indent)));
+				methodList.add(s.accept(new TranslatorVisitorStm(indent)));
 			}
-			return str.toString();
+			return null;
 		}
 
 		@Override
-		public String visit(StmIf s) {
+		public List<TreeStm> visit(StmIf s) {
+			/*
 			return indent
 					+ "if ("
 					+ s.cond.accept(new TranslatorVisitorExp())
@@ -274,42 +282,61 @@ public class Translator {
 					+ "} else {\n"
 					+ s.bodyFalse.accept(new TranslatorVisitorStm(this.indent
 							+ indentStep)) + indent + "}\n";
+							*/
+			return null;
 		}
 
 		@Override
-		public String visit(StmWhile s) {
-
+		public List<TreeStm> visit(StmWhile s) {
+			/*
 			return indent
 					+ "while ("
 					+ s.cond.accept(new TranslatorVisitorExp())
 					+ ") {\n"
 					+ s.body.accept(new TranslatorVisitorStm(this.indent + " "))
 					+ indent + "}\n";
+					*/
+			return null;
 		}
 
 		@Override
-		public String visit(StmPrintlnInt s) {
+		public List<TreeStm> visit(StmPrintlnInt s) {
+			/*
 			return indent + "System.out.println("
 					+ s.arg.accept(new TranslatorVisitorExp()) + ");\n";
+					*/
+			List stmList = new LinkedList<TreeStm>();
+			stmList.add(s.arg.accept(new TranslatorVisitorExp()));
+
+			return null;
 		}
 
 		@Override
-		public String visit(StmPrintChar s) {
+		public List<TreeStm> visit(StmPrintChar s) {
+			/*
 			return indent + "System.out.print((char)"
 					+ s.arg.accept(new TranslatorVisitorExp()) + ");\n";
+					*/
+			return null;
 		}
 
 		@Override
-		public String visit(StmAssign s) {
+		public List<TreeStm> visit(StmAssign s) {
+			/*
 			return indent + s.id + " = "
 					+ s.rhs.accept(new TranslatorVisitorExp()) + ";\n";
+					*/
+			return null;
 		}
 
 		@Override
-		public String visit(StmArrayAssign s) {
+		public List<TreeStm> visit(StmArrayAssign s) {
+			/*
 			return indent + s.id + "["
 					+ s.index.accept(new TranslatorVisitorExp()) + "] = "
 					+ s.rhs.accept(new TranslatorVisitorExp()) + ";\n";
+					*/
+			return null;
 		}
 	}
 }
