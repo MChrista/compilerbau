@@ -83,6 +83,12 @@ public class ClassTable extends Table{
 		return mt.getArgs();
 	}
 	
+	public int getBytesNeeded(){
+		int bytesForClass = 4;
+		int bytesForVariables = this.lines.size() * 4;
+		return bytesForClass + bytesForVariables;
+	}
+	
 	public String printTable(){
 		StringBuffer classes = new StringBuffer();
 		classes.append("class " + this.name);

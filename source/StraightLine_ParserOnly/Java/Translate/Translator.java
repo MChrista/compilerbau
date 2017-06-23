@@ -20,15 +20,22 @@ import minijava.intermediate.tree.TreePrg;
 import minijava.intermediate.tree.TreeStm;
 import minijava.intermediate.tree.TreeStmCJump;
 import minijava.intermediate.tree.TreeStmLabel;
+import minijava.intermediate.tree.TreeStmMove;
+import minijava.intermediate.tree.TreeStmVisitor;
 import minijava.syntax.*;
 import minijava.syntax.ExpBinOp.Op;
+import symboltabelle.GlobalTable;
 
 public class Translator {
 
 	private static final String indentStep = "  ";
+	
+	public static GlobalTable globalTable;
 
-	public static TreePrg translate(Prg p) {
-		List<TreeMethod> methods = translateClassList(p.classes);
+	public static TreePrg translate(Prg p, GlobalTable gt) {
+		Translator.globalTable = gt;
+		//List<TreeMethod> methods = translateClassList(p.classes);
+		LinkedList<TreeMethod> methods = new LinkedList<TreeMethod>();
 		TreeMethod tm = translateMain(p.mainClass);
 		methods.add(0, tm);
 		TreePrg treePrg = new TreePrg(methods);
@@ -36,14 +43,16 @@ public class Translator {
 	}
 
 	private static List<TreeMethod> translateClass(DeclClass c) {
-
+		/*
 		List methodList = new LinkedList<TreeMethod>();
 		for(DeclMeth meth: c.methods){
 			TreeMethod treeMeth = new TreeMethod(new Label(meth.methodName), meth.parameters.size() + 1, translateMeth(meth), new Temp());
 			methodList.add(treeMeth);
 		}
 		return new LinkedList<TreeMethod>();
-
+		*
+		*/
+		return null;
 		/*
 		 * return indent + "class " + c.className + (c.superName == null ? " " :
 		 * " extends " + c.superName + " ") + "{\n\n" +
@@ -61,9 +70,9 @@ public class Translator {
 		return methods;
 	}
 
-	private static List<TreeStm> translateMeth(DeclMeth m) {
+	private static TreeMethod translateMeth(DeclMeth m) {
 
-		return m.body.accept(new TranslatorVisitorStm());
+		return null;
 
 		/*
 		for (Parameter p : m.parameters) {
@@ -111,17 +120,18 @@ public class Translator {
 
 	private static TreeMethod translateMain(DeclMain d) {
 
-		String name = "main";
 		int numberOfParameters = 1;
-		int returnTemp = 1;
-		TreeMethod treeMeth = new TreeMethod(new Label(name),numberOfParameters, d.mainBody.accept(new TranslatorVisitorStm()), new Temp());
+		
+		LinkedList<TreeStm> stmlist = new LinkedList<>();
+		stmlist.add(d.mainBody.accept(new TranslatorVisitorStm()));
+		
+		Temp retTemp = new Temp();
+		TreeStm ret = new TreeStmMove(new TreeExpTemp(retTemp), new TreeExpConst(0));
+		stmlist.add(ret);		
+		
+		TreeMethod tm = new TreeMethod(new Label("main"), numberOfParameters, stmlist, retTemp);
 
-		/*TreeMethod tm = new TreeMethod(new Label(name), numberOfParameters,
-				d.mainBody.accept(new TranslatorVisitorStm()), new Temp());
-		mainMethod TreeMethod = new TreeMethod(name, numberOfParameters, body,
-				returnTemp);*/
-
-		return treeMeth;
+		return tm;
 	}
 
 	static class TranslatorVisitorTy implements TyVisitor<String> {
@@ -176,7 +186,13 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpNew x) {
-			return new TreeExpName(new Label(x.className));
+			int bytesNeeded = Translator.globalTable.getBytesNeededForClass(x.className);
+			System.out.println(bytesNeeded + " Bytes are needed for class: " + x.className);
+			TreeExpName txn = new TreeExpName(new Label("_halloc"));
+			TreeExpConst txc = new TreeExpConst(bytesNeeded);
+			LinkedList<TreeExp> args = new LinkedList<>();
+			args.add(txc);
+			return new TreeExpCall(txn, args);
 		}
 
 		@Override
@@ -223,9 +239,17 @@ public class Translator {
 		@Override
 		public TreeExp visit(ExpInvoke e) {
 			List<TreeExp> argList = new LinkedList<>();
+			
+			TreeExp te = e.obj.accept(new TranslatorVisitorExp());
+			if (te instanceof TreeExpCall ){
+				// new class was generated
+				argList.add(te);
+			}
+			
 			for (Exp ea : e.args) {
 				argList.add(ea.accept(new TranslatorVisitorExp()));
 			}
+			
 			return new TreeExpCall(new TreeExpName(new Label(e.objType + "$" + e.method)), argList);
 		}
 
@@ -237,6 +261,8 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpId x) {
+			// theoreti
+			System.out.println("expression id is called with paramater: " + x.id);
 			//return x.id;
 			return null;
 		}
@@ -248,7 +274,7 @@ public class Translator {
 		}
 	}
 
-	static class TranslatorVisitorStm implements StmVisitor<List<TreeStm>, RuntimeException> {
+	static class TranslatorVisitorStm implements StmVisitor<TreeStm, RuntimeException> {
 
 		final String indent;
 
@@ -262,7 +288,7 @@ public class Translator {
 		}
 
 		@Override
-		public List<TreeStm> visit(StmList slist) {
+		public TreeStm visit(StmList slist) {
 			List methodList = new LinkedList<TreeStm>();
 			for (Stm s : slist.stms) {
 				methodList.add(s.accept(new TranslatorVisitorStm(indent)));
@@ -271,7 +297,7 @@ public class Translator {
 		}
 
 		@Override
-		public List<TreeStm> visit(StmIf s) {
+		public TreeStm visit(StmIf s) {
 			/*
 			return indent
 					+ "if ("
@@ -288,7 +314,7 @@ public class Translator {
 		}
 
 		@Override
-		public List<TreeStm> visit(StmWhile s) {
+		public TreeStm visit(StmWhile s) {
 			/*
 			return indent
 					+ "while ("
@@ -301,19 +327,22 @@ public class Translator {
 		}
 
 		@Override
-		public List<TreeStm> visit(StmPrintlnInt s) {
+		public TreeStm visit(StmPrintlnInt s) {
 			/*
-			return indent + "System.out.println("
-					+ s.arg.accept(new TranslatorVisitorExp()) + ");\n";
-					*/
-			List stmList = new LinkedList<TreeStm>();
-			stmList.add(s.arg.accept(new TranslatorVisitorExp()));
-
-			return null;
+			 * Process system.out.println
+			 * create a move statatement
+			 * println is always a call
+			 * fill up the call with all expressions you can find in the arguments of println
+			 */
+			List<TreeExp> expList = new LinkedList<TreeExp>();
+			expList.add(s.arg.accept(new TranslatorVisitorExp()));
+			TreeExpCall tec = new TreeExpCall(new TreeExpName(new Label("_println_int")), expList);
+			TreeStmMove tsm = new TreeStmMove(new TreeExpTemp(new Temp()), tec);
+			return tsm;
 		}
 
 		@Override
-		public List<TreeStm> visit(StmPrintChar s) {
+		public TreeStm visit(StmPrintChar s) {
 			/*
 			return indent + "System.out.print((char)"
 					+ s.arg.accept(new TranslatorVisitorExp()) + ");\n";
@@ -322,7 +351,7 @@ public class Translator {
 		}
 
 		@Override
-		public List<TreeStm> visit(StmAssign s) {
+		public TreeStm visit(StmAssign s) {
 			/*
 			return indent + s.id + " = "
 					+ s.rhs.accept(new TranslatorVisitorExp()) + ";\n";
@@ -331,7 +360,7 @@ public class Translator {
 		}
 
 		@Override
-		public List<TreeStm> visit(StmArrayAssign s) {
+		public TreeStm visit(StmArrayAssign s) {
 			/*
 			return indent + s.id + "["
 					+ s.index.accept(new TranslatorVisitorExp()) + "] = "

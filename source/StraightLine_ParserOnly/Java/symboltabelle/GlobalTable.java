@@ -69,6 +69,14 @@ public class GlobalTable{
 		}
 		return ct.getArgsOfMethod(methName);
 	}
+	
+	public int getBytesNeededForClass(String className){
+		ClassTable ct = this.findClassTableByName(className);
+		if (ct == null){
+			return 0;
+		}
+		return ct.getBytesNeeded();
+	}
 
 	public String printTable(){
 		String buffer = this.main.printTable() + "\n";

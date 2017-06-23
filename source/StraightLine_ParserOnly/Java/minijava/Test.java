@@ -45,7 +45,7 @@ public class Test {
         TypeChecker.checkType(parseTree, gt);
 
         System.out.println("Start translating");
-        TreePrg treeprg = Translator.translate(parseTree);
+        TreePrg treeprg = Translator.translate(parseTree, gt);
         System.out.println(treeprg.toString());
 
       } finally {
