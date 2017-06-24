@@ -33,6 +33,13 @@ public final class Label {
   public static void resetCounter() {
     nextId = 0;
   }
+  
+  public static int lastInsertedId() {
+	  if(nextId >= 1){
+		  return nextId-1;
+	  }
+	  return 0;
+  }
 
   @Override
   public String toString() {

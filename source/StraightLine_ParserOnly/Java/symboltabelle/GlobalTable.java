@@ -101,6 +101,14 @@ public class GlobalTable{
 		}
 		return ct.getBytesNeeded();
 	}
+	
+	public int getIndexOfLocalVariable(String className, String varName){
+		ClassTable ct = this.findClassTableByName(className);
+		if (ct == null){
+			return -1;
+		}
+		return ct.getIndexOfLocalVariable(varName);
+	}
 
 	public String printTable(){
 		String buffer = this.main.printTable() + "\n";
