@@ -12,12 +12,13 @@ class SumClass {
    int z;
    int res;
    z=x+y;
+   res = 0;
    a=this.g(z);
-   if (y<1) {
-     res = z;
-   } else {
-     res = this.f(z,y-1);
-   }
+  // if (y<1) {
+  //   res = z;
+  // } else {
+   //  res = this.f(z,y-1);
+  // }
    return res;
  }
  public int g (int x) {

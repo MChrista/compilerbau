@@ -13,6 +13,7 @@ import minijava.intermediate.tree.TreeExpCall;
 import minijava.intermediate.tree.TreeExpConst;
 import minijava.intermediate.tree.TreeExpESeq;
 import minijava.intermediate.tree.TreeExpName;
+import minijava.intermediate.tree.TreeExpParam;
 import minijava.intermediate.tree.TreeExpTemp;
 import minijava.intermediate.tree.TreeExpVisitor;
 import minijava.intermediate.tree.TreeMethod;
@@ -21,6 +22,7 @@ import minijava.intermediate.tree.TreeStm;
 import minijava.intermediate.tree.TreeStmCJump;
 import minijava.intermediate.tree.TreeStmLabel;
 import minijava.intermediate.tree.TreeStmMove;
+import minijava.intermediate.tree.TreeStmSeq;
 import minijava.intermediate.tree.TreeStmVisitor;
 import minijava.syntax.*;
 import minijava.syntax.ExpBinOp.Op;
@@ -31,28 +33,35 @@ public class Translator {
 	private static final String indentStep = "  ";
 	
 	public static GlobalTable globalTable;
+	public static String currentClass;
+	public static String currentMethod;
 
 	public static TreePrg translate(Prg p, GlobalTable gt) {
 		Translator.globalTable = gt;
-		//List<TreeMethod> methods = translateClassList(p.classes);
-		LinkedList<TreeMethod> methods = new LinkedList<TreeMethod>();
+		//LinkedList<TreeMethod> methods = new LinkedList<TreeMethod>();
 		TreeMethod tm = translateMain(p.mainClass);
+		List<TreeMethod> methods = translateClassList(p.classes);
 		methods.add(0, tm);
 		TreePrg treePrg = new TreePrg(methods);
 		return treePrg;
 	}
 
 	private static List<TreeMethod> translateClass(DeclClass c) {
+		
 		/*
-		List methodList = new LinkedList<TreeMethod>();
+		 * TODO: What happens with Vars
+		 */
+		
+		Translator.currentClass = c.className;
+		Translator.currentMethod = "";
+		
+		List<TreeMethod> methodList = new LinkedList<TreeMethod>();
 		for(DeclMeth meth: c.methods){
-			TreeMethod treeMeth = new TreeMethod(new Label(meth.methodName), meth.parameters.size() + 1, translateMeth(meth), new Temp());
-			methodList.add(treeMeth);
+			methodList.add(translateMeth(meth, c.className));
 		}
-		return new LinkedList<TreeMethod>();
-		*
-		*/
-		return null;
+		
+		return methodList;
+
 		/*
 		 * return indent + "class " + c.className + (c.superName == null ? " " :
 		 * " extends " + c.superName + " ") + "{\n\n" +
@@ -63,16 +72,34 @@ public class Translator {
 
 	private static List<TreeMethod> translateClassList(List<DeclClass> cl) {
 
-		List<TreeMethod> methods = new LinkedList<>();
+		List<TreeMethod> methods = new LinkedList<TreeMethod>();
 		for (DeclClass d : cl) {
 			methods.addAll(translateClass(d));
 		}
 		return methods;
 	}
 
-	private static TreeMethod translateMeth(DeclMeth m) {
-
-		return null;
+	private static TreeMethod translateMeth(DeclMeth m, String className) {
+		/*
+		 * TODO
+		 * Paramaters - no need to do anything specific
+		 * Var list - same here
+		 * Statements
+		 * Return
+		 */
+		
+		Translator.currentMethod = m.methodName;
+		
+		TreeStm ts = m.body.accept(new TranslatorVisitorStm());
+		
+		LinkedList<TreeStm> stms = new LinkedList<TreeStm>();
+		stms.add(ts);
+		
+		Temp t = new Temp();
+		stms.add(new TreeStmMove(new TreeExpTemp(t), m.returnExp.accept(new TranslatorVisitorExp())));
+		
+		TreeMethod tm = new TreeMethod(new Label(className + "$" + m.methodName), m.parameters.size(), stms, t);
+		return tm;
 
 		/*
 		for (Parameter p : m.parameters) {
@@ -121,6 +148,8 @@ public class Translator {
 	private static TreeMethod translateMain(DeclMain d) {
 
 		int numberOfParameters = 1;
+		Translator.currentClass = "";
+		Translator.currentMethod = "main";
 		
 		LinkedList<TreeStm> stmlist = new LinkedList<>();
 		stmlist.add(d.mainBody.accept(new TranslatorVisitorStm()));
@@ -238,7 +267,7 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpInvoke e) {
-			List<TreeExp> argList = new LinkedList<>();
+			List<TreeExp> argList = new LinkedList<TreeExp>();
 			
 			TreeExp te = e.obj.accept(new TranslatorVisitorExp());
 			if (te instanceof TreeExpCall ){
@@ -261,10 +290,14 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpId x) {
-			// theoreti
 			System.out.println("expression id is called with paramater: " + x.id);
-			//return x.id;
-			return null;
+			
+			int paramIdx = Translator.globalTable.getPositionOfParameter(x.id, Translator.currentClass, Translator.currentMethod);
+			if (paramIdx >= 0 ){
+				return new TreeExpParam(paramIdx);
+			}
+			TreeExpTemp txt = new TreeExpTemp(Translator.globalTable.getTempFromVariableName(x.id, Translator.currentClass, Translator.currentMethod));
+			return txt;
 		}
 
 		@Override
@@ -289,11 +322,12 @@ public class Translator {
 
 		@Override
 		public TreeStm visit(StmList slist) {
-			List methodList = new LinkedList<TreeStm>();
-			for (Stm s : slist.stms) {
-				methodList.add(s.accept(new TranslatorVisitorStm(indent)));
+			List<TreeStm> stms = new LinkedList<TreeStm>();
+			for (Stm s : slist.stms){
+				stms.add(s.accept(this));
 			}
-			return null;
+			TreeStmSeq tss = new TreeStmSeq(stms);
+			return tss;
 		}
 
 		@Override
@@ -352,11 +386,10 @@ public class Translator {
 
 		@Override
 		public TreeStm visit(StmAssign s) {
-			/*
-			return indent + s.id + " = "
-					+ s.rhs.accept(new TranslatorVisitorExp()) + ";\n";
-					*/
-			return null;
+			Temp t = new Temp();
+			Translator.globalTable.setTempToVariable(s.id, Translator.currentClass, Translator.currentMethod, t);			
+			TreeStmMove tsm = new TreeStmMove(new TreeExpTemp(t), s.rhs.accept(new TranslatorVisitorExp()));
+			return tsm;
 		}
 
 		@Override

@@ -1,9 +1,12 @@
 package symboltabelle;
 
+import minijava.intermediate.Temp;
+
 public class TableLine {
 	private String name;
 	private String type;
 	private String value;
+	private Temp t;
 	
 	public TableLine(String name, String type, String value){
 		this.name = name;
@@ -21,5 +24,13 @@ public class TableLine {
 	
 	public String print(){
 		return this.name + " " + this.type + " " + this.value;
+	}
+	
+	public void setTemp(Temp t){
+		this.t = t;
+	}
+	
+	public Temp getTemp(){
+		return t;
 	}
 }

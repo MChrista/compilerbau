@@ -11,12 +11,14 @@ import minijava.syntax.Parameter;
 public class MethodTable extends Table{
 	private String name;
 	private String type;
-	private LinkedList<String> args;
+	private LinkedList<String> argsType;
+	private LinkedList<String> argsName;
 
 	public MethodTable(String name){
 		this.name = name;
 		this.lines = new ArrayList<TableLine>();
-		this.args = new LinkedList<String>();
+		this.argsType = new LinkedList<String>();
+		this.argsName = new LinkedList<String>();
 	}
 	
 	public String getName(){
@@ -32,7 +34,7 @@ public class MethodTable extends Table{
 	}
 	
 	public List getArgs(){
-		return args;
+		return argsType;
 	}
 	
 	public void add(DeclMeth dm){
@@ -45,7 +47,8 @@ public class MethodTable extends Table{
 		for (Parameter p : parameters) {
 			TableLine tl = new TableLine(p.id, p.ty.accept(new SymbolTableVisitorTy()), "");
 			lines.add(tl);
-			args.add(p.ty.accept(new SymbolTableVisitorTy()));
+			argsType.add(p.ty.accept(new SymbolTableVisitorTy()));
+			argsName.add(p.id);
 	    }
 	}
 
@@ -54,6 +57,19 @@ public class MethodTable extends Table{
 			TableLine tl = new TableLine(dv.name, dv.ty.accept(new SymbolTableVisitorTy()), "");
 			lines.add(tl);
 		}
+	}
+	
+	public int getPositionOfParameter(String varName){
+		if ( varName == this.name ){
+			return 0;
+		} else {
+			for(int i = 0; i < argsName.size(); i++){
+				if (argsName.get(i).equals(varName)){
+					return i+1;
+				}
+			}
+		}
+		return -1; // not found		
 	}
 
 	public String print(){

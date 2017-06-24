@@ -3,6 +3,7 @@ package symboltabelle;
 import java.util.ArrayList;
 import java.util.List;
 
+import minijava.intermediate.Temp;
 import minijava.syntax.DeclClass;
 import minijava.syntax.Prg;
 
@@ -46,11 +47,34 @@ public class GlobalTable{
 		}
 	}
 	
+	public void setTempToVariable(String varName, String className, String methName, Temp t){
+		if(this.isMain(className, methName)){
+			this.main.setTempToVariable(varName, t);
+		} else {
+			ClassTable ct = this.findClassTableByName(className);
+			ct.setTempToVariable(varName, methName, t);
+		}
+	}
+	
+	public Temp getTempFromVariableName(String varName, String className, String methName){
+		if(this.isMain(className, methName)){
+			return this.main.getTempFromVariableName(varName);
+		} else {
+			ClassTable ct = this.findClassTableByName(className);
+			return ct.getTempFromVariableName(varName, methName);
+		}
+	}
+	
 	public boolean isMain(String className, String methName){
 		if(className.equals("") && methName.equals("main")){
 			return true;
 		}
 		return false;
+	}
+	
+	public int getPositionOfParameter(String varName, String className, String methName){
+		ClassTable ct = this.findClassTableByName(className);
+		return ct.getPositionOfParameter(varName, methName);
 	}
 	
 	public String getTypeOfMethod(String className, String methName){

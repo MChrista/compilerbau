@@ -33,7 +33,8 @@ public class Test {
     try {
       try {
         parseTree = (minijava.syntax.Prg) parser.parse().value;
-
+        
+        System.out.println("create global table");
         GlobalTable gt = new GlobalTable(parseTree);
         System.out.println("Symboltable");
         System.out.println(gt.printTable());

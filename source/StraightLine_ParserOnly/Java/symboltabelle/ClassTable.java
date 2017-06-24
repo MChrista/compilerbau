@@ -3,6 +3,7 @@ package symboltabelle;
 import java.util.ArrayList;
 import java.util.List;
 
+import minijava.intermediate.Temp;
 import minijava.syntax.DeclClass;
 import minijava.syntax.DeclMeth;
 import minijava.syntax.DeclVar;
@@ -87,6 +88,41 @@ public class ClassTable extends Table{
 		int bytesForClass = 4;
 		int bytesForVariables = this.lines.size() * 4;
 		return bytesForClass + bytesForVariables;
+	}
+	
+	public void setTempToVariable(String varName, String methName, Temp t){
+		MethodTable mt = this.getMethodTableByName(methName);
+		if (mt == null){
+			TableLine tl = this.findVariableByName(varName);
+			tl.setTemp(t);
+		}else{
+			TableLine tl = mt.findVariableByName(varName);
+			if (tl == null){
+				TableLine tl2 = this.findVariableByName(varName);
+				tl.setTemp(t);
+			}
+			tl.setTemp(t);
+		}
+	}
+	
+	public Temp getTempFromVariableName(String varName, String methName){
+		MethodTable mt = this.getMethodTableByName(methName);
+		if (mt == null){
+			TableLine tl = this.findVariableByName(varName);
+			return tl.getTemp();
+		}else{
+			TableLine tl = mt.findVariableByName(varName);
+			if (tl == null){
+				TableLine tl2 = this.findVariableByName(varName);
+				return tl.getTemp();
+			}
+			return tl.getTemp();
+		}
+	}
+	
+	public int getPositionOfParameter(String varName, String methName){
+		MethodTable mt = this.getMethodTableByName(methName);
+		return mt.getPositionOfParameter(varName);
 	}
 	
 	public String printTable(){
