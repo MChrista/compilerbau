@@ -21,6 +21,7 @@ import minijava.intermediate.tree.TreeMethod;
 import minijava.intermediate.tree.TreePrg;
 import minijava.intermediate.tree.TreeStm;
 import minijava.intermediate.tree.TreeStmCJump;
+import minijava.intermediate.tree.TreeStmCJump.Rel;
 import minijava.intermediate.tree.TreeStmJump;
 import minijava.intermediate.tree.TreeStmLabel;
 import minijava.intermediate.tree.TreeStmMove;
@@ -172,11 +173,12 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpThis x) {
-			return null;
+			return new TreeExpParam(0);
 		}
 
 		@Override
 		public TreeExp visit(ExpNewIntArray x) {
+			
 			return null;
 		}
 
@@ -195,14 +197,14 @@ public class Translator {
 		public TreeExp visit(ExpBinOp e) {
 			TreeExpBinOp.Op op = null;
 			if (e.op == e.op.AND){
-				op = op.AND;
+				// TODO
+				return this.convertBoolCompare(e, Rel.EQ);
 			}
 			else if (e.op == e.op.DIV){
 				op = op.DIV;
 			}
-			else if (e.op == e.op.LT){
-
-				op = op.MINUS;
+			else if (e.op == Op.LT){
+				return this.convertBoolCompare(e, Rel.LT);
 			}
 			else if (e.op == e.op.MINUS){
 				op = op.MINUS;
@@ -215,6 +217,23 @@ public class Translator {
 			}
 
 			return new TreeExpBinOp(op, e.left.accept(this), e.right.accept(this));
+		}
+		
+		public TreeExpESeq convertBoolCompare(ExpBinOp e, Rel operator){
+			TreeExpTemp t = new TreeExpTemp(new Temp());
+			Label lTrue = new Label();
+			Label lFalse = new Label();
+			
+			TreeStmSeq tss = new TreeStmSeq(
+					new TreeStmMove(t, new TreeExpConst(0)),
+					new TreeStmCJump(operator, e.left.accept(this), e.right.accept(this), lTrue, lFalse),
+					new TreeStmLabel(lTrue),
+					new TreeStmMove(t, new TreeExpConst(1)),
+					new TreeStmLabel(lFalse)
+					);
+			
+			TreeExpESeq tees = new TreeExpESeq(tss, t);
+			return tees;
 		}
 
 		@Override
@@ -269,7 +288,15 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpNeg x) {
-			return null;
+			if (x.body instanceof ExpTrue){
+				return new TreeExpConst(0);
+			} else if (x.body instanceof ExpFalse){
+				return new TreeExpConst(1);
+			} else {
+				TreeExp ex = x.body.accept(this);
+			}
+				
+			return x.body.accept(this);
 			//return "!(" + x.body.accept(this) + ")";
 		}
 	}
@@ -305,20 +332,24 @@ public class Translator {
 			Label labelFalse = new Label();
 			Label labelEnd = new Label();
 			
-			ExpBinOp ebo = (ExpBinOp) s.cond;
-			TreeStmCJump jump = null;
-			if ( ebo.op == ExpBinOp.Op.LT ){
-				jump = new TreeStmCJump(TreeStmCJump.Rel.LT, ebo.left.accept(new TranslatorVisitorExp()) , ebo.right.accept(new TranslatorVisitorExp()), labelTrue, labelFalse);
-			} else if ( ebo.op == ExpBinOp.Op.AND ){
-				jump = new TreeStmCJump(TreeStmCJump.Rel.EQ, ebo.left.accept(new TranslatorVisitorExp()) , ebo.right.accept(new TranslatorVisitorExp()), labelTrue, labelFalse);
-			}
+			TreeStmCJump jump;
+			jump = new TreeStmCJump(TreeStmCJump.Rel.EQ, s.cond.accept(new TranslatorVisitorExp()) , new TreeExpConst(1), labelTrue, labelFalse);
+			
 			List<Label> targets =  new LinkedList<Label>();
 			targets.add(labelEnd);
- 			TreeStmSeq seq = new TreeStmSeq(new TreeStmLabel(labelFalse),s.bodyFalse.accept(this),new TreeStmJump(new TreeExpName(labelEnd),targets),new TreeStmSeq(new TreeStmLabel(labelTrue), s.bodyTrue.accept(this),new TreeStmLabel(labelEnd),new TreeStmSeq()));
 			
-			// Return statement
+ 			TreeStmSeq resultSeq;
+ 			resultSeq = new TreeStmSeq(
+ 					new TreeStmLabel(labelFalse),s.bodyFalse.accept(this),
+ 					new TreeStmJump(new TreeExpName(labelEnd),targets),
+ 					new TreeStmSeq(new TreeStmLabel(labelTrue), 
+ 							s.bodyTrue.accept(this),
+ 							new TreeStmLabel(labelEnd),
+ 							new TreeStmSeq()
+ 							)
+ 					);
 			stms.add(jump);
-			stms.add(seq);
+			stms.add(resultSeq);
 			TreeStmSeq tss = new TreeStmSeq(stms);
 			return tss;
 		}
