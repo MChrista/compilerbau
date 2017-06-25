@@ -356,15 +356,32 @@ public class Translator {
 
 		@Override
 		public TreeStm visit(StmWhile s) {
-			/*
-			return indent
-					+ "while ("
-					+ s.cond.accept(new TranslatorVisitorExp())
-					+ ") {\n"
-					+ s.body.accept(new TranslatorVisitorStm(this.indent + " "))
-					+ indent + "}\n";
-					*/
-			return null;
+			List<TreeStm> stms = new LinkedList<TreeStm>();
+
+			Label labelStart = new Label();
+			Label labelTrue = new Label();
+			Label labelEnd = new Label();
+			
+			TreeStmCJump jump;
+			jump = new TreeStmCJump(TreeStmCJump.Rel.EQ, s.cond.accept(new TranslatorVisitorExp()) , new TreeExpConst(1), labelTrue, labelEnd);
+			
+			List<Label> targets =  new LinkedList<Label>();
+			targets.add(labelStart);
+			
+ 			TreeStmSeq resultSeq;
+ 			resultSeq = new TreeStmSeq(
+ 					//new TreeStmLabel(labelStart),s.body.accept(this),
+ 					jump,
+ 					new TreeStmSeq(new TreeStmLabel(labelTrue), 
+ 							new TreeStmSeq(s.body.accept(this)),
+ 							new TreeStmJump(new TreeExpName(labelStart),targets),
+ 							new TreeStmSeq(new TreeStmLabel(labelEnd), new TreeStmSeq()),
+ 							)
+ 					);
+ 			stms.add(new TreeStmLabel(labelStart));
+			stms.add(resultSeq);
+			TreeStmSeq tss = new TreeStmSeq(stms);
+			return tss;
 		}
 
 		@Override
