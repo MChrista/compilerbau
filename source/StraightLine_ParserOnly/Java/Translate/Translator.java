@@ -238,9 +238,13 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpArrayGet e) {
-			//System.out.println("pretty print arr get: " + e.array.accept(this));
-			//return e.array.accept(this) + "[" + e.index.accept(this) + "]";
-			return null;
+			TreeExpMem tem = new TreeExpMem(
+					new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this), 
+							new TreeExpBinOp(TreeExpBinOp.Op.MUL, new TreeExpConst(4), 
+									new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.index.accept(this), new TreeExpConst(1)))
+							)
+					);
+			return tem;
 		}
 
 		@Override
