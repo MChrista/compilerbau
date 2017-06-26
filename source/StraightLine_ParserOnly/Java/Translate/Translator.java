@@ -80,7 +80,7 @@ public class Translator {
 		Temp t = new Temp();
 		stms.add(new TreeStmMove(new TreeExpTemp(t), m.returnExp.accept(new TranslatorVisitorExp())));
 
-		TreeMethod tm = new TreeMethod(new Label(className + "$" + m.methodName), m.parameters.size(), stms, t);
+		TreeMethod tm = new TreeMethod(new Label(className + "$" + m.methodName), m.parameters.size()+1, stms, t);
 		return tm;
 
 	}
@@ -154,7 +154,18 @@ public class Translator {
 		@Override
 		public TreeExp visit(ExpBinOp e) {
 			if (e.op == ExpBinOp.Op.AND) {
-				return new TreeExpBinOp(TreeExpBinOp.Op.AND, e.left.accept(this), e.left.accept(this));
+				TreeExpTemp t = new TreeExpTemp(new Temp());
+				Label lLeftTrue = new Label();
+				Label lRightTrue = new Label();
+				Label lEnd = new Label();
+
+				TreeStmSeq tss = new TreeStmSeq(new TreeStmMove(t, new TreeExpConst(0)),
+						new TreeStmCJump(Rel.EQ, e.left.accept(this), new TreeExpConst(1), lLeftTrue, lEnd),
+						new TreeStmLabel(lLeftTrue), new TreeStmCJump(Rel.EQ, e.right.accept(this), new TreeExpConst(1), lRightTrue, lEnd),
+						new TreeStmLabel(lRightTrue),
+						new TreeStmMove(t, new TreeExpConst(1)), new TreeStmLabel(lEnd));
+				TreeExpESeq tees = new TreeExpESeq(tss, t);
+				return tees;
 			} else if (e.op == ExpBinOp.Op.DIV) {
 				return new TreeExpBinOp(TreeExpBinOp.Op.DIV, e.left.accept(this), e.left.accept(this));
 			} else if (e.op == ExpBinOp.Op.LT) {
@@ -243,7 +254,6 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpIntConst x) {
-			// return (new Integer(x.value)).toString();
 			return new TreeExpConst(x.value);
 		}
 
@@ -380,7 +390,6 @@ public class Translator {
 		@Override
 		public TreeStm visit(StmAssign s) {
 
-			// if s.id == local variable
 			int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, s.id);
 			Temp t = new Temp();
 			TreeStmMove tsm;
