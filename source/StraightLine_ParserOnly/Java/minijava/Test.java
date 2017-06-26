@@ -2,11 +2,16 @@ package minijava;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.List;
 
+import BlockBuilder.Block;
+import BlockBuilder.BlockBuilder;
 import Translate.Translator;
 import minijava.intermediate.tree.TreePrg;
 import minijava.syntax.PrettyPrint;
 import symboltabelle.GlobalTable;
+import minijava.intermediate.canon.*;
 
 public class Test {
 
@@ -47,7 +52,18 @@ public class Test {
 
         //System.out.println("Start translating");
         TreePrg treeprg = Translator.translate(parseTree, gt);
-        System.out.println(treeprg.toString());
+        //System.out.println(treeprg.toString());
+        
+        Canonizer can = new Canonizer();
+        TreePrg canonizedPrg = can.canonPrg(treeprg);
+        System.out.println("Canonizing Programm \n");
+        System.out.println(canonizedPrg.toString());
+        
+        System.out.println("Building Blocks");
+        BlockBuilder blockB = new BlockBuilder(canonizedPrg);
+        List<Block> unorderedBlocks = new LinkedList<>();
+        unorderedBlocks = blockB.buildBlocks();
+        
 
       } finally {
         inp.close();
