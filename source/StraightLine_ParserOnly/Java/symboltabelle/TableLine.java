@@ -12,6 +12,7 @@ public class TableLine {
 		this.name = name;
 		this.type = type;
 		this.value = value;
+		t = null;
 	}
 	
 	public String getName(){

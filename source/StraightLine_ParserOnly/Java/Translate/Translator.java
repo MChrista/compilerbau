@@ -167,15 +167,15 @@ public class Translator {
 				TreeExpESeq tees = new TreeExpESeq(tss, t);
 				return tees;
 			} else if (e.op == ExpBinOp.Op.DIV) {
-				return new TreeExpBinOp(TreeExpBinOp.Op.DIV, e.left.accept(this), e.left.accept(this));
+				return new TreeExpBinOp(TreeExpBinOp.Op.DIV, e.left.accept(this), e.right.accept(this));
 			} else if (e.op == ExpBinOp.Op.LT) {
 				return this.convertBoolCompare(e, Rel.LT);
 			} else if (e.op == ExpBinOp.Op.MINUS) {
-				return new TreeExpBinOp(TreeExpBinOp.Op.MINUS, e.left.accept(this), e.left.accept(this));
+				return new TreeExpBinOp(TreeExpBinOp.Op.MINUS, e.left.accept(this), e.right.accept(this));
 			} else if (e.op == ExpBinOp.Op.PLUS) {
-				return new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.left.accept(this), e.left.accept(this));
+				return new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.left.accept(this), e.right.accept(this));
 			} else if (e.op == ExpBinOp.Op.TIMES) {
-				return new TreeExpBinOp(TreeExpBinOp.Op.MUL, e.left.accept(this), e.left.accept(this));
+				return new TreeExpBinOp(TreeExpBinOp.Op.MUL, e.left.accept(this), e.right.accept(this));
 			}
 
 			return null;
@@ -391,6 +391,8 @@ public class Translator {
 		public TreeStm visit(StmAssign s) {
 
 			int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, s.id);
+			System.out.println("Local index is: " + localIdx);
+			
 			Temp t = new Temp();
 			TreeStmMove tsm;
 			if (localIdx > 0) {
@@ -399,8 +401,14 @@ public class Translator {
 				TreeExpMem txm = new TreeExpMem(twbo);
 				tsm = new TreeStmMove(txm, s.rhs.accept(new TranslatorVisitorExp()));
 			} else {
-				Translator.globalTable.setTempToVariable(s.id, Translator.currentClass, Translator.currentMethod, t);
-				tsm = new TreeStmMove(new TreeExpTemp(t), s.rhs.accept(new TranslatorVisitorExp()));
+				Temp temp = Translator.globalTable.getTempFromVariableName(s.id, Translator.currentClass, Translator.currentMethod);
+				if ( temp == null ){
+					Translator.globalTable.setTempToVariable(s.id, Translator.currentClass, Translator.currentMethod, t);
+					tsm = new TreeStmMove(new TreeExpTemp(t), s.rhs.accept(new TranslatorVisitorExp()));
+				} else {
+					tsm = new TreeStmMove(new TreeExpTemp(temp), s.rhs.accept(new TranslatorVisitorExp()));
+				}
+				
 			}
 			return tsm;
 		}
