@@ -33,15 +33,12 @@ import symboltabelle.GlobalTable;
 
 public class Translator {
 
-	private static final String indentStep = "  ";
-
 	public static GlobalTable globalTable;
 	public static String currentClass;
 	public static String currentMethod;
 
 	public static TreePrg translate(Prg p, GlobalTable gt) {
 		Translator.globalTable = gt;
-		// LinkedList<TreeMethod> methods = new LinkedList<TreeMethod>();
 		TreeMethod tm = translateMain(p.mainClass);
 		List<TreeMethod> methods = translateClassList(p.classes);
 		methods.add(0, tm);
@@ -50,10 +47,6 @@ public class Translator {
 	}
 
 	private static List<TreeMethod> translateClass(DeclClass c) {
-
-		/*
-		 * TODO: What happens with Vars
-		 */
 
 		Translator.currentClass = c.className;
 		Translator.currentMethod = "";
@@ -64,13 +57,6 @@ public class Translator {
 		}
 
 		return methodList;
-
-		/*
-		 * return indent + "class " + c.className + (c.superName == null ? " " :
-		 * " extends " + c.superName + " ") + "{\n\n" +
-		 * translateVarList(c.fields, indent + indentStep) +
-		 * translateMethList(c.methods, indent + indentStep) + indent + "}\n";
-		 */
 	}
 
 	private static List<TreeMethod> translateClassList(List<DeclClass> cl) {
@@ -130,34 +116,6 @@ public class Translator {
 		return tm;
 	}
 
-	static class TranslatorVisitorTy implements TyVisitor<String> {
-
-		@Override
-		public String visit(TyVoid b) {
-			return "void";
-		}
-
-		@Override
-		public String visit(TyBool b) {
-			return "boolean";
-		}
-
-		@Override
-		public String visit(TyInt i) {
-			return "int";
-		}
-
-		@Override
-		public String visit(TyClass x) {
-			return x.c.toString();
-		}
-
-		@Override
-		public String visit(TyArr x) {
-			return x.ty.accept(this) + "[]";
-		}
-	}
-
 	static class TranslatorVisitorExp implements ExpVisitor<TreeExp, RuntimeException> {
 
 		@Override
@@ -207,23 +165,21 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpBinOp e) {
-			TreeExpBinOp.Op op = null;
-			if (e.op == e.op.AND) {
-				// TODO
-				return this.convertBoolCompare(e, Rel.EQ);
-			} else if (e.op == e.op.DIV) {
-				op = op.DIV;
-			} else if (e.op == Op.LT) {
+			if (e.op == ExpBinOp.Op.AND) {
+				return new TreeExpBinOp(TreeExpBinOp.Op.AND, e.left.accept(this), e.left.accept(this));
+			} else if (e.op == ExpBinOp.Op.DIV) {
+				return new TreeExpBinOp(TreeExpBinOp.Op.DIV, e.left.accept(this), e.left.accept(this));
+			} else if (e.op == ExpBinOp.Op.LT) {
 				return this.convertBoolCompare(e, Rel.LT);
-			} else if (e.op == e.op.MINUS) {
-				op = op.MINUS;
-			} else if (e.op == e.op.PLUS) {
-				op = op.PLUS;
-			} else if (e.op == e.op.TIMES) {
-				op = op.MUL;
+			} else if (e.op == ExpBinOp.Op.MINUS) {
+				return new TreeExpBinOp(TreeExpBinOp.Op.MINUS, e.left.accept(this), e.left.accept(this));
+			} else if (e.op == ExpBinOp.Op.PLUS) {
+				return new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.left.accept(this), e.left.accept(this));
+			} else if (e.op == ExpBinOp.Op.TIMES) {
+				return new TreeExpBinOp(TreeExpBinOp.Op.MUL, e.left.accept(this), e.left.accept(this));
 			}
 
-			return new TreeExpBinOp(op, e.left.accept(this), e.right.accept(this));
+			return null;
 		}
 
 		public TreeExpESeq convertBoolCompare(ExpBinOp e, Rel operator) {
@@ -324,11 +280,10 @@ public class Translator {
 			} else if (x.body instanceof ExpFalse) {
 				return new TreeExpConst(1);
 			} else {
-				TreeExp ex = x.body.accept(this);
-			}
+				Temp t = new Temp();				
+				return new TreeExpESeq(new TreeStmMove(new TreeExpTemp(t),new TreeExpBinOp(TreeExpBinOp.Op.MINUS, new TreeExpConst(1), x.body.accept(this))), new TreeExpTemp(t));
 
-			return x.body.accept(this);
-			// return "!(" + x.body.accept(this) + ")";
+			}
 		}
 	}
 
