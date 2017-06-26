@@ -215,6 +215,8 @@ public class Translator {
 				} else {
 					tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this), new TreeExpBinOp(TreeExpBinOp.Op.MUL, tc, new TreeExpConst(4))));
 				}
+			} else {
+				tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this), new TreeExpBinOp(TreeExpBinOp.Op.MUL, e.index.accept(new TranslatorVisitorExp()), new TreeExpConst(4))));
 			}
 
 			return new TreeExpESeq(
@@ -270,7 +272,6 @@ public class Translator {
 
 			int paramIdx = Translator.globalTable.getPositionOfParameter(x.id, Translator.currentClass,
 					Translator.currentMethod);
-			System.out.println("param idx: " + paramIdx);
 			if (paramIdx >= 0) {
 				return new TreeExpParam(paramIdx);
 			}
@@ -398,6 +399,7 @@ public class Translator {
 
 		@Override
 		public TreeStm visit(StmAssign s) {
+			//System.out.println("statement assign: " + s.id);
 
 			int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, s.id);
 			
@@ -423,10 +425,15 @@ public class Translator {
 
 		@Override
 		public TreeStm visit(StmArrayAssign s) {
-			Temp arr = Translator.globalTable.getTempFromVariableName(s.id, Translator.currentClass, Translator.currentMethod);
+			
+			//System.out.println("array assign");
+			
+			ExpId ei = new ExpId(s.id);
+			TreeExp tet = ei.accept(new TranslatorVisitorExp());
+			
 			Label lTrue = new Label();
 			Label lFalse = new Label();
-			TreeExpTemp tet = new TreeExpTemp(arr);
+
 			TreeExpMem tm = null;
 
 			LinkedList<TreeExp> args = new LinkedList<>();
@@ -434,6 +441,7 @@ public class Translator {
 
 			TreeExp tx = s.index.accept(new TranslatorVisitorExp());
 			if (tx instanceof TreeExpConst){
+				//System.out.println("tree expression constant");
 				TreeExpConst tc = (TreeExpConst) tx;
 				int idx = tc.getValue();
 				if ( idx == 0){
@@ -443,6 +451,9 @@ public class Translator {
 				} else {
 					tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, tet, new TreeExpBinOp(TreeExpBinOp.Op.MUL, tc, new TreeExpConst(4))));
 				}
+			} else {
+				//System.out.println("no constant for: " + s.id);
+				tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, tet, new TreeExpBinOp(TreeExpBinOp.Op.MUL, s.index.accept(new TranslatorVisitorExp()), new TreeExpConst(4))));
 			}
 
 			TreeStmMove tsm = new TreeStmMove(
