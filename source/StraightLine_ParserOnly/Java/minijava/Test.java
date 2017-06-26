@@ -33,19 +33,19 @@ public class Test {
     try {
       try {
         parseTree = (minijava.syntax.Prg) parser.parse().value;
-        
-        System.out.println("create global table");
+
+        //System.out.println("create global table");
         GlobalTable gt = new GlobalTable(parseTree);
-        System.out.println("Symboltable");
-        System.out.println(gt.printTable());
+        //System.out.println("Symboltable");
+        //System.out.println(gt.printTable());
 
-        System.out.println(PrettyPrint.prettyPrint(parseTree));
-        System.out.println("Parsing der Eingabe erfolgreich.");
+        //System.out.println(PrettyPrint.prettyPrint(parseTree));
+        //System.out.println("Parsing der Eingabe erfolgreich.");
 
-        System.out.println("Start type check");
+        //System.out.println("Start type check");
         TypeChecker.checkType(parseTree, gt);
 
-        System.out.println("Start translating");
+        //System.out.println("Start translating");
         TreePrg treeprg = Translator.translate(parseTree, gt);
         System.out.println(treeprg.toString());
 

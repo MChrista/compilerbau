@@ -197,7 +197,7 @@ public class TypeChecker {
 				if (args.get(i).toString().equals(e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName, globalTable)))){
 
 				} else {
-					System.out.println("Method: " + e.method);
+					//System.out.println("Method: " + e.method);
 					new TypeException("Type of parameters don't match type of passed variables - " + args.get(i).toString() + " " +
 				e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName, globalTable)));
 				}
@@ -281,7 +281,7 @@ public class TypeChecker {
 		@Override
 		public String visit(StmPrintlnInt s) {
 			String type = s.arg.accept(new TypeCheckerVisitorExp(className, methName, globalTable));
-			System.out.println("println type: " + type);
+			//System.out.println("println type: " + type);
 			if (type.equals("int")){
 				return "";
 			}
