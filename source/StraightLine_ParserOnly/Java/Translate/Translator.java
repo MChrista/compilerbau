@@ -260,12 +260,21 @@ public class Translator {
 		@Override
 		public TreeExp visit(ExpId x) {
 			//System.out.println("expression id is called with paramater: " + x.id);
+			
+			int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, x.id);
+			if ( localIdx > 0 ){
+				TreeExpBinOp twbo = new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(localIdx * 4),
+						new TreeExpParam(0));
+				return new TreeExpMem(twbo);
+			}
 
 			int paramIdx = Translator.globalTable.getPositionOfParameter(x.id, Translator.currentClass,
 					Translator.currentMethod);
+			System.out.println("param idx: " + paramIdx);
 			if (paramIdx >= 0) {
 				return new TreeExpParam(paramIdx);
 			}
+			
 			TreeExpTemp txt = new TreeExpTemp(Translator.globalTable.getTempFromVariableName(x.id,
 					Translator.currentClass, Translator.currentMethod));
 			return txt;
@@ -391,7 +400,6 @@ public class Translator {
 		public TreeStm visit(StmAssign s) {
 
 			int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, s.id);
-			System.out.println("Local index is: " + localIdx);
 			
 			Temp t = new Temp();
 			TreeStmMove tsm;
