@@ -7,6 +7,7 @@ import minijava.intermediate.Temp;
 import minijava.syntax.DeclClass;
 import minijava.syntax.DeclMeth;
 import minijava.syntax.DeclVar;
+import symboltabelle.GlobalTable.VarScope;
 
 public class ClassTable extends Table{
 	List<MethodTable> methods = new ArrayList<MethodTable>();
@@ -114,9 +115,29 @@ public class ClassTable extends Table{
 			TableLine tl = mt.findVariableByName(varName);
 			if (tl == null){
 				TableLine tl2 = this.findVariableByName(varName);
-				return tl.getTemp();
+				return tl2.getTemp();
 			}
 			return tl.getTemp();
+		}
+	}
+	
+	public VarScope getScopeOfVar(String methodName, String varName){
+		MethodTable mt = this.getMethodTableByName(methodName);
+		if (mt == null){
+			TableLine tl = this.findVariableByName(varName);
+			if (tl != null){
+				return VarScope.GLOBAL;
+			}
+			return null;
+		}else{
+			VarScope vs = mt.getScopeOfVar(varName);
+			if (vs == null){
+				TableLine tl = this.findVariableByName(varName);
+				if (tl != null){
+					return VarScope.GLOBAL;
+				}
+			}
+			return vs;
 		}
 	}
 	
@@ -148,6 +169,4 @@ public class ClassTable extends Table{
 	    }
 	    return classes.toString(); 
 	}
-
-	
 }

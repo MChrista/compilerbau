@@ -10,6 +10,11 @@ import minijava.syntax.Prg;
 public class GlobalTable{
 	MainTable main;
 	List<ClassTable> classes = new ArrayList<ClassTable>();
+	
+	public enum VarScope {
+	    // note: there is no OR in MiniJava (and actually also no DIV)
+	    GLOBAL, PARAM, LOCAL;
+	}
 
 	public GlobalTable(Prg prg){
 		this.addMain(prg);
@@ -108,6 +113,14 @@ public class GlobalTable{
 			return -1;
 		}
 		return ct.getIndexOfLocalVariable(varName);
+	}
+	
+	public VarScope getScopeOfVar(String className, String methodName, String varName){
+		ClassTable ct = this.findClassTableByName(className);
+		if (ct == null){
+			return null;
+		}
+		return ct.getScopeOfVar(methodName, varName);
 	}
 
 	public String printTable(){

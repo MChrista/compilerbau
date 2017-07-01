@@ -30,6 +30,7 @@ import minijava.intermediate.tree.TreeStmVisitor;
 import minijava.syntax.*;
 import minijava.syntax.ExpBinOp.Op;
 import symboltabelle.GlobalTable;
+import symboltabelle.GlobalTable.VarScope;
 
 public class Translator {
 
@@ -80,11 +81,10 @@ public class Translator {
 		Temp t = new Temp();
 		stms.add(new TreeStmMove(new TreeExpTemp(t), m.returnExp.accept(new TranslatorVisitorExp())));
 
-		TreeMethod tm = new TreeMethod(new Label(className + "$" + m.methodName), m.parameters.size()+1, stms, t);
+		TreeMethod tm = new TreeMethod(new Label(className + "$" + m.methodName), m.parameters.size() + 1, stms, t);
 		return tm;
 
 	}
-
 
 	private static TreeMethod translateMain(DeclMain d) {
 
@@ -127,15 +127,16 @@ public class Translator {
 			TreeExpTemp index = new TreeExpTemp(new Temp());
 			TreeExpTemp address = new TreeExpTemp(new Temp());
 
-
 			LinkedList<TreeExp> args = new LinkedList<>();
-			args.add(new TreeExpBinOp(TreeExpBinOp.Op.MUL, new TreeExpBinOp(TreeExpBinOp.Op.PLUS, index, new TreeExpConst(1)), new TreeExpConst(4)));
+			args.add(new TreeExpBinOp(TreeExpBinOp.Op.MUL,
+					new TreeExpBinOp(TreeExpBinOp.Op.PLUS, index, new TreeExpConst(1)), new TreeExpConst(4)));
 
 			TreeStmSeq tss = new TreeStmSeq(new TreeStmMove(index, x.size.accept(this)),
-					new TreeStmSeq(new TreeStmMove(address, new TreeExpCall(new TreeExpName(new Label("_halloc")),args)),
-							new TreeStmSeq(new TreeStmMove(new TreeExpMem(address), index), new TreeStmSeq()))
-					);
-			TreeExpESeq eseq = new TreeExpESeq(tss, new TreeExpBinOp(TreeExpBinOp.Op.PLUS, address, new TreeExpConst(4)));
+					new TreeStmSeq(
+							new TreeStmMove(address, new TreeExpCall(new TreeExpName(new Label("_halloc")), args)),
+							new TreeStmSeq(new TreeStmMove(new TreeExpMem(address), index), new TreeStmSeq())));
+			TreeExpESeq eseq = new TreeExpESeq(tss,
+					new TreeExpBinOp(TreeExpBinOp.Op.PLUS, address, new TreeExpConst(4)));
 
 			return eseq;
 		}
@@ -143,7 +144,8 @@ public class Translator {
 		@Override
 		public TreeExp visit(ExpNew x) {
 			int bytesNeeded = Translator.globalTable.getBytesNeededForClass(x.className);
-			//System.out.println(bytesNeeded + " Bytes are needed for class: " + x.className);
+			// System.out.println(bytesNeeded + " Bytes are needed for class: "
+			// + x.className);
 			TreeExpName txn = new TreeExpName(new Label("_halloc"));
 			TreeExpConst txc = new TreeExpConst(bytesNeeded);
 			LinkedList<TreeExp> args = new LinkedList<>();
@@ -161,9 +163,9 @@ public class Translator {
 
 				TreeStmSeq tss = new TreeStmSeq(new TreeStmMove(t, new TreeExpConst(0)),
 						new TreeStmCJump(Rel.EQ, e.left.accept(this), new TreeExpConst(1), lLeftTrue, lEnd),
-						new TreeStmLabel(lLeftTrue), new TreeStmCJump(Rel.EQ, e.right.accept(this), new TreeExpConst(1), lRightTrue, lEnd),
-						new TreeStmLabel(lRightTrue),
-						new TreeStmMove(t, new TreeExpConst(1)), new TreeStmLabel(lEnd));
+						new TreeStmLabel(lLeftTrue),
+						new TreeStmCJump(Rel.EQ, e.right.accept(this), new TreeExpConst(1), lRightTrue, lEnd),
+						new TreeStmLabel(lRightTrue), new TreeStmMove(t, new TreeExpConst(1)), new TreeStmLabel(lEnd));
 				TreeExpESeq tees = new TreeExpESeq(tss, t);
 				return tees;
 			} else if (e.op == ExpBinOp.Op.DIV) {
@@ -205,28 +207,33 @@ public class Translator {
 			TreeExpMem tm = null;
 
 			TreeExp tx = e.index.accept(new TranslatorVisitorExp());
-			if (tx instanceof TreeExpConst){
+			if (tx instanceof TreeExpConst) {
 				TreeExpConst tc = (TreeExpConst) tx;
 				int idx = tc.getValue();
-				if ( idx == 0){
+				if (idx == 0) {
 					tm = new TreeExpMem(e.array.accept(this));
-				} else if ( idx == 1){
-					tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this), new TreeExpConst(4)));
+				} else if (idx == 1) {
+					tm = new TreeExpMem(
+							new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this), new TreeExpConst(4)));
 				} else {
-					tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this), new TreeExpBinOp(TreeExpBinOp.Op.MUL, tc, new TreeExpConst(4))));
+					tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this),
+							new TreeExpBinOp(TreeExpBinOp.Op.MUL, tc, new TreeExpConst(4))));
 				}
 			} else {
-				tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this), new TreeExpBinOp(TreeExpBinOp.Op.MUL, e.index.accept(new TranslatorVisitorExp()), new TreeExpConst(4))));
+				tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, e.array.accept(this), new TreeExpBinOp(
+						TreeExpBinOp.Op.MUL, e.index.accept(new TranslatorVisitorExp()), new TreeExpConst(4))));
 			}
 
 			return new TreeExpESeq(
 					new TreeStmSeq(
-							new TreeStmCJump(Rel.LT, tx, new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(-4), e.array.accept(this))), lTrue, lFalse),
-							new TreeStmSeq(new TreeStmLabel(lFalse),new TreeStmSeq(
-									new TreeStmMove(new TreeExpTemp(new Temp()), new TreeExpCall(new TreeExpName(new Label("_raise")), args))),
-									new TreeStmSeq(new TreeStmLabel(lTrue), new TreeStmSeq())
-									)
-							),
+							new TreeStmCJump(Rel.LT, tx,
+									new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(-4),
+											e.array.accept(this))),
+									lTrue, lFalse),
+							new TreeStmSeq(new TreeStmLabel(lFalse),
+									new TreeStmSeq(new TreeStmMove(new TreeExpTemp(new Temp()),
+											new TreeExpCall(new TreeExpName(new Label("_raise")), args))),
+									new TreeStmSeq(new TreeStmLabel(lTrue), new TreeStmSeq()))),
 					tm);
 		}
 
@@ -237,16 +244,12 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpInvoke e) {
+			//System.out.println(e.method + "  " + e.objType);
 			List<TreeExp> argList = new LinkedList<TreeExp>();
 
 			TreeExp te = e.obj.accept(new TranslatorVisitorExp());
-			if (te instanceof TreeExpCall) {
-				// new class was generated
-				argList.add(te);
-			} else {
-				// TODO: add parameter of calling object
-				argList.add(new TreeExpParam(0));
-			}
+			argList.add(te);
+			
 			for (Exp ea : e.args) {
 				argList.add(ea.accept(new TranslatorVisitorExp()));
 			}
@@ -261,24 +264,27 @@ public class Translator {
 
 		@Override
 		public TreeExp visit(ExpId x) {
-			//System.out.println("expression id is called with paramater: " + x.id);
-			
-			int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, x.id);
-			if ( localIdx > 0 ){
+
+			VarScope vs = Translator.globalTable.getScopeOfVar(Translator.currentClass, Translator.currentMethod, x.id);
+
+			switch (vs) {
+			case GLOBAL:
+				int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, x.id);
 				TreeExpBinOp twbo = new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(localIdx * 4),
 						new TreeExpParam(0));
 				return new TreeExpMem(twbo);
+			case LOCAL:
+				TreeExpTemp txt = new TreeExpTemp(Translator.globalTable.getTempFromVariableName(x.id,
+						Translator.currentClass, Translator.currentMethod));
+				return txt;
+			case PARAM:
+				int paramIdx = Translator.globalTable.getPositionOfParameter(x.id, Translator.currentClass,
+						Translator.currentMethod);
+				return new TreeExpParam(paramIdx);
+			default:
+				return null;
 			}
 
-			int paramIdx = Translator.globalTable.getPositionOfParameter(x.id, Translator.currentClass,
-					Translator.currentMethod);
-			if (paramIdx >= 0) {
-				return new TreeExpParam(paramIdx);
-			}
-			
-			TreeExpTemp txt = new TreeExpTemp(Translator.globalTable.getTempFromVariableName(x.id,
-					Translator.currentClass, Translator.currentMethod));
-			return txt;
 		}
 
 		@Override
@@ -289,7 +295,10 @@ public class Translator {
 				return new TreeExpConst(1);
 			} else {
 				Temp t = new Temp();
-				return new TreeExpESeq(new TreeStmMove(new TreeExpTemp(t),new TreeExpBinOp(TreeExpBinOp.Op.MINUS, new TreeExpConst(1), x.body.accept(this))), new TreeExpTemp(t));
+				return new TreeExpESeq(
+						new TreeStmMove(new TreeExpTemp(t),
+								new TreeExpBinOp(TreeExpBinOp.Op.MINUS, new TreeExpConst(1), x.body.accept(this))),
+						new TreeExpTemp(t));
 
 			}
 		}
@@ -352,22 +361,20 @@ public class Translator {
 			Label labelEnd = new Label();
 
 			TreeStmCJump jump;
-			jump = new TreeStmCJump(TreeStmCJump.Rel.EQ, s.cond.accept(new TranslatorVisitorExp()) , new TreeExpConst(1), labelTrue, labelEnd);
+			jump = new TreeStmCJump(TreeStmCJump.Rel.EQ, s.cond.accept(new TranslatorVisitorExp()), new TreeExpConst(1),
+					labelTrue, labelEnd);
 
-			List<Label> targets =  new LinkedList<Label>();
+			List<Label> targets = new LinkedList<Label>();
 			targets.add(labelStart);
 
- 			TreeStmSeq resultSeq;
- 			resultSeq = new TreeStmSeq(
- 					//new TreeStmLabel(labelStart),s.body.accept(this),
- 					jump,
- 					new TreeStmSeq(new TreeStmLabel(labelTrue),
- 							new TreeStmSeq(s.body.accept(this)),
- 							new TreeStmJump(new TreeExpName(labelStart),targets),
- 							new TreeStmSeq(new TreeStmLabel(labelEnd), new TreeStmSeq())
- 							)
- 					);
- 			stms.add(new TreeStmLabel(labelStart));
+			TreeStmSeq resultSeq;
+			resultSeq = new TreeStmSeq(
+					// new TreeStmLabel(labelStart),s.body.accept(this),
+					jump,
+					new TreeStmSeq(new TreeStmLabel(labelTrue), new TreeStmSeq(s.body.accept(this)),
+							new TreeStmJump(new TreeExpName(labelStart), targets),
+							new TreeStmSeq(new TreeStmLabel(labelEnd), new TreeStmSeq())));
+			stms.add(new TreeStmLabel(labelStart));
 			stms.add(resultSeq);
 			TreeStmSeq tss = new TreeStmSeq(stms);
 			return tss;
@@ -399,38 +406,48 @@ public class Translator {
 
 		@Override
 		public TreeStm visit(StmAssign s) {
-			//System.out.println("statement assign: " + s.id);
-
-			int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, s.id);
 			
+			VarScope vs = Translator.globalTable.getScopeOfVar(Translator.currentClass, Translator.currentMethod, s.id);
 			Temp t = new Temp();
 			TreeStmMove tsm;
-			if (localIdx > 0) {
+			
+			switch (vs) {
+			case GLOBAL:
+				int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, s.id);
 				TreeExpBinOp twbo = new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(localIdx * 4),
 						new TreeExpParam(0));
 				TreeExpMem txm = new TreeExpMem(twbo);
 				tsm = new TreeStmMove(txm, s.rhs.accept(new TranslatorVisitorExp()));
-			} else {
-				Temp temp = Translator.globalTable.getTempFromVariableName(s.id, Translator.currentClass, Translator.currentMethod);
-				if ( temp == null ){
-					Translator.globalTable.setTempToVariable(s.id, Translator.currentClass, Translator.currentMethod, t);
+				break;
+				
+			case LOCAL:
+				Temp temp = Translator.globalTable.getTempFromVariableName(s.id, Translator.currentClass,
+						Translator.currentMethod);
+				if (temp == null) {
+					Translator.globalTable.setTempToVariable(s.id, Translator.currentClass, Translator.currentMethod,
+							t);
 					tsm = new TreeStmMove(new TreeExpTemp(t), s.rhs.accept(new TranslatorVisitorExp()));
 				} else {
 					tsm = new TreeStmMove(new TreeExpTemp(temp), s.rhs.accept(new TranslatorVisitorExp()));
 				}
-				
+				break;
+			case PARAM:
+				int paramIdx = Translator.globalTable.getPositionOfParameter(s.id, Translator.currentClass,
+						Translator.currentMethod);
+				tsm = new TreeStmMove(new TreeExpParam(paramIdx), s.rhs.accept(new TranslatorVisitorExp()));
+				break;
+			default:
+				return null;
 			}
 			return tsm;
 		}
 
 		@Override
 		public TreeStm visit(StmArrayAssign s) {
-			
-			//System.out.println("array assign");
-			
+
 			ExpId ei = new ExpId(s.id);
 			TreeExp tet = ei.accept(new TranslatorVisitorExp());
-			
+
 			Label lTrue = new Label();
 			Label lFalse = new Label();
 
@@ -438,33 +455,37 @@ public class Translator {
 
 			LinkedList<TreeExp> args = new LinkedList<>();
 			args.add(new TreeExpConst(0));
-
+			
 			TreeExp tx = s.index.accept(new TranslatorVisitorExp());
-			if (tx instanceof TreeExpConst){
-				//System.out.println("tree expression constant");
+			if (tx instanceof TreeExpConst) {
+				// System.out.println("tree expression constant");
 				TreeExpConst tc = (TreeExpConst) tx;
 				int idx = tc.getValue();
-				if ( idx == 0){
+				if (idx == 0) {
 					tm = new TreeExpMem(tet);
-				} else if ( idx == 1){
+				} else if (idx == 1) {
 					tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, tet, new TreeExpConst(4)));
 				} else {
-					tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, tet, new TreeExpBinOp(TreeExpBinOp.Op.MUL, tc, new TreeExpConst(4))));
+					tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, tet,
+							new TreeExpBinOp(TreeExpBinOp.Op.MUL, tc, new TreeExpConst(4))));
 				}
 			} else {
-				//System.out.println("no constant for: " + s.id);
-				tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, tet, new TreeExpBinOp(TreeExpBinOp.Op.MUL, s.index.accept(new TranslatorVisitorExp()), new TreeExpConst(4))));
+				// System.out.println("no constant for: " + s.id);
+				tm = new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, tet, new TreeExpBinOp(TreeExpBinOp.Op.MUL,
+						s.index.accept(new TranslatorVisitorExp()), new TreeExpConst(4))));
 			}
 
 			TreeStmMove tsm = new TreeStmMove(
 					new TreeExpESeq(
 							new TreeStmSeq(
-									new TreeStmCJump(Rel.LT, s.index.accept(new TranslatorVisitorExp()), new TreeExpMem(new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(-4), tet)), lTrue, lFalse),
-									new TreeStmSeq(new TreeStmLabel(lFalse),new TreeStmSeq(
-											new TreeStmMove(new TreeExpTemp(new Temp()), new TreeExpCall(new TreeExpName(new Label("_raise")), args))),
-											new TreeStmSeq(new TreeStmLabel(lTrue), new TreeStmSeq())
-											)
-									),
+									new TreeStmCJump(Rel.LT, s.index.accept(new TranslatorVisitorExp()),
+											new TreeExpMem(
+													new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(-4), tet)),
+											lTrue, lFalse),
+									new TreeStmSeq(new TreeStmLabel(lFalse),
+											new TreeStmSeq(new TreeStmMove(new TreeExpTemp(new Temp()),
+													new TreeExpCall(new TreeExpName(new Label("_raise")), args))),
+											new TreeStmSeq(new TreeStmLabel(lTrue), new TreeStmSeq()))),
 							tm),
 					s.rhs.accept(new TranslatorVisitorExp()));
 			return tsm;

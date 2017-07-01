@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_TEST_FILE="../../MiniJava_Examples/Large/LinkedList.java"
+SOURCE_TEST_FILE="../../MiniJava_Examples/Large/SmallGameOfLife.java"
 
 cd ..
 echo ""> test/output

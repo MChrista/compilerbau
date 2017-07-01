@@ -7,6 +7,7 @@ import java.util.List;
 import minijava.syntax.DeclMeth;
 import minijava.syntax.DeclVar;
 import minijava.syntax.Parameter;
+import symboltabelle.GlobalTable.VarScope;
 
 public class MethodTable extends Table{
 	private String name;
@@ -70,6 +71,16 @@ public class MethodTable extends Table{
 			}
 		}
 		return -1; // not found		
+	}
+	
+	public VarScope getScopeOfVar(String varName){
+		if (this.getPositionOfParameter(varName) > 0){
+			return VarScope.PARAM;
+		} else if (this.findVariableByName(varName) != null ){
+			return VarScope.LOCAL;
+		} else {
+			return null;
+		}
 	}
 
 	public String print(){

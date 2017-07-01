@@ -180,12 +180,14 @@ public class TypeChecker {
 
 		@Override
 		public String visit(ExpArrayLength e) {
+			e.array.accept(this);
 			return "int";
 		}
 
 		@Override
 		public String visit(ExpInvoke e) {
 			e.objType = e.obj.accept(this);
+
 			List args = globalTable.getArgsOfMethod(e.obj.accept(this), e.method);
 			if (args == null){
 				new TypeException("Method " + e.method + " is not defined");

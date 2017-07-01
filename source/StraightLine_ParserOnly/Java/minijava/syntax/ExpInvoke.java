@@ -13,6 +13,7 @@ public class ExpInvoke extends Exp {
     this.obj = obj;
     this.method = method;
     this.args = args;
+    this.objType = "";
   }
 
   @Override

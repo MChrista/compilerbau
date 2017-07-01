@@ -4,3 +4,9 @@ source/StraightLine_ParserOnly/Java/.classpath
 source/StraightLine_ParserOnly/Java/.project
 source/StraightLine_ParserOnly/Java/.settings
 *.class
+source/StraightLine_ParserOnly/Java/test/programm.c
+source/StraightLine_ParserOnly/Java/test/programm
+source/StraightLine_ParserOnly/Java/test/output
+source/StraightLine_ParserOnly/Java/test/javaOutput
+source/StraightLine_ParserOnly/Java/test/cOutput
+source/StraightLine_ParserOnly/Java/test/testresults
