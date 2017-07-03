@@ -66,6 +66,7 @@ public class Test {
         BlockBuilder blockB = new BlockBuilder(canonizedPrg);
         
         List<MethodBlocks> unorderedBlocks = blockB.buildBlocks();
+        TreePrg orderdTreePrg = blockB.getPrg();
         //System.out.println("Building blocks completed");
         //System.out.println(unorderedBlocks.size());
         
