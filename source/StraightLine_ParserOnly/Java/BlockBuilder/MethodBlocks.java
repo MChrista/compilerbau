@@ -32,6 +32,10 @@ public class MethodBlocks {
 	public void setTreeMethod(TreeMethod m) {
 		this.treeMethod = m;
 	}
+	
+	public void sort(){
+		
+	}
 
 	public String toString(){
 		 StringBuilder s = new StringBuilder();
