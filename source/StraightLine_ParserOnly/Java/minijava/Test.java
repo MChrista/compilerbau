@@ -7,6 +7,7 @@ import java.util.List;
 
 import BlockBuilder.Block;
 import BlockBuilder.BlockBuilder;
+import BlockBuilder.MethodBlocks;
 import Translate.Translator;
 import minijava.intermediate.canon.Canonizer;
 import minijava.intermediate.tree.TreePrg;
@@ -61,10 +62,13 @@ public class Test {
         //System.out.println("Canonizing Programm \n");
         //System.out.println(canonizedPrg.toString());
         
-        System.out.println("Building Blocks");
+        //System.out.println("Building Blocks");
         BlockBuilder blockB = new BlockBuilder(canonizedPrg);
-        List<Block> unorderedBlocks = new LinkedList<>();
-        unorderedBlocks = blockB.buildBlocks();
+        
+        List<MethodBlocks> unorderedBlocks = blockB.buildBlocks();
+        //System.out.println("Building blocks completed");
+        //System.out.println(unorderedBlocks.size());
+        
         System.out.println(blockB.toString());
         
 

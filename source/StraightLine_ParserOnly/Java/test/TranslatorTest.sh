@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_TEST_FILE="../../MiniJava_Examples/Large/SmallGameOfLife.java"
+SOURCE_TEST_FILE="../../MiniJava_Examples/Small/While.java"
 
 cd ..
 echo ""> test/output

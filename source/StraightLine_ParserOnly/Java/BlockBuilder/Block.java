@@ -14,7 +14,6 @@ public class Block {
 	}
 	
 	public Block(TreeStm start){
-		
 		stmList.add(start);
 	}
 	
@@ -26,11 +25,28 @@ public class Block {
 		}
 	}
 	
+	public TreeStm getFirst(){
+		return stmList.get(0);
+	}
+	
+	public TreeStm getLast(){
+		return stmList.get(stmList.size()-1);
+	}
+	
+	public boolean removeLast(){
+		if (stmList.size() >= 1){
+			stmList.remove(stmList.size()-1);
+			return true;
+		}
+		return false;
+	}
+	
 	public String toString(){
 		StringBuffer buffer = new StringBuffer();
 		
 		for(TreeStm stm : stmList){
-			buffer.append(stm.toString());
+			buffer.append("  ");
+			buffer.append(stm.toString() + "\n");
 		}
 		return buffer.toString();
 	}
