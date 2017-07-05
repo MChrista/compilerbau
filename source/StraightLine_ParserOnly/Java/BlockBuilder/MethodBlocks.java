@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import minijava.intermediate.Label;
+import minijava.intermediate.tree.TreeExpName;
 import minijava.intermediate.tree.TreeMethod;
 import minijava.intermediate.tree.TreeStm;
 import minijava.intermediate.tree.TreeStmCJump;
@@ -78,7 +79,24 @@ public class MethodBlocks {
 					
 				}
 				else if(falseBlock == null && trueBlock == null){
+					//change falseLabel
+					Label dummyJumpLabel = new Label("dummy");
+					TreeStmCJump newTcj = new TreeStmCJump(tcj.getRel().neg(), tcj.getLeft(), tcj.getRight(), tcj.getLabelTrue(), dummyJumpLabel);
+					orderedBlocks.get(orderedBlocks.size()-1).removeLast();
+					orderedBlocks.get(orderedBlocks.size()-1).stmList.add(newTcj);
 					
+					//create new Block with dummyJump
+					List<TreeStm> dummyList = new LinkedList<>();
+					TreeStmLabel dummyLabelStm = new TreeStmLabel(dummyJumpLabel);
+					List<Label> possibleTargets = new LinkedList<>();
+					possibleTargets.add(dummyJumpLabel);
+					TreeStmJump dummyJumpStm = new TreeStmJump(new TreeExpName(dummyJumpLabel), possibleTargets);
+					dummyList.add(dummyLabelStm);
+					dummyList.add(dummyJumpStm);
+					
+					//add Block
+					Block dummyBlock = new Block(dummyList);
+					orderedBlocks.add(dummyBlock);
 				}
 			}
 			this.blockList = orderedBlocks;
