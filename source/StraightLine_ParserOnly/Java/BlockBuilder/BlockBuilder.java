@@ -45,6 +45,7 @@ public class BlockBuilder {
 			for(Block b : mb.blockList){
 				stmList.addAll(b.stmList);
 			}
+			//endlabel adden falls flag gesetzt
 			TreeMethod tm = new TreeMethod(mb.treeMethod.getName(), mb.treeMethod.getNumberOfParameters(), stmList, mb.treeMethod.getReturnTemp());
 			treeMethods.add(tm);
 		}
@@ -114,7 +115,8 @@ public class BlockBuilder {
 			dstList.add(endLabel);
 			TreeStmJump endJump = new TreeStmJump(new TreeExpName(endLabel), dstList);
 			runningBlock.addStmToBlock(endJump, blockOpen);
-			runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
+			//runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
+			//add flag
 			bList.add(runningBlock);
 			blockOpen = false;
 		}
