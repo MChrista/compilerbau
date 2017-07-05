@@ -6,6 +6,7 @@ import java.util.List;
 import minijava.intermediate.Label;
 import minijava.intermediate.tree.TreeMethod;
 import minijava.intermediate.tree.TreeStm;
+import minijava.intermediate.tree.TreeStmCJump;
 import minijava.intermediate.tree.TreeStmJump;
 import minijava.intermediate.tree.TreeStmLabel;
 
@@ -43,14 +44,14 @@ public class MethodBlocks {
 		while (!workingBlocks.isEmpty()){
 			orderedBlocks.add(workingBlocks.get(0));
 			workingBlocks.remove(0);
-			//Letztes Statement des zuletz hinzugefügten Blocks an orderedBlocks
-			TreeStm last = orderedBlocks.getLast().getLast();
+			//Letztes Statement des zuletz hinzugefÃ¼gten Blocks an orderedBlocks
+			TreeStm last = orderedBlocks.get(orderedBlocks.size()-1).getLast();
 			// TODO
 			if(last instanceof TreeStmJump){
 				TreeStmJump tj = (TreeStmJump) last;
 				Block handledBlock = this.findAndRemove(tj.getPossibleTargets().get(0), workingBlocks);
 				if (handledBlock != null){
-					orderedBlocks.getLast.removeLast();
+					orderedBlocks.get(orderedBlocks.size()-1).removeLast();
 					orderedBlocks.add(handledBlock);
 					//handledBlock.stmList.remove(handledBlock.stmList.size() -1);
 				}
@@ -61,19 +62,19 @@ public class MethodBlocks {
 			}
 			else if(last instanceof TreeStmCJump){
 				TreeStmCJump tcj = (TreeStmCJump) last;
-				Block falseBlock = this.find(tcj.getLabelFalse, workingBlocks);
-				Block trueBlock = this.find(tcj.getLabelTrue, workingBlocks);
+				Block falseBlock = this.find(tcj.getLabelFalse(), workingBlocks);
+				Block trueBlock = this.find(tcj.getLabelTrue(), workingBlocks);
 				if(falseBlock != null){
-					orderedBlocks.findAndRemove(tcj.getLabelFalse, workingBlocks);
+					orderedBlocks.findAndRemove(tcj.getLabelFalse(), workingBlocks);
 					orderedBlocks.add(falseBlock);
 				}
 				else if(falseBlock == null && trueBlock != null){
 					//negate CJump and switch Labels
-					TreeStmCJump newTcj = new TreeStmCJump(tcj.rel.neg(), tcj.getLeft(), tcj.getRight(), tcj.getLabelFalse(), tcj.getLabelTrue());
+					TreeStmCJump newTcj = new TreeStmCJump(tcj.getRel().neg(), tcj.getLeft(), tcj.getRight(), tcj.getLabelFalse(), tcj.getLabelTrue());
 					//delete old CJump and add new
-					orderedBlocks.getLast().removeLast();
-					orderedBlocks.getLast().add(newTcj);
-					orderedBlocks.findAndRemove(tcj.getLabelTrue, workingBlocks);
+					orderedBlocks.get(orderedBlocks.size()-1).removeLast();
+					orderedBlocks.get(orderedBlocks.size()-1).stmList.add(newTcj);
+					orderedBlocks.findAndRemove(tcj.getLabelTrue(), workingBlocks);
 					
 				}
 				else if(falseBlock == null && trueBlock == null){
@@ -85,24 +86,7 @@ public class MethodBlocks {
 		
 	}
 	
-	//ordnet die methodBlockList hier
-	//List<Block> --> mb.blockList
-	/*
-	 * for(Block b : mb.blockList){
-	 * Überprüfen ob mit Jump endet
-	 *    if(Label available)
-	 *    	.....
-	 *    else
-	 *    	....
-	 *  Überprüfen ob mit CJump endet  
-	 * 	   if(falseLabel available)
-	 * 		...
-	 * 	   else if(trueLabel available)
-	 * 		...
-	 * 		else
-	 * 		 ....
-	 * }
-	 */
+
 	
 	public Block findAndRemove(Label l, List<Block> blockList){
 		for (int i=0; i< blockList.size(); i++){
