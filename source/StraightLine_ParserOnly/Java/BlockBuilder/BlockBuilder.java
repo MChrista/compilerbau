@@ -34,6 +34,21 @@ public class BlockBuilder {
 		}
 		return methodBlockList;
 	}
+	
+	public TreePrg getPrg(){
+		TreePrg prg;
+		List<TreeMethod> treeMethods = new LinkedList<>();
+		List<TreeStm> stmList = new LinkedList<>();
+		for(MethodBlocks mb : methodBlockList){
+			for(Block b : mb.blockList){
+				stmList.addAll(b.stmList);
+			}
+			TreeMethod tm = new TreeMethod(mb.treeMethod.getName(), mb.treeMethod.getNumberOfParameters(), stmList, mb.treeMethod.getReturnTemp());
+			treeMethods.add(tm);
+		}
+		prg = new TreePrg(treeMethods);
+		return prg;
+	}
 
 
 	public List<Block> methodToBlocks(TreeMethod m) {

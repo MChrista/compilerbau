@@ -20,7 +20,7 @@ abstract class Operand {
 
     @Override
     public String toString() {
-      throw new UnsupportedOperationException("TODO");
+    	return "" + imm;
     }
 
     @Override
@@ -40,7 +40,7 @@ abstract class Operand {
 
     @Override
     public String toString() {
-      throw new UnsupportedOperationException("TODO");
+    	return reg.toString();
     }
 
     @Override
@@ -75,7 +75,7 @@ abstract class Operand {
 
     @Override
     public String toString() {
-      throw new UnsupportedOperationException("TODO");
+    	return "memory address";
     }
 
     @Override

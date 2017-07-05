@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import minijava.backend.i386.*;
 
 import BlockBuilder.Block;
 import BlockBuilder.BlockBuilder;
@@ -66,10 +67,14 @@ public class Test {
         BlockBuilder blockB = new BlockBuilder(canonizedPrg);
         
         List<MethodBlocks> unorderedBlocks = blockB.buildBlocks();
+        TreePrg orderdTreePrg = blockB.getPrg();
         //System.out.println("Building blocks completed");
         //System.out.println(unorderedBlocks.size());
+        System.out.println(orderdTreePrg.toString());
         
-        System.out.println(blockB.toString());
+        I386CodeGenerator cg = new I386CodeGenerator();
+        I386Prg assemPrg = cg.codeGen(orderdTreePrg);
+        System.out.println(assemPrg.renderAssembly());
         
 
       } finally {

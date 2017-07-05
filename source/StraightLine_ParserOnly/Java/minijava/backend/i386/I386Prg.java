@@ -30,7 +30,7 @@ public class I386Prg implements MachinePrg {
     s.append(function.getName());
     s.append(":\n");
     for (MachineInstruction i : function) {
-      s.append(i);
+    	s.append(i);
     }
   }
 

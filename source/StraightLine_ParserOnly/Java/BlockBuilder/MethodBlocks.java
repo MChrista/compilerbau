@@ -36,7 +36,7 @@ public class MethodBlocks {
 		this.treeMethod = m;
 	}
 	
-	public List<Block> sort(){
+	/*public List<Block> sort(){
 		List<Block> workingBlocks = blockList;
 		List<Block> orderedBlocks = new LinkedList<>();
 		
@@ -55,6 +55,7 @@ public class MethodBlocks {
 		}
 		
 	}
+	*/
 	
 	public Block findAndRemove(Label l, List<Block> blockList){
 		for (int i=0; i< blockList.size(); i++){
