@@ -37,7 +37,7 @@ public class MethodBlocks {
 		this.treeMethod = m;
 	}
 	
-	public List<Block> sort(){
+	public void sort(){
 		List<Block> workingBlocks = blockList;
 		List<Block> orderedBlocks = new LinkedList<>();
 		
@@ -81,8 +81,9 @@ public class MethodBlocks {
 					
 				}
 			}
+			this.blockList = orderedBlocks;
 		}
-		return orderedBlocks;
+	
 		
 	}
 	
