@@ -36,26 +36,73 @@ public class MethodBlocks {
 		this.treeMethod = m;
 	}
 	
-	/*public List<Block> sort(){
+	public List<Block> sort(){
 		List<Block> workingBlocks = blockList;
 		List<Block> orderedBlocks = new LinkedList<>();
 		
 		while (!workingBlocks.isEmpty()){
-			orderedBlocks.add(blockList.get(0));
-			TreeStm last = blockList.get(0).getLast();
-			blockList.remove(0);
+			orderedBlocks.add(workingBlocks.get(0));
+			workingBlocks.remove(0);
+			//Letztes Statement des zuletz hinzugefügten Blocks an orderedBlocks
+			TreeStm last = orderedBlocks.getLast().getLast();
 			// TODO
 			if(last instanceof TreeStmJump){
 				TreeStmJump tj = (TreeStmJump) last;
-				Block b = this.findAndRemove(tj.getPossibleTargets().get(0), orderedBlocks);
-				if (b != null){
-					b.stmList.remove(b.stmList.size() -1);
+				Block handledBlock = this.findAndRemove(tj.getPossibleTargets().get(0), workingBlocks);
+				if (handledBlock != null){
+					orderedBlocks.getLast.removeLast();
+					orderedBlocks.add(handledBlock);
+					//handledBlock.stmList.remove(handledBlock.stmList.size() -1);
+				}
+				else{
+					//Block not in workingList
+					//nothing has to be done
+				}
+			}
+			else if(last instanceof TreeStmCJump){
+				TreeStmCJump tcj = (TreeStmCJump) last;
+				Block falseBlock = this.find(tcj.getLabelFalse, workingBlocks);
+				Block trueBlock = this.find(tcj.getLabelTrue, workingBlocks);
+				if(falseBlock != null){
+					orderedBlocks.findAndRemove(tcj.getLabelFalse, workingBlocks);
+					orderedBlocks.add(falseBlock);
+				}
+				else if(falseBlock == null && trueBlock != null){
+					//negate CJump and switch Labels
+					TreeStmCJump newTcj = new TreeStmCJump(tcj.rel.neg(), tcj.getLeft(), tcj.getRight(), tcj.getLabelFalse(), tcj.getLabelTrue());
+					//delete old CJump and add new
+					orderedBlocks.getLast().removeLast();
+					orderedBlocks.getLast().add(newTcj);
+					orderedBlocks.findAndRemove(tcj.getLabelTrue, workingBlocks);
+					
+				}
+				else if(falseBlock == null && trueBlock == null){
+					
 				}
 			}
 		}
+		return orderedBlocks;
 		
 	}
-	*/
+	
+	//ordnet die methodBlockList hier
+	//List<Block> --> mb.blockList
+	/*
+	 * for(Block b : mb.blockList){
+	 * Überprüfen ob mit Jump endet
+	 *    if(Label available)
+	 *    	.....
+	 *    else
+	 *    	....
+	 *  Überprüfen ob mit CJump endet  
+	 * 	   if(falseLabel available)
+	 * 		...
+	 * 	   else if(trueLabel available)
+	 * 		...
+	 * 		else
+	 * 		 ....
+	 * }
+	 */
 	
 	public Block findAndRemove(Label l, List<Block> blockList){
 		for (int i=0; i< blockList.size(); i++){
@@ -69,6 +116,18 @@ public class MethodBlocks {
 		return null;
 	}
 
+	public Block find(Label l, List<Block> blockList){
+		for (int i=0; i< blockList.size(); i++){
+			Block b = blockList.get(i);
+			TreeStmLabel tl = (TreeStmLabel) b.getFirst();
+			if (tl.getLabel().equals(l)){
+				return b;
+			}
+		}
+		return null;
+	}
+	
+	
 	public String toString(){
 		 StringBuilder s = new StringBuilder();
 		    s.append(treeMethod.getName()).append("(").append(treeMethod.getNumberOfParameters()).append(") {\n");
