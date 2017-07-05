@@ -65,7 +65,7 @@ public class MethodBlocks {
 				Block falseBlock = this.find(tcj.getLabelFalse(), workingBlocks);
 				Block trueBlock = this.find(tcj.getLabelTrue(), workingBlocks);
 				if(falseBlock != null){
-					orderedBlocks.findAndRemove(tcj.getLabelFalse(), workingBlocks);
+					this.findAndRemove(tcj.getLabelFalse(), workingBlocks);
 					orderedBlocks.add(falseBlock);
 				}
 				else if(falseBlock == null && trueBlock != null){
@@ -74,7 +74,7 @@ public class MethodBlocks {
 					//delete old CJump and add new
 					orderedBlocks.get(orderedBlocks.size()-1).removeLast();
 					orderedBlocks.get(orderedBlocks.size()-1).stmList.add(newTcj);
-					orderedBlocks.findAndRemove(tcj.getLabelTrue(), workingBlocks);
+					this.findAndRemove(tcj.getLabelTrue(), workingBlocks);
 					
 				}
 				else if(falseBlock == null && trueBlock == null){
