@@ -80,7 +80,7 @@ public class MethodBlocks {
 				}
 				else if(falseBlock == null && trueBlock == null){
 					//change falseLabel
-					Label dummyJumpLabel = new Label("dummy");
+					Label dummyJumpLabel = new Label();
 					TreeStmCJump newTcj = new TreeStmCJump(tcj.getRel().neg(), tcj.getLeft(), tcj.getRight(), tcj.getLabelTrue(), dummyJumpLabel);
 					orderedBlocks.get(orderedBlocks.size()-1).removeLast();
 					orderedBlocks.get(orderedBlocks.size()-1).stmList.add(newTcj);
