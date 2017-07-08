@@ -75,7 +75,18 @@ abstract class Operand {
 
     @Override
     public String toString() {
-    	return "memory address";
+    	boolean b1, b2, b3;
+        String s1, s2, s3;
+        b1 = (base != null);
+        s1 = b1 ? base.toString() : "";
+        b2 = ((index != null) && (scale != null));
+        s2 = b2 ? (index.toString() + ((scale > 1) ? "*" + scale : "")) : "";
+        b3 = (displacement != 0);
+        s3 = b3 ? Integer.toString(displacement) : "";
+        return "DWORD PTR ["
+                + s1 + (b1 && b2 ? "+" : "") + s2
+                + ((b1 || b2) && b3 && displacement > 0 ? "+" : "") + s3
+                + "]";
     }
 
     @Override

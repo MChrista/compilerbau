@@ -5,6 +5,7 @@ import minijava.backend.MachineFunction;
 import minijava.backend.MachineInstruction;
 import minijava.backend.i386.I386CodeGenerator.AssemblyExpVisitor;
 import minijava.backend.i386.InstrJump.Cond;
+import minijava.backend.i386.Operand.Imm;
 import minijava.backend.i386.Operand.Reg;
 import minijava.intermediate.Temp;
 import minijava.intermediate.tree.TreeExp;
@@ -271,9 +272,8 @@ public class I386CodeGenerator implements CodeGenerator {
 			for (TreeExp tx : expCALL.getArguments()){
 				instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.PUSH, tx.accept(this)));
 			}
-			
-			
 			instructions.add(new InstrJump(minijava.backend.i386.InstrJump.Kind.CALL, tn.getLabel()));
+			instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.ADD, esp, new Operand.Imm(expCALL.getArguments().size()*4)));
 		}
 		// TODO Auto-generated method stub
 		return null;
