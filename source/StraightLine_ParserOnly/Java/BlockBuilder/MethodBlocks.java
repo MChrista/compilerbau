@@ -42,10 +42,15 @@ public class MethodBlocks {
 	public void sort(){
 		List<Block> workingBlocks = blockList;
 		List<Block> orderedBlocks = new LinkedList<>();
-		
+		boolean twoBlocksAdded = false;
+
 		while (!workingBlocks.isEmpty()){
+			
+			if(twoBlocksAdded == false){
 			orderedBlocks.add(workingBlocks.get(0));
 			workingBlocks.remove(0);
+			}
+			
 			//Letztes Statement des zuletz hinzugefügten Blocks an orderedBlocks
 			TreeStm last = orderedBlocks.get(orderedBlocks.size()-1).getLast();
 			// TODO
@@ -55,9 +60,11 @@ public class MethodBlocks {
 				if (handledBlock != null){
 					orderedBlocks.get(orderedBlocks.size()-1).removeLast();
 					orderedBlocks.add(handledBlock);
+					twoBlocksAdded = true;
 					//handledBlock.stmList.remove(handledBlock.stmList.size() -1);
 				}
 				else{
+					twoBlocksAdded = false;
 					//Block not in workingList
 					//nothing has to be done
 				}
@@ -69,6 +76,7 @@ public class MethodBlocks {
 				if(falseBlock != null){
 					this.findAndRemove(tcj.getLabelFalse(), workingBlocks);
 					orderedBlocks.add(falseBlock);
+					twoBlocksAdded = true;
 				}
 				else if(falseBlock == null && trueBlock != null){
 					//negate CJump and switch Labels
@@ -78,7 +86,7 @@ public class MethodBlocks {
 					orderedBlocks.get(orderedBlocks.size()-1).stmList.add(newTcj);
 					this.findAndRemove(tcj.getLabelTrue(), workingBlocks);
 					orderedBlocks.add(trueBlock);
-					
+					twoBlocksAdded = true;
 				}
 				else if(falseBlock == null && trueBlock == null){
 					//change falseLabel
@@ -99,9 +107,11 @@ public class MethodBlocks {
 					//add Block
 					Block dummyBlock = new Block(dummyList);
 					orderedBlocks.add(dummyBlock);
+					twoBlocksAdded = false;
 				}
 			}
 			this.blockList = orderedBlocks;
+			
 		}
 	}
 	

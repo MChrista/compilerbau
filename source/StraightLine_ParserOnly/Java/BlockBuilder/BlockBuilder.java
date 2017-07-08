@@ -41,8 +41,8 @@ public class BlockBuilder {
 		List<TreeMethod> treeMethods = new LinkedList<>();
 		List<TreeStm> stmList = new LinkedList<>();
 		for(MethodBlocks mb : methodBlockList){
-			mb.sort();
 			stmList = new LinkedList<>();
+			mb.sort();
 			for(Block b : mb.blockList){
 				stmList.addAll(b.stmList);
 			}

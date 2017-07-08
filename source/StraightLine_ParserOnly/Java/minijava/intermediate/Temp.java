@@ -5,12 +5,19 @@ public final class Temp implements Comparable<Temp> {
   private static int nextId = 0;
 
   private final int id;
-
+  private final String name;
+  	
   /**
    * Generates a fresh temporary.
    */
   public Temp() {
     this.id = nextId++;
+    name = null;
+  }
+  
+  public Temp(String name){
+	  this.id = nextId;
+	  this.name = name;
   }
 
   public static void resetCounter() {
@@ -19,7 +26,12 @@ public final class Temp implements Comparable<Temp> {
 
   @Override
   public String toString() {
-    return "t" + id;
+	  if (this.name == null){
+		  return "t" + id;
+	  } else {
+		  return name;
+	  }
+    
   }
 
   @Override
