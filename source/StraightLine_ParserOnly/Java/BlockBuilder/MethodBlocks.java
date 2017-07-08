@@ -103,11 +103,7 @@ public class MethodBlocks {
 			}
 			this.blockList = orderedBlocks;
 		}
-	
-		
 	}
-	
-
 	
 	public Block findAndRemove(Label l, List<Block> blockList){
 		for (int i=0; i< blockList.size(); i++){

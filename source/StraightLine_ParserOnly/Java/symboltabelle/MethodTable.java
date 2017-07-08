@@ -10,12 +10,14 @@ import minijava.syntax.Parameter;
 import symboltabelle.GlobalTable.VarScope;
 
 public class MethodTable extends Table{
+	private int numberOfLocalVars;
 	private String name;
 	private String type;
 	private LinkedList<String> argsType;
 	private LinkedList<String> argsName;
 
 	public MethodTable(String name){
+		this.numberOfLocalVars = 0;
 		this.name = name;
 		this.lines = new ArrayList<TableLine>();
 		this.argsType = new LinkedList<String>();
@@ -55,6 +57,7 @@ public class MethodTable extends Table{
 
 	public void addVariables(List<DeclVar> variables){
 		for (DeclVar dv : variables){
+			this.numberOfLocalVars++;
 			TableLine tl = new TableLine(dv.name, dv.ty.accept(new SymbolTableVisitorTy()), "");
 			lines.add(tl);
 		}
@@ -81,6 +84,10 @@ public class MethodTable extends Table{
 		} else {
 			return null;
 		}
+	}
+	
+	public int getNumberOfLocalVars(){
+		return numberOfLocalVars;
 	}
 
 	public String print(){

@@ -12,6 +12,7 @@ public final class TreeMethod implements Iterable<TreeStm> {
   private final int numberOfParameters;
   private final List<TreeStm> body;
   private final Temp returnTemp;
+  private int numberOfVars;
 
   public TreeMethod(Label name, int numberOfParameters, List<TreeStm> body, Temp returnTemp) {
     this.name = name;
@@ -30,6 +31,14 @@ public final class TreeMethod implements Iterable<TreeStm> {
 
   public Temp getReturnTemp() {
     return returnTemp;
+  }
+  
+  public void setNumberOfVars(int n){
+	  this.numberOfVars = n;
+  }
+  
+  public int getNumberOfVars(){
+	  return this.numberOfVars;
   }
 
   @Override

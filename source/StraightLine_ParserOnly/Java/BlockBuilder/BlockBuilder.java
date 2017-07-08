@@ -53,6 +53,7 @@ public class BlockBuilder {
 			}
 			
 			TreeMethod tm = new TreeMethod(mb.treeMethod.getName(), mb.treeMethod.getNumberOfParameters(), stmList, mb.treeMethod.getReturnTemp());
+			tm.setNumberOfVars(mb.treeMethod.getNumberOfVars());
 			treeMethods.add(tm);
 		}
 		prg = new TreePrg(treeMethods);
@@ -121,7 +122,7 @@ public class BlockBuilder {
 			dstList.add(endLabel);
 			TreeStmJump endJump = new TreeStmJump(new TreeExpName(endLabel), dstList);
 			runningBlock.addStmToBlock(endJump, blockOpen);
-			//runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
+			runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
 			//add flag
 			mb.hasEndJump = true;
 			bList.add(runningBlock);

@@ -17,7 +17,7 @@ final class InstrJump implements MachineInstruction {
   }
 
   enum Cond {
-    E, NE, L, LE, G, GE, Z
+    E, NE, L, LE, G, GE, Ze
   }
 
   private final Kind kind;

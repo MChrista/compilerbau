@@ -23,7 +23,7 @@ final class InstrBinary implements MachineInstruction {
   InstrBinary(Kind kind, Operand dst, Operand src) {
     assert (kind != null && src != null && dst != null);
     assert (!((src instanceof Operand.Mem) && (dst instanceof Operand.Mem)));
-    assert (kind != Kind.LEA || (((src instanceof Operand.Mem) || (src instanceof Operand.Sym)) && (dst instanceof Operand.Reg)));
+    assert (kind != Kind.LEA || (((src instanceof Operand.Mem) )) && (dst instanceof Operand.Reg));
     this.src = src;
     this.dst = dst;
     this.kind = kind;
