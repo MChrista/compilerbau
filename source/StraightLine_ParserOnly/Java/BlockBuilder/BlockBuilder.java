@@ -49,7 +49,8 @@ public class BlockBuilder {
 			//endlabel adden falls flag gesetzt
 			if(mb.hasEndJump == true){
 				Label endLabel = new Label("end");
-				mb.blockList.get(mb.blockList.size()-1).stmList.add(new TreeStmLabel(endLabel));
+				//mb.blockList.get(mb.blockList.size()-1).stmList.add(new TreeStmLabel(endLabel));
+				stmList.add(new TreeStmLabel(endLabel));
 			}
 			
 			TreeMethod tm = new TreeMethod(mb.treeMethod.getName(), mb.treeMethod.getNumberOfParameters(), stmList, mb.treeMethod.getReturnTemp());
@@ -122,7 +123,7 @@ public class BlockBuilder {
 			dstList.add(endLabel);
 			TreeStmJump endJump = new TreeStmJump(new TreeExpName(endLabel), dstList);
 			runningBlock.addStmToBlock(endJump, blockOpen);
-			runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
+			//runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
 			//add flag
 			mb.hasEndJump = true;
 			bList.add(runningBlock);
