@@ -15,6 +15,7 @@ public class MethodBlocks {
 	
 	List<Block> blockList;
 	TreeMethod treeMethod;
+	boolean hasEndJump = false;
 	
 	public MethodBlocks(TreeMethod m, List<Block> b ) {
 		this.treeMethod = m;
@@ -76,6 +77,7 @@ public class MethodBlocks {
 					orderedBlocks.get(orderedBlocks.size()-1).removeLast();
 					orderedBlocks.get(orderedBlocks.size()-1).stmList.add(newTcj);
 					this.findAndRemove(tcj.getLabelTrue(), workingBlocks);
+					orderedBlocks.add(trueBlock);
 					
 				}
 				else if(falseBlock == null && trueBlock == null){
