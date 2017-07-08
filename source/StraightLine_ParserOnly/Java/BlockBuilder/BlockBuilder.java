@@ -27,9 +27,10 @@ public class BlockBuilder {
 		while (it.hasNext()) {
 			
 			TreeMethod m = it.next();
-			List<Block> b = methodToBlocks(m);
-			
-			MethodBlocks bl = new MethodBlocks(m, b);
+			MethodBlocks bl = new MethodBlocks(m, new LinkedList<Block>());
+			List<Block> b = methodToBlocks(m, bl);
+			//update MethodBlock stm-List
+			bl.blockList = b;
 			methodBlockList.add(bl);
 		}
 		return methodBlockList;
@@ -40,12 +41,17 @@ public class BlockBuilder {
 		List<TreeMethod> treeMethods = new LinkedList<>();
 		List<TreeStm> stmList = new LinkedList<>();
 		for(MethodBlocks mb : methodBlockList){
-			//mb.sort();
+			mb.sort();
 			stmList = new LinkedList<>();
 			for(Block b : mb.blockList){
 				stmList.addAll(b.stmList);
 			}
 			//endlabel adden falls flag gesetzt
+			if(mb.hasEndJump == true){
+				Label endLabel = new Label("end");
+				mb.blockList.get(mb.blockList.size()-1).stmList.add(new TreeStmLabel(endLabel));
+			}
+			
 			TreeMethod tm = new TreeMethod(mb.treeMethod.getName(), mb.treeMethod.getNumberOfParameters(), stmList, mb.treeMethod.getReturnTemp());
 			tm.setNumberOfVars(mb.treeMethod.getNumberOfVars());
 			treeMethods.add(tm);
@@ -57,7 +63,7 @@ public class BlockBuilder {
 
 
 
-	public List<Block> methodToBlocks(TreeMethod m) {
+	public List<Block> methodToBlocks(TreeMethod m, MethodBlocks mb) {
 		List<Block> bList = new LinkedList<>();
 
 		List<TreeStmLabel> knownLabels = new LinkedList<>();
@@ -118,6 +124,7 @@ public class BlockBuilder {
 			runningBlock.addStmToBlock(endJump, blockOpen);
 			runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
 			//add flag
+			mb.hasEndJump = true;
 			bList.add(runningBlock);
 			blockOpen = false;
 		}
