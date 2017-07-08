@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEST_DIR="../../MiniJava_Examples/Large/"
+TEST_DIR="../../MiniJava_Examples/Small/"
 
 cd ..
 echo "" > test/testresults
