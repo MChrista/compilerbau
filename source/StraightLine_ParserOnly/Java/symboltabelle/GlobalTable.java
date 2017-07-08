@@ -107,12 +107,12 @@ public class GlobalTable{
 		return ct.getBytesNeeded();
 	}
 	
-	public int getIndexOfLocalVariable(String className, String varName){
+	public int getIndexOfGlobalVariable(String className, String varName){
 		ClassTable ct = this.findClassTableByName(className);
 		if (ct == null){
 			return -1;
 		}
-		return ct.getIndexOfLocalVariable(varName);
+		return ct.getIndexOfGlobalVariable(varName);
 	}
 	
 	public VarScope getScopeOfVar(String className, String methodName, String varName){
@@ -121,6 +121,15 @@ public class GlobalTable{
 			return null;
 		}
 		return ct.getScopeOfVar(methodName, varName);
+	}
+	
+	public int getNumberOfLocalVarsFromMeth(String className, String methName){
+		if(this.isMain(className, methName)){
+			return 0;
+		} else {
+			ClassTable ct = this.findClassTableByName(className);
+			return ct.getNumberOfLocalVarsFromMeth(methName);
+		}
 	}
 
 	public String printTable(){

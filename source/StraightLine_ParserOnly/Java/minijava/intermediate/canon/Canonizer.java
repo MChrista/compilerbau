@@ -26,7 +26,9 @@ public class Canonizer {
     for (TreeStm s : method) {
       canonBody.addAll(s.accept(new CanonStm()));
     }
-    return new TreeMethod(method.getName(), method.getNumberOfParameters(), canonBody, method.getReturnTemp());
+    TreeMethod tm = new TreeMethod(method.getName(), method.getNumberOfParameters(), canonBody, method.getReturnTemp());
+    tm.setNumberOfVars(method.getNumberOfVars());
+    return tm;
   }
 
 }

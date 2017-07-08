@@ -4,7 +4,10 @@ import minijava.backend.CodeGenerator;
 import minijava.backend.MachineFunction;
 import minijava.backend.MachineInstruction;
 import minijava.backend.i386.I386CodeGenerator.AssemblyExpVisitor;
+import minijava.backend.i386.InstrJump.Cond;
+import minijava.backend.i386.Operand.Reg;
 import minijava.intermediate.Temp;
+import minijava.intermediate.tree.TreeExp;
 import minijava.intermediate.tree.TreeExpBinOp;
 import minijava.intermediate.tree.TreeExpCall;
 import minijava.intermediate.tree.TreeExpConst;
@@ -18,6 +21,7 @@ import minijava.intermediate.tree.TreeMethod;
 import minijava.intermediate.tree.TreePrg;
 import minijava.intermediate.tree.TreeStm;
 import minijava.intermediate.tree.TreeStmCJump;
+import minijava.intermediate.tree.TreeStmCJump.Rel;
 import minijava.intermediate.tree.TreeStmJump;
 import minijava.intermediate.tree.TreeStmLabel;
 import minijava.intermediate.tree.TreeStmMove;
@@ -35,7 +39,14 @@ import com.sun.beans.util.Cache.Kind;
 
 public class I386CodeGenerator implements CodeGenerator {
 	public static List<MachineInstruction> instructions = new LinkedList<>();
-	public static Temp eax,ebx,ecx,edx,esp,ebp,esi,edi;
+	public static Operand.Reg eax = new Reg(new Temp());
+	public static Operand.Reg ebx = new Reg(new Temp());
+	public static Operand.Reg ecx = new Reg(new Temp());
+	public static Operand.Reg edx = new Reg(new Temp());
+	public static Operand.Reg esp = new Reg(new Temp());
+	public static Operand.Reg ebp = new Reg(new Temp());
+	public static Operand.Reg esi = new Reg(new Temp());
+	public static Operand.Reg edi = new Reg(new Temp());
 	
 	/*
 	 * eax, edx, ecx = caller save
@@ -63,13 +74,29 @@ public class I386CodeGenerator implements CodeGenerator {
 	  while(it.hasNext()){
 		  instructions = new LinkedList<>();
 		  TreeMethod tm = it.next();
+		  this.enterFunction(tm);
 		  this.genMethod(tm);
+		  instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, eax, new Operand.Reg(tm.getReturnTemp())));
+		  this.leaveFunction(tm);
 		  I386Function func = new I386Function(tm.getName(), instructions);
 		  functions.add(func);
 	  }
 	  
 	  I386Prg assemblyPrg = new I386Prg(functions);
 	  return assemblyPrg;
+  }
+  
+  public void enterFunction(TreeMethod tm){
+	  instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.PUSH, ebp));
+	  instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, ebp, esp));
+	  int numberOfBytes = tm.getNumberOfVars() * 4;
+	  instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.SUB, esp, new Operand.Imm(numberOfBytes)));
+  }
+  
+  public void leaveFunction(TreeMethod tm){
+	  instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, esp, ebp));
+	  instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.POP, ebp));
+	  instructions.add(new InstrNullary(minijava.backend.i386.InstrNullary.Kind.RET));	  
   }
   
   public void genMethod(TreeMethod method){
@@ -104,8 +131,6 @@ public class I386CodeGenerator implements CodeGenerator {
 		
 		InstrJump ij = new InstrJump(minijava.backend.i386.InstrJump.Kind.JMP, stmJUMP.getPossibleTargets().get(0));
 		instructions.add(ij);
-		
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -113,22 +138,43 @@ public class I386CodeGenerator implements CodeGenerator {
 	public String visit(TreeStmCJump stmCJUMP) {
 		Operand left = stmCJUMP.getLeft().accept(new AssemblyExpVisitor());
 		Operand right = stmCJUMP.getRight().accept(new AssemblyExpVisitor());
+		Cond cond = this.getConditionFromRelation(stmCJUMP.getRel());
 		
 		InstrBinary ib = new InstrBinary(minijava.backend.i386.InstrBinary.Kind.CMP, right, left);
 		instructions.add(ib);
-		InstrJump ij = new InstrJump(minijava.backend.i386.InstrJump.Kind.J, stmCJUMP.getLabelTrue());
+		InstrJump ij = new InstrJump(minijava.backend.i386.InstrJump.Kind.J, stmCJUMP.getLabelTrue(), null, cond);
 		instructions.add(ij);
 		
-		
-		stmCJUMP.getLabelFalse();
-		stmCJUMP.getLabelTrue();
-		stmCJUMP.getLeft().accept(new AssemblyExpVisitor());
-		stmCJUMP.getRight().accept(new AssemblyExpVisitor());
-		stmCJUMP.getRel();
-		
-		
-		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Cond getConditionFromRelation(Rel rel){
+		Cond cond;
+		switch (rel){
+		case EQ:
+			cond = Cond.E;
+			break;
+		case GT:
+			cond = Cond.G;
+			break;
+		case GE:
+			cond = Cond.GE;
+			break;
+		case LT:
+			cond = Cond.L;
+			break;
+		case LE:
+			cond = Cond.LE;
+			break;
+		case NE:
+			cond = Cond.NE;
+			break;
+			//TODO: What is Ze?
+		default:
+			cond = null;
+			break;
+		}
+		return cond;
 	}
 
 	// seq doesn't exist anymore. Therefore this function is not longer required
@@ -158,34 +204,60 @@ public class I386CodeGenerator implements CodeGenerator {
 
 	@Override
 	public Operand visit(TreeExpName expNAME) {
-		InstrLabel il = new InstrLabel(expNAME.getLabel());
-
-		instructions.add(il);
+		// do nothing
 		return null;
 	}
 
 	@Override
 	public Operand visit(TreeExpTemp expTEMP) {
 		Operand op = new Operand.Reg(expTEMP.getTemp());
-		// TODO Auto-generated method stub
 		return op;
 	}
 
 	@Override
 	public Operand visit(TreeExpParam expPARAM) {
-		Operand op = new Operand.Mem(esp, 4, null,expPARAM.getNumber());
+		Operand op = new Operand.Mem(esp.reg, 4, null,expPARAM.getNumber());
 		return op;
 	}
 
 	@Override
 	public Operand visit(TreeExpMem expMEM) {
 		expMEM.getAddress();
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubh
 		return null;
 	}
 
 	@Override
 	public Operand visit(TreeExpBinOp expOP) {
+		minijava.backend.i386.InstrBinary.Kind kind;
+		Operand oLeft = expOP.getLeft().accept(this);
+		Operand oRight = expOP.getRight().accept(this);
+		
+		switch(expOP.getOp()){
+		case PLUS:
+			instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.ADD, oLeft, oRight));
+			return oLeft;
+		case MINUS:
+			instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.SUB, oLeft, oRight));
+			return oLeft;
+		case DIV:
+			instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, eax, oLeft));
+			if (oRight instanceof Operand.Imm){
+				Operand.Reg reg = new Operand.Reg(new Temp());
+				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, reg, oRight));
+				oRight = reg;
+			}
+			instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.IDIV, oRight));
+			Operand.Reg ret = new Operand.Reg(new Temp());
+			instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, ret, eax));
+			return ret;
+		case MUL:
+			instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.IMUL, oLeft, oRight));
+			return oLeft;
+		default:
+			kind = null;
+			break;
+		}
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -196,6 +268,11 @@ public class I386CodeGenerator implements CodeGenerator {
 		
 		if(expCALL.getFunction() instanceof TreeExpName){
 			TreeExpName tn = (TreeExpName) expCALL.getFunction();
+			for (TreeExp tx : expCALL.getArguments()){
+				instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.PUSH, tx.accept(this)));
+			}
+			
+			
 			instructions.add(new InstrJump(minijava.backend.i386.InstrJump.Kind.CALL, tn.getLabel()));
 		}
 		// TODO Auto-generated method stub

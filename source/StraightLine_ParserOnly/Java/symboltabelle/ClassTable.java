@@ -146,7 +146,7 @@ public class ClassTable extends Table{
 		return mt.getPositionOfParameter(varName);
 	}
 	
-	public int getIndexOfLocalVariable(String varName){
+	public int getIndexOfGlobalVariable(String varName){
 		for (int i = 0; i < lines.size(); i++){
 			TableLine tl = lines.get(i);
 			if(tl.getName().equals(varName)){
@@ -154,6 +154,11 @@ public class ClassTable extends Table{
 			}
 		}
 		return -1;
+	}
+	
+	public int getNumberOfLocalVarsFromMeth(String methName){
+		MethodTable mt = this.getMethodTableByName(methName);
+		return mt.getNumberOfLocalVars();
 	}
 	
 	public String printTable(){

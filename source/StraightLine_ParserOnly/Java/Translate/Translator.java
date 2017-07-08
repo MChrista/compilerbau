@@ -80,8 +80,9 @@ public class Translator {
 
 		Temp t = new Temp();
 		stms.add(new TreeStmMove(new TreeExpTemp(t), m.returnExp.accept(new TranslatorVisitorExp())));
-
+		
 		TreeMethod tm = new TreeMethod(new Label(className + "$" + m.methodName), m.parameters.size() + 1, stms, t);
+		tm.setNumberOfVars(Translator.globalTable.getNumberOfLocalVarsFromMeth(Translator.currentClass, Translator.currentMethod));
 		return tm;
 
 	}
@@ -269,7 +270,7 @@ public class Translator {
 
 			switch (vs) {
 			case GLOBAL:
-				int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, x.id);
+				int localIdx = Translator.globalTable.getIndexOfGlobalVariable(Translator.currentClass, x.id);
 				TreeExpBinOp twbo = new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(localIdx * 4),
 						new TreeExpParam(0));
 				return new TreeExpMem(twbo);
@@ -413,7 +414,7 @@ public class Translator {
 			
 			switch (vs) {
 			case GLOBAL:
-				int localIdx = Translator.globalTable.getIndexOfLocalVariable(Translator.currentClass, s.id);
+				int localIdx = Translator.globalTable.getIndexOfGlobalVariable(Translator.currentClass, s.id);
 				TreeExpBinOp twbo = new TreeExpBinOp(TreeExpBinOp.Op.PLUS, new TreeExpConst(localIdx * 4),
 						new TreeExpParam(0));
 				TreeExpMem txm = new TreeExpMem(twbo);

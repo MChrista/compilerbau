@@ -21,7 +21,7 @@ public class Test {
   public static void main(String[] args) {
 
     if (args.length == 0) {
-      System.out.println("First argument must be file name of straigtline program.");
+      System.out.println("First argument must be file name of straightline program.");
       System.exit(-1);
     }
 
