@@ -74,7 +74,7 @@ public class Test {
         
         I386CodeGenerator cg = new I386CodeGenerator();
         I386Prg assemPrg = cg.codeGen(orderdTreePrg);
-        System.out.println(assemPrg.renderAssembly());
+        //System.out.println(assemPrg.renderAssembly());
         
 
       } finally {
