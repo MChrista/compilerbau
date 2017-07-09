@@ -70,7 +70,7 @@ public class Test {
         TreePrg orderdTreePrg = blockB.getPrg();
         //System.out.println("Building blocks completed");
         //System.out.println(unorderedBlocks.size());
-        System.out.println(orderdTreePrg.toString());
+        //System.out.println(orderdTreePrg.toString());
         
         I386CodeGenerator cg = new I386CodeGenerator();
         I386Prg assemPrg = cg.codeGen(orderdTreePrg);

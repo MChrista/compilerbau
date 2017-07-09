@@ -29,7 +29,7 @@ public final class Temp implements Comparable<Temp> {
 	  if (this.name == null){
 		  return "t" + id;
 	  } else {
-		  return name;
+		  return "%" + name;
 	  }
     
   }
