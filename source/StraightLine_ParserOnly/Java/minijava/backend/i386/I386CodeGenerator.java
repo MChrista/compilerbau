@@ -11,6 +11,7 @@ import minijava.backend.i386.Operand.Reg;
 import minijava.intermediate.Temp;
 import minijava.intermediate.tree.TreeExp;
 import minijava.intermediate.tree.TreeExpBinOp;
+import minijava.intermediate.tree.TreeExpBinOp.Op;
 import minijava.intermediate.tree.TreeExpCall;
 import minijava.intermediate.tree.TreeExpConst;
 import minijava.intermediate.tree.TreeExpESeq;
@@ -125,10 +126,30 @@ public class I386CodeGenerator implements CodeGenerator {
 
 		@Override
 		public String visit(TreeStmMove stmMOVE) {
-			Operand src = stmMOVE.getSrc().accept(new AssemblyExpVisitor());
-			Operand dst = stmMOVE.getDst().accept(new AssemblyExpVisitor());
-
-			if (src != null && dst != null) {
+			Operand src;
+			Operand dst;
+			System.out.println("move");
+			
+			src = stmMOVE.getSrc().accept(new AssemblyExpVisitor());
+			dst = stmMOVE.getDst().accept(new AssemblyExpVisitor());
+			
+			if (stmMOVE.getDst() instanceof TreeExpBinOp){
+				dst = new AssemblyExpVisitor().handleMemoryBinOp((TreeExpBinOp)stmMOVE.getDst());
+			}
+			if (stmMOVE.getSrc() instanceof TreeExpBinOp){
+				System.out.println("bin op");
+				src = new AssemblyExpVisitor().handleMemoryBinOp((TreeExpBinOp)stmMOVE.getSrc());
+				System.out.println(src.toString());
+				System.out.println("hello");
+			}
+			
+			System.out.println(src.toString());
+			
+			if (src instanceof Operand.Mem && dst instanceof Operand.Mem){
+				Operand.Reg temp = new Operand.Reg(new Temp());
+				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, temp, src));
+				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, dst, temp));
+			} else if (src != null && dst != null) {
 				InstrBinary ib = new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, dst, src);
 				instructions.add(ib);
 			}
@@ -254,6 +275,13 @@ public class I386CodeGenerator implements CodeGenerator {
 
 		@Override
 		public Operand visit(TreeExpMem expMEM) {
+			
+			
+			
+			if (expMEM.getAddress() instanceof TreeExpBinOp){
+				return handleMemoryBinOp((TreeExpBinOp)expMEM.getAddress());
+			}
+			
 			Operand op = expMEM.getAddress().accept(this);
 
 			if (op instanceof Operand.Imm) {
@@ -266,15 +294,56 @@ public class I386CodeGenerator implements CodeGenerator {
 			} else if (op instanceof Operand.Mem) {
 				return op;
 			}
+			/*if (oLeft instanceof Operand.Mem && oRight instanceof Operand.Imm){
+				Operand.Reg reg = new Operand.Reg(new Temp());
+				instructions.add(new InstrBinary(InstrBinary.Kind.MOV, reg, oLeft));
+				return new Operand.Mem(reg.reg,null,null,((Operand.Imm) oRight).imm);
+			}*/
 			// TODO Auto-generated method stubh
 			return null;
 		}
+		
+		public Operand.Mem handleMemoryBinOp(TreeExpBinOp expOP){
+			Operand oLeft = expOP.getLeft().accept(this);
+			Operand oRight = expOP.getRight().accept(this);
+			
+			
+			if (oLeft instanceof Operand.Imm && (oRight instanceof Operand.Mem || oRight instanceof Operand.Reg)) {
+				Operand temp = oLeft;
+				oLeft  = oRight;
+				oRight = temp;
+			} 
+			
+			if (oLeft instanceof Operand.Mem && oRight instanceof Operand.Imm){
+				Operand.Reg reg = new Operand.Reg(new Temp());
+				instructions.add(new InstrBinary(InstrBinary.Kind.MOV, reg, oLeft));
+				if(expOP.getOp() == Op.MINUS){
+					Operand.Imm oNew = new Operand.Imm(-((Operand.Imm) oRight).imm);
+					return new Operand.Mem(reg.reg,null,null,oNew.imm);
+				}
+				return new Operand.Mem(reg.reg,null,null,((Operand.Imm) oRight).imm);
+			} else if (oLeft instanceof Operand.Reg && oRight instanceof Operand.Imm){
+				if(expOP.getOp() == Op.MINUS){
+					Operand.Imm oNew = new Operand.Imm(-((Operand.Imm) oRight).imm);
+					return new Operand.Mem(((Operand.Reg)oLeft).reg,null,null,oNew.imm);
+				}
+				return new Operand.Mem(((Operand.Reg)oLeft).reg,null,null,((Operand.Imm) oRight).imm);
+			}
+			return null;
+		}
+		
 
 		@Override
 		public Operand visit(TreeExpBinOp expOP) {
-			minijava.backend.i386.InstrBinary.Kind kind;
+			InstrBinary.Kind kind;
 			Operand oLeft = expOP.getLeft().accept(this);
 			Operand oRight = expOP.getRight().accept(this);
+			
+			if (oLeft instanceof Operand.Mem && oRight instanceof Operand.Mem){
+				Operand.Reg temp = new Operand.Reg(new Temp());
+				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, temp, oRight));
+				oRight = temp;
+			}
 
 			switch (expOP.getOp()) {
 			case PLUS:
@@ -283,22 +352,16 @@ public class I386CodeGenerator implements CodeGenerator {
 					oLeft  = oRight;
 					oRight = temp;
 				} 
-				if (oLeft instanceof Operand.Mem && oRight instanceof Operand.Imm){
-					Operand.Reg reg = new Operand.Reg(new Temp());
-					instructions.add(new InstrBinary(InstrBinary.Kind.MOV, reg, oLeft));
-					return new Operand.Mem(reg.reg,null,null,((Operand.Imm) oRight).imm);
-				}
-				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.ADD, oLeft, oRight));
-				return oLeft;
-
+				kind = InstrBinary.Kind.ADD;
+				break;
 			case MINUS:
 				if (oLeft instanceof Operand.Imm && (oRight instanceof Operand.Mem || oRight instanceof Operand.Reg)) {
 					Operand temp = oLeft;
 					oLeft  = oRight;
 					oRight = temp;
 				}
-				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.SUB, oLeft, oRight));
-				return oLeft;
+				kind = InstrBinary.Kind.SUB;
+				break;
 			case DIV:
 				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, eax, oLeft));
 				if (oRight instanceof Operand.Imm) {
@@ -311,14 +374,15 @@ public class I386CodeGenerator implements CodeGenerator {
 				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, ret, eax));
 				return ret;
 			case MUL:
-				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.IMUL, oLeft, oRight));
-				return oLeft;
+				kind = InstrBinary.Kind.IMUL;
+				break;
 			default:
 				kind = null;
 				break;
 			}
-			// TODO Auto-generated method stub
-			return null;
+			
+			instructions.add(new InstrBinary(kind, oLeft, oRight));
+			return oLeft;
 		}
 
 		@Override
@@ -328,7 +392,11 @@ public class I386CodeGenerator implements CodeGenerator {
 				TreeExpName tn = (TreeExpName) expCALL.getFunction();
 				for (int i = expCALL.getArguments().size() - 1; i >= 0; i--) {
 					TreeExp tx = expCALL.getArguments().get(i);
+					
+				
 					Operand op = tx.accept(this);
+					
+					
 					if (op instanceof Operand.Imm){
 						Temp t = new Temp();
 						Operand opDst = new Operand.Reg(t);
