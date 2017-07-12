@@ -128,7 +128,6 @@ public class I386CodeGenerator implements CodeGenerator {
 		public String visit(TreeStmMove stmMOVE) {
 			Operand src;
 			Operand dst;
-			System.out.println("move");
 			
 			src = stmMOVE.getSrc().accept(new AssemblyExpVisitor());
 			dst = stmMOVE.getDst().accept(new AssemblyExpVisitor());
@@ -137,13 +136,9 @@ public class I386CodeGenerator implements CodeGenerator {
 				dst = new AssemblyExpVisitor().handleMemoryBinOp((TreeExpBinOp)stmMOVE.getDst());
 			}
 			if (stmMOVE.getSrc() instanceof TreeExpBinOp){
-				System.out.println("bin op");
 				src = new AssemblyExpVisitor().handleMemoryBinOp((TreeExpBinOp)stmMOVE.getSrc());
-				System.out.println(src.toString());
-				System.out.println("hello");
 			}
 			
-			System.out.println(src.toString());
 			
 			if (src instanceof Operand.Mem && dst instanceof Operand.Mem){
 				Operand.Reg temp = new Operand.Reg(new Temp());
