@@ -129,10 +129,8 @@ public class I386CodeGenerator implements CodeGenerator {
 			Operand src;
 			Operand dst;
 			
-			
 			src = stmMOVE.getSrc().accept(new AssemblyExpVisitor());
 			dst = stmMOVE.getDst().accept(new AssemblyExpVisitor());
-			
 			
 			if (src instanceof Operand.Mem && dst instanceof Operand.Mem){
 				Operand.Reg temp = new Operand.Reg(new Temp());

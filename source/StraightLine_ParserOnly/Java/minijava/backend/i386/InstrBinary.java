@@ -41,12 +41,12 @@ final class InstrBinary implements MachineInstruction {
 
   @Override
   public List<Label> jumps() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+    return null;
   }
 
   @Override
   public boolean isFallThrough() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  return true;
   }
 
   @Override
@@ -56,7 +56,7 @@ final class InstrBinary implements MachineInstruction {
 
   @Override
   public Label isLabel() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+    return null;
  }
 
   @Override

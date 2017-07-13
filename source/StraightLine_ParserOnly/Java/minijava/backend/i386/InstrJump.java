@@ -7,6 +7,7 @@ import minijava.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -59,12 +60,25 @@ final class InstrJump implements MachineInstruction {
 
   @Override
   public List<Label> jumps() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+  	List labelList = new LinkedList<Label>();
+    if(this.kind == Kind.JMP || this.kind == Kind.J || this.kind == Kind.CALL){
+    	labelList.add(this.label);
+    	return labelList;
+    }else{
+    	return null;
+    }
+    
   }
 
   @Override
   public boolean isFallThrough() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  if(this.kind == Kind.JMP || this.kind == Kind.J){
+		  return false;
+	  }
+	  else if (this.kind == Kind.CALL){
+		  return false;
+	  }
+	  return false;
   }
 
   @Override
@@ -74,7 +88,7 @@ final class InstrJump implements MachineInstruction {
 
   @Override
   public Label isLabel() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+    return null;
   }
 
   @Override
