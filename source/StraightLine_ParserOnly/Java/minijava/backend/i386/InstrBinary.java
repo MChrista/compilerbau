@@ -7,6 +7,7 @@ import minijava.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -31,17 +32,26 @@ final class InstrBinary implements MachineInstruction {
 
   @Override
   public List<Temp> use() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  List<Temp> templist = src.use();
+	  if (dst instanceof Operand.Mem){
+		  dst.toString();
+		  templist.addAll(dst.use());
+	  }
+	  return templist;
   }
 
   @Override
   public List<Temp> def() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  List<Temp> tempList = new LinkedList<Temp>();
+	  if (dst instanceof Operand.Reg){
+		  tempList = dst.use();
+	  }
+	  return tempList;
   }
 
   @Override
   public List<Label> jumps() {
-    return null;
+    return new LinkedList<Label>();
   }
 
   @Override
@@ -51,7 +61,14 @@ final class InstrBinary implements MachineInstruction {
 
   @Override
   public Pair<Temp, Temp> isMoveBetweenTemps() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  if (this.kind == Kind.MOV){
+		  if (this.src instanceof Operand.Reg && this.dst instanceof Operand.Reg){
+			  Temp src = ((Operand.Reg) this.src).reg;
+			  Temp dst = ((Operand.Reg) this.dst).reg;
+			  return new Pair<Temp, Temp>(src, dst);
+		  }
+	  }
+	  return null;
  }
 
   @Override

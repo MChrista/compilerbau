@@ -109,7 +109,8 @@ abstract class Operand {
   }
 
   List<Temp> use() {
-    return Collections.emptyList();
+	  return new ArrayList<>();
+    //return Collections.emptyList();
   }
 
   abstract Operand rename(Function<Temp, Temp> sigma);

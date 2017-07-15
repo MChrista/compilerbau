@@ -22,22 +22,22 @@ final class InstrNullary implements MachineInstruction {
 
   @Override
   public List<Temp> use() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  return new LinkedList<Temp>();
   }
 
   @Override
   public List<Temp> def() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  return new LinkedList<Temp>();
   }
 
   @Override
   public List<Label> jumps() {
-    return null;
+	  return new LinkedList<Label>();
   }
 
   @Override
   public boolean isFallThrough() {
-    if(this.kind == Kind.RET){
+    if(this.kind == Kind.RET || this.kind == Kind.LEAVE){
     	return false;
     }else{
     	return true;

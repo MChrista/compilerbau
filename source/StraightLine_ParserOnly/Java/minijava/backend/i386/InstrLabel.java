@@ -6,6 +6,7 @@ import minijava.intermediate.Temp;
 import minijava.util.Pair;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -19,17 +20,17 @@ final class InstrLabel implements MachineInstruction {
 
   @Override
   public List<Temp> use() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  return new LinkedList<Temp>();
   }
 
   @Override
   public List<Temp> def() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  return new LinkedList<Temp>();
   }
 
   @Override
   public List<Label> jumps() {
-    return null;
+    return new LinkedList<Label>();
   }
 
   @Override
@@ -39,7 +40,7 @@ final class InstrLabel implements MachineInstruction {
 
   @Override
   public Pair<Temp, Temp> isMoveBetweenTemps() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  return null;
   }
 
   @Override

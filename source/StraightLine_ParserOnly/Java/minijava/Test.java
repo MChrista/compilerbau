@@ -10,6 +10,7 @@ import java.util.List;
 import minijava.backend.MachineFunction;
 import minijava.backend.MachineInstruction;
 import minijava.backend.i386.*;
+import minijava.backend.regDistributor.GraphGenerator;
 import BlockBuilder.Block;
 import BlockBuilder.BlockBuilder;
 import BlockBuilder.MethodBlocks;
@@ -89,45 +90,15 @@ public class Test {
         I386CodeGenerator cg = new I386CodeGenerator();
         I386Prg assemPrg = cg.codeGen(orderdTreePrg);
         
-        List<DirectedGraph> graphList = new LinkedList<>();
-        List<Node> nodeWorkList;
-        int i = 0;
-        Iterator<MachineFunction> itMf = assemPrg.iterator();
-        while(itMf.hasNext()){
-        	DirectedGraph<Node> dg = new DirectedGraph<Node>();
-        	MachineFunction mf = itMf.next();
-        	Iterator<MachineInstruction> itMi = mf.iterator();
-        	nodeWorkList  = new LinkedList<>();
-        	while(itMi.hasNext()){
-        		MachineInstruction mi = itMi.next();
-            	Node n = new Node(mi, i);
-            	nodeWorkList.add(n);
-            	i++;
-        	}
-        	//adde nodes zum graphen
-        	
-        	//zeichne Kanten 
-        	/*
-        	for(int j = 0; i < nodeWorkList.size(); i++){
-        		dg.addNode(nodeWorkList.get(j));
-        		if(nodeWorkList.get(j).instr.isFallThrough()){
-        			dg.addNode(nodeWorkList.get(j+1));
-        			dg.addEdge(nodeWorkList.get(j), nodeWorkList.get(j+1));
-        		}else{
-        			dg.addEdge(nodeWorkList.get(j), nodeWorkList.get(j).instr.jumps());
-        		}
-        	}
-        	*/
-        	graphList.add(dg);
-        }
-        graphList.get(0).printDot();
-        File f = new File("printFile.dot");
-        PrintStream ps = new PrintStream(f);
-        graphList.get(0).printDot(ps);
+       /// System.out.println(assemPrg.renderAssembly());
+        
+        GraphGenerator graphGen = new GraphGenerator();
+        List <DirectedGraph<Node>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
+        graphGen.printDot(ctrGraphList);
         
         
 
-        //System.out.println(assemPrg.renderAssembly());
+        //
         
 
       } finally {
@@ -136,6 +107,7 @@ public class Test {
     } catch (ParseException ex) {
       System.out.println("Parse error!\n" + ex.getMessage());
     } catch (Exception ex) {
+    	ex.printStackTrace();
     }
 
   }

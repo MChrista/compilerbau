@@ -13,92 +13,90 @@ import java.util.function.Function;
 
 final class InstrJump implements MachineInstruction {
 
-  enum Kind {
-    JMP, J, CALL
-  }
+	enum Kind {
+		JMP, J, CALL
+	}
 
-  enum Cond {
-    E, NE, L, LE, G, GE, Ze
-  }
+	enum Cond {
+		E, NE, L, LE, G, GE, Ze
+	}
 
-  private final Kind kind;
-  private final Label label;
-  private Operand dest;
-  private final Cond cond;
+	private final Kind kind;
+	private final Label label;
+	private Operand dest;
+	private final Cond cond;
 
-  InstrJump(Kind kind, Label label) {
-    this(kind, label, null, null);
-  }
+	InstrJump(Kind kind, Label label) {
+		this(kind, label, null, null);
+	}
 
-  InstrJump(Kind kind, Operand dest) {
-    this(kind, null, dest, null);
-  }
+	InstrJump(Kind kind, Operand dest) {
+		this(kind, null, dest, null);
+	}
 
-  InstrJump(Cond cond, Label label) {
-    this(Kind.J, label, null, cond);
-  }
+	InstrJump(Cond cond, Label label) {
+		this(Kind.J, label, null, cond);
+	}
 
-  InstrJump(Kind kind, Label label, Operand dest, Cond cond) {
-    assert (kind != Kind.J || cond != null) : "J needs condition argument";
-    assert (kind == Kind.CALL || label != null) : "J and JMP need label as destination";
-    assert (dest == null || dest instanceof Operand.Reg) : "dynamic destination of CALL must be Reg";
-    this.kind = kind;
-    this.label = label;
-    this.dest = dest;
-    this.cond = cond;
-  }
+	InstrJump(Kind kind, Label label, Operand dest, Cond cond) {
+		assert (kind != Kind.J || cond != null) : "J needs condition argument";
+		assert (kind == Kind.CALL || label != null) : "J and JMP need label as destination";
+		assert (dest == null || dest instanceof Operand.Reg) : "dynamic destination of CALL must be Reg";
+		this.kind = kind;
+		this.label = label;
+		this.dest = dest;
+		this.cond = cond;
+	}
 
-  @Override
-  public List<Temp> use() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
-  }
+	@Override
+	public List<Temp> use() {
+		List<Temp> templist = new LinkedList<>();
+		if(dest instanceof Operand.Reg){
+			templist = dest.use();
+		}
+		return templist;
+	}
 
-  @Override
-  public List<Temp> def() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
-  }
+	@Override
+	public List<Temp> def() {
+		return new LinkedList<Temp>();
+	}
 
-  @Override
-  public List<Label> jumps() {
-  	List labelList = new LinkedList<Label>();
-    if(this.kind == Kind.JMP || this.kind == Kind.J || this.kind == Kind.CALL){
-    	labelList.add(this.label);
-    	return labelList;
-    }else{
-    	return null;
-    }
-    
-  }
+	@Override
+	public List<Label> jumps() {
+		List<Label> labelList = new LinkedList<>();
+		if (label != null) {
+			labelList.add(label);
+		}
+		return labelList;
+	}
 
-  @Override
-  public boolean isFallThrough() {
-	  if(this.kind == Kind.JMP || this.kind == Kind.J){
-		  return false;
-	  }
-	  else if (this.kind == Kind.CALL){
-		  return false;
-	  }
-	  return false;
-  }
+	@Override
+	public boolean isFallThrough() {
+		if (this.kind == Kind.J) {
+			return true;
+		}
+		return false;
+	}
 
-  @Override
-  public Pair<Temp, Temp> isMoveBetweenTemps() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
-  }
+	@Override
+	public Pair<Temp, Temp> isMoveBetweenTemps() {
+		return null;
+	}
 
-  @Override
-  public Label isLabel() {
-    return null;
-  }
+	@Override
+	public Label isLabel() {
+		return null;
+	}
 
-  @Override
-  public String toString() {
-    String ins = (kind == Kind.J) ? (kind.toString() + cond.toString()) : kind.toString();
-    return "\t" + ins + " " + (label != null ? label : dest) + "\n";
-  }
+	@Override
+	public String toString() {
+		String ins = (kind == Kind.J) ? (kind.toString() + cond.toString()) : kind.toString();
+		return "\t" + ins + " " + (label != null ? label : dest) + "\n";
+	}
 
-  @Override
-  public void rename(Function<Temp, Temp> sigma) {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
-  }
+	@Override
+	public void rename(Function<Temp, Temp> sigma) {
+		throw new UnsupportedOperationException("Needed later for register allocation.");
+	}
 }

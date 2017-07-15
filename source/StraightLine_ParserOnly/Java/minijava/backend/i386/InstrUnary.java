@@ -8,13 +8,13 @@ import minijava.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
 final class InstrUnary implements MachineInstruction {
 
   enum Kind {
-
     PUSH, POP, NEG, NOT, INC, DEC, IDIV
   }
   private Operand op;
@@ -29,17 +29,18 @@ final class InstrUnary implements MachineInstruction {
 
   @Override
   public List<Temp> use() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  List<Temp> templist = op.use();
+	  return templist;
   }
 
   @Override
   public List<Temp> def() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  return new LinkedList<Temp>();
   }
 
   @Override
   public List<Label> jumps() {
-    return null;
+    return new LinkedList<Label>();
   }
 
   @Override
@@ -49,7 +50,7 @@ final class InstrUnary implements MachineInstruction {
 
   @Override
   public Pair<Temp, Temp> isMoveBetweenTemps() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  return null;
   }
 
   @Override
