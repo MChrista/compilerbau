@@ -25,6 +25,7 @@ import symboltabelle.GlobalTable;
 import minijava.util.DirectedGraph;
 import minijava.util.Node;
 import minijava.util.Pair;
+import minijava.util.TempNode;
 
 import java.util.*;
 import java.util.function.Function;
@@ -90,12 +91,12 @@ public class Test {
         I386CodeGenerator cg = new I386CodeGenerator();
         I386Prg assemPrg = cg.codeGen(orderdTreePrg);
         
-       /// System.out.println(assemPrg.renderAssembly());
+       //System.out.println(assemPrg.renderAssembly());
         
         GraphGenerator graphGen = new GraphGenerator();
-        List <DirectedGraph<Node>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
-        graphGen.printDot(ctrGraphList);
-        graphGen.printDotToFile(ctrGraphList);
+        List <DirectedGraph<TempNode>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
+        graphGen.printTempDot(ctrGraphList);
+        graphGen.printTempDotToFile(ctrGraphList);
         
         
 

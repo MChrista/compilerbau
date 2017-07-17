@@ -30,15 +30,23 @@ public class GraphGenerator {
 
 	}
 
-	public List<DirectedGraph<Node>> createInterferenzGraphFromI386Prg(I386Prg prg) {
-		List<DirectedGraph<Node>> dgList = new LinkedList<>();
+	public List<DirectedGraph<TempNode>> createInterferenzGraphFromI386Prg(I386Prg prg) {
+		List<DirectedGraph<TempNode>> dgList = new LinkedList<>();
+		List<DirectedGraph<Node>> ctrlList = new LinkedList<>();
 		Iterator<MachineFunction> itMf = prg.iterator();
 		while (itMf.hasNext()) {
 			MachineFunction mf = itMf.next();
 			DirectedGraph<Node> dg = createControlGraphFromMachineFunction(mf);
-			DirectedGraph<Node> iG = createInterferenzGraphFromControlGraph(dg);
-			//dgList.add(dg);
+			DirectedGraph<TempNode> iG = createInterferenzGraphFromControlGraph(dg);
+			//ctrlList.add(dg);
 			dgList.add(iG);
+		}
+		this.printDot(ctrlList);
+		try {
+			this.printDotToFile(ctrlList);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return dgList;
 	}
@@ -103,31 +111,34 @@ public class GraphGenerator {
 	}
 	
 	public DirectedGraph<Node> addActivityInformationToGraph(List<Node> nodes, DirectedGraph<Node> controlGraph){
+		System.out.println("add activity");
 		for (int i=nodes.size()-1; i>=0; i--){
 			Node n = nodes.get(i);
+			System.out.print(n.instr.toString());
 			n.initializeInAndOut();
-			boolean cond = false;
-			do {
-				cond = false;
-				for (int j=nodes.size()-1; j>=0; j--){
-					Node l = nodes.get(j);
-					l.moveListsToOld();
-					l.addTempListToOut(this.getInListOfSuccessors(l, controlGraph));
-					Set<Temp> in = l.getInList();
-					in.addAll(l.getOutList());
-					for (Temp t : l.instr.def()){
-						in.remove(t);
-					}
-					for (Temp t : l.instr.use()){
-						in.add(t);
-					}
-					l.addTempListToIn(in);
-					if (!cond){
-						cond = !(l.isNewEqOld());
-					}
-				}
-			} while (cond);
 		}
+		
+		boolean cond = false;
+		do {
+			cond = false;
+			for (int j=nodes.size()-1; j>=0; j--){
+				Node l = nodes.get(j);
+				l.moveListsToOld();
+				l.addTempListToOut(this.getInListOfSuccessors(l, controlGraph));
+				Set<Temp> in = l.getOutList();
+				in.addAll(l.getOutList());
+				for (Temp t : l.instr.def()){
+					in.remove(t);
+				}
+				for (Temp t : l.instr.use()){
+					in.add(t);
+				}
+				l.addTempListToIn(in);
+				if (!cond){
+					cond = !(l.isNewEqOld());
+				}
+			}
+		} while (cond);
 		return controlGraph;
 	}
 	
@@ -139,77 +150,67 @@ public class GraphGenerator {
 		return temp;
 	}
 	
-	public DirectedGraph<Node> createInterferenzGraphFromControlGraph(DirectedGraph<Node> controlGraph){
-		DirectedGraph<Node> interGraph = new DirectedGraph<>();
-		//TempNode tn1,tn2;
+	public DirectedGraph<TempNode> createInterferenzGraphFromControlGraph(DirectedGraph<Node> controlGraph){
+		System.out.println("\n\n\nfunction");
+		
+		DirectedGraph<TempNode> interGraph = new DirectedGraph<>();
+		
+		
+
 		for (Node n : controlGraph.nodeSet()){		
+			Set<Temp> out = n.getOutList();
 			Set<Temp> in = n.getInList();
-			Set<Temp> out = n.getInList();
-			if(!(n.instr instanceof InstrBinary)/*keine VerschiebeInstruktion*/){
-				//System.out.println("keine VerschiebeInstr");
-				for(Temp t : n.instr.def()){
+			
+			System.out.print(n.instr.toString());
+			
+			for (Temp t : out){
+				System.out.println(t.toString());
+				interGraph.addNode(new TempNode(t));
+				System.out.println("size: " + interGraph.nodeSet().size());
+			}
+			for (Temp t : in){
+				System.out.println(t.toString());
+				interGraph.addNode(new TempNode(t));
+				System.out.println("size: " + interGraph.nodeSet().size());
+			}
+			
+			if(n.instr.isMoveBetweenTemps() == null){
+				
+				for(Temp t : in){
+					TempNode tn1 = new TempNode(t);
 					for(Temp u : out){
-						//TODO check if Nodes already exist --> only add Nodes if dont exist
-						
-						TempNode tn1 = new TempNode(t);
 						TempNode tn2 = new TempNode(u);
-						interGraph.addNode(tn1);
-						interGraph.addNode(tn2);
-						
-						
 						interGraph.addEdge(tn1, tn2);
-						System.out.println(interGraph.nodeSet().size());
+						interGraph.addEdge(tn2, tn1);
 					}
 				}
 			}
 			
-			else if(n.instr instanceof InstrBinary /*keine VerschiebeInstruktion*/){
-				//System.out.println("keine VerschiebeInstr");
-
-				InstrBinary instr = (InstrBinary) n.instr;
-				if(!instr.isMov()){
-					for(Temp t : n.instr.def()){
-						for(Temp u : out){
-							//TODO check if Nodes already exist --> only add Nodes if dont exist
+			
+			else{
+					Pair<Temp, Temp> mov = n.instr.isMoveBetweenTemps();
+					Temp v = mov.getFst();
+					Temp t = mov.getSnd();
+					//System.out.println(v.toString() + " " + t.toString());
+					
+					interGraph.addNode(new TempNode(v));
+					interGraph.addNode(new TempNode(t));
+					
+					for(Temp u : out){
+						
+						if(!u.equals(v)){
 							TempNode tn1 = new TempNode(t);
 							TempNode tn2 = new TempNode(u);
-							interGraph.addNode(tn1);
-							interGraph.addNode(tn2);
-							
-							
-							interGraph.addEdge(tn1, tn2);
-						}
-					}
-				}
-				else if(instr.isMov()){
-					//System.out.println("VerschiebeInstr");
 
-					if(!(instr.isMoveBetweenTemps().getFst().isNullTemp())){
-						
-						Pair<Temp, Temp> mov = instr.isMoveBetweenTemps();
-						//System.out.println(instr.isMoveBetweenTemps().getFst().toString());
-						Temp t = mov.getFst();
-						Temp v = mov.getSnd();
-						
-						for(Temp u : out){
-							if(!u.equals(v)){
-								//TODO check if Nodes already exist --> only add Nodes if dont exist
-								TempNode tn1 = new TempNode(t);
-								TempNode tn2 = new TempNode(u);
-								interGraph.addNode(tn1);
-								interGraph.addNode(tn2);
-								interGraph.addEdge(tn1, tn2);
-	
-							}
+							interGraph.addEdge(tn1, tn2);
+
+							interGraph.addEdge(tn2, tn1);
+
 						}
-					}else if(instr.isMoveBetweenTemps().getFst().isNullTemp()){
-						//TODO check if Node already exist --> only add Node if dont exist
-						Temp t = instr.isMoveBetweenTemps().getSnd();
-						TempNode tn =  new TempNode(t);
-						interGraph.addNode(tn);
 					}
 				}
-			}
+			
+			
 		}
 			/*
 			 * each node contains a set of in and out list
@@ -228,9 +229,25 @@ public class GraphGenerator {
 		}
 	}
 	
+	public void printTempDot(List<DirectedGraph<TempNode>> graphList){
+		for (DirectedGraph<TempNode> ctrGraph : graphList){
+			ctrGraph.printDot();
+		}
+	}
+	
 	public void printDotToFile(List<DirectedGraph<Node>> graphList) throws FileNotFoundException{
 		int i = 0;
 		for (DirectedGraph<Node> ctrGraph : graphList){
+			String filename = "graph_" + ++i + ".dot"; 
+	        File f = new File(filename);
+	        PrintStream ps = new PrintStream(f);
+	        ctrGraph.printDot(ps);
+		}
+	}
+	
+	public void printTempDotToFile(List<DirectedGraph<TempNode>> graphList) throws FileNotFoundException{
+		int i = 0;
+		for (DirectedGraph<TempNode> ctrGraph : graphList){
 			String filename = "graph_" + ++i + ".dot"; 
 	        File f = new File(filename);
 	        PrintStream ps = new PrintStream(f);

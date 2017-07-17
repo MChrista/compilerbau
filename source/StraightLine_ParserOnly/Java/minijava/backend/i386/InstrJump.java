@@ -73,7 +73,8 @@ final class InstrJump implements MachineInstruction {
 
 	@Override
 	public boolean isFallThrough() {
-		if (this.kind == Kind.J) {
+		
+		if (this.kind == Kind.J || this.kind == Kind.CALL) {
 			return true;
 		}
 		return false;

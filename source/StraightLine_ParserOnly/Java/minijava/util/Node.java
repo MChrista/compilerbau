@@ -92,7 +92,7 @@ public class Node {
 	}
 	
 	public String toString(){
-		return ("" + this.ID);
+		return (instr.toString().replace("\n", "").replace("\t", "")+ " " + this.ID);
 	}
 	
 

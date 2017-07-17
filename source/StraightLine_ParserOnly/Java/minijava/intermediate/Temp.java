@@ -15,17 +15,9 @@ public final class Temp implements Comparable<Temp> {
     name = null;
   }
   
-  public boolean isNullTemp(){
-	  if(this.name == "nullTemp")
-	  {
-		  return true;
-	  }else{
-		  return false;
-	  }
-  }
   
   public Temp(String name){
-	  this.id = nextId;
+	  this.id = nextId++;
 	  this.name = name;
   }
 

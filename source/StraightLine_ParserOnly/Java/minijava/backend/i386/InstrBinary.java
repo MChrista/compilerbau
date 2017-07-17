@@ -52,7 +52,6 @@ public class InstrBinary implements MachineInstruction {
   public List<Temp> use() {
 	  List<Temp> templist = src.use();
 	  if (dst instanceof Operand.Mem){
-		  dst.toString();
 		  templist.addAll(dst.use());
 	  }
 	  return templist;
@@ -83,24 +82,9 @@ public class InstrBinary implements MachineInstruction {
 		  if (this.src instanceof Operand.Reg && this.dst instanceof Operand.Reg){
 			  Temp src = ((Operand.Reg) this.src).reg;
 			  Temp dst = ((Operand.Reg) this.dst).reg;
-
-
-			  return new Pair<Temp, Temp>(src, dst);
-		  }else if(this.src instanceof Operand.Imm && this.dst instanceof Operand.Reg){
-			  Temp dst = ((Operand.Reg) this.dst).reg;
-			  Temp src = new Temp("nullTemp"); //integer
-			  return new Pair<Temp, Temp>(src, dst);
-		  }else if(this.src instanceof Operand.Mem && this.dst instanceof Operand.Reg){
-			  //TODO
-			  Temp dst = ((Operand.Reg) this.dst).reg;
-			  Temp src = new Temp("nullTemp"); //Pointer
-			  return new Pair<Temp, Temp>(src, dst);
-		  }else if(this.dst instanceof Operand.Mem){
-			  //TODO
-			  Temp dst = new Temp("nullTemp");
-			  Temp src = new Temp("nullTemp"); //Pointer
 			  return new Pair<Temp, Temp>(src, dst);
 		  }
+
 	  }
 	  return null;
  }

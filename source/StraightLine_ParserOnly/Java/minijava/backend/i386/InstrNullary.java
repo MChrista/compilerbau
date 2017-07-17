@@ -46,7 +46,7 @@ final class InstrNullary implements MachineInstruction {
 
   @Override
   public Pair<Temp, Temp> isMoveBetweenTemps() {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+    return null;
   }
 
   @Override
