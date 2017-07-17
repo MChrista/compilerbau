@@ -7,9 +7,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
-abstract class Operand {
+public abstract class Operand {
 
-  final static class Imm extends Operand {
+  public final static class Imm extends Operand {
 
     final int imm;
 
@@ -29,9 +29,9 @@ abstract class Operand {
     }
   }
 
-  final static class Reg extends Operand {
+   public final static class Reg extends Operand {
 
-    final Temp reg;
+    public final Temp reg;
 
     Reg(Temp reg) {
       assert (reg != null);

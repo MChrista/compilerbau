@@ -24,6 +24,9 @@ public class Node {
 		this.ID = id;
 		this.initializeInAndOut();
 	}
+	public Node(){
+		
+	}
 	
 	public void initializeInAndOut(){
 		in = new HashSet<>();

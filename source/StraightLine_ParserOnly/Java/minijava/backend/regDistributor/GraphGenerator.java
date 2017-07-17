@@ -13,12 +13,13 @@ import java.util.Set;
 
 import minijava.backend.*;
 import minijava.backend.i386.I386Prg;
+import minijava.backend.i386.Operand.Reg;
 import minijava.intermediate.Label;
 import minijava.intermediate.Temp;
 import minijava.util.DirectedGraph;
 import minijava.util.Node;
 import minijava.util.Pair;
-
+import minijava.util.TempNode;
 import minijava.backend.i386.*;
 
 public class GraphGenerator {
@@ -35,8 +36,9 @@ public class GraphGenerator {
 		while (itMf.hasNext()) {
 			MachineFunction mf = itMf.next();
 			DirectedGraph<Node> dg = createControlGraphFromMachineFunction(mf);
-			
-			dgList.add(dg);
+			DirectedGraph<Node> iG = createInterferenzGraphFromControlGraph(dg);
+			//dgList.add(dg);
+			dgList.add(iG);
 		}
 		return dgList;
 	}
@@ -139,13 +141,82 @@ public class GraphGenerator {
 	
 	public DirectedGraph<Node> createInterferenzGraphFromControlGraph(DirectedGraph<Node> controlGraph){
 		DirectedGraph<Node> interGraph = new DirectedGraph<>();
-		for (Node n : controlGraph.nodeSet()){
+		//TempNode tn1,tn2;
+		for (Node n : controlGraph.nodeSet()){		
+			Set<Temp> in = n.getInList();
+			Set<Temp> out = n.getInList();
+			if(!(n.instr instanceof InstrBinary)/*keine VerschiebeInstruktion*/){
+				//System.out.println("keine VerschiebeInstr");
+				for(Temp t : n.instr.def()){
+					for(Temp u : out){
+						//TODO check if Nodes already exist --> only add Nodes if dont exist
+						
+						TempNode tn1 = new TempNode(t);
+						TempNode tn2 = new TempNode(u);
+						interGraph.addNode(tn1);
+						interGraph.addNode(tn2);
+						
+						
+						interGraph.addEdge(tn1, tn2);
+						System.out.println(interGraph.nodeSet().size());
+					}
+				}
+			}
+			
+			else if(n.instr instanceof InstrBinary /*keine VerschiebeInstruktion*/){
+				//System.out.println("keine VerschiebeInstr");
+
+				InstrBinary instr = (InstrBinary) n.instr;
+				if(!instr.isMov()){
+					for(Temp t : n.instr.def()){
+						for(Temp u : out){
+							//TODO check if Nodes already exist --> only add Nodes if dont exist
+							TempNode tn1 = new TempNode(t);
+							TempNode tn2 = new TempNode(u);
+							interGraph.addNode(tn1);
+							interGraph.addNode(tn2);
+							
+							
+							interGraph.addEdge(tn1, tn2);
+						}
+					}
+				}
+				else if(instr.isMov()){
+					//System.out.println("VerschiebeInstr");
+
+					if(!(instr.isMoveBetweenTemps().getFst().isNullTemp())){
+						
+						Pair<Temp, Temp> mov = instr.isMoveBetweenTemps();
+						//System.out.println(instr.isMoveBetweenTemps().getFst().toString());
+						Temp t = mov.getFst();
+						Temp v = mov.getSnd();
+						
+						for(Temp u : out){
+							if(!u.equals(v)){
+								//TODO check if Nodes already exist --> only add Nodes if dont exist
+								TempNode tn1 = new TempNode(t);
+								TempNode tn2 = new TempNode(u);
+								interGraph.addNode(tn1);
+								interGraph.addNode(tn2);
+								interGraph.addEdge(tn1, tn2);
+	
+							}
+						}
+					}else if(instr.isMoveBetweenTemps().getFst().isNullTemp()){
+						//TODO check if Node already exist --> only add Node if dont exist
+						Temp t = instr.isMoveBetweenTemps().getSnd();
+						TempNode tn =  new TempNode(t);
+						interGraph.addNode(tn);
+					}
+				}
+			}
+		}
 			/*
 			 * each node contains a set of in and out list
 			 * Besides isMoveBetweenTemps, all methods in instructions are implemented
 			 * this for loop is intended to create interference graph
 			 */
-		}
+		//System.out.println(interGraph.nodeSet().size());
 		return interGraph;
 	}
 	

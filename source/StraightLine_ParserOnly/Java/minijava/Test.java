@@ -95,6 +95,7 @@ public class Test {
         GraphGenerator graphGen = new GraphGenerator();
         List <DirectedGraph<Node>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
         graphGen.printDot(ctrGraphList);
+        graphGen.printDotToFile(ctrGraphList);
         
         
 
