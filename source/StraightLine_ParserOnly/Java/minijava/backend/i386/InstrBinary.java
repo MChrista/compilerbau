@@ -33,8 +33,7 @@ final class InstrBinary implements MachineInstruction {
   @Override
   public List<Temp> use() {
 	  List<Temp> templist = src.use();
-	  if (dst instanceof Operand.Mem){
-		  dst.toString();
+	  if (dst instanceof Operand.Mem || kind != Kind.MOV ){
 		  templist.addAll(dst.use());
 	  }
 	  return templist;
