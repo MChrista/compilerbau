@@ -91,6 +91,10 @@ public class Node {
 		return true;
 	}
 	
+	public String getInAndOutList(){
+		return this.ID +": " + instr.toString().replace("\n", "").replace("\t", "") + " in: " + in.toString() + " out: " + out.toString() + "\n";
+	}
+	
 	public String toString(){
 		return (instr.toString().replace("\n", "").replace("\t", "")+ " " + this.ID);
 	}

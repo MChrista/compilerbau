@@ -59,7 +59,13 @@ final class InstrJump implements MachineInstruction {
 
 	@Override
 	public List<Temp> def() {
-		return new LinkedList<Temp>();
+		List<Temp> templist = new LinkedList<>();
+		if (this.kind == Kind.CALL){
+			templist.add(I386CodeGenerator.eax.reg);
+			templist.add(I386CodeGenerator.ecx.reg);
+			templist.add(I386CodeGenerator.edx.reg);
+		}
+		return templist;
 	}
 
 	@Override

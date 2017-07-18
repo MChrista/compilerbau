@@ -50,7 +50,8 @@ public class InstrBinary implements MachineInstruction {
 
   @Override
   public List<Temp> use() {
-	  List<Temp> templist = src.use();
+	  List<Temp> templist = new LinkedList<>();
+	  templist.addAll(src.use());
 	  if (dst instanceof Operand.Mem || kind != Kind.MOV ){
 		  templist.addAll(dst.use());
 	  }
@@ -101,6 +102,9 @@ public class InstrBinary implements MachineInstruction {
 
   @Override
   public void rename(Function<Temp, Temp> sigma) {
+	  sigma = t -> new Temp();
+	  Temp x = sigma.apply(new Temp());
+
     throw new UnsupportedOperationException("Needed later for register allocation.");
   }
 }

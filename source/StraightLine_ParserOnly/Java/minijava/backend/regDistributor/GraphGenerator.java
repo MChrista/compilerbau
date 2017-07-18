@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 import minijava.backend.*;
 import minijava.backend.i386.I386Prg;
@@ -24,30 +25,24 @@ import minijava.backend.i386.*;
 
 public class GraphGenerator {
 
-	private DirectedGraph<Node> ctrGraph;
-
 	public GraphGenerator() {
 
 	}
 
-	public List<DirectedGraph<TempNode>> createInterferenzGraphFromI386Prg(I386Prg prg) {
+	public List<DirectedGraph<TempNode>> createInterferenzGraphFromI386Prg(I386Prg prg) throws FileNotFoundException {
 		List<DirectedGraph<TempNode>> dgList = new LinkedList<>();
 		List<DirectedGraph<Node>> ctrlList = new LinkedList<>();
+		
 		Iterator<MachineFunction> itMf = prg.iterator();
 		while (itMf.hasNext()) {
 			MachineFunction mf = itMf.next();
 			DirectedGraph<Node> dg = createControlGraphFromMachineFunction(mf);
 			DirectedGraph<TempNode> iG = createInterferenzGraphFromControlGraph(dg);
-			//ctrlList.add(dg);
+			ctrlList.add(dg);
 			dgList.add(iG);
 		}
-		this.printDot(ctrlList);
-		try {
-			this.printDotToFile(ctrlList);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//this.printDot(ctrlList);
+		this.printDotToFile(ctrlList);
 		return dgList;
 	}
 
@@ -58,7 +53,7 @@ public class GraphGenerator {
 		boolean isFallThrough = false;
 		Node precessor=null;
 		Iterator<MachineInstruction> itMi = mf.iterator();
-		List<Node>instrNodes = new LinkedList<>(); 
+		List<Node>instrNodes = new LinkedList<>(); // list is needed for reverse loop during adding activities to nodes
 		while (itMi.hasNext()) {
 			MachineInstruction mi = itMi.next();
 			Node n = new Node(mi, i);
@@ -95,9 +90,7 @@ public class GraphGenerator {
 				}
 			}
 		}
-		
 		dg = this.addActivityInformationToGraph(instrNodes, dg);
-		
 		return dg;
 	}
 	
@@ -111,10 +104,8 @@ public class GraphGenerator {
 	}
 	
 	public DirectedGraph<Node> addActivityInformationToGraph(List<Node> nodes, DirectedGraph<Node> controlGraph){
-		System.out.println("add activity");
 		for (int i=nodes.size()-1; i>=0; i--){
 			Node n = nodes.get(i);
-			System.out.print(n.instr.toString());
 			n.initializeInAndOut();
 		}
 		
@@ -125,7 +116,7 @@ public class GraphGenerator {
 				Node l = nodes.get(j);
 				l.moveListsToOld();
 				l.addTempListToOut(this.getInListOfSuccessors(l, controlGraph));
-				Set<Temp> in = l.getOutList();
+				Set<Temp> in = new HashSet<>();
 				in.addAll(l.getOutList());
 				for (Temp t : l.instr.def()){
 					in.remove(t);
@@ -139,6 +130,8 @@ public class GraphGenerator {
 				}
 			}
 		} while (cond);
+		this.printNodesWithLists(nodes); // here we can verify that activities are added correctly to nodes
+		
 		return controlGraph;
 	}
 	
@@ -151,76 +144,60 @@ public class GraphGenerator {
 	}
 	
 	public DirectedGraph<TempNode> createInterferenzGraphFromControlGraph(DirectedGraph<Node> controlGraph){
-		System.out.println("\n\n\nfunction");
 		
 		DirectedGraph<TempNode> interGraph = new DirectedGraph<>();
 		
-		
-
 		for (Node n : controlGraph.nodeSet()){		
 			Set<Temp> out = n.getOutList();
 			Set<Temp> in = n.getInList();
+			Set<Temp> inAndOut = new HashSet<>();
+			inAndOut.addAll(out);
+			inAndOut.addAll(in);
 			
-			System.out.print(n.instr.toString());
-			
-			for (Temp t : out){
-				System.out.println(t.toString());
+			for (Temp t : inAndOut){
 				interGraph.addNode(new TempNode(t));
-				System.out.println("size: " + interGraph.nodeSet().size());
-			}
-			for (Temp t : in){
-				System.out.println(t.toString());
-				interGraph.addNode(new TempNode(t));
-				System.out.println("size: " + interGraph.nodeSet().size());
 			}
 			
 			if(n.instr.isMoveBetweenTemps() == null){
-				
 				for(Temp t : in){
 					TempNode tn1 = new TempNode(t);
 					for(Temp u : out){
 						TempNode tn2 = new TempNode(u);
-						interGraph.addEdge(tn1, tn2);
-						interGraph.addEdge(tn2, tn1);
+						this.addEdgesToInterferenceGraph(tn1, tn2, interGraph);
 					}
 				}
 			}
-			
-			
 			else{
 					Pair<Temp, Temp> mov = n.instr.isMoveBetweenTemps();
 					Temp v = mov.getFst();
 					Temp t = mov.getSnd();
-					//System.out.println(v.toString() + " " + t.toString());
-					
+					TempNode tn1 = new TempNode(t);
 					interGraph.addNode(new TempNode(v));
-					interGraph.addNode(new TempNode(t));
-					
+					interGraph.addNode(tn1);
 					for(Temp u : out){
-						
 						if(!u.equals(v)){
-							TempNode tn1 = new TempNode(t);
-							TempNode tn2 = new TempNode(u);
-
-							interGraph.addEdge(tn1, tn2);
-
-							interGraph.addEdge(tn2, tn1);
-
+							this.addEdgesToInterferenceGraph(tn1, new TempNode(u), interGraph);
 						}
 					}
 				}
-			
-			
 		}
-			/*
-			 * each node contains a set of in and out list
-			 * Besides isMoveBetweenTemps, all methods in instructions are implemented
-			 * this for loop is intended to create interference graph
-			 */
-		//System.out.println(interGraph.nodeSet().size());
 		return interGraph;
 	}
 	
+	public void addEdgesToInterferenceGraph(TempNode u, TempNode v, DirectedGraph<TempNode> interGraph){
+		interGraph.addEdge(u, v);
+		interGraph.addEdge(v, u);
+	}
+	
+	
+	
+	public void printNodesWithLists(List<Node> nodeList){
+		StringBuffer sb = new StringBuffer();
+		for (Node n : nodeList){
+			sb.append(n.getInAndOutList());
+		}
+		System.out.println(sb);
+	}
 	
 	
 	public void printDot(List<DirectedGraph<Node>> graphList){

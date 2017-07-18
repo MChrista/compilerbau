@@ -63,12 +63,7 @@ public class DirectedGraph<Node> {
    * Assumes that both nodes are actually in the graph.
    */
   public void addEdge(Node src, Node dst) {
-	  boolean s = successors.get(src).add(dst);
-	  System.out.println(s);
-	  System.out.println(nodes.contains(src));
-	  System.out.println(nodes.contains(dst));
-	  System.out.println(src.toString());
-	  System.out.println(dst.toString());
+	  successors.get(src).add(dst);
   }
 
   /**
