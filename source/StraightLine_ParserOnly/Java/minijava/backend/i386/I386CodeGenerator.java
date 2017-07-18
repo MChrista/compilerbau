@@ -58,12 +58,22 @@ public class I386CodeGenerator implements CodeGenerator {
 
 	@Override
 	public List<Temp> getAllRegisters() {
-		throw new UnsupportedOperationException("Needed later for register allocation.");
+		List<Temp> registers = this.getGeneralPurposeRegisters();
+		registers.add(I386CodeGenerator.esp.reg);
+		registers.add(I386CodeGenerator.ebp.reg);
+		return registers;
 	}
 
 	@Override
 	public List<Temp> getGeneralPurposeRegisters() {
-		throw new UnsupportedOperationException("Needed later for register allocation.");
+		List<Temp> registers = new LinkedList<>();
+		registers.add(I386CodeGenerator.eax.reg);
+		registers.add(I386CodeGenerator.ebx.reg);
+		registers.add(I386CodeGenerator.ecx.reg);
+		registers.add(I386CodeGenerator.edx.reg);
+		registers.add(I386CodeGenerator.edi.reg);
+		registers.add(I386CodeGenerator.esi.reg);
+		return registers;
 	}
 
 	@Override

@@ -95,12 +95,9 @@ public class Test {
         
         GraphGenerator graphGen = new GraphGenerator();
         List <DirectedGraph<TempNode>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
-        graphGen.printTempDot(ctrGraphList);
-        graphGen.printTempDotToFile(ctrGraphList);
+        //graphGen.printTempDot(ctrGraphList);
+        //graphGen.printTempDotToFile(ctrGraphList);
         
-        
-
-        //
         
 
       } finally {

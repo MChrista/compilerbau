@@ -45,6 +45,12 @@ public class GraphGenerator {
 		//this.printDotToFile(ctrlList);
 		return dgList;
 	}
+	
+	public DirectedGraph<TempNode> createInterferenceGraphFromMachineFunction(MachineFunction mf){
+		DirectedGraph<Node> ctrGraph = createControlGraphFromMachineFunction(mf);
+		DirectedGraph<TempNode> interGraph = createInterferenzGraphFromControlGraph(ctrGraph);
+		return interGraph;
+	}
 
 	public DirectedGraph<Node> createControlGraphFromMachineFunction(MachineFunction mf) {
 		DirectedGraph<Node> dg = new DirectedGraph<>();
@@ -165,8 +171,6 @@ public class GraphGenerator {
 					Temp v = mov.getFst();
 					Temp t = mov.getSnd();
 					TempNode tn1 = new TempNode(t);
-					interGraph.addNode(new TempNode(v));
-					interGraph.addNode(tn1);
 					for(Temp u : out){
 						if(!u.equals(v)){
 							this.addEdgesToInterferenceGraph(tn1, new TempNode(u), interGraph);
