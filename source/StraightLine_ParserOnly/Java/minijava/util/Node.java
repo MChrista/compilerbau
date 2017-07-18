@@ -24,6 +24,9 @@ public class Node {
 		this.ID = id;
 		this.initializeInAndOut();
 	}
+	public Node(){
+		
+	}
 	
 	public void initializeInAndOut(){
 		in = new HashSet<>();
@@ -89,7 +92,7 @@ public class Node {
 	}
 	
 	public String toString(){
-		return ("" + this.ID);
+		return (instr.toString().replace("\n", "").replace("\t", "")+ " " + this.ID);
 	}
 	
 

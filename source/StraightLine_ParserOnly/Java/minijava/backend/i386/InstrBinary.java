@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-final class InstrBinary implements MachineInstruction {
+public class InstrBinary implements MachineInstruction {
 
   enum Kind {
     MOV, ADD, SUB, SHL, SHR, SAL, SAR, AND, OR, XOR, TEST, CMP, LEA, IMUL
@@ -29,6 +29,24 @@ final class InstrBinary implements MachineInstruction {
     this.dst = dst;
     this.kind = kind;
   }
+  
+  public boolean isMov(){
+	  if(this.kind == Kind.MOV){
+		  return true;
+	  }else{
+		  return false;
+	  }
+  }
+  
+  public Operand getDst(){
+	  return this.dst;
+  }
+  
+  public Operand getSrc(){
+	  return this.src;
+  }
+  
+  
 
   @Override
   public List<Temp> use() {
@@ -66,6 +84,7 @@ final class InstrBinary implements MachineInstruction {
 			  Temp dst = ((Operand.Reg) this.dst).reg;
 			  return new Pair<Temp, Temp>(src, dst);
 		  }
+
 	  }
 	  return null;
  }

@@ -15,8 +15,9 @@ public final class Temp implements Comparable<Temp> {
     name = null;
   }
   
+  
   public Temp(String name){
-	  this.id = nextId;
+	  this.id = nextId++;
 	  this.name = name;
   }
 
