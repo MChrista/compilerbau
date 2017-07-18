@@ -42,7 +42,7 @@ public class GraphGenerator {
 			dgList.add(iG);
 		}
 		//this.printDot(ctrlList);
-		this.printDotToFile(ctrlList);
+		//this.printDotToFile(ctrlList);
 		return dgList;
 	}
 
@@ -145,18 +145,11 @@ public class GraphGenerator {
 	
 	public DirectedGraph<TempNode> createInterferenzGraphFromControlGraph(DirectedGraph<Node> controlGraph){
 		
-		DirectedGraph<TempNode> interGraph = new DirectedGraph<>();
+		DirectedGraph<TempNode> interGraph = this.addNodesToInterGraph(controlGraph);
 		
 		for (Node n : controlGraph.nodeSet()){		
 			Set<Temp> out = n.getOutList();
 			Set<Temp> in = n.getInList();
-			Set<Temp> inAndOut = new HashSet<>();
-			inAndOut.addAll(out);
-			inAndOut.addAll(in);
-			
-			for (Temp t : inAndOut){
-				interGraph.addNode(new TempNode(t));
-			}
 			
 			if(n.instr.isMoveBetweenTemps() == null){
 				for(Temp t : in){
@@ -180,6 +173,19 @@ public class GraphGenerator {
 						}
 					}
 				}
+		}
+		return interGraph;
+	}
+	
+	public DirectedGraph<TempNode> addNodesToInterGraph(DirectedGraph<Node> ctrGraph){
+		DirectedGraph<TempNode> interGraph = new DirectedGraph<>();
+		for (Node n : ctrGraph.nodeSet()){
+			for(Temp t : n.instr.def()){
+				interGraph.addNode(new TempNode(t));
+			}
+			for(Temp t : n.instr.use()){
+				interGraph.addNode(new TempNode(t));
+			}
 		}
 		return interGraph;
 	}
