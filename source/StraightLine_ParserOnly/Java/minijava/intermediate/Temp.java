@@ -20,6 +20,10 @@ public final class Temp implements Comparable<Temp> {
 	  this.id = nextId++;
 	  this.name = name;
   }
+  
+  public String getName(){
+	  return name;
+  }
 
   public static void resetCounter() {
     nextId = 0;

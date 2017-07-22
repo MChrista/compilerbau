@@ -1,12 +1,20 @@
 package minijava.util;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import com.sun.xml.internal.fastinfoset.util.StringArray;
+
 import minijava.intermediate.Temp;
 
 public class TempNode {
 	private Temp temp;
+	private String[] machineRegisters = { "eax", "ebx", "ecx", "edx", "edi", "esi"};
+
 	
 	public TempNode(Temp t){
 		this.temp = t;
+		
 	}
 
 	@Override
@@ -36,6 +44,20 @@ public class TempNode {
 	
 	public String toString(){
 		return "" + temp.toString();
+	}
+	
+	public boolean isColored(){
+		boolean colored = false;
+		if(temp.getName() == null){
+			return false;
+		}
+		for(int i = 0; i<= machineRegisters.length; i++){
+			String tempName = temp.getName();
+			if(tempName.contains(machineRegisters[i])){
+				colored = true;
+			}
+		}
+		return colored;
 	}
 
 }
