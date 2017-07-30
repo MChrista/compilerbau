@@ -9,8 +9,9 @@ import minijava.intermediate.Temp;
 
 public class TempNode {
 	private Temp temp;
-	private String[] machineRegisters = { "eax", "ebx", "ecx", "edx", "edi", "esi"};
-
+	private boolean isPresent = true;
+	private boolean isColored = false;
+	private int rank;
 	
 	public TempNode(Temp t){
 		this.temp = t;
@@ -46,18 +47,9 @@ public class TempNode {
 		return "" + temp.toString();
 	}
 	
-	public boolean isColored(){
-		boolean colored = false;
-		if(temp.getName() == null){
-			return false;
-		}
-		for(int i = 0; i<= machineRegisters.length; i++){
-			String tempName = temp.getName();
-			if(tempName.contains(machineRegisters[i])){
-				colored = true;
-			}
-		}
-		return colored;
+	public Temp getTemp(){
+		return this.temp;
 	}
+	
 
 }

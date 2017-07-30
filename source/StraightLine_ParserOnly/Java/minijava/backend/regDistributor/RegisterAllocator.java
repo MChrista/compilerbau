@@ -32,6 +32,7 @@ public class RegisterAllocator {
 		return prg;
 	}
 	
+	
 	public MachineFunction allocateRegistersOfMachineFunction(MachineFunction mf){
 		// implement algo from slide 281 with methods below
 		//check for hasSpill after simplify
@@ -49,21 +50,27 @@ public class RegisterAllocator {
 	
 	public DirectedGraph<TempNode> simplify(DirectedGraph<TempNode> interGraph){
 		Set <TempNode> nodes = interGraph.nodeSet();
-		int removeCount = 0;
-		for(TempNode n : nodes){
-			if(!n.isColored() && interGraph.successors(n).size() < registerCount){
-				tempNodeStack.push(new Pair<TempNode, Set<TempNode>>(n, interGraph.successors(n)));
-				interGraph.removeNode(n);
-				removeCount++;
+		int removeCount = 1;
+		hasSpill = false;
+		while(removeCount != 0){
+			removeCount = 0;			
+			for(TempNode n : nodes){
+				if(!isColored(n) && interGraph.successors(n).size() < registerCount){
+					tempNodeStack.push(new Pair<TempNode, Set<TempNode>>(n, interGraph.successors(n)));
+					interGraph.removeNode(n);
+					if (removeCount == 0){
+						removeCount++;
+					}
+				} else {
+					hasSpill = true;
+				}
 			}
 		}
-		
-		// test for spill
-		if(removeCount == 0){
-			hasSpill = true;
-		}
-
 		return interGraph;
+	}
+	
+	public boolean isColored(TempNode n){
+		return codeGen.getGeneralPurposeRegisters().contains(n.getTemp());
 	}
 	
 	public DirectedGraph<TempNode> spill(DirectedGraph<TempNode> interGraph){
@@ -71,7 +78,7 @@ public class RegisterAllocator {
 		TempNode maxSuccsNode = null;
 		int maxSuccsCount = 0;
 		for(TempNode n : interGraph.nodeSet()){
-			if(!n.isColored()){
+			if(!isColored(n)){
 				if(interGraph.successors(n).size() > maxSuccsCount){
 					maxSuccsCount = interGraph.successors(n).size();
 					maxSuccsNode = n;
