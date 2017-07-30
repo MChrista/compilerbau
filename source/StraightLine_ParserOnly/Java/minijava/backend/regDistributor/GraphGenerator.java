@@ -136,7 +136,7 @@ public class GraphGenerator {
 				}
 			}
 		} while (cond);
-		this.printNodesWithLists(nodes); // here we can verify that activities are added correctly to nodes
+		//this.printNodesWithLists(nodes); // here we can verify that activities are added correctly to nodes
 		
 		return controlGraph;
 	}

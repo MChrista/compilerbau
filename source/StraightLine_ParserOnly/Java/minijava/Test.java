@@ -11,6 +11,7 @@ import minijava.backend.MachineFunction;
 import minijava.backend.MachineInstruction;
 import minijava.backend.i386.*;
 import minijava.backend.regDistributor.GraphGenerator;
+import minijava.backend.regDistributor.RegisterAllocator;
 import BlockBuilder.Block;
 import BlockBuilder.BlockBuilder;
 import BlockBuilder.MethodBlocks;
@@ -93,8 +94,11 @@ public class Test {
         
        //System.out.println(assemPrg.renderAssembly());
         
-        GraphGenerator graphGen = new GraphGenerator();
-        List <DirectedGraph<TempNode>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
+       // GraphGenerator graphGen = new GraphGenerator();
+       // List <DirectedGraph<TempNode>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
+        
+        RegisterAllocator ra = new RegisterAllocator(assemPrg, cg);
+        ra.allocateRegistersOfMachinePrg();
         //graphGen.printTempDot(ctrGraphList);
         //graphGen.printTempDotToFile(ctrGraphList);
         

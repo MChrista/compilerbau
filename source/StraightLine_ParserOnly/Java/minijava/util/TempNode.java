@@ -9,12 +9,28 @@ import minijava.intermediate.Temp;
 
 public class TempNode {
 	private Temp temp;
-	private String[] machineRegisters = { "eax", "ebx", "ecx", "edx", "edi", "esi"};
-
+	private boolean isColored = false;
+	private Temp coloredTemp;
 	
 	public TempNode(Temp t){
 		this.temp = t;
-		
+	}
+	
+	public void setColor(Temp t){
+		this.coloredTemp = t;
+		this.isColored = true;
+	}
+	
+	public boolean isColored(){
+		return isColored;
+	}
+	
+	public Temp getTemp(){
+		return temp;
+	}
+	
+	public Temp getColoredTemp(){
+		return coloredTemp;
 	}
 
 	@Override
@@ -45,19 +61,4 @@ public class TempNode {
 	public String toString(){
 		return "" + temp.toString();
 	}
-	
-	public boolean isColored(){
-		boolean colored = false;
-		if(temp.getName() == null){
-			return false;
-		}
-		for(int i = 0; i<= machineRegisters.length; i++){
-			String tempName = temp.getName();
-			if(tempName.contains(machineRegisters[i])){
-				colored = true;
-			}
-		}
-		return colored;
-	}
-
 }
