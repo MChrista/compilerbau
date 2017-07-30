@@ -11,6 +11,8 @@ public class TempNode {
 	private Temp temp;
 	private boolean isColored = false;
 	private Temp coloredTemp;
+
+	private int rank;
 	
 	public TempNode(Temp t){
 		this.temp = t;
