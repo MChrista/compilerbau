@@ -47,12 +47,12 @@ public class RegisterAllocator {
 			DirectedGraph<TempNode> interGraph = this.build(mf);
 			hasSpillCandidate = true;
 			spillNodes = new LinkedList<TempNode>();
+			
 			while (hasSpillCandidate) {
 				interGraph = this.simplify(interGraph);
 				interGraph = this.spill(interGraph);
 			}
 			this.select(interGraph);
-			interGraph.printDot();
 		//}while(!spillNodes.isEmpty());
 		System.out.println("number of spillnodes: " + spillNodes.size());
 		this.replaceTempsWithRegisters(mf, interGraph);
@@ -86,35 +86,32 @@ public class RegisterAllocator {
 			hasSpillCandidate = false;
 			removeCount = 0;			
 			for(TempNode n : nodes){
-				if(!isColored(n) && interGraph.successors(n).size() < registerCount){
+				if(!n.isColored() && interGraph.successors(n).size() < registerCount){
 					tempNodeStack.push(new Pair<TempNode, Set<TempNode>>(n, interGraph.successors(n)));
 					interGraph.removeNode(n);
 					if (removeCount == 0){
 						removeCount++;
 					}
-				} else if (!isColored(n)){
+				} else if (!n.isColored()){
 					hasSpillCandidate = true;
-				}
+				} 
 			}
 		}
 		return interGraph;
-	}
-	
-	public boolean isColored(TempNode n){
-		return codeGen.getGeneralPurposeRegisters().contains(n.getTemp());
 	}
 	
 	public DirectedGraph<TempNode> spill(DirectedGraph<TempNode> interGraph){
 		TempNode maxSuccsNode = null;
 		int maxSuccsCount = 0;
 		for(TempNode n : interGraph.nodeSet()){
-			if(!isColored(n)){
+			if(!n.isColored()){
 				if(interGraph.successors(n).size() > maxSuccsCount){
 					maxSuccsCount = interGraph.successors(n).size();
 					maxSuccsNode = n;
 				}
 			}
 		}
+		
 		if(maxSuccsNode != null){
 			tempNodeStack.push(new Pair<TempNode, Set<TempNode>>(maxSuccsNode, interGraph.successors(maxSuccsNode)));
 			interGraph.removeNode(maxSuccsNode);
@@ -131,6 +128,7 @@ public class RegisterAllocator {
 			if (availRegister == null){
 				this.addNodeToSpillNodes(tn.getFst());
 			} else {
+				System.out.println("register alloc " + tn.getFst() + " - " + availRegister );
 				tn.getFst().setColor(availRegister);
 			}
 		}
@@ -140,6 +138,9 @@ public class RegisterAllocator {
 	public Set<Temp> addEdgesAndGetColorOfNeighborNodes(TempNode src, Set<TempNode> targets, DirectedGraph<TempNode> interGraph){
 		Set<Temp> colorOfNeighbors = new HashSet<Temp>();
 		for (TempNode tempNode : targets){
+			if (isColored(tempNode)){ // tempnodes in successors list are different from nodeset. That's why we need to check color of temp nodes here again
+				tempNode.setColor(tempNode.getTemp());
+			}
 			if(interGraph.nodeSet().contains(tempNode)){
 				interGraph.addEdge(src, tempNode);
 				interGraph.addEdge(tempNode, src);
@@ -147,6 +148,10 @@ public class RegisterAllocator {
 			}
 		}
 		return colorOfNeighbors;
+	}
+	
+	public boolean isColored(TempNode n){
+		return codeGen.getAllRegisters().contains(n.getTemp());
 	}
 	
 	public Temp getAvailableRegister(Set<Temp> colorOfNeighbors){

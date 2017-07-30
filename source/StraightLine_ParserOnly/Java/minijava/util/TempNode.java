@@ -1,18 +1,11 @@
 package minijava.util;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import com.sun.xml.internal.fastinfoset.util.StringArray;
-
 import minijava.intermediate.Temp;
 
 public class TempNode {
 	private Temp temp;
 	private boolean isColored = false;
 	private Temp coloredTemp;
-
-	private int rank;
 	
 	public TempNode(Temp t){
 		this.temp = t;
@@ -66,6 +59,6 @@ public class TempNode {
 	}
 	
 	public String toString(){
-		return "" + temp.toString();
+		return "Temp: " + temp.toString();
 	}
 }

@@ -94,9 +94,10 @@ public class Test {
         
        //System.out.println(assemPrg.renderAssembly());
         
-       // GraphGenerator graphGen = new GraphGenerator();
-       // List <DirectedGraph<TempNode>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
-        
+       GraphGenerator graphGen = new GraphGenerator();
+       List <DirectedGraph<TempNode>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
+       graphGen.printTempDotToFile(ctrGraphList);
+       
         RegisterAllocator ra = new RegisterAllocator(assemPrg, cg);
         ra.allocateRegistersOfMachinePrg();
         //graphGen.printTempDot(ctrGraphList);
