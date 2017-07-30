@@ -2,6 +2,7 @@ package minijava.backend.regDistributor;
 
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -20,6 +21,7 @@ public class RegisterAllocator {
 	private MachinePrg prg;
 	private CodeGenerator codeGen;
 	private Stack<Pair<TempNode, Set<TempNode>>> tempNodeStack;
+	private List<TempNode> spillNodes;
 	private int registerCount;
 	private boolean hasSpill = false;
 	private boolean hasSpillCandidate = false;
@@ -40,14 +42,20 @@ public class RegisterAllocator {
 	
 	
 	public MachineFunction allocateRegistersOfMachineFunction(MachineFunction mf){
-		DirectedGraph<TempNode> interGraph = this.build(mf);
-		hasSpillCandidate = true;
-		while(hasSpillCandidate){
-			interGraph = this.simplify(interGraph);
-			interGraph = this.spill(interGraph);
-		}
-		interGraph.printDot();
-		this.select(interGraph);
+		//DirectedGraph<TempNode> interGraph;
+		//do{
+			DirectedGraph<TempNode> interGraph = this.build(mf);
+			hasSpillCandidate = true;
+			spillNodes = new LinkedList<TempNode>();
+			while (hasSpillCandidate) {
+				interGraph = this.simplify(interGraph);
+				interGraph = this.spill(interGraph);
+			}
+			this.select(interGraph);
+			interGraph.printDot();
+		//}while(!spillNodes.isEmpty());
+		System.out.println("number of spillnodes: " + spillNodes.size());
+		this.replaceTempsWithRegisters(mf, interGraph);
 		return mf;
 	}
 	
@@ -62,6 +70,8 @@ public class RegisterAllocator {
 		for (TempNode tn : interGraph.nodeSet()){
 			if (regs.contains(tn.getTemp())){
 				tn.setColor(tn.getTemp());
+			} else {
+				tn.resetColor();
 			}
 		}
 		return interGraph;
@@ -113,13 +123,52 @@ public class RegisterAllocator {
 	}
 	
 	public DirectedGraph<TempNode> select(DirectedGraph<TempNode> interGraph){
-		//interGraph.addNode(tempNodeStack.pop().getFst());
-		//check for available Registers and color Node
-		
-		// TODO: if spill, so rewrite program and start over at build again
+		while (!tempNodeStack.empty()){
+			Pair<TempNode, Set<TempNode>> tn = tempNodeStack.pop();
+			interGraph.addNode(tn.getFst());
+			Set<Temp> colorOfNeighbors = this.addEdgesAndGetColorOfNeighborNodes(tn.getFst(), tn.getSnd(), interGraph);
+			Temp availRegister = getAvailableRegister(colorOfNeighbors);
+			if (availRegister == null){
+				this.addNodeToSpillNodes(tn.getFst());
+			} else {
+				tn.getFst().setColor(availRegister);
+			}
+		}
 		return interGraph;
 	}
 	
+	public Set<Temp> addEdgesAndGetColorOfNeighborNodes(TempNode src, Set<TempNode> targets, DirectedGraph<TempNode> interGraph){
+		Set<Temp> colorOfNeighbors = new HashSet<Temp>();
+		for (TempNode tempNode : targets){
+			if(interGraph.nodeSet().contains(tempNode)){
+				interGraph.addEdge(src, tempNode);
+				interGraph.addEdge(tempNode, src);
+				colorOfNeighbors.add(tempNode.getColoredTemp());
+			}
+		}
+		return colorOfNeighbors;
+	}
 	
+	public Temp getAvailableRegister(Set<Temp> colorOfNeighbors){
+		for (Temp t : this.codeGen.getGeneralPurposeRegisters()){
+			if (!colorOfNeighbors.contains(t)){
+				return t;
+			}
+		}
+		return null;
+	}
+	
+	public void addNodeToSpillNodes(TempNode t){
+		spillNodes.add(t);
+	}
+	
+	public MachineFunction rewriteProgram(MachineFunction mf){
+		// List of spill nodes is globally available
+		return mf;
+	}
+	
+	public MachineFunction replaceTempsWithRegisters(MachineFunction mf, DirectedGraph<TempNode> interGraph){
+		return mf;
+	}
 	
 }

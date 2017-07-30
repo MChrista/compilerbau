@@ -34,6 +34,11 @@ public class TempNode {
 	public Temp getColoredTemp(){
 		return coloredTemp;
 	}
+	
+	public void resetColor(){
+		coloredTemp = null;
+		isColored = false;
+	}
 
 	@Override
 	public int hashCode() {
