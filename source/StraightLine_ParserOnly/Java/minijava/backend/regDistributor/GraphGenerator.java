@@ -162,7 +162,9 @@ public class GraphGenerator {
 					TempNode tn1 = new TempNode(t);
 					for(Temp u : out){
 						TempNode tn2 = new TempNode(u);
-						this.addEdgesToInterferenceGraph(tn1, tn2, interGraph);
+						if (!u.equals(t)){
+							this.addEdgesToInterferenceGraph(tn1, tn2, interGraph);
+						}
 					}
 				}
 			}

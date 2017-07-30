@@ -1,6 +1,7 @@
 package minijava.backend.regDistributor;
 
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -21,11 +22,13 @@ public class RegisterAllocator {
 	private Stack<Pair<TempNode, Set<TempNode>>> tempNodeStack;
 	private int registerCount;
 	private boolean hasSpill = false;
+	private boolean hasSpillCandidate = false;
 	
 	public RegisterAllocator(MachinePrg prg, CodeGenerator cg){
 		this.prg = prg;
 		this.codeGen = cg;
 		this.registerCount = this.codeGen.getGeneralPurposeRegisters().size();
+		this.tempNodeStack = new Stack<>();
 	}
 	
 	public MachinePrg allocateRegistersOfMachinePrg(){
@@ -38,10 +41,13 @@ public class RegisterAllocator {
 	
 	public MachineFunction allocateRegistersOfMachineFunction(MachineFunction mf){
 		DirectedGraph<TempNode> interGraph = this.build(mf);
-		
-		// implement algo from slide 281 with methods below
-		//check for hasSpill after simplify
-		//if true call spill and set hasSpill to false
+		hasSpillCandidate = true;
+		while(hasSpillCandidate){
+			interGraph = this.simplify(interGraph);
+			interGraph = this.spill(interGraph);
+		}
+		interGraph.printDot();
+		this.select(interGraph);
 		return mf;
 	}
 	
@@ -52,11 +58,9 @@ public class RegisterAllocator {
 	}
 	
 	public DirectedGraph<TempNode> preColorNodes(DirectedGraph<TempNode> interGraph){
-		List<Temp> regs = this.codeGen.getGeneralPurposeRegisters();
+		List<Temp> regs = this.codeGen.getAllRegisters();
 		for (TempNode tn : interGraph.nodeSet()){
-			System.out.println(tn.toString());
-			if (regs.contains(tn)){
-				System.out.println("found node for precoloring: " + tn.getTemp().toString());
+			if (regs.contains(tn.getTemp())){
 				tn.setColor(tn.getTemp());
 			}
 		}
@@ -64,10 +68,12 @@ public class RegisterAllocator {
 	}
 	
 	public DirectedGraph<TempNode> simplify(DirectedGraph<TempNode> interGraph){
-		Set <TempNode> nodes = interGraph.nodeSet();
+		
 		int removeCount = 1;
-		hasSpill = false;
 		while(removeCount != 0){
+			Set <TempNode> nodes = new HashSet<TempNode>();
+			nodes.addAll(interGraph.nodeSet());
+			hasSpillCandidate = false;
 			removeCount = 0;			
 			for(TempNode n : nodes){
 				if(!isColored(n) && interGraph.successors(n).size() < registerCount){
@@ -76,8 +82,8 @@ public class RegisterAllocator {
 					if (removeCount == 0){
 						removeCount++;
 					}
-				} else {
-					hasSpill = true;
+				} else if (!isColored(n)){
+					hasSpillCandidate = true;
 				}
 			}
 		}
@@ -89,7 +95,6 @@ public class RegisterAllocator {
 	}
 	
 	public DirectedGraph<TempNode> spill(DirectedGraph<TempNode> interGraph){
-		//entferne ungefaerbten Knoten mit maximalem Grad
 		TempNode maxSuccsNode = null;
 		int maxSuccsCount = 0;
 		for(TempNode n : interGraph.nodeSet()){
@@ -99,18 +104,16 @@ public class RegisterAllocator {
 					maxSuccsNode = n;
 				}
 			}
-			if(maxSuccsNode != null){
-				interGraph.removeNode(maxSuccsNode);
-				tempNodeStack.push(new Pair<TempNode, Set<TempNode>>(maxSuccsNode, interGraph.successors(maxSuccsNode)));
-			}
+		}
+		if(maxSuccsNode != null){
+			tempNodeStack.push(new Pair<TempNode, Set<TempNode>>(maxSuccsNode, interGraph.successors(maxSuccsNode)));
+			interGraph.removeNode(maxSuccsNode);
 		}
 		return interGraph;
 	}
 	
-	//TODO: write Function that checks for available machineRegisters
-	
 	public DirectedGraph<TempNode> select(DirectedGraph<TempNode> interGraph){
-		interGraph.addNode(tempNodeStack.pop().getFst());
+		//interGraph.addNode(tempNodeStack.pop().getFst());
 		//check for available Registers and color Node
 		
 		// TODO: if spill, so rewrite program and start over at build again
