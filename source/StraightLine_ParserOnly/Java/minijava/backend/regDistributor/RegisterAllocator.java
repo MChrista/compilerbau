@@ -6,9 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+import java.util.function.Function;
 
 import minijava.backend.CodeGenerator;
 import minijava.backend.MachineFunction;
+import minijava.backend.MachineInstruction;
 import minijava.backend.MachinePrg;
 import minijava.intermediate.Label;
 import minijava.intermediate.Temp;
@@ -54,7 +56,7 @@ public class RegisterAllocator {
 			}
 			this.select(interGraph);
 		//}while(!spillNodes.isEmpty());
-		System.out.println("number of spillnodes: " + spillNodes.size());
+		//System.out.println("number of spillnodes: " + spillNodes.size());
 		this.replaceTempsWithRegisters(mf, interGraph);
 		return mf;
 	}
@@ -128,7 +130,7 @@ public class RegisterAllocator {
 			if (availRegister == null){
 				this.addNodeToSpillNodes(tn.getFst());
 			} else {
-				System.out.println("register alloc " + tn.getFst() + " - " + availRegister );
+				//System.out.println("register alloc " + tn.getFst() + " - " + availRegister );
 				tn.getFst().setColor(availRegister);
 			}
 		}
@@ -173,6 +175,28 @@ public class RegisterAllocator {
 	}
 	
 	public MachineFunction replaceTempsWithRegisters(MachineFunction mf, DirectedGraph<TempNode> interGraph){
+		//Function that swaps Temps
+		Function<Temp,Temp> tempToReg = (Temp t)-> {
+			DirectedGraph<TempNode> iGraph = interGraph;
+			for(TempNode tn : iGraph.nodeSet()){
+				if(tn.getTemp().equals(t)){
+					if(tn.isColored()){
+						//System.out.println("swap " + tn.getColoredTemp());
+						t = tn.getColoredTemp();
+						return t;
+					}
+				}
+			}
+			return t;
+		};
+		for(MachineInstruction mi : mf){
+				//check for Call
+				if(mi.isLabel() == null){
+					mi.rename(tempToReg);
+				}
+				//System.out.println(mi);
+
+			}
 		return mf;
 	}
 	

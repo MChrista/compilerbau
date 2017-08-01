@@ -98,8 +98,12 @@ public class Test {
        List <DirectedGraph<TempNode>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
        graphGen.printTempDotToFile(ctrGraphList);
        
-        RegisterAllocator ra = new RegisterAllocator(assemPrg, cg);
-        ra.allocateRegistersOfMachinePrg();
+       
+       RegisterAllocator ra = new RegisterAllocator(assemPrg, cg);
+       assemPrg = (I386Prg) ra.allocateRegistersOfMachinePrg();
+       System.out.println(assemPrg.renderAssembly());
+        
+        
         //graphGen.printTempDot(ctrGraphList);
         //graphGen.printTempDotToFile(ctrGraphList);
         

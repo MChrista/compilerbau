@@ -61,6 +61,6 @@ final class InstrNullary implements MachineInstruction {
 
   @Override
   public void rename(Function<Temp, Temp> sigma) {
-     throw new UnsupportedOperationException("Needed later for register allocation.");
+     
  }
 }

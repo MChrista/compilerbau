@@ -104,6 +104,10 @@ final class InstrJump implements MachineInstruction {
 
 	@Override
 	public void rename(Function<Temp, Temp> sigma) {
-		throw new UnsupportedOperationException("Needed later for register allocation.");
+		//System.out.println("Dest " + dest);
+		if(dest != null){
+			dest = dest.rename(sigma);
+		}
+		
 	}
 }

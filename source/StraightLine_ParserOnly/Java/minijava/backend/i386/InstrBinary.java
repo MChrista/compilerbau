@@ -102,6 +102,7 @@ public class InstrBinary implements MachineInstruction {
 
   @Override
   public void rename(Function<Temp, Temp> sigma) {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+   src = src.rename(sigma);
+   dst = dst.rename(sigma);
   }
 }

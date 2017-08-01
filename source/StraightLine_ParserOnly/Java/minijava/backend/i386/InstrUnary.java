@@ -65,6 +65,6 @@ final class InstrUnary implements MachineInstruction {
 
   @Override
   public void rename(Function<Temp, Temp> sigma) {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  op = op.rename(sigma);
   }
 }

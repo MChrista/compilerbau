@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_TEST_FILE="../../MiniJava_Examples/Large/BubbleSort.java"
+SOURCE_TEST_FILE="../../MiniJava_Examples/Small/TrivialClass.java"
 
 cd ..
 echo ""> test/output
