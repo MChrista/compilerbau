@@ -12,7 +12,6 @@ class SumClass {
    int z;
    int res;
    z=x+y;
-   res = 0;
    a=this.g(z);
    if (y<1) {
      res = z;

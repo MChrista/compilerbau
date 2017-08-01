@@ -15,7 +15,7 @@ class FibAux {
 	int res ;
 	if (num < 2)
 	    res = 1 ;
-	else 
+	else
 	    res = (this.nfib(num-1))+(this.nfib(num-2))+1 ;
 	return res ;
     }
@@ -46,7 +46,7 @@ class LazyArray {
           i=i+1;
       }
       return true;
-  }	   
+  }
   public boolean defined (int x) { // undefined iff /=0
       boolean res;
       if (x<0) {

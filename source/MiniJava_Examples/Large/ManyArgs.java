@@ -31,7 +31,7 @@ class Prime {
     public boolean divides (int m, int n) {
       int i;
       boolean found;
-      i=1; 
+      i=1;
       found=false;
       while (!found && i<n) {
 	if ((i*m)<n) {
@@ -57,7 +57,7 @@ class Prime {
       }
       return ok;
     }
-	
+
   // boolean to int conversion
   public int b2i (boolean b) {
     int res;
