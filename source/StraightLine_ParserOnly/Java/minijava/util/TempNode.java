@@ -4,33 +4,13 @@ import minijava.intermediate.Temp;
 
 public class TempNode {
 	private Temp temp;
-	private boolean isColored = false;
-	private Temp coloredTemp;
 	
 	public TempNode(Temp t){
 		this.temp = t;
 	}
 	
-	public void setColor(Temp t){
-		this.coloredTemp = t;
-		this.isColored = true;
-	}
-	
-	public boolean isColored(){
-		return isColored;
-	}
-	
 	public Temp getTemp(){
 		return temp;
-	}
-	
-	public Temp getColoredTemp(){
-		return coloredTemp;
-	}
-	
-	public void resetColor(){
-		coloredTemp = null;
-		isColored = false;
 	}
 
 	@Override

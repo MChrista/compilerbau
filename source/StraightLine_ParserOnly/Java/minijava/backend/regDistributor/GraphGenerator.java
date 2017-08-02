@@ -162,23 +162,26 @@ public class GraphGenerator {
 					TempNode tn1 = new TempNode(t);
 					for(Temp u : out){
 						TempNode tn2 = new TempNode(u);
-						if (!u.equals(t)){
+						if (!tn1.equals(tn2)){
 							this.addEdgesToInterferenceGraph(tn1, tn2, interGraph);
 						}
 					}
 				}
 			}
 			else{
-					Pair<Temp, Temp> mov = n.instr.isMoveBetweenTemps();
-					Temp v = mov.getFst();
-					Temp t = mov.getSnd();
-					TempNode tn1 = new TempNode(t);
-					for(Temp u : out){
-						if(!u.equals(v)){
+				Pair<Temp, Temp> mov = n.instr.isMoveBetweenTemps();
+				Temp v = mov.getFst();
+				Temp t = mov.getSnd();
+				TempNode tn1 = new TempNode(t);
+				for(Temp u : out){
+					if(!u.equals(v)){
+						TempNode tn2 = new TempNode(u);
+						if (!tn2.equals(tn1)){
 							this.addEdgesToInterferenceGraph(tn1, new TempNode(u), interGraph);
 						}
 					}
 				}
+			}
 		}
 		return interGraph;
 	}

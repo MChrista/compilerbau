@@ -1,6 +1,7 @@
 package minijava.backend.regDistributor;
 
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class RegisterAllocator {
 	private int registerCount;
 	private boolean hasSpill = false;
 	private boolean hasSpillCandidate = false;
+	private HashMap<Temp, Temp> mapTemps;
 	
 	public RegisterAllocator(MachinePrg prg, CodeGenerator cg){
 		this.prg = prg;
@@ -44,6 +46,7 @@ public class RegisterAllocator {
 	
 	
 	public MachineFunction allocateRegistersOfMachineFunction(MachineFunction mf){
+		mapTemps = new HashMap<>();
 		//DirectedGraph<TempNode> interGraph;
 		//do{
 			DirectedGraph<TempNode> interGraph = this.build(mf);
@@ -71,9 +74,7 @@ public class RegisterAllocator {
 		List<Temp> regs = this.codeGen.getAllRegisters();
 		for (TempNode tn : interGraph.nodeSet()){
 			if (regs.contains(tn.getTemp())){
-				tn.setColor(tn.getTemp());
-			} else {
-				tn.resetColor();
+				mapTemps.put(tn.getTemp(), tn.getTemp());
 			}
 		}
 		return interGraph;
@@ -88,13 +89,13 @@ public class RegisterAllocator {
 			hasSpillCandidate = false;
 			removeCount = 0;			
 			for(TempNode n : nodes){
-				if(!n.isColored() && interGraph.successors(n).size() < registerCount){
+				if(!isColored(n) && interGraph.successors(n).size() < registerCount){
 					tempNodeStack.push(new Pair<TempNode, Set<TempNode>>(n, interGraph.successors(n)));
 					interGraph.removeNode(n);
 					if (removeCount == 0){
 						removeCount++;
 					}
-				} else if (!n.isColored()){
+				} else if (!isColored(n)){
 					hasSpillCandidate = true;
 				} 
 			}
@@ -106,7 +107,7 @@ public class RegisterAllocator {
 		TempNode maxSuccsNode = null;
 		int maxSuccsCount = 0;
 		for(TempNode n : interGraph.nodeSet()){
-			if(!n.isColored()){
+			if(!isColored(n)){
 				if(interGraph.successors(n).size() > maxSuccsCount){
 					maxSuccsCount = interGraph.successors(n).size();
 					maxSuccsNode = n;
@@ -130,8 +131,8 @@ public class RegisterAllocator {
 			if (availRegister == null){
 				this.addNodeToSpillNodes(tn.getFst());
 			} else {
-				//System.out.println("register alloc " + tn.getFst() + " - " + availRegister );
-				tn.getFst().setColor(availRegister);
+				System.out.println("register alloc " + tn.getFst() + " - " + availRegister );
+				mapTemps.put(tn.getFst().getTemp(), availRegister);
 			}
 		}
 		return interGraph;
@@ -140,20 +141,18 @@ public class RegisterAllocator {
 	public Set<Temp> addEdgesAndGetColorOfNeighborNodes(TempNode src, Set<TempNode> targets, DirectedGraph<TempNode> interGraph){
 		Set<Temp> colorOfNeighbors = new HashSet<Temp>();
 		for (TempNode tempNode : targets){
-			if (isColored(tempNode)){ // tempnodes in successors list are different from nodeset. That's why we need to check color of temp nodes here again
-				tempNode.setColor(tempNode.getTemp());
-			}
 			if(interGraph.nodeSet().contains(tempNode)){
 				interGraph.addEdge(src, tempNode);
 				interGraph.addEdge(tempNode, src);
-				colorOfNeighbors.add(tempNode.getColoredTemp());
+				colorOfNeighbors.add(mapTemps.get(tempNode.getTemp()));
 			}
 		}
 		return colorOfNeighbors;
 	}
 	
 	public boolean isColored(TempNode n){
-		return codeGen.getAllRegisters().contains(n.getTemp());
+		Temp t = n.getTemp();
+		return mapTemps.containsKey(t);
 	}
 	
 	public Temp getAvailableRegister(Set<Temp> colorOfNeighbors){
@@ -180,9 +179,8 @@ public class RegisterAllocator {
 			DirectedGraph<TempNode> iGraph = interGraph;
 			for(TempNode tn : iGraph.nodeSet()){
 				if(tn.getTemp().equals(t)){
-					if(tn.isColored()){
-						//System.out.println("swap " + tn.getColoredTemp());
-						t = tn.getColoredTemp();
+					if(isColored(tn)){
+						t = mapTemps.get(tn.getTemp());
 						return t;
 					}
 				}
@@ -194,8 +192,6 @@ public class RegisterAllocator {
 				if(mi.isLabel() == null){
 					mi.rename(tempToReg);
 				}
-				//System.out.println(mi);
-
 			}
 		return mf;
 	}
