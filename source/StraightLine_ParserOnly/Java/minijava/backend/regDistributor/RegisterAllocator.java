@@ -24,7 +24,7 @@ public class RegisterAllocator {
 	private MachinePrg prg;
 	private CodeGenerator codeGen;
 	private Stack<Pair<TempNode, Set<TempNode>>> tempNodeStack;
-	private List<TempNode> spillNodes;
+	private List<Temp> toSpill;
 	private int registerCount;
 	private boolean hasSpill = false;
 	private boolean hasSpillCandidate = false;
@@ -47,19 +47,24 @@ public class RegisterAllocator {
 	
 	public MachineFunction allocateRegistersOfMachineFunction(MachineFunction mf){
 		mapTemps = new HashMap<>();
-		//DirectedGraph<TempNode> interGraph;
-		//do{
-			DirectedGraph<TempNode> interGraph = this.build(mf);
+		toSpill = new LinkedList<>();
+		DirectedGraph<TempNode> interGraph;
+		do{
+			if (!toSpill.isEmpty()){
+				mf.spill(toSpill);
+			}
+			interGraph = this.build(mf);
 			hasSpillCandidate = true;
-			spillNodes = new LinkedList<TempNode>();
+			toSpill = new LinkedList<Temp>();
 			
 			while (hasSpillCandidate) {
 				interGraph = this.simplify(interGraph);
 				interGraph = this.spill(interGraph);
 			}
 			this.select(interGraph);
-		//}while(!spillNodes.isEmpty());
-		//System.out.println("number of spillnodes: " + spillNodes.size());
+			
+		}while(!toSpill.isEmpty());
+		System.out.println("number of spillnodes: " + toSpill.size());
 		this.replaceTempsWithRegisters(mf, interGraph);
 		return mf;
 	}
@@ -131,7 +136,7 @@ public class RegisterAllocator {
 			if (availRegister == null){
 				this.addNodeToSpillNodes(tn.getFst());
 			} else {
-				System.out.println("register alloc " + tn.getFst() + " - " + availRegister );
+				//System.out.println("register alloc " + tn.getFst() + " - " + availRegister );
 				mapTemps.put(tn.getFst().getTemp(), availRegister);
 			}
 		}
@@ -165,12 +170,7 @@ public class RegisterAllocator {
 	}
 	
 	public void addNodeToSpillNodes(TempNode t){
-		spillNodes.add(t);
-	}
-	
-	public MachineFunction rewriteProgram(MachineFunction mf){
-		// List of spill nodes is globally available
-		return mf;
+		toSpill.add(t.getTemp());
 	}
 	
 	public MachineFunction replaceTempsWithRegisters(MachineFunction mf, DirectedGraph<TempNode> interGraph){

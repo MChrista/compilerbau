@@ -43,8 +43,6 @@ public class InstrBinary implements MachineInstruction {
   public Operand getSrc(){
 	  return this.src;
   }
-  
-  
 
   @Override
   public List<Temp> use() {

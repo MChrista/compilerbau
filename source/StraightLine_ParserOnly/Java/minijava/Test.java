@@ -102,7 +102,7 @@ public class Test {
        
        RegisterAllocator ra = new RegisterAllocator(assemPrg, cg);
        assemPrg = (I386Prg) ra.allocateRegistersOfMachinePrg();
-     //  System.out.println(assemPrg.renderAssembly());
+       System.out.println(assemPrg.renderAssembly());
      
         
         //graphGen.printTempDot(ctrGraphList);
