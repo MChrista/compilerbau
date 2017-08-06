@@ -55,6 +55,6 @@ final class InstrLabel implements MachineInstruction {
 
   @Override
   public void rename(Function<Temp, Temp> sigma) {
-    throw new UnsupportedOperationException("Needed later for register allocation.");
+	  throw new UnsupportedOperationException("Needed later for register allocation.");
   }
 }

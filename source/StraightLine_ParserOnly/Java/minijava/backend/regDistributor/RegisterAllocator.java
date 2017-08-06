@@ -3,6 +3,7 @@ package minijava.backend.regDistributor;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,7 @@ import minijava.util.DirectedGraph;
 import minijava.util.Node;
 import minijava.util.Pair;
 import minijava.util.TempNode;
+import minijava.backend.i386.*;
 
 public class RegisterAllocator {
 	private MachinePrg prg;
@@ -67,6 +69,7 @@ public class RegisterAllocator {
 		this.replaceTempsWithRegisters(mf, interGraph);
 		return mf;
 	}
+	
 	
 	public DirectedGraph<TempNode> build(MachineFunction mf){
 		GraphGenerator gg = new GraphGenerator();
@@ -186,12 +189,14 @@ public class RegisterAllocator {
 			}
 			return t;
 		};
-		for(MachineInstruction mi : mf){
+		mf.rename(tempToReg);
+		/*for(MachineInstruction mi : mf){
 				//check for Call
 				if(mi.isLabel() == null){
 					mi.rename(tempToReg);
 				}
 			}
+			*/
 		return mf;
 	}
 	

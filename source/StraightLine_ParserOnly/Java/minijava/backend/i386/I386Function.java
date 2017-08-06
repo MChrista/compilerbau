@@ -1,6 +1,7 @@
 package minijava.backend.i386;
 
 import minijava.backend.MachineInstruction;
+import minijava.backend.i386.InstrBinary.Kind;
 import minijava.backend.i386.Operand.Reg;
 import minijava.backend.MachineFunction;
 import minijava.intermediate.Label;
@@ -34,7 +35,42 @@ final class I386Function implements MachineFunction {
 
 	@Override
 	public void rename(Function<Temp, Temp> sigma) {
-		throw new UnsupportedOperationException("Needed later for register allocation.");
+		boolean isFirstSub = true;
+		for(MachineInstruction mi : body){
+			//check for Call
+			if(mi.isLabel() == null){
+				mi.rename(sigma);
+			}
+			
+		}
+			
+		List<MachineInstruction> newBody = new LinkedList<MachineInstruction>();
+		for(MachineInstruction mi : body){
+			if(mi.isMoveBetweenTemps() == null){
+				if(isFirstSub == true & mi.toString().contains("SUB")){
+					InstrBinary.Kind kind = Kind.SUB;
+					int frameSize = this.numberOfLocalVariables * 4;
+					Operand frameOp = new Operand.Imm(frameSize);
+					Temp dstTemp = new Temp("esp");
+					Operand dst = new Operand.Reg(dstTemp);
+					newBody.add(new InstrBinary(kind, dst, frameOp));
+					
+					isFirstSub = false;
+				}
+				else{
+					newBody.add(mi);
+				}
+			}
+			else{
+				if(mi.isMoveBetweenTemps().getFst().equals(mi.isMoveBetweenTemps().getSnd())){
+					
+				}
+				else{
+					newBody.add(mi);
+				}
+			}
+		}
+		this.body = newBody;
 	}
 
 	@Override
