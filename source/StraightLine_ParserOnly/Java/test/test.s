@@ -7,23 +7,25 @@ Lmain:
 	MOV %ebx, %ebx
 	MOV %edx, %esi
 	MOV %ecx, %edi
-Lstart2:
+L$$6:
 	MOV %eax, 4
 	PUSH %eax
 	CALL L_halloc
 	ADD %esp, 4
-	MOV %eax, %eax
+	MOV %edi, %eax
+	MOV %eax, 10
 	PUSH %eax
-	CALL LWhileClass$run
-	ADD %esp, 4
+	PUSH %edi
+	CALL LFac$ComputeFac
+	ADD %esp, 8
 	MOV %eax, %eax
 	PUSH %eax
 	CALL L_println_int
 	ADD %esp, 4
 	MOV %eax, %eax
 	MOV %eax, 0
-	JMP Lend2
-Lend2:
+	JMP L$$5
+L$$5:
 	MOV %eax, %eax
 	MOV %ebx, %ebx
 	MOV %esi, %edx
@@ -31,50 +33,49 @@ Lend2:
 	MOV %esp, %ebp
 	POP %ebp
 	RET
-LWhileClass$run:
+LFac$ComputeFac:
 	PUSH %ebp
 	MOV %ebp, %esp
 	SUB %esp, 4
-	MOV %eax, %ebx
-	MOV DWORD PTR [%ebp-4], %eax
-	MOV %esi, %esi
-	MOV %edi, %edi
-Lstart1:
-	MOV %ecx, 0
-	MOV %ebx, 1
-L$$0:
+	MOV %ebx, %ebx
+	MOV %edx, %esi
+	MOV %ecx, %edi
+L$$8:
 	MOV %eax, 0
-	MOV %edx, 11
-	CMP %ebx, %edx
+	MOV %esi, DWORD PTR [%ebp+12]
+	MOV %edi, 1
+	CMP %esi, %edi
 	JL L$$3
 L$$4:
-	MOV %edx, 1
-	CMP %eax, %edx
-	JE L$$1
+	MOV %edi, 1
+	CMP %eax, %edi
+	JE L$$0
+L$$1:
+	MOV %edi, DWORD PTR [%ebp+12]
+	MOV %eax, DWORD PTR [%ebp+12]
+	SUB %eax, 1
+	PUSH %eax
+	PUSH DWORD PTR [%ebp+8]
+	CALL LFac$ComputeFac
+	ADD %esp, 8
+	MOV %esi, %eax
+	MOV %eax, %edi
+	IMUL %eax, %esi
+	MOV %eax, %eax
 L$$2:
-	MOV %eax, 0
-	JMP Lend1
+	MOV %eax, %eax
+	JMP L$$7
 L$$3:
 	MOV %eax, 1
 	JMP L$$4
-L$$1:
-	MOV %eax, %ecx
-	ADD %eax, %ebx
-	MOV %ecx, %eax
-	PUSH %ecx
-	CALL L_println_int
-	POP %ecx
+L$$0:
+	MOV %eax, 1
+	JMP L$$2
+L$$7:
 	MOV %eax, %eax
-	MOV %eax, %ebx
-	ADD %eax, 1
-	MOV %ebx, %eax
-	JMP L$$0
-Lend1:
-	MOV %eax, %eax
-	MOV %eax, DWORD PTR [%ebp-4]
-	MOV %ebx, %eax
-	MOV %esi, %esi
-	MOV %edi, %edi
+	MOV %ebx, %ebx
+	MOV %esi, %edx
+	MOV %edi, %ecx
 	MOV %esp, %ebp
 	POP %ebp
 	RET

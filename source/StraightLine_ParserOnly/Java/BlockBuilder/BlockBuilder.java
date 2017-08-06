@@ -25,7 +25,6 @@ public class BlockBuilder {
 		Iterator<TreeMethod> it = this.treePrg.iterator();
 		
 		while (it.hasNext()) {
-			
 			TreeMethod m = it.next();
 			MethodBlocks bl = new MethodBlocks(m, new LinkedList<Block>());
 			List<Block> b = methodToBlocks(m, bl);
@@ -48,9 +47,8 @@ public class BlockBuilder {
 			}
 			//endlabel adden falls flag gesetzt
 			if(mb.hasEndJump == true){
-				Label endLabel = new Label("end");
 				//mb.blockList.get(mb.blockList.size()-1).stmList.add(new TreeStmLabel(endLabel));
-				stmList.add(new TreeStmLabel(endLabel));
+				stmList.add(new TreeStmLabel(mb.hasEndLabel()));
 			}
 			
 			TreeMethod tm = new TreeMethod(mb.treeMethod.getName(), mb.treeMethod.getNumberOfParameters(), stmList, mb.treeMethod.getReturnTemp());
@@ -66,6 +64,8 @@ public class BlockBuilder {
 
 	public List<Block> methodToBlocks(TreeMethod m, MethodBlocks mb) {
 		List<Block> bList = new LinkedList<>();
+		Label endLabel = new Label();
+		Label startLabel = new Label();
 
 		List<TreeStmLabel> knownLabels = new LinkedList<>();
 		List<TreeStm> stmList = new LinkedList<TreeStm>();
@@ -79,7 +79,7 @@ public class BlockBuilder {
 			TreeStm ts = it.next();
 			if(isFirst){
 				if(!(ts instanceof TreeStmLabel)){
-					runningBlock = new Block(new TreeStmLabel(new Label("start")));
+					runningBlock = new Block(new TreeStmLabel(startLabel));
 					blockOpen = true;
 				}
 				isFirst = false;
@@ -118,7 +118,7 @@ public class BlockBuilder {
 			
 		}
 		if(blockOpen){
-			Label endLabel = new Label("end");
+			//Label endLabel = new Label("end");
 			List <Label> dstList = new LinkedList<>();
 			dstList.add(endLabel);
 			TreeStmJump endJump = new TreeStmJump(new TreeExpName(endLabel), dstList);
@@ -126,6 +126,7 @@ public class BlockBuilder {
 			//runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
 			//add flag
 			mb.hasEndJump = true;
+			mb.setEndLabel(endLabel);
 			bList.add(runningBlock);
 			blockOpen = false;
 		}

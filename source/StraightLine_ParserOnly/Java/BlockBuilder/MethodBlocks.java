@@ -16,6 +16,7 @@ public class MethodBlocks {
 	List<Block> blockList;
 	TreeMethod treeMethod;
 	boolean hasEndJump = false;
+	private Label endLabel;
 	
 	public MethodBlocks(TreeMethod m, List<Block> b ) {
 		this.treeMethod = m;
@@ -30,6 +31,13 @@ public class MethodBlocks {
 		this.blockList = blockList;
 	}
 	
+	public Label hasEndLabel(){
+		return endLabel;
+	}
+	
+	public void setEndLabel(Label l){
+		this.endLabel = l;
+	}
 	
 	public TreeMethod getTreeMethod() {
 		return treeMethod;

@@ -412,6 +412,7 @@ public class I386CodeGenerator implements CodeGenerator {
 					instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, reg, oRight));
 					oRight = reg;
 				}
+				instructions.add(new InstrBinary(InstrBinary.Kind.XOR, I386CodeGenerator.edx, I386CodeGenerator.edx));
 				instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.IDIV, oRight));
 				Operand.Reg ret = new Operand.Reg(new Temp());
 				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, ret, eax));

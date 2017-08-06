@@ -22,7 +22,11 @@ final class InstrNullary implements MachineInstruction {
 
   @Override
   public List<Temp> use() {
-	  return new LinkedList<Temp>();
+	  List<Temp> useList = new LinkedList<Temp>();
+	  if (kind == Kind.RET){
+		  useList.add(I386CodeGenerator.eax.reg);
+	  }
+	  return useList;
   }
 
   @Override

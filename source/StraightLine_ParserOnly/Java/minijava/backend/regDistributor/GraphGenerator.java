@@ -136,7 +136,7 @@ public class GraphGenerator {
 				}
 			}
 		} while (cond);
-		this.printNodesWithLists(nodes); // here we can verify that activities are added correctly to nodes
+		//this.printNodesWithLists(nodes); // here we can verify that activities are added correctly to nodes
 		
 		return controlGraph;
 	}
@@ -153,7 +153,7 @@ public class GraphGenerator {
 		
 		DirectedGraph<TempNode> interGraph = this.addNodesToInterGraph(controlGraph);
 		
-		for (Node n : controlGraph.nodeSet()){		
+		for (Node n : controlGraph.nodeSet()){
 			Set<Temp> out = n.getOutList();
 			Set<Temp> in = n.getInList();
 			
@@ -173,11 +173,13 @@ public class GraphGenerator {
 				Temp v = mov.getFst();
 				Temp t = mov.getSnd();
 				TempNode tn1 = new TempNode(t);
-				for(Temp u : out){
-					if(!u.equals(v)){
-						TempNode tn2 = new TempNode(u);
-						if (!tn2.equals(tn1)){
-							this.addEdgesToInterferenceGraph(tn1, new TempNode(u), interGraph);
+				if (!(t.equals(I386CodeGenerator.ebp.reg) || t.equals(I386CodeGenerator.esp.reg))){
+					for(Temp u : out){
+						if(!u.equals(v)){
+							TempNode tn2 = new TempNode(u);
+							if (!tn2.equals(tn1)){
+								this.addEdgesToInterferenceGraph(tn1, new TempNode(u), interGraph);
+							}
 						}
 					}
 				}

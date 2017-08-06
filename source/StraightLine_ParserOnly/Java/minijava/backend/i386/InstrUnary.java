@@ -35,7 +35,14 @@ final class InstrUnary implements MachineInstruction {
 
   @Override
   public List<Temp> def() {
-	  return new LinkedList<Temp>();
+	  List<Temp> tempList = new LinkedList<Temp>();
+	  if (kind == Kind.IDIV){
+		  tempList.add(I386CodeGenerator.eax.reg);
+		  tempList.add(I386CodeGenerator.edx.reg);
+	  } else if (kind == Kind.POP){
+		  tempList.addAll(op.use());
+	  }
+	  return tempList;
   }
 
   @Override

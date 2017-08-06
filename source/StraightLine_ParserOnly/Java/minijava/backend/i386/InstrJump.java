@@ -102,10 +102,8 @@ final class InstrJump implements MachineInstruction {
 
 	@Override
 	public void rename(Function<Temp, Temp> sigma) {
-		//System.out.println("Dest " + dest);
 		if(dest != null){
 			dest = dest.rename(sigma);
 		}
-		
 	}
 }

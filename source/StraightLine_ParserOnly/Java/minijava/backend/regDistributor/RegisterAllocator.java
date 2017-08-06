@@ -62,9 +62,8 @@ public class RegisterAllocator {
 				interGraph = this.spill(interGraph);
 			}
 			this.select(interGraph);
-			
 		}while(!toSpill.isEmpty());
-		System.out.println("number of spillnodes: " + toSpill.size());
+		//System.out.println("number of spillnodes: " + toSpill.size());
 		this.replaceTempsWithRegisters(mf, interGraph);
 		return mf;
 	}
