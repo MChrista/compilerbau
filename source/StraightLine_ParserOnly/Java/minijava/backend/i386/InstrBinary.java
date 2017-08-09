@@ -57,7 +57,7 @@ public class InstrBinary implements MachineInstruction {
   @Override
   public List<Temp> def() {
 	  List<Temp> tempList = new LinkedList<Temp>();
-	  if (dst instanceof Operand.Reg){
+	  if (kind != Kind.CMP && dst instanceof Operand.Reg){
 		  tempList = dst.use();
 	  }
 	  return tempList;

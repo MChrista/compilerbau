@@ -28,7 +28,6 @@ public class RegisterAllocator {
 	private Stack<Pair<TempNode, Set<TempNode>>> tempNodeStack;
 	private List<Temp> toSpill;
 	private int registerCount;
-	private boolean hasSpill = false;
 	private boolean hasSpillCandidate = false;
 	private HashMap<Temp, Temp> mapTemps;
 	
@@ -48,10 +47,12 @@ public class RegisterAllocator {
 	
 	
 	public MachineFunction allocateRegistersOfMachineFunction(MachineFunction mf){
+		//System.out.println("Machine function");
 		mapTemps = new HashMap<>();
 		toSpill = new LinkedList<>();
 		DirectedGraph<TempNode> interGraph;
 		do{
+			mapTemps = new HashMap<>();
 			if (!toSpill.isEmpty()){
 				mf.spill(toSpill);
 			}
@@ -79,11 +80,14 @@ public class RegisterAllocator {
 	
 	public DirectedGraph<TempNode> preColorNodes(DirectedGraph<TempNode> interGraph){
 		List<Temp> regs = this.codeGen.getAllRegisters();
-		for (TempNode tn : interGraph.nodeSet()){
+		for(Temp t : regs){
+			mapTemps.put(t, t);
+		}
+		/*for (TempNode tn : interGraph.nodeSet()){
 			if (regs.contains(tn.getTemp())){
 				mapTemps.put(tn.getTemp(), tn.getTemp());
 			}
-		}
+		}*/
 		return interGraph;
 	}
 	
@@ -121,7 +125,6 @@ public class RegisterAllocator {
 				}
 			}
 		}
-		
 		if(maxSuccsNode != null){
 			tempNodeStack.push(new Pair<TempNode, Set<TempNode>>(maxSuccsNode, interGraph.successors(maxSuccsNode)));
 			interGraph.removeNode(maxSuccsNode);
@@ -178,25 +181,12 @@ public class RegisterAllocator {
 	public MachineFunction replaceTempsWithRegisters(MachineFunction mf, DirectedGraph<TempNode> interGraph){
 		//Function that swaps Temps
 		Function<Temp,Temp> tempToReg = (Temp t)-> {
-			DirectedGraph<TempNode> iGraph = interGraph;
-			for(TempNode tn : iGraph.nodeSet()){
-				if(tn.getTemp().equals(t)){
-					if(isColored(tn)){
-						t = mapTemps.get(tn.getTemp());
-						return t;
-					}
-				}
+			if (mapTemps.containsKey(t)){
+				t = mapTemps.get(t);
 			}
 			return t;
 		};
 		mf.rename(tempToReg);
-		/*for(MachineInstruction mi : mf){
-				//check for Call
-				if(mi.isLabel() == null){
-					mi.rename(tempToReg);
-				}
-			}
-			*/
 		return mf;
 	}
 	

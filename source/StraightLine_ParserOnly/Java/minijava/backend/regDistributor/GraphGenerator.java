@@ -155,10 +155,9 @@ public class GraphGenerator {
 		
 		for (Node n : controlGraph.nodeSet()){
 			Set<Temp> out = n.getOutList();
-			Set<Temp> in = n.getInList();
 			
 			if(n.instr.isMoveBetweenTemps() == null){
-				for(Temp t : in){
+				for(Temp t : n.instr.def()){
 					TempNode tn1 = new TempNode(t);
 					for(Temp u : out){
 						TempNode tn2 = new TempNode(u);

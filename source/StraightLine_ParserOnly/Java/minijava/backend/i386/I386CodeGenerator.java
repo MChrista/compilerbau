@@ -412,14 +412,23 @@ public class I386CodeGenerator implements CodeGenerator {
 					instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, reg, oRight));
 					oRight = reg;
 				}
-				instructions.add(new InstrBinary(InstrBinary.Kind.XOR, I386CodeGenerator.edx, I386CodeGenerator.edx));
+				instructions.add(new InstrBinary(InstrBinary.Kind.MOV, I386CodeGenerator.edx, I386CodeGenerator.eax));
+				instructions.add(new InstrBinary(InstrBinary.Kind.SAR,I386CodeGenerator.edx, new Operand.Imm(31)));
 				instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.IDIV, oRight));
 				Operand.Reg ret = new Operand.Reg(new Temp());
 				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, ret, eax));
 				return ret;
 			case MUL:
-				kind = InstrBinary.Kind.IMUL;
-				break;
+				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, eax, oLeft));
+				if (oRight instanceof Operand.Imm) {
+					reg = new Operand.Reg(new Temp());
+					instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, reg, oRight));
+					oRight = reg;
+				}
+				instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.IMUL, oRight));
+				Operand.Reg ret_mul= new Operand.Reg(new Temp());
+				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, ret_mul, eax));
+				return ret_mul;
 			default:
 				kind = null;
 				break;

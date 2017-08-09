@@ -15,7 +15,7 @@ import java.util.function.Function;
 final class InstrUnary implements MachineInstruction {
 
   enum Kind {
-    PUSH, POP, NEG, NOT, INC, DEC, IDIV
+    PUSH, POP, NEG, NOT, INC, DEC, IDIV, IMUL
   }
   private Operand op;
   private final Kind kind;
@@ -29,17 +29,21 @@ final class InstrUnary implements MachineInstruction {
 
   @Override
   public List<Temp> use() {
-	  List<Temp> templist = op.use();
+	  List<Temp> templist = new LinkedList<>();
+	  templist.addAll(op.use());
+	  if ( kind == Kind.IDIV || kind == Kind.IMUL) {
+		  templist.add(I386CodeGenerator.eax.reg);
+	  }
 	  return templist;
   }
 
   @Override
   public List<Temp> def() {
 	  List<Temp> tempList = new LinkedList<Temp>();
-	  if (kind == Kind.IDIV){
+	  if (kind == Kind.IDIV || kind == Kind.IMUL){
 		  tempList.add(I386CodeGenerator.eax.reg);
 		  tempList.add(I386CodeGenerator.edx.reg);
-	  } else if (kind == Kind.POP){
+	  } else if (kind != Kind.PUSH){
 		  tempList.addAll(op.use());
 	  }
 	  return tempList;

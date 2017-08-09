@@ -69,7 +69,7 @@ final class InstrJump implements MachineInstruction {
 	@Override
 	public List<Label> jumps() {
 		List<Label> labelList = new LinkedList<>();
-		if (label != null) {
+		if (label != null && kind != Kind.CALL) {
 			labelList.add(label);
 		}
 		return labelList;

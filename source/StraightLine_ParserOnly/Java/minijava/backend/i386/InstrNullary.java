@@ -25,6 +25,9 @@ final class InstrNullary implements MachineInstruction {
 	  List<Temp> useList = new LinkedList<Temp>();
 	  if (kind == Kind.RET){
 		  useList.add(I386CodeGenerator.eax.reg);
+		  useList.add(I386CodeGenerator.ebx.reg);
+		  useList.add(I386CodeGenerator.esi.reg);
+		  useList.add(I386CodeGenerator.edi.reg);
 	  }
 	  return useList;
   }

@@ -36,18 +36,15 @@ final class I386Function implements MachineFunction {
 	@Override
 	public void rename(Function<Temp, Temp> sigma) {
 		boolean isFirstSub = true;
+		
+		List<MachineInstruction> newBody = new LinkedList<MachineInstruction>();
 		for(MachineInstruction mi : body){
-			//check for Call
 			if(mi.isLabel() == null){
 				mi.rename(sigma);
 			}
 			
-		}
-			
-		List<MachineInstruction> newBody = new LinkedList<MachineInstruction>();
-		for(MachineInstruction mi : body){
 			if(mi.isMoveBetweenTemps() == null){
-				if(isFirstSub == true & mi.toString().contains("SUB")){
+				if(isFirstSub == true && mi.toString().contains("SUB")){
 					InstrBinary.Kind kind = Kind.SUB;
 					int frameSize = this.numberOfLocalVariables * 4;
 					Operand frameOp = new Operand.Imm(frameSize);
@@ -78,7 +75,8 @@ final class I386Function implements MachineFunction {
 		HashMap<Temp, Temp> mapTemp = new HashMap<>(); 
 		HashMap<Temp, Operand.Mem> mapTempToMem = new HashMap<>();
 		
-		//System.out.println("temps to spill");
+		//System.out.println("enter spill: " + this.getName());
+		//System.out.println(toSpill.size());
 		for (Temp t : toSpill){
 			this.numberOfLocalVariables++;
 			Operand.Mem spillMemAddress = new Operand.Mem(I386CodeGenerator.ebp.reg, null, null,
@@ -96,6 +94,7 @@ final class I386Function implements MachineFunction {
 		
 		for (Temp t : toSpill){
 			List<MachineInstruction> modifiedBody = new LinkedList<MachineInstruction>();
+			//System.out.println("spill " + t);
 			for (MachineInstruction mi : body) {
 				List<Temp> useList = (List<Temp>) mi.use();
 				List<Temp> defList = (List<Temp>) mi.def();
@@ -115,6 +114,6 @@ final class I386Function implements MachineFunction {
 			}
 			this.body = modifiedBody;
 		}
-		
+		//System.out.println("leave spill");
 	}
 }

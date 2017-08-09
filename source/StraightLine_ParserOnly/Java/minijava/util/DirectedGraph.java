@@ -52,10 +52,10 @@ public class DirectedGraph<Node> {
    */
   public void removeNode(Node n) {
     nodes.remove(n);
-    successors.remove(n);
-    for (Node m : nodes) {
-      successors.get(m).remove(n);
+    for (Node m : successors.get(n)){
+    	successors.get(m).remove(n);
     }
+    successors.remove(n);
   }
 
   /**

@@ -13,7 +13,7 @@ L$$6:
 	CALL L_halloc
 	ADD %esp, 4
 	MOV %edi, %eax
-	MOV %eax, 10
+	MOV %eax, 2
 	PUSH %eax
 	PUSH %edi
 	CALL LFac$ComputeFac

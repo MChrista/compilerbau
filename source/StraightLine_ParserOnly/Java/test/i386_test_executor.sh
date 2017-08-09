@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOURCE_TEST_FILE="../../MiniJava_Examples/Small/Stck.java"
+SOURCE_TEST_FILE="../../MiniJava_Examples/Large/BubbleSort.java"
 
 cd ..
 echo ""> test/ass_file.s

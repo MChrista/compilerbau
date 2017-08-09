@@ -32,3 +32,15 @@ for filename in $(ls $TEST_DIR_SMALL); do
 	java -cp "test/classFiles/" "${FILE%.*}" > test/javaOutput
 	diff -y --suppress-common-lines test/cOutput test/javaOutput
 done
+
+for filename in $(ls $TEST_DIR_LARGE); do
+        echo $filename
+        java -cp .:../../../java-cup-v11a.jar minijava.Test $TEST_DIR_LARGE$filename > test/output.s
+        gcc -m32 -o test/runme test/output.s ../../tree2c/runtime.c
+        test/runme > test/cOutput
+        javac -d test/classFiles $TEST_DIR_LARGE$filename
+        FILE=$filename
+        java -cp "test/classFiles/" "${FILE%.*}" > test/javaOutput
+        diff -y --suppress-common-lines test/cOutput test/javaOutput
+done
+
