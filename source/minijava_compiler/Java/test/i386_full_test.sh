@@ -19,12 +19,12 @@ TEST_COUNT=0
 SUC_TEST_COUNT=0
 
 echo "######### TESTS SMALL##########"
-$(ls $TEST_DIR_SMALL)
+echo $(ls $TEST_DIR_SMALL);
 echo "##########################"
 
 for filename in $(ls $TEST_DIR_SMALL); do
 	echo $filename
-	java -cp .:../../../java-cup-v11a.jar minijava.Test $TEST_DIR_SMALL$filename > test/output.s
+	java -cp .:../../../libs/java-cup-v11a.jar minijava.Test $TEST_DIR_SMALL$filename > test/output.s
 	gcc -m32 -o test/runme test/output.s ../../tree2c/runtime.c
 	test/runme > test/cOutput
 	javac -d test/classFiles $TEST_DIR_SMALL$filename
@@ -35,7 +35,7 @@ done
 
 for filename in $(ls $TEST_DIR_LARGE); do
         echo $filename
-        java -cp .:../../../java-cup-v11a.jar minijava.Test $TEST_DIR_LARGE$filename > test/output.s
+        java -cp .:../../../libs/java-cup-v11a.jar minijava.Test $TEST_DIR_LARGE$filename > test/output.s
         gcc -m32 -o test/runme test/output.s ../../tree2c/runtime.c
         test/runme > test/cOutput
         javac -d test/classFiles $TEST_DIR_LARGE$filename

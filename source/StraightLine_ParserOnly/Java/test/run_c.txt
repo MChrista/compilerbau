@@ -1,1 +1,0 @@
-gcc -m32 -o runme prog.s runtime.c
