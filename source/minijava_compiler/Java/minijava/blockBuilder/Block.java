@@ -7,7 +7,8 @@ import minijava.intermediate.tree.TreeStm;
 import minijava.intermediate.tree.TreeStmLabel;
 
 public class Block {
-	public List<TreeStm> stmList = new LinkedList<>();
+	
+	private List<TreeStm> stmList = new LinkedList<>();
 	
 	public Block(List<TreeStm> stmConstrList){
 		this.stmList = stmConstrList;
@@ -16,6 +17,11 @@ public class Block {
 	public Block(TreeStm start){
 		stmList.add(start);
 	}
+	
+	public List<TreeStm> getStmList(){
+		return this.stmList;
+	}
+
 	
 	public void addStmToBlock(TreeStm stm, boolean isOpen){
 		if(isOpen){

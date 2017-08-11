@@ -14,9 +14,11 @@ public class BlockBuilder {
 	
 	private List<MethodBlocks> methodBlockList;
 
+	
 	public BlockBuilder(TreePrg treePrg) {
 		this.treePrg = treePrg;
 	}
+	
 	
 	public List<MethodBlocks> buildBlocks() {
 
@@ -27,12 +29,12 @@ public class BlockBuilder {
 			TreeMethod m = it.next();
 			MethodBlocks bl = new MethodBlocks(m, new LinkedList<Block>());
 			List<Block> b = methodToBlocks(m, bl);
-			//update MethodBlock stm-List
-			bl.blockList = b;
+			bl.setBlockList(b);
 			methodBlockList.add(bl);
 		}
 		return methodBlockList;
 	}
+	
 	
 	public TreePrg getPrg(){
 		TreePrg prg;
@@ -41,17 +43,15 @@ public class BlockBuilder {
 		for(MethodBlocks mb : methodBlockList){
 			stmList = new LinkedList<>();
 			mb.sort();
-			for(Block b : mb.blockList){
-				stmList.addAll(b.stmList);
+			for(Block b : mb.getBlockList()){
+				stmList.addAll(b.getStmList());
 			}
-			//endlabel adden falls flag gesetzt
-			if(mb.hasEndJump == true){
-				//mb.blockList.get(mb.blockList.size()-1).stmList.add(new TreeStmLabel(endLabel));
+			if(mb.getHasEndJump() == true){
 				stmList.add(new TreeStmLabel(mb.hasEndLabel()));
 			}
 			
-			TreeMethod tm = new TreeMethod(mb.treeMethod.getName(), mb.treeMethod.getNumberOfParameters(), stmList, mb.treeMethod.getReturnTemp());
-			tm.setNumberOfVars(mb.treeMethod.getNumberOfVars());
+			TreeMethod tm = new TreeMethod(mb.getTreeMethod().getName(), mb.getTreeMethod().getNumberOfParameters(), stmList, mb.getTreeMethod().getReturnTemp());
+			tm.setNumberOfVars(mb.getTreeMethod().getNumberOfVars());
 			treeMethods.add(tm);
 		}
 		prg = new TreePrg(treeMethods);
@@ -59,17 +59,10 @@ public class BlockBuilder {
 	}
 	
 
-
-
 	public List<Block> methodToBlocks(TreeMethod m, MethodBlocks mb) {
 		List<Block> bList = new LinkedList<>();
-		Label endLabel = new Label();
-		Label startLabel = new Label();
-
 		List<TreeStmLabel> knownLabels = new LinkedList<>();
-		List<TreeStm> stmList = new LinkedList<TreeStm>();
-		Block runningBlock = new Block(stmList);
-		
+		Block runningBlock = new Block(new LinkedList<TreeStm>());
 		boolean blockOpen = true;
 		boolean isFirst = true;
 		
@@ -78,7 +71,7 @@ public class BlockBuilder {
 			TreeStm ts = it.next();
 			if(isFirst){
 				if(!(ts instanceof TreeStmLabel)){
-					runningBlock = new Block(new TreeStmLabel(startLabel));
+					runningBlock = new Block(new TreeStmLabel(new Label()));
 					blockOpen = true;
 				}
 				isFirst = false;
@@ -93,17 +86,17 @@ public class BlockBuilder {
 				runningBlock.addStmToBlock(ts, blockOpen);
 				bList.add(runningBlock);
 				blockOpen = false;
-
-			} else if (ts instanceof TreeStmJump) {
+			} 
+			else if (ts instanceof TreeStmJump) {
 				TreeStmJump tsj = (TreeStmJump) ts;
-
 				for (Label l : tsj.getPossibleTargets()) {
 					knownLabels.add(new TreeStmLabel(l));
 				}
 				runningBlock.addStmToBlock(ts, blockOpen);
 				bList.add(runningBlock);
 				blockOpen = false;
-			} else if (ts instanceof TreeStmLabel) {
+			} 
+			else if (ts instanceof TreeStmLabel) {
 				if(blockOpen){
 					TreeStmJump newJump = new TreeStmJump(((TreeStmLabel) ts).getLabel());
 					runningBlock.addStmToBlock(newJump, blockOpen);
@@ -111,27 +104,29 @@ public class BlockBuilder {
 				}
 				runningBlock = new Block(ts);
 				blockOpen = true;
-			}else{
+			}
+			else{
 				runningBlock.addStmToBlock(ts, blockOpen);
 			}
-			
 		}
-		if(blockOpen){
-			//Label endLabel = new Label("end");
-			List <Label> dstList = new LinkedList<>();
-			dstList.add(endLabel);
-			TreeStmJump endJump = new TreeStmJump(new TreeExpName(endLabel), dstList);
-			runningBlock.addStmToBlock(endJump, blockOpen);
-			//runningBlock.addStmToBlock(new TreeStmLabel(endLabel), blockOpen);
-			//add flag
-			mb.hasEndJump = true;
-			mb.setEndLabel(endLabel);
-			bList.add(runningBlock);
+		if(blockOpen){			
+			createAndAddEndJump(blockOpen, runningBlock, mb, bList);
 			blockOpen = false;
 		}
 		return bList;
 	}
 	
+	
+	public void createAndAddEndJump(boolean blockOpen, Block runningBlock, MethodBlocks mb, List<Block> bList){
+		Label endLabel = new Label();
+		List <Label> dstList = new LinkedList<>();
+		dstList.add(endLabel);
+		TreeStmJump endJump = new TreeStmJump(new TreeExpName(endLabel), dstList);
+		runningBlock.addStmToBlock(endJump, blockOpen);
+		mb.setHasEndJump(true);
+		mb.setEndLabel(endLabel);
+		bList.add(runningBlock);
+	}
 
 	
 	public String toString(){
