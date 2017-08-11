@@ -99,13 +99,13 @@ public class MethodBlocks {
 					twoBlocksAdded = true;
 				}
 				else if(falseBlock == null && trueBlock != null){
-					addNegatedCJumpAndDelOld(orderedBlocks, tcj, tcj.getLabelTrue());
+					addNegatedCJumpAndDelOld(orderedBlocks, tcj,tcj.getLabelFalse(), tcj.getLabelTrue());
 					this.findAndRemove(tcj.getLabelTrue(), workingBlocks);
 					orderedBlocks.add(trueBlock);
 					twoBlocksAdded = true;
 				}
 				else if(falseBlock == null && trueBlock == null){
-					Label dummyJumpLabel = addNegatedCJumpAndDelOld(orderedBlocks, tcj, new Label());
+					Label dummyJumpLabel = addNegatedCJumpAndDelOld(orderedBlocks, tcj, tcj.getLabelTrue(), new Label());
 					handleDummyJump(dummyJumpLabel, orderedBlocks, twoBlocksAdded);
 				}
 			}
@@ -115,11 +115,11 @@ public class MethodBlocks {
 	}
 	
 	
-	public Label addNegatedCJumpAndDelOld(List<Block> orderedBlocks, TreeStmCJump tcj, Label trueLabel){
-		TreeStmCJump newTcj = new TreeStmCJump(tcj.getRel().neg(), tcj.getLeft(), tcj.getRight(), tcj.getLabelTrue(), trueLabel);
+	public Label addNegatedCJumpAndDelOld(List<Block> orderedBlocks, TreeStmCJump tcj, Label trueLabel, Label falseLabel){
+		TreeStmCJump newTcj = new TreeStmCJump(tcj.getRel().neg(), tcj.getLeft(), tcj.getRight(), trueLabel, falseLabel);
 		orderedBlocks.get(orderedBlocks.size()-1).removeLast();
 		orderedBlocks.get(orderedBlocks.size()-1).getStmList().add(newTcj);
-		return trueLabel;
+		return falseLabel;
 	}
 	
 	
