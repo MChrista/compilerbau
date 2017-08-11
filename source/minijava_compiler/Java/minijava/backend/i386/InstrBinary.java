@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public class InstrBinary implements MachineInstruction {
+final class InstrBinary implements MachineInstruction {
 
   enum Kind {
     MOV, ADD, SUB, SHL, SHR, SAL, SAR, AND, OR, XOR, TEST, CMP, LEA, IMUL
@@ -77,9 +77,12 @@ public class InstrBinary implements MachineInstruction {
   public Pair<Temp, Temp> isMoveBetweenTemps() {
 	  if (this.kind == Kind.MOV){
 		  if (this.src instanceof Operand.Reg && this.dst instanceof Operand.Reg){
-			  Temp src = ((Operand.Reg) this.src).reg;
-			  Temp dst = ((Operand.Reg) this.dst).reg;
-			  return new Pair<Temp, Temp>(src, dst);
+			  Operand.Reg dest = (Operand.Reg) this.dst;
+			  if (!(dest.reg.equals(I386CodeGenerator.ebp.reg) || dest.reg.equals(I386CodeGenerator.esp.reg))){
+				  Temp src = ((Operand.Reg) this.src).reg;
+				  Temp dst = ((Operand.Reg) this.dst).reg;
+				  return new Pair<Temp, Temp>(src, dst);
+			  }
 		  }
 
 	  }

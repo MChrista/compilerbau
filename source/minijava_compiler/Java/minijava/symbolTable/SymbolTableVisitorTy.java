@@ -1,4 +1,4 @@
-package symboltabelle;
+package minijava.symbolTable;
 
 import minijava.syntax.TyArr;
 import minijava.syntax.TyBool;

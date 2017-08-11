@@ -1,4 +1,4 @@
-package symboltabelle;
+package minijava.symbolTable;
 
 import java.util.ArrayList;
 import java.util.List;

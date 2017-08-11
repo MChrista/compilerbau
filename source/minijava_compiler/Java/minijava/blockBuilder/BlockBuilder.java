@@ -1,24 +1,23 @@
-package BlockBuilder;
+package minijava.blockBuilder;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import BlockBuilder.Block;
+import minijava.blockBuilder.Block;
 import minijava.intermediate.*;
 import minijava.intermediate.tree.*;
 
 public class BlockBuilder {
 
-	public TreePrg treePrg;
+	private TreePrg treePrg;
 	
-	public List<MethodBlocks> methodBlockList;
+	private List<MethodBlocks> methodBlockList;
 
 	public BlockBuilder(TreePrg treePrg) {
 		this.treePrg = treePrg;
 	}
 	
-
 	public List<MethodBlocks> buildBlocks() {
 
 		methodBlockList = new LinkedList<>();

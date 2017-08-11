@@ -42,19 +42,14 @@ import com.sun.beans.util.Cache.Kind;
 
 public class I386CodeGenerator implements CodeGenerator {
 	public static List<MachineInstruction> instructions = new LinkedList<>();
-	public static Operand.Reg eax = new Reg(new Temp("eax"));
-	public static Operand.Reg ebx = new Reg(new Temp("ebx"));
-	public static Operand.Reg ecx = new Reg(new Temp("ecx"));
-	public static Operand.Reg edx = new Reg(new Temp("edx"));
-	public static Operand.Reg esp = new Reg(new Temp("esp"));
-	public static Operand.Reg ebp = new Reg(new Temp("ebp"));
-	public static Operand.Reg esi = new Reg(new Temp("esi"));
-	public static Operand.Reg edi = new Reg(new Temp("edi"));
-
-	/*
-	 * eax, edx, ecx = caller save ebx, esi, edi = callee save esp = stack
-	 * pointer ebp = frame pointer
-	 */
+	public static final Operand.Reg eax = new Reg(new Temp("eax"));
+	public static final Operand.Reg ebx = new Reg(new Temp("ebx"));
+	public static final Operand.Reg ecx = new Reg(new Temp("ecx"));
+	public static final Operand.Reg edx = new Reg(new Temp("edx"));
+	public static final Operand.Reg esp = new Reg(new Temp("esp"));
+	public static final Operand.Reg ebp = new Reg(new Temp("ebp"));
+	public static final Operand.Reg esi = new Reg(new Temp("esi"));
+	public static final Operand.Reg edi = new Reg(new Temp("edi"));
 
 	@Override
 	public List<Temp> getAllRegisters() {
@@ -108,7 +103,7 @@ public class I386CodeGenerator implements CodeGenerator {
 		return assemblyPrg;
 	}
 
-	public void enterFunction(TreeMethod tm) {
+	private void enterFunction(TreeMethod tm) {
 		instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.PUSH, ebp));
 		instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, ebp, esp));
 		int numberOfBytes = tm.getNumberOfVars() * 4;
@@ -116,13 +111,13 @@ public class I386CodeGenerator implements CodeGenerator {
 				.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.SUB, esp, new Operand.Imm(numberOfBytes)));
 	}
 
-	public void leaveFunction(TreeMethod tm) {
+	private void leaveFunction(TreeMethod tm) {
 		instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, esp, ebp));
 		instructions.add(new InstrUnary(minijava.backend.i386.InstrUnary.Kind.POP, ebp));
 		instructions.add(new InstrNullary(minijava.backend.i386.InstrNullary.Kind.RET));
 	}
 
-	public void genMethod(TreeMethod method) {
+	private void genMethod(TreeMethod method) {
 
 		Iterator<TreeStm> it = method.iterator();
 

@@ -1,13 +1,13 @@
-package symboltabelle;
+package minijava.symbolTable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import minijava.intermediate.Temp;
+import minijava.symbolTable.SymbolTable.VarScope;
 import minijava.syntax.DeclClass;
 import minijava.syntax.DeclMeth;
 import minijava.syntax.DeclVar;
-import symboltabelle.GlobalTable.VarScope;
 
 public class ClassTable extends Table{
 	List<MethodTable> methods = new ArrayList<MethodTable>();

@@ -1,4 +1,4 @@
-package BlockBuilder;
+package minijava.blockBuilder;
 
 import java.util.LinkedList;
 import java.util.List;

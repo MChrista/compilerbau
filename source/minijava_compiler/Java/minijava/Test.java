@@ -1,36 +1,17 @@
 package minijava;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-
-import minijava.backend.MachineFunction;
-import minijava.backend.MachineInstruction;
 import minijava.backend.i386.*;
-import minijava.backend.regDistributor.GraphGenerator;
 import minijava.backend.regDistributor.RegisterAllocator;
-import BlockBuilder.Block;
-import BlockBuilder.BlockBuilder;
-import BlockBuilder.MethodBlocks;
-import Translate.Translator;
-import minijava.intermediate.Label;
-import minijava.intermediate.Temp;
+import minijava.blockBuilder.BlockBuilder;
+import minijava.blockBuilder.MethodBlocks;
+import minijava.intermediate.Translator;
 import minijava.intermediate.canon.Canonizer;
-import minijava.intermediate.tree.TreeMethod;
 import minijava.intermediate.tree.TreePrg;
-import minijava.syntax.PrettyPrint;
-import symboltabelle.GlobalTable;
-import minijava.util.DirectedGraph;
-import minijava.util.Node;
-import minijava.util.Pair;
-import minijava.util.TempNode;
+import minijava.symbolTable.SymbolTable;
 
-import java.util.*;
-import java.util.function.Function;
-import java.io.PrintStream;
 
 public class Test {
 
@@ -59,7 +40,7 @@ public class Test {
         parseTree = (minijava.syntax.Prg) parser.parse().value;
 
         //System.out.println("create global table");
-        GlobalTable gt = new GlobalTable(parseTree);
+        SymbolTable gt = new SymbolTable(parseTree);
         //System.out.println("Symboltable");
         //System.out.println(gt.printTable());
 

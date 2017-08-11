@@ -3,33 +3,23 @@ package minijava.backend.regDistributor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 
 import minijava.backend.*;
-import minijava.backend.i386.I386Prg;
-import minijava.backend.i386.Operand.Reg;
 import minijava.intermediate.Label;
 import minijava.intermediate.Temp;
 import minijava.util.DirectedGraph;
 import minijava.util.Node;
 import minijava.util.Pair;
 import minijava.util.TempNode;
-import minijava.backend.i386.*;
 
 public class GraphGenerator {
 
-	public GraphGenerator() {
-
-	}
-
-	public List<DirectedGraph<TempNode>> createInterferenzGraphFromI386Prg(I386Prg prg) throws FileNotFoundException {
+	public List<DirectedGraph<TempNode>> createInterferenzGraphFromMachinePrg(MachinePrg prg) throws FileNotFoundException {
 		List<DirectedGraph<TempNode>> dgList = new LinkedList<>();
 		List<DirectedGraph<Node>> ctrlList = new LinkedList<>();
 		
@@ -41,8 +31,7 @@ public class GraphGenerator {
 			ctrlList.add(dg);
 			dgList.add(iG);
 		}
-		//this.printDot(ctrlList);
-		//this.printDotToFile(ctrlList);
+
 		return dgList;
 	}
 	
@@ -172,13 +161,11 @@ public class GraphGenerator {
 				Temp v = mov.getFst();
 				Temp t = mov.getSnd();
 				TempNode tn1 = new TempNode(t);
-				if (!(t.equals(I386CodeGenerator.ebp.reg) || t.equals(I386CodeGenerator.esp.reg))){
-					for(Temp u : out){
-						if(!u.equals(v)){
-							TempNode tn2 = new TempNode(u);
-							if (!tn2.equals(tn1)){
-								this.addEdgesToInterferenceGraph(tn1, new TempNode(u), interGraph);
-							}
+				for(Temp u : out){
+					if(!u.equals(v)){
+						TempNode tn2 = new TempNode(u);
+						if (!tn2.equals(tn1)){
+							this.addEdgesToInterferenceGraph(tn1, new TempNode(u), interGraph);
 						}
 					}
 				}

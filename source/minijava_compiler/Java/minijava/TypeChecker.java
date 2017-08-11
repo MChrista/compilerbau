@@ -1,14 +1,15 @@
 package minijava;
 
 import java.util.List;
+
+import minijava.symbolTable.*;
 import minijava.syntax.*;
-import symboltabelle.*;
 
 public class TypeChecker {
 
-	private static GlobalTable globalTable;
+	private static SymbolTable globalTable;
 
-	public static void checkType(Prg p, GlobalTable gt) {
+	public static void checkType(Prg p, SymbolTable gt) {
 		globalTable = gt;
 		TypeCheckerMain(p.mainClass);
 		TypeCheckerClassList(p.classes);
@@ -60,11 +61,11 @@ public class TypeChecker {
 
 	static class TypeCheckerVisitorTy implements TyVisitor<String> {
 
-		private static GlobalTable globalTable;
+		private static SymbolTable globalTable;
 		private String className;
 		private String methName;
 
-		public TypeCheckerVisitorTy(String className, String methName, GlobalTable gt) {
+		public TypeCheckerVisitorTy(String className, String methName, SymbolTable gt) {
 			this.className = className;
 			this.methName = methName;
 			this.globalTable = gt;
@@ -100,7 +101,7 @@ public class TypeChecker {
 
 	static class TypeCheckerVisitorExp implements ExpVisitor<String, RuntimeException> {
 
-		private static GlobalTable globalTable;
+		private static SymbolTable globalTable;
 		private String className;
 		private String methName;
 
@@ -108,12 +109,12 @@ public class TypeChecker {
 			// TODO Auto-generated constructor stub
 		}
 
-		public TypeCheckerVisitorExp(GlobalTable gt) {
+		public TypeCheckerVisitorExp(SymbolTable gt) {
 			this.globalTable = gt;
 			// TODO Auto-generated constructor stub
 		}
 
-		public TypeCheckerVisitorExp(String className, String methName, GlobalTable gt) {
+		public TypeCheckerVisitorExp(String className, String methName, SymbolTable gt) {
 			this.className = className;
 			this.methName = methName;
 			this.globalTable = gt;
@@ -237,11 +238,11 @@ public class TypeChecker {
 	}
 
 	static class TypeCheckerVisitorStm implements StmVisitor<String, RuntimeException> {
-		private static GlobalTable globalTable;
+		private static SymbolTable globalTable;
 		private static String className;
 		private static String methName;
 
-		public TypeCheckerVisitorStm(String className, String methName, GlobalTable gt) {
+		public TypeCheckerVisitorStm(String className, String methName, SymbolTable gt) {
 			this.className = className;
 			this.methName = methName;
 			this.globalTable = gt;

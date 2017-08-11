@@ -75,8 +75,6 @@ final class I386Function implements MachineFunction {
 		HashMap<Temp, Temp> mapTemp = new HashMap<>(); 
 		HashMap<Temp, Operand.Mem> mapTempToMem = new HashMap<>();
 		
-		//System.out.println("enter spill: " + this.getName());
-		//System.out.println(toSpill.size());
 		for (Temp t : toSpill){
 			this.numberOfLocalVariables++;
 			Operand.Mem spillMemAddress = new Operand.Mem(I386CodeGenerator.ebp.reg, null, null,

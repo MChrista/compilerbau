@@ -1,4 +1,4 @@
-package symboltabelle;
+package minijava.symbolTable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import minijava.intermediate.Temp;
 import minijava.syntax.DeclClass;
 import minijava.syntax.Prg;
 
-public class GlobalTable{
+public class SymbolTable{
 	MainTable main;
 	List<ClassTable> classes = new ArrayList<ClassTable>();
 	
@@ -16,7 +16,7 @@ public class GlobalTable{
 	    GLOBAL, PARAM, LOCAL;
 	}
 
-	public GlobalTable(Prg prg){
+	public SymbolTable(Prg prg){
 		this.addMain(prg);
 		this.addClasses(prg);
 	}

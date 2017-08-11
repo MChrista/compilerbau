@@ -1,12 +1,8 @@
-package Translate;
+package minijava.intermediate;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import com.sun.java.swing.plaf.gtk.GTKConstants.ExpanderStyle;
-
-import minijava.intermediate.Label;
-import minijava.intermediate.Temp;
 import minijava.intermediate.tree.TreeExp;
 import minijava.intermediate.tree.TreeExpBinOp;
 import minijava.intermediate.tree.TreeExpCall;
@@ -16,29 +12,26 @@ import minijava.intermediate.tree.TreeExpMem;
 import minijava.intermediate.tree.TreeExpName;
 import minijava.intermediate.tree.TreeExpParam;
 import minijava.intermediate.tree.TreeExpTemp;
-import minijava.intermediate.tree.TreeExpVisitor;
 import minijava.intermediate.tree.TreeMethod;
 import minijava.intermediate.tree.TreePrg;
 import minijava.intermediate.tree.TreeStm;
 import minijava.intermediate.tree.TreeStmCJump;
 import minijava.intermediate.tree.TreeStmCJump.Rel;
+import minijava.symbolTable.SymbolTable;
+import minijava.symbolTable.SymbolTable.VarScope;
 import minijava.intermediate.tree.TreeStmJump;
 import minijava.intermediate.tree.TreeStmLabel;
 import minijava.intermediate.tree.TreeStmMove;
 import minijava.intermediate.tree.TreeStmSeq;
-import minijava.intermediate.tree.TreeStmVisitor;
 import minijava.syntax.*;
-import minijava.syntax.ExpBinOp.Op;
-import symboltabelle.GlobalTable;
-import symboltabelle.GlobalTable.VarScope;
 
 public class Translator {
 
-	public static GlobalTable globalTable;
+	public static SymbolTable globalTable;
 	public static String currentClass;
 	public static String currentMethod;
 
-	public static TreePrg translate(Prg p, GlobalTable gt) {
+	public static TreePrg translate(Prg p, SymbolTable gt) {
 		Translator.globalTable = gt;
 		TreeMethod tm = translateMain(p.mainClass);
 		List<TreeMethod> methods = translateClassList(p.classes);

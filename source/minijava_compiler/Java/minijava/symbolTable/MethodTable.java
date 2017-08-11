@@ -1,13 +1,13 @@
-package symboltabelle;
+package minijava.symbolTable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import minijava.symbolTable.SymbolTable.VarScope;
 import minijava.syntax.DeclMeth;
 import minijava.syntax.DeclVar;
 import minijava.syntax.Parameter;
-import symboltabelle.GlobalTable.VarScope;
 
 public class MethodTable extends Table{
 	private int numberOfLocalVars;

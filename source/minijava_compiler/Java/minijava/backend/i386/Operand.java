@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 public abstract class Operand {
 
-	public final static class Imm extends Operand {
+	final static class Imm extends Operand {
 
 		final int imm;
 
@@ -30,7 +30,7 @@ public abstract class Operand {
 		}
 	}
 
-	public final static class Reg extends Operand {
+	final static class Reg extends Operand {
 
 		public final Temp reg;
 
