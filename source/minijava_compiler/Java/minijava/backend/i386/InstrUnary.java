@@ -1,13 +1,9 @@
 package minijava.backend.i386;
 
 import minijava.backend.MachineInstruction;
-import minijava.backend.i386.Operand.Reg;
 import minijava.intermediate.Label;
 import minijava.intermediate.Temp;
 import minijava.util.Pair;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;

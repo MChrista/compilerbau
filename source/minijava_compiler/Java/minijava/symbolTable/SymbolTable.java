@@ -1,6 +1,7 @@
 package minijava.symbolTable;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import minijava.intermediate.Temp;
@@ -8,8 +9,8 @@ import minijava.syntax.DeclClass;
 import minijava.syntax.Prg;
 
 public class SymbolTable{
-	MainTable main;
-	List<ClassTable> classes = new ArrayList<ClassTable>();
+	private MainTable main;
+	private List<ClassTable> classes = new ArrayList<ClassTable>();
 	
 	public enum VarScope {
 	    // note: there is no OR in MiniJava (and actually also no DIV)
@@ -36,7 +37,7 @@ public class SymbolTable{
 
 	public ClassTable findClassTableByName(String name){
 		for (ClassTable ct : classes){
-			if (ct.name.equals(name)){
+			if (ct.getName().equals(name)){
 				return ct;
 			}
 		}
@@ -91,7 +92,7 @@ public class SymbolTable{
 		return this.main;
 	}
 	
-	public List getArgsOfMethod(String className, String methName){
+	public LinkedList<String> getArgsOfMethod(String className, String methName){
 		ClassTable ct = this.findClassTableByName(className);
 		if (ct == null){
 			return null;

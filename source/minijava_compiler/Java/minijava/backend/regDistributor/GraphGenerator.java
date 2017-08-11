@@ -76,7 +76,7 @@ public class GraphGenerator {
 		Iterator<Node> it = dg.nodeSet().iterator();
 		while (it.hasNext()) {
 			Node n = it.next();
-			Iterator<Label> jumps = n.instr.jumps().iterator();
+			Iterator<Label> jumps = n.getInstr().jumps().iterator();
 			while(jumps.hasNext()){
 				Label l = jumps.next();
 				Node dst = this.findInTargetList(l, targetLables);
@@ -113,10 +113,10 @@ public class GraphGenerator {
 				l.addTempListToOut(this.getInListOfSuccessors(l, controlGraph));
 				Set<Temp> in = new HashSet<>();
 				in.addAll(l.getOutList());
-				for (Temp t : l.instr.def()){
+				for (Temp t : l.getInstr().def()){
 					in.remove(t);
 				}
-				for (Temp t : l.instr.use()){
+				for (Temp t : l.getInstr().use()){
 					in.add(t);
 				}
 				l.addTempListToIn(in);
@@ -145,8 +145,8 @@ public class GraphGenerator {
 		for (Node n : controlGraph.nodeSet()){
 			Set<Temp> out = n.getOutList();
 			
-			if(n.instr.isMoveBetweenTemps() == null){
-				for(Temp t : n.instr.def()){
+			if(n.getInstr().isMoveBetweenTemps() == null){
+				for(Temp t : n.getInstr().def()){
 					TempNode tn1 = new TempNode(t);
 					for(Temp u : out){
 						TempNode tn2 = new TempNode(u);
@@ -157,7 +157,7 @@ public class GraphGenerator {
 				}
 			}
 			else{
-				Pair<Temp, Temp> mov = n.instr.isMoveBetweenTemps();
+				Pair<Temp, Temp> mov = n.getInstr().isMoveBetweenTemps();
 				Temp v = mov.getFst();
 				Temp t = mov.getSnd();
 				TempNode tn1 = new TempNode(t);
@@ -177,10 +177,10 @@ public class GraphGenerator {
 	public DirectedGraph<TempNode> addNodesToInterGraph(DirectedGraph<Node> ctrGraph){
 		DirectedGraph<TempNode> interGraph = new DirectedGraph<>();
 		for (Node n : ctrGraph.nodeSet()){
-			for(Temp t : n.instr.def()){
+			for(Temp t : n.getInstr().def()){
 				interGraph.addNode(new TempNode(t));
 			}
-			for(Temp t : n.instr.use()){
+			for(Temp t : n.getInstr().use()){
 				interGraph.addNode(new TempNode(t));
 			}
 		}
@@ -205,13 +205,13 @@ public class GraphGenerator {
 	
 	public void printDot(List<DirectedGraph<Node>> graphList){
 		for (DirectedGraph<Node> ctrGraph : graphList){
-			ctrGraph.printDot();
+			ctrGraph.printDot(System.out);
 		}
 	}
 	
 	public void printTempDot(List<DirectedGraph<TempNode>> graphList){
 		for (DirectedGraph<TempNode> ctrGraph : graphList){
-			ctrGraph.printDot();
+			ctrGraph.printDot(System.out);
 		}
 	}
 	

@@ -83,11 +83,6 @@ public class RegisterAllocator {
 		for(Temp t : regs){
 			mapTemps.put(t, t);
 		}
-		/*for (TempNode tn : interGraph.nodeSet()){
-			if (regs.contains(tn.getTemp())){
-				mapTemps.put(tn.getTemp(), tn.getTemp());
-			}
-		}*/
 		return interGraph;
 	}
 	

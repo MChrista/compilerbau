@@ -1,6 +1,7 @@
 package minijava.symbolTable;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import minijava.intermediate.Temp;
@@ -10,12 +11,16 @@ import minijava.syntax.DeclMeth;
 import minijava.syntax.DeclVar;
 
 public class ClassTable extends Table{
-	List<MethodTable> methods = new ArrayList<MethodTable>();
-	String name;
+	private List<MethodTable> methods = new ArrayList<MethodTable>();
+	private String name;
 	
 	public ClassTable(String name){
 		this.name = name;
 		this.lines = new ArrayList<TableLine>();
+	}
+	
+	public String getName(){
+		return this.name;
 	}
 	
 	public void add(DeclClass dc){
@@ -77,7 +82,7 @@ public class ClassTable extends Table{
 		return null;
 	}
 	
-	public List getArgsOfMethod(String methName){
+	public LinkedList<String> getArgsOfMethod(String methName){
 		MethodTable mt = this.getMethodTableByName(methName);
 		if(mt == null){
 			return null;
@@ -100,7 +105,7 @@ public class ClassTable extends Table{
 			TableLine tl = mt.findVariableByName(varName);
 			if (tl == null){
 				TableLine tl2 = this.findVariableByName(varName);
-				tl.setTemp(t);
+				tl2.setTemp(t);
 			}
 			tl.setTemp(t);
 		}

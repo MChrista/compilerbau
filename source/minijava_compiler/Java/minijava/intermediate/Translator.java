@@ -27,9 +27,9 @@ import minijava.syntax.*;
 
 public class Translator {
 
-	public static SymbolTable globalTable;
-	public static String currentClass;
-	public static String currentMethod;
+	private static SymbolTable globalTable;
+	private static String currentClass;
+	private static String currentMethod;
 
 	public static TreePrg translate(Prg p, SymbolTable gt) {
 		Translator.globalTable = gt;

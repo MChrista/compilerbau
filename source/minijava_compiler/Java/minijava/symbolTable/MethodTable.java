@@ -36,7 +36,7 @@ public class MethodTable extends Table{
 		return this.getTypeOfVar(varName);
 	}
 	
-	public List getArgs(){
+	public LinkedList<String> getArgs(){
 		return argsType;
 	}
 	

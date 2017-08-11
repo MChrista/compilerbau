@@ -92,17 +92,5 @@ public class DirectedGraph<Node> {
     }
     out.println("}");
   }
-  
-  public void printDot() {
-	    System.out.println("digraph G {");
-	    for (Node n : this.nodeSet()) {
-	    	System.out.println("\"" + n + "\";");
-	    }
-	    for (Node n : this.nodeSet()) {
-	      for (Node m : this.successors(n)) {
-	    	  System.out.println("\"" + n + "\"  -> \"" + m + "\"");
-	      }
-	    }
-	    System.out.println("}");
-	  }
+ 
 }

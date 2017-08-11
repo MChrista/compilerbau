@@ -3,7 +3,6 @@ package minijava.backend.i386;
 import minijava.intermediate.Temp;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
@@ -115,7 +114,6 @@ public abstract class Operand {
 
 	List<Temp> use() {
 		return new ArrayList<>();
-		// return Collections.emptyList();
 	}
 
 	abstract Operand rename(Function<Temp, Temp> sigma);

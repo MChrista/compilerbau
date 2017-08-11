@@ -4,8 +4,6 @@ import minijava.backend.MachineInstruction;
 import minijava.intermediate.Label;
 import minijava.intermediate.Temp;
 import minijava.util.Pair;
-
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;

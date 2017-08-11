@@ -1,12 +1,8 @@
 package minijava.backend.i386;
 
 import minijava.backend.CodeGenerator;
-import minijava.backend.MachineFunction;
 import minijava.backend.MachineInstruction;
-import minijava.backend.i386.I386CodeGenerator.AssemblyExpVisitor;
 import minijava.backend.i386.InstrJump.Cond;
-import minijava.backend.i386.Operand.Imm;
-import minijava.backend.i386.Operand.Mem;
 import minijava.backend.i386.Operand.Reg;
 import minijava.intermediate.Temp;
 import minijava.intermediate.tree.TreeExp;
@@ -30,26 +26,20 @@ import minijava.intermediate.tree.TreeStmLabel;
 import minijava.intermediate.tree.TreeStmMove;
 import minijava.intermediate.tree.TreeStmSeq;
 import minijava.intermediate.tree.TreeStmVisitor;
-import minijava.syntax.StmVisitor;
-
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
-
-import com.sun.beans.util.Cache.Kind;
 
 public class I386CodeGenerator implements CodeGenerator {
-	public static List<MachineInstruction> instructions = new LinkedList<>();
-	public static final Operand.Reg eax = new Reg(new Temp("eax"));
-	public static final Operand.Reg ebx = new Reg(new Temp("ebx"));
-	public static final Operand.Reg ecx = new Reg(new Temp("ecx"));
-	public static final Operand.Reg edx = new Reg(new Temp("edx"));
-	public static final Operand.Reg esp = new Reg(new Temp("esp"));
-	public static final Operand.Reg ebp = new Reg(new Temp("ebp"));
-	public static final Operand.Reg esi = new Reg(new Temp("esi"));
-	public static final Operand.Reg edi = new Reg(new Temp("edi"));
+	protected static List<MachineInstruction> instructions = new LinkedList<>();
+	protected static final Operand.Reg eax = new Reg(new Temp("eax"));
+	protected static final Operand.Reg ebx = new Reg(new Temp("ebx"));
+	protected static final Operand.Reg ecx = new Reg(new Temp("ecx"));
+	protected static final Operand.Reg edx = new Reg(new Temp("edx"));
+	protected static final Operand.Reg esp = new Reg(new Temp("esp"));
+	protected static final Operand.Reg ebp = new Reg(new Temp("ebp"));
+	protected static final Operand.Reg esi = new Reg(new Temp("esi"));
+	protected static final Operand.Reg edi = new Reg(new Temp("edi"));
 
 	@Override
 	public List<Temp> getAllRegisters() {
@@ -461,7 +451,6 @@ public class I386CodeGenerator implements CodeGenerator {
 			} else {
 				throw new UnsupportedOperationException("calls other than treeexpname are not supported");
 			}
-			// TODO Auto-generated method stub
 		}
 
 		@Override

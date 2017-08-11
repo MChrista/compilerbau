@@ -2,14 +2,9 @@ package minijava.backend.i386;
 
 import minijava.backend.MachineInstruction;
 import minijava.backend.i386.InstrBinary.Kind;
-import minijava.backend.i386.Operand.Reg;
 import minijava.backend.MachineFunction;
 import minijava.intermediate.Label;
 import minijava.intermediate.Temp;
-import minijava.util.DirectedGraph;
-import minijava.util.Pair;
-import minijava.util.TempNode;
-
 import java.util.*;
 import java.util.function.Function;
 

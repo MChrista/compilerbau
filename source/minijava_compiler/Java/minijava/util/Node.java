@@ -1,18 +1,14 @@
 package minijava.util;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import minijava.backend.MachineInstruction;
 import minijava.intermediate.Temp;
 
-
-
 public class Node {
-	public MachineInstruction instr;
-	public int ID;
+	private MachineInstruction instr;
+	private int ID;
 	
 	private Set<Temp> in;
 	private Set<Temp> out;
@@ -24,8 +20,9 @@ public class Node {
 		this.ID = id;
 		this.initializeInAndOut();
 	}
-	public Node(){
-		
+	
+	public MachineInstruction getInstr(){
+		return this.instr;
 	}
 	
 	public void initializeInAndOut(){
