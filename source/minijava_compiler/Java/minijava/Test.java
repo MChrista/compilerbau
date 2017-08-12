@@ -38,60 +38,32 @@ public class Test {
     minijava.syntax.Prg parseTree;
     try {
       try {
-        parseTree = (minijava.syntax.Prg) parser.parse().value;
+    	  
+    	    parseTree = (minijava.syntax.Prg) parser.parse().value;
 
-        //System.out.println("create global table");
-        SymbolTable gt = new SymbolTable(parseTree);
-        //System.out.println("Symboltable");
-        //System.out.println(gt.printTable());
-
-        //System.out.println(PrettyPrint.prettyPrint(parseTree));
-        //System.out.println("Parsing der Eingabe erfolgreich.");
-
-        //System.out.println("Start type check");
-        TypeChecker.checkType(parseTree, gt);
-        
-        //System.out.println("Start translating");
-        TreePrg treeprg = Translator.translate(parseTree, gt);
-        //System.out.println(treeprg.toString());
-        
-        
-        Canonizer can = new Canonizer();
-        TreePrg canonizedPrg = can.canonPrg(treeprg);
-        //System.out.println("Canonizing Programm \n");
-        //System.out.println(canonizedPrg.toString());
-        
-        //System.out.println("Building Blocks");
-        BlockBuilder blockB = new BlockBuilder(canonizedPrg);
-        
-        List<MethodBlocks> unorderedBlocks = blockB.buildBlocks();
-        TreePrg orderdTreePrg = blockB.getPrg();
-        //System.out.println("Building blocks completed");
-        //System.out.println(unorderedBlocks.size());
-
-        //System.out.println(orderdTreePrg.toString());
-        
-        I386CodeGenerator cg = new I386CodeGenerator();
-        I386Prg assemPrg = cg.codeGen(orderdTreePrg);
-        
-       //System.out.println(assemPrg.renderAssembly());
-       
-       /*
-       GraphGenerator graphGen = new GraphGenerator();
-       List <DirectedGraph<TempNode>> ctrGraphList = graphGen.createInterferenzGraphFromI386Prg(assemPrg);
-       graphGen.printTempDotToFile(ctrGraphList);
-       */
-       
-       RegisterAllocator ra = new RegisterAllocator(assemPrg, cg);
-       assemPrg = (I386Prg) ra.allocateRegistersOfMachinePrg();
-       System.out.println(assemPrg.renderAssembly());
-       
-       AssemblyFileWriter.writeAssemblyFile(filename, assemPrg.renderAssembly());
-
-        //graphGen.printTempDot(ctrGraphList);
-        //graphGen.printTempDotToFile(ctrGraphList);
-        
-        
+	        SymbolTable gt = new SymbolTable(parseTree);
+	       
+	        TypeChecker.checkType(parseTree, gt);
+	        
+	        TreePrg treeprg = Translator.translate(parseTree, gt);
+	        
+	        
+	        Canonizer can = new Canonizer();
+	        TreePrg canonizedPrg = can.canonPrg(treeprg);
+	      
+	        BlockBuilder blockB = new BlockBuilder(canonizedPrg);
+	        
+	        List<MethodBlocks> unorderedBlocks = blockB.buildBlocks();
+	        TreePrg orderdTreePrg = blockB.getPrg();
+	 
+	        
+	        I386CodeGenerator cg = new I386CodeGenerator();
+	        I386Prg assemPrg = cg.codeGen(orderdTreePrg);
+	        RegisterAllocator ra = new RegisterAllocator(assemPrg, cg);
+	        assemPrg = (I386Prg) ra.allocateRegistersOfMachinePrg();
+	        System.out.println(assemPrg.renderAssembly());
+		       
+	        AssemblyFileWriter.writeAssemblyFile(filename, assemPrg.renderAssembly());
 
       } finally {
         inp.close();

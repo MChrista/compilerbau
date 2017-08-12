@@ -13,6 +13,8 @@ echo "" > ${OUTPUT_FOLDER}javaOutput
 echo "" > ${OUTPUT_FOLDER}cOutput
 mkdir -p ${OUTPUT_FOLDER}classFiles
 rm ${OUTPUT_FOLDER}classFiles/*
+rm ${TEST_DIR_LARGE}*.s
+rm ${TEST_DIR_SMALL}*.s
 
 # Iterate over successful Tests
 
