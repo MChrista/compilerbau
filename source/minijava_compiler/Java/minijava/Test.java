@@ -11,6 +11,7 @@ import minijava.intermediate.Translator;
 import minijava.intermediate.canon.Canonizer;
 import minijava.intermediate.tree.TreePrg;
 import minijava.symbolTable.SymbolTable;
+import minijava.AssemblyFileWriter;
 
 
 public class Test {
@@ -84,8 +85,9 @@ public class Test {
        RegisterAllocator ra = new RegisterAllocator(assemPrg, cg);
        assemPrg = (I386Prg) ra.allocateRegistersOfMachinePrg();
        System.out.println(assemPrg.renderAssembly());
-     
-        
+       
+       AssemblyFileWriter.writeAssemblyFile(filename, assemPrg.renderAssembly());
+
         //graphGen.printTempDot(ctrGraphList);
         //graphGen.printTempDotToFile(ctrGraphList);
         
