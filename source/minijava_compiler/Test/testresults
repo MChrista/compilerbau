@@ -1,1 +1,24 @@
 
+ArrayBounds.java;0
+ArrSumBUG.java;0
+BigMain.java;1
+BrokenLex1.java;1
+BrokenLex2.java;1
+BrokenParse1.java;1
+BrokenParse2.java;1
+LinkedListBUG.java;2
+MethodCallWrong.java;2
+MethodWronglySpelled.java;2
+MissingThis.java;1
+PrintFirstArg.java;2
+Scope.java;1
+Shadow.java;2
+StringLiteral.java;1
+TooManyArguments.java;2
+TypeOfArgWrong.java;2
+UndeclaredType.java;2
+UndeclaredVar1.java;2
+UndeclaredVar2.java;2
+WrongArgumentTypes2.java;2
+WrongArgumentTypes.java;2
+WrongTypeDeclared.java;2

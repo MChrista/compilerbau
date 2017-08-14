@@ -283,12 +283,6 @@ public class I386CodeGenerator implements CodeGenerator {
 				instructions.add(new InstrBinary(InstrBinary.Kind.MOV, reg, op));
 				return new Operand.Mem(reg.reg);
 			}
-			/*if (oLeft instanceof Operand.Mem && oRight instanceof Operand.Imm){
-				Operand.Reg reg = new Operand.Reg(new Temp());
-				instructions.add(new InstrBinary(InstrBinary.Kind.MOV, reg, oLeft));
-				return new Operand.Mem(reg.reg,null,null,((Operand.Imm) oRight).imm);
-			}*/
-			// TODO Auto-generated method stubh
 			throw new UnsupportedOperationException("expmem operation is not supported");
 		}
 		

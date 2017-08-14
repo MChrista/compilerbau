@@ -57,6 +57,9 @@ public class MethodTable extends Table{
 
 	public void addVariables(List<DeclVar> variables){
 		for (DeclVar dv : variables){
+			if ( this.argsName.contains(dv.name)){
+				new ScopeException("local variable " + dv.name + " is alread in use");
+			}
 			this.numberOfLocalVars++;
 			TableLine tl = new TableLine(dv.name, dv.ty.accept(new SymbolTableVisitorTy()), "");
 			lines.add(tl);

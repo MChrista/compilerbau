@@ -3,8 +3,6 @@ package minijava.intermediate;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.sun.xml.internal.ws.api.model.ExceptionType;
-
 import minijava.intermediate.tree.TreeExp;
 import minijava.intermediate.tree.TreeExpBinOp;
 import minijava.intermediate.tree.TreeExpCall;

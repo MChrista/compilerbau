@@ -9,3 +9,4 @@ source/StraightLine_ParserOnly/Java/test/javaOutput
 source/StraightLine_ParserOnly/Java/test/cOutput
 source/StraightLine_ParserOnly/Java/test/testresults
 source/StraightLine_ParserOnly/Java/graph*
+*.s
