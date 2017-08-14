@@ -34,6 +34,10 @@ for filename in $(ls $TEST_DIR_SMALL); do
 	diff -y --suppress-common-lines ${OUTPUT_FOLDER}cOutput ${OUTPUT_FOLDER}javaOutput
 done
 
+echo "######### TESTS LARGE ##########"
+echo $(ls $TEST_DIR_LARGE);
+echo "##########################"
+
 for filename in $(ls $TEST_DIR_LARGE); do
         echo $filename
         java -cp .:../../../libs/java-cup-v11a.jar minijava.Test $TEST_DIR_LARGE$filename > ${OUTPUT_FOLDER}output.s

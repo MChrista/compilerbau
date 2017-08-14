@@ -3,6 +3,7 @@ package minijava.backend.i386;
 import minijava.backend.CodeGenerator;
 import minijava.backend.MachineInstruction;
 import minijava.backend.i386.InstrJump.Cond;
+import minijava.backend.i386.Operand.Imm;
 import minijava.backend.i386.Operand.Reg;
 import minijava.intermediate.Temp;
 import minijava.intermediate.tree.TreeExp;
@@ -132,19 +133,20 @@ public class I386CodeGenerator implements CodeGenerator {
 				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, temp, src));
 				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, dst, temp));
 			} else if (src != null && dst != null) {
-				InstrBinary ib = new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, dst, src);
+				InstrBinary ib;
+				if (dst instanceof Operand.Imm && ((Operand.Imm) src).imm == 0){
+					ib = new InstrBinary(minijava.backend.i386.InstrBinary.Kind.XOR, src, src);
+				} else {
+					ib = new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, dst, src);
+				}
 				instructions.add(ib);
 			}
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public String visit(TreeStmJump stmJUMP) {
-			
-
 			stmJUMP.getDst().accept(new AssemblyExpVisitor());
-
 			InstrJump ij = new InstrJump(minijava.backend.i386.InstrJump.Kind.JMP, stmJUMP.getPossibleTargets().get(0));
 			instructions.add(ij);
 			return null;
@@ -187,7 +189,7 @@ public class I386CodeGenerator implements CodeGenerator {
 			case NE:
 				cond = Cond.NE;
 				break;
-			// TODO: What is Ze?
+
 			default:
 				cond = null;
 				break;
@@ -375,18 +377,24 @@ public class I386CodeGenerator implements CodeGenerator {
 			instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, reg, oLeft));
 			oLeft = reg;
 		
-			
-
 			switch (expOP.getOp()) {
 			case PLUS:
 				if (oLeft instanceof Operand.Imm) {
 					oLeft = immToReg(oLeft);
+				}
+				if ( oRight instanceof Operand.Imm && ((Operand.Imm) oRight).imm == 1){
+					instructions.add(new InstrUnary(InstrUnary.Kind.INC,oLeft));
+					return oLeft;
 				}
 				kind = InstrBinary.Kind.ADD;
 				break;
 			case MINUS:
 				if (oLeft instanceof Operand.Imm) {
 					oLeft = immToReg(oLeft);
+				}
+				if ( oRight instanceof Operand.Imm && ((Operand.Imm) oRight).imm == 1){
+					instructions.add(new InstrUnary(InstrUnary.Kind.DEC,oLeft));
+					return oLeft;
 				}
 				kind = InstrBinary.Kind.SUB;
 				break;
@@ -404,6 +412,14 @@ public class I386CodeGenerator implements CodeGenerator {
 				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, ret, eax));
 				return ret;
 			case MUL:
+				if ( oRight instanceof Operand.Imm){
+					int n = ((Operand.Imm) oRight).imm;
+					if ((n > 0) && ((n & (n - 1)) == 0)){
+						int exponent = (int) (Math.log(n) / Math.log(2));
+						instructions.add(new InstrBinary(InstrBinary.Kind.SHL, oLeft, new Operand.Imm(exponent)));
+						return oLeft;
+					}
+				}
 				instructions.add(new InstrBinary(minijava.backend.i386.InstrBinary.Kind.MOV, eax, oLeft));
 				if (oRight instanceof Operand.Imm) {
 					reg = new Operand.Reg(new Temp());

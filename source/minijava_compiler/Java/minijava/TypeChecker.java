@@ -1,5 +1,6 @@
 package minijava;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import minijava.symbolTable.*;
@@ -61,14 +62,12 @@ public class TypeChecker {
 
 	static class TypeCheckerVisitorTy implements TyVisitor<String> {
 
-		private static SymbolTable globalTable;
 		private String className;
 		private String methName;
 
 		public TypeCheckerVisitorTy(String className, String methName, SymbolTable gt) {
 			this.className = className;
 			this.methName = methName;
-			this.globalTable = gt;
 		}
 
 		@Override
@@ -110,14 +109,12 @@ public class TypeChecker {
 		}
 
 		public TypeCheckerVisitorExp(SymbolTable gt) {
-			this.globalTable = gt;
 			// TODO Auto-generated constructor stub
 		}
 
 		public TypeCheckerVisitorExp(String className, String methName, SymbolTable gt) {
 			this.className = className;
 			this.methName = methName;
-			this.globalTable = gt;
 		}
 
 		@Override
@@ -189,7 +186,7 @@ public class TypeChecker {
 		public String visit(ExpInvoke e) {
 			e.objType = e.obj.accept(this);
 
-			List args = globalTable.getArgsOfMethod(e.obj.accept(this), e.method);
+			LinkedList<String> args = TypeChecker.globalTable.getArgsOfMethod(e.obj.accept(this), e.method);
 			if (args == null){
 				new TypeException("Method " + e.method + " is not defined");
 			}
@@ -197,15 +194,12 @@ public class TypeChecker {
 				new TypeException("Number of arguments is not correct");
 			}
 			for (int i = 0; i< e.args.size(); i++){
-				if (args.get(i).toString().equals(e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName, globalTable)))){
-
-				} else {
-					//System.out.println("Method: " + e.method);
+				if (!args.get(i).toString().equals(e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName, globalTable)))){
 					new TypeException("Type of parameters don't match type of passed variables - " + args.get(i).toString() + " " +
-				e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName, globalTable)));
+				e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName, TypeChecker.globalTable)));
 				}
 			}
-			String typeOfTable = globalTable.getTypeOfMethod(e.obj.accept(this), e.method);
+			String typeOfTable = TypeChecker.globalTable.getTypeOfMethod(e.obj.accept(this), e.method);
 			if (typeOfTable == null){
 				new TypeException("Method " + e.method + " is not defined");
 			}
@@ -219,7 +213,7 @@ public class TypeChecker {
 
 		@Override
 		public String visit(ExpId x) {
-			String varType = this.globalTable.getTypeOfVariable(x.id, className, methName);
+			String varType = TypeChecker.globalTable.getTypeOfVariable(x.id, className, methName);
 			if (varType == null) {
 				new TypeException("Could not find variable");
 			}
@@ -238,14 +232,12 @@ public class TypeChecker {
 	}
 
 	static class TypeCheckerVisitorStm implements StmVisitor<String, RuntimeException> {
-		private static SymbolTable globalTable;
 		private static String className;
 		private static String methName;
 
 		public TypeCheckerVisitorStm(String className, String methName, SymbolTable gt) {
 			this.className = className;
 			this.methName = methName;
-			this.globalTable = gt;
 		}
 
 		public TypeCheckerVisitorStm() {
@@ -255,16 +247,16 @@ public class TypeChecker {
 		@Override
 		public String visit(StmList slist) {
 			for (Stm s : slist.stms) {
-				s.accept(new TypeCheckerVisitorStm(className, methName, globalTable));
+				s.accept(new TypeCheckerVisitorStm(className, methName, TypeChecker.globalTable));
 			}
 			return "";
 		}
 
 		@Override
 		public String visit(StmIf s) {
-			if(s.cond.accept(new TypeCheckerVisitorExp(className, methName, globalTable)).equals("boolean")){
-				s.bodyTrue.accept(new TypeCheckerVisitorStm(className, methName, globalTable));
-				s.bodyFalse.accept(new TypeCheckerVisitorStm(className, methName, globalTable));
+			if(s.cond.accept(new TypeCheckerVisitorExp(className, methName, TypeChecker.globalTable)).equals("boolean")){
+				s.bodyTrue.accept(new TypeCheckerVisitorStm(className, methName, TypeChecker.globalTable));
+				s.bodyFalse.accept(new TypeCheckerVisitorStm(className, methName, TypeChecker.globalTable));
 			} else {
 				new TypeException("Type error in if condition");
 			}
@@ -273,8 +265,8 @@ public class TypeChecker {
 
 		@Override
 		public String visit(StmWhile s) {
-			if(s.cond.accept(new TypeCheckerVisitorExp(className, methName, globalTable)).equals("boolean")){
-				s.body.accept(new TypeCheckerVisitorStm(className, methName, globalTable));
+			if(s.cond.accept(new TypeCheckerVisitorExp(className, methName, TypeChecker.globalTable)).equals("boolean")){
+				s.body.accept(new TypeCheckerVisitorStm(className, methName, TypeChecker.globalTable));
 			}else{
 				new TypeException("Type error in while condition");
 			}
@@ -283,8 +275,7 @@ public class TypeChecker {
 
 		@Override
 		public String visit(StmPrintlnInt s) {
-			String type = s.arg.accept(new TypeCheckerVisitorExp(className, methName, globalTable));
-			//System.out.println("println type: " + type);
+			String type = s.arg.accept(new TypeCheckerVisitorExp(className, methName, TypeChecker.globalTable));
 			if (type.equals("int")){
 				return "";
 			}
@@ -294,7 +285,7 @@ public class TypeChecker {
 
 		@Override
 		public String visit(StmPrintChar s) {
-			if(s.arg.accept(new TypeCheckerVisitorExp(className, methName, globalTable)).equals("int")){
+			if(s.arg.accept(new TypeCheckerVisitorExp(className, methName, TypeChecker.globalTable)).equals("int")){
 				return "";
 			}
 			new TypeException("syntax error in print char");
@@ -303,8 +294,8 @@ public class TypeChecker {
 
 		@Override
 		public String visit(StmAssign s) {
-			String typeOfExpression = s.rhs.accept(new TypeCheckerVisitorExp(className, methName, globalTable));
-			String typeOfVariable = this.globalTable.getTypeOfVariable(s.id, className, methName);
+			String typeOfExpression = s.rhs.accept(new TypeCheckerVisitorExp(className, methName, TypeChecker.globalTable));
+			String typeOfVariable = TypeChecker.globalTable.getTypeOfVariable(s.id, className, methName);
 
 			if (typeOfExpression.equals(typeOfVariable)){
 				return "";
@@ -318,10 +309,10 @@ public class TypeChecker {
 
 		@Override
 		public String visit(StmArrayAssign s) {
-			if ( s.index.accept(new TypeCheckerVisitorExp(className, methName, globalTable)).equals("int")){
-				String typeOfArray = this.globalTable.getTypeOfVariable(s.id, this.className, this.methName);
+			if ( s.index.accept(new TypeCheckerVisitorExp(className, methName, TypeChecker.globalTable)).equals("int")){
+				String typeOfArray = TypeChecker.globalTable.getTypeOfVariable(s.id, this.className, this.methName);
 				String typeOfArrayField = typeOfArray.substring(0, typeOfArray.length()-3);
-				if (s.rhs.accept(new TypeCheckerVisitorExp(className, methName, globalTable)).equals(typeOfArrayField)){
+				if (s.rhs.accept(new TypeCheckerVisitorExp(className, methName, TypeChecker.globalTable)).equals(typeOfArrayField)){
 					return "";
 				} else {
 					new TypeException("Array assign fails because type of array doesn't match type of expression.");
