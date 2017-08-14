@@ -6,6 +6,7 @@ import java.util.List;
 import minijava.symbolTable.*;
 import minijava.syntax.*;
 
+
 public class TypeChecker {
 
 	private static SymbolTable symbolTable;
@@ -81,7 +82,7 @@ public class TypeChecker {
 
 		public String visit(TyClass x) {
 			if (symbolTable.findClassTableByName(x.c.toString()) == null){
-				new TypeException("Class Type is not defined");
+				new TypeException("Class Type is not defined " + "(" + x.c + ")");
 			}
 			return x.c.toString();
 		}
@@ -155,7 +156,7 @@ public class TypeChecker {
 					return "int";
 				}
 			}else{
-				new TypeException("expression expbinop is not correct");
+				new TypeException("expression expbinop is not correct " + "(" + e.left.prettyPrint() + e.op.toString() +  e.right.prettyPrint() + ")");
 			}
 			return "";
 		}
@@ -184,7 +185,7 @@ public class TypeChecker {
 				new TypeException("Method " + e.method + " is not defined");
 			}
 			if (args.size() != e.args.size()){
-				new TypeException("Number of arguments is not correct");
+				new TypeException("Number of arguments is not correct " + "(" + e.args.size() + ")");
 			}
 			for (int i = 0; i< e.args.size(); i++){
 				if (!args.get(i).toString().equals(e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName)))){
@@ -208,7 +209,7 @@ public class TypeChecker {
 		public String visit(ExpId x) {
 			String varType = TypeChecker.symbolTable.getTypeOfVariable(x.id, className, methName);
 			if (varType == null) {
-				new TypeException("Could not find variable");
+				new TypeException("Could not find variable " + x.prettyPrint());
 			}
 			return varType;
 		}
@@ -218,7 +219,7 @@ public class TypeChecker {
 			if (x.body.accept(this).equals("boolean")){
 				return "boolean";
 			} else {
-				new TypeException("Negation is not possible because argument is not from type boolean");
+				new TypeException("Negation is not possible because argument is not from type boolean " + x.prettyPrint());
 			}
 			return "!(" + x.body.accept(this) + ")";
 		}
@@ -272,7 +273,7 @@ public class TypeChecker {
 			if (type.equals("int")){
 				return "";
 			}
-			new TypeException("syntax error in println. Type is not from type Int");
+			new TypeException("syntax error in println. Type is not from type Int " + "(" + s.arg.prettyPrint() + ")");
 			return "";
 		}
 
