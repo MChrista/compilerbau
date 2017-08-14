@@ -185,7 +185,7 @@ public class TypeChecker {
 				new TypeException("Method " + e.method + " is not defined");
 			}
 			if (args.size() != e.args.size()){
-				new TypeException("Number of arguments is not correct " + "(" + e.args.size() + ")");
+				new TypeException("Number of arguments is not correct " + "(" + e.prettyPrint() + ")");
 			}
 			for (int i = 0; i< e.args.size(); i++){
 				if (!args.get(i).toString().equals(e.args.get(i).accept(new TypeCheckerVisitorExp(className, methName)))){
